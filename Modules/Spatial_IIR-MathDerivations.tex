@@ -1,0 +1,124 @@
+The single sensor temporal equation (\ref{eqn:SingleSensorTemporalEquality}), transforms to 
+$$ 
+x_{n,\theta}^{\mathcal{F}}(\omega) = 
+x^{\mathcal{F}}(\omega)
+e^{-j\omega(\tau_{pd}+\tau_{n,\theta})}
++\sum_{m=0}^{N-1}
+{
+\beta_{m}x_{m}^{\mathcal{F}}(\omega)
+e^{
+-j\omega
+(
+\tau_{pd}
++\tau_{tx}
++\tau_{n,\theta}
+)
+}
+} 
+$$ 
+in the Fourier domain (${\mathcal{F}} $). Considering all sensors, one can write
+\begin{equation}
+\vecnot{x}^{\mathcal{F}}_{\theta}(\omega) = 
+x^{\mathcal{F}}(\omega)
+\vecnot{d}_{\theta}
+e^{-j\omega\tau_{pd}}
++
+\vecnot{d}_{\theta}
+\vecnot{\beta}^{T}
+e^{-j\omega(\tau_{pd}+\tau_{tx})}
+\vecnot{x}_{\theta}^{\mathcal{F}}(\omega)
+\end{equation}
+where the n'th element of 
+$
+\vecnot{x}_{\theta}^{\mathcal{F}}(\omega),
+\; 
+\vecnot{d}_{\theta}
+$ 
+and 
+$
+\vecnot{\beta}
+$ 
+is 
+$x_{n,\theta}^{\mathcal{F}}(\omega),
+\;
+e^{-j\omega \tau_{n,\theta}}
+$ 
+and $\beta_n$, respectively.
+This relation leads to finding the transfer function between the source signal and the sensors output
+$$
+\vecnot{x}^{\mathcal{F}}_{\theta}(\omega) 
+= 
+\left(
+I-\vecnot{d}_{\theta}
+\vecnot{\beta}^{T}
+e^{-j\omega(\tau_{pd}+\tau_{tx})}
+\right)
+^{-1}
+\vecnot{d}_{\theta}
+x^{\mathcal{F}}(\omega)
+e^{-j\omega\tau_{pd}}
+$$
+which, combined with the coefficients vector 
+$ 
+\vecnot{\alpha}^T = 
+\begin{bmatrix}
+    \alpha_{0},
+    \alpha_{1},
+    \ldots, 
+    \alpha_{N-1}
+\end{bmatrix}
+$, 
+results in the general transfer function of the system
+\begin{equation}
+\input{Modules/Spatial_IIR-GeneralTransferFunction.tex}
+\label{eqn:GeneralTransferFunction}
+\end{equation}.
+Using Woodbury matrix identity \cite{woodbury1950inverting}, 
+$$
+\left(
+I-
+\vecnot{d}_{\theta}
+\vecnot{\beta}^{T}
+e^{-j\omega(\tau_{pd}+\tau_{tx})}
+\right)
+^{-1}
+=
+I
++\frac{1}{1-g_{\theta}}
+\vecnot{d}_{\theta}
+\vecnot{\beta}^{T}
+e^{-j\omega(\tau_{pd}+\tau_{tx})}
+$$
+where we defined
+$$
+g_{\theta}=e^{-j\omega(\tau_{pd}+\tau_{tx})}\vecnot{\beta}^{T}
+\vecnot{d}_{\theta}
+$$
+Combining with (\ref{eqn:GeneralTransferFunction}) one gets
+$$
+y_{\theta}^{\mathcal{F}}(\omega) = 
+\vecnot{\alpha}^{T}
+\left(
+I
++\frac{1}{1-g_{\theta}}
+\left(
+\vecnot{d}_{\theta}
+\vecnot{\beta}^{T}
+e^{-j\omega(\tau_{pd}+\tau_{tx})}
+\right)
+\right)
+\vecnot{d}_{\theta}
+x^{\mathcal{F}}(\omega)
+e^{-j\omega\tau_{pd}}=
+\vecnot{\alpha}^{T}\vecnot{d}_{\theta}
+\left(
+1
++\frac{g_{\theta}}{1-g_{\theta}}
+\right)
+x^{\mathcal{F}}(\omega)
+e^{-j\omega\tau_{pd}}
+$$
+which yields
+$$
+\input{./Modules/Spatial_IIR-TransferFunction.tex}
+$$

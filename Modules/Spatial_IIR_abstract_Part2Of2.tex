@@ -1,0 +1,14 @@
+\input{Modules/Spatial_IIR_abstract_Part2Of2_SubPart1.tex}
+In his PhD thesis \cite{wen2013array}, Wen presented the same question. In his work two approaches were suggested for achieving ``spatial-IIR'' filtering.
+First was to use shifted-sub-arrays, in order to approximate the auto-regressive part of the filter.
+In practice, this approximation is equivalent to a truncated response of the IIR filter thus obtaining only an FIR implementation.
+The second approach in \cite{wen2013array}, was to estimate the DOA of the impinging signal and approximate the auto-regressive part of the filter by temporal processing.
+The latter approach is speculated to be very sensitive to DOA estimation errors; and it is not clear how one may extend this approach to multiple speakers scenario.
+Additional works \cite{Madanayake2008ABeamformer,Madanayake2009SystolicWDFs,Madanayake2008AFilters,Bruton2003Three-dimensionalBanks,Ward1986ABeamforming,Joshi2012SynthesisApplications} consider a different approach of 2-D spatio-temporal filtering. In particular, the wavefront is viewed as a two dimensional signal, and the processing is done by performing IIR filtering in the time domain, but only FIR filtering (using a finite number of sensors) is performed in the spatial domain.
+As can be seen in \cite{Bruton2003Three-dimensionalBanks}, the obtained 2-D filter is not ideal, causing imperfections in the overall spatial response.
+\\
+In this work we propose spatial-IIR filtering. As time-domain filter design relies on feeding back the filter's input with a combination of its taps, our approach relies on spatial feedback of received array signals back to the transmitter.
+In the context of acoustic signal processing, a cooperative speaker will hold an electronic or acoustic transponder. 
+Thus, the received signals at a microphone array will consist of the direct speech signal of the speaker, and a feedback signal which was recorded by the array at a previous time epoch (see Fig. \ref{fig:SignalModel}). 
+Naturally, this suggested approach requires a cooperative speaker/source but, as will be explained, spatial-only-IIR filtering will be achieved by this scheme.
+Comparing to \cite{wen2013array}, our method solves the main issues of both suggested approaches, achieving spatial IIR processing of multiple speaker scenarios.

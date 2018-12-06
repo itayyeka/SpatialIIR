@@ -1,0 +1,175 @@
+%%%%%%%%%%%%  Generated using docx2latex.pythonanywhere.com  %%%%%%%%%%%%%%
+\documentclass[a4paper,12pt,oneside]{report}
+% Other options in place of 'report' are 1)article 2)book 3)letter
+% Other options in place of 'a4paper' are 1)a5paper 2)b5paper 3)letterpaper 4)legalpaper 5)executivepaper
+%%%%%%%%%%%%  Include Packages  %%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{txfonts}
+\usepackage{wasysym}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage{ragged2e}
+\usepackage{tabularx}
+\usepackage{changepage}
+\usepackage{setspace}
+\usepackage{hhline}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{fancyhdr}
+\usepackage[toc,page]{appendix}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{isomath}
+\usepackage{fixmath}
+\usepackage{tikz}
+\usepackage{textcomp}
+\usepackage{epstopdf} %converting to PDF
+\usepackage{upgreek}
+\usetikzlibrary{shapes,shadows,arrows,calc}
+\usetikzlibrary{decorations.pathreplacing,decorations.markings,shapes.geometric}
+\usepackage[toc,page]{appendix}
+% \input{./Modules/LatexShortcuts_Itayyeka.tex}
+\input{./Modules/LatexShortcuts_Itayyeka_2.tex}
+%%%%%%%%%%%%  Define Colors For Hyperlinks  %%%%%%%%%%%%%%
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+filecolor=magenta,
+urlcolor=cyan,
+}
+\urlstyle{same}
+%%%%%%%%%%%%  Set Depths for Sections  %%%%%%%%%%%%%%
+% 1) Section
+% 1.1) SubSection
+% 1.1.1) SubSubSection
+% 1.1.1.1) Paragraph
+% 1.1.1.1.1) Subparagraph
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+%%%%%%%%%%%%  Set Page Margins  %%%%%%%%%%%%%%
+\usepackage[a4paper,bindingoffset=0.2in,headsep=0.5cm,left=1.25in,right=1.25in,bottom=2cm,top=2cm,headheight=2cm]{geometry}
+\everymath{\displaystyle}
+%%%%%%%%%%%%  Set Depths for Nested Lists created by \begin{enumerate}  %%%%%%%%%%%%%%
+\setlistdepth{9}
+\newlist{myEnumerate}{enumerate}{9}
+\setlist[myEnumerate,1]{label=\arabic*)}
+\setlist[myEnumerate,2]{label=\alph*)}
+\setlist[myEnumerate,3]{label=(\roman*)}
+\setlist[myEnumerate,4]{label=(\arabic*)}
+\setlist[myEnumerate,5]{label=(\Alph*)}
+\setlist[myEnumerate,6]{label=(\Roman*)}
+\setlist[myEnumerate,7]{label=\arabic*}
+\setlist[myEnumerate,8]{label=\alph*}
+\setlist[myEnumerate,9]{label=\roman*}
+\renewlist{itemize}{itemize}{9}
+\setlist[itemize]{label=$\cdot$}
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=$\circ$}
+\setlist[itemize,3]{label=$\ast$}
+\setlist[itemize,4]{label=$\dagger$}
+\setlist[itemize,5]{label=$\triangleright$}
+\setlist[itemize,6]{label=$\bigstar$}
+\setlist[itemize,7]{label=$\blacklozenge$}
+\setlist[itemize,8]{label=$\prime$} 
+%%%%%%%%%%%%  Header here  %%%%%%%%%%%%%%
+\pagestyle{fancy}
+\fancyhf{}
+%%%%%%%%%%%%  Footer here  %%%%%%%%%%%%%%
+%%%%%%%%%%%%  Print Page Numbers  %%%%%%%%%%%%%%
+\rfoot{\thepage}
+%%%%%%%%%%%%  This sets linespacing (verticle gap between Lines) Default=1 %%%%%%%%%%%%%%
+\setstretch{1.15}
+%%%%%%%%%%%%  Document Code starts here %%%%%%%%%%%%%%
+\author{
+Yehezkel Karo Itay\\[1cm]{Supervisor: Prof. Cohen Israel}\\{External supervisor: Dr. Dvorkind Tsvi}
+}
+\title{Spatial IIR processing – Thesis proposal}
+\begin{document}
+\maketitle
+\sloppy 
+ \par
+\noindent 
+\section*{Abstract}
+\input{./Modules/Spatial_IIR_abstract_Part1Of2.tex}
+The described method is illustrated in Fig. \ref{fig:SpatialIIR_SubArrays}.
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{./Media/SpatialIIR_SubArrays.PNG}
+\caption{The sub-array solution for the spatial auto-regressive part of the filter, as implemented in \cite{wen2013array}.}
+\label{fig:SpatialIIR_SubArrays}
+\end{center}
+\end{figure}
+\input{./Modules/Spatial_IIR_abstract_Part2Of2.tex}
+\section*{Suggested schematic}
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{./Media/SpatialIIR-diagram/SpatialIIR_VER4.pdf}
+\caption
+{
+The proposed system: A far field source is received by an array. 
+The received signal is also retransmitted back to the source. 
+The latter has a transponder which feeds the signal back to the array.
+}
+\label{fig:SignalModel}
+\end{center}
+\end{figure}
+\input{Modules/Spatial_IIR_OurSuggestedMethod.tex}
+Possible implementation of this approach is a multiple-speaker spatial filtering (Fig. \ref{fig:SpatialIIR_StageApplication}), where the speakers are enhanced or filtered according to their location. 
+The system may have a dynamic definition of its "hear-zones" which can be actively controlled by merely selecting the $ \vecnot{\alpha},\vecnot{\beta} $ coefficients.
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{./Media/SpatialIIR_Applications/SpatialII_StageApplication_VER3.pdf}
+\caption
+{
+SpatialIIR - The multiple-speaker scenario. 
+Speaker A and speaker C are in the pass-band of the spatial filter, while speaker B is supressed
+}
+\label{fig:SpatialIIR_StageApplication}
+\end{center}
+\end{figure}
+Assuming a simple flat channel, the equation which defines the received signal at the n'th sensor, due to a wavefront from DOA $\theta$ is 
+\begin{equation}
+\input{Modules/Spatial_IIR-SingleSensorTemporalEquality.tex}
+\label{eqn:SingleSensorTemporalEquality}
+\end{equation}
+where $ x(t) $ is the source signal, which travels in the medium with propagation speed of $ c $, $ x_{n,\theta}(t) $ is the $ n $'th sensor received signal due to wavefront from DOA $ \theta $, $ N $ is the number of sensors in the ULA, $ \tau_{pd}$ is the propagation delay from the source to the reference sensor, $ \tau_{tx} $ is the feedback transmission delay and $ \tau_{n,\theta}=n\frac{d\cos(\theta)}{c} $ is the sensor's location related delay (in case of ULA). 
+It can be shown (see appendix \ref{apdx:MathDerv}) that with our approach one gets the transfer function of the overall system
+$$
+\input{./Modules/Spatial_IIR-TransferFunction.tex}
+$$
+where $\vecnot{d}_{\theta}$ is the steering vector with n'th element $e^{-j\omega \tau_{n,\theta}}$ and $\vecnot{\alpha,\beta}$ are the coefficients vectors.
+$^{T}$ stands for the transpose operator.
+Some interesting observations rise from studying the system's transfer function.
+\begin{itemize}
+\item
+{
+The existence of a $ \theta $-dependent denominator weighted by coefficients $\vecnot{\beta}$ implies an actual IIR response in the spatial domain.
+}
+\item
+{
+For "non-cooperative" sources, there is no feedback channel (which is equivalent of setting $\vecnot{\beta} = 0 $), and we obtain the regular weight-and-sum beamformer with coefficients $\vecnot{\alpha}$.
+}
+\item 
+{
+The current form of the spatial filter requires knowledge of the forward and backward propagation delays $\tau_{pd},\tau_{tx}$.
+}
+\item 
+{
+The current form of the spatial filter assumes simplified one tap channels between the source and the array.
+}
+\end{itemize}
+\input{./Modules/Spatial_IIR-ThesisProposal_ResearchGoals.tex}
+\bibliographystyle{unsrt}
+\bibliography{./Modules/Mendeley,./Modules/LocalBib}
+\begin{appendices}
+\chapter{Math derivations}
+\input{./Modules/Spatial_IIR-MathDerivations.tex}
+\label{apdx:MathDerv}
+\end{appendices}
+\end{document}

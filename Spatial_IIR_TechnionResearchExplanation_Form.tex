@@ -1,0 +1,65 @@
+%
+% Based on the culmus-test, culmus-ex and hebhello examples from
+% culmus-latex-0.7-r1 from
+% http://sourceforge.net/projects/ivritex/files/culmus-latex/
+%
+\documentclass[12pt]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[hebrew,english]{babel}
+\usepackage{culmus}
+\usepackage[yyyymmdd]{datetime}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\input{./Modules/LatexShortcuts_Itayyeka_2.tex}
+
+%Configuration-------------------------------------------------------------
+\setlength{\parskip}{0.2cm}
+\setlength{\parindent}{0cm}
+\addto{\captionshebrew}{
+    \renewcommand{\refname}{Bibliography}
+    \renewcommand{\contentsname}{Table of Contents}
+}
+\newcommand{\printdate}[3]{{%
+\day=#1\relax\month=#2\relax\year=#3\relax\today}}
+
+\title{
+\begin{otherlanguage}{hebrew}
+עיצוב אלומה מרחבי מבוסס משוב לעיבוד אותות אקוסטיים
+\end{otherlanguage}
+\\
+Feedback Based Spatial Beamforming With Applications to Acoustic Signal Processing
+}
+\input{./Modules/Spatial_IIR_title.tex}
+\begin{document}
+\maketitle
+\section*{Introduction}
+\input{./Modules/Spatial_IIR_abstract_Part1Of2.tex}
+\input{./Modules/Spatial_IIR_abstract_Part2Of2.tex}
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{./Media/SpatialIIR-diagram/SpatialIIR_VER4.pdf}
+\caption
+{
+Proposed system: A far field source is received by an array. 
+The received signal is also retransmitted back to the source. 
+The latter has a transponder which feeds the signal back to the array.
+}
+\label{fig:SignalModel}
+\end{center}
+\end{figure}
+It can be shown that with this approach one gets the transfer function of the overall system
+$$
+\input{./Modules/Spatial_IIR-TransferFunction.tex}
+$$
+where $ x $ is the source signal, $ y $ is the beam-former output, $ \theta $ is the direction-of-arrival (DOA) angle of the received signal, $ \vecnot{\alpha},\vecnot{\beta} $ are user-controlled coefficient vectors, $\vecnot{d}_{\theta}$ is the steering vector, $ \tau_{pd}$ and $ \tau_{tx} $ are the propagation delay from the source to the reference sensor and the feedback transmission delay respectively.
+$^{T}$ stands for the transpose operator and the super-script $ ^{\mathcal{F}} $ represents the Fourier transform. 
+The existence of a $ \theta $ dependent denominator in the transfer function proves IIR filtering is achieved for cooperative speakers.
+\section*{Research goals}
+\input{./Modules/Spatial_IIR-ThesisProposal_ResearchGoals.tex}
+\small
+{
+\bibliographystyle{unsrt}
+\bibliography{./Modules/Mendeley,./Modules/LocalBib}
+}
+\end{document}

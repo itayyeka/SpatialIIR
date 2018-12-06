@@ -1,0 +1,243 @@
+%general:
+%Box and color definitions:
+%--------------------------
+\newenvironment{ColorBoxedminipage}
+{\begin{minipage}} {\end{minipage}}
+%{\begin{Sbox}\begin{minipage}}
+%{\end{minipage}\end{Sbox}\fcolorbox{Blue}{White}{\TheSbox}}
+
+\newcommand{\sheading}[1]{
+  \large\bf
+  \textcolor{NavyBlue}{\begin{Bcenter}#1\end{Bcenter}}}
+
+\setlength{\fboxsep}{0.35cm} \setlength{\fboxrule}{4pt}
+
+\definecolor{LightBlue}{rgb}{0.8,0.85,1}
+\definecolor{LightGreen}{rgb}{0,1,.85}
+\definecolor{BrickRed}{named}{BrickRed}
+\definecolor{Black}{named}{Black}
+\definecolor{PineGreen}{named}{PineGreen}
+\definecolor{Green}{named}{Green}
+\definecolor{Red}{named}{Red}
+\definecolor{NavyBlue}{named}{NavyBlue}
+\definecolor{WildStrawberry}{named}{WildStrawberry}
+\definecolor{White}{named}{White}
+\definecolor{CadetBlue}{named}{CadetBlue}
+\definecolor{Blue}{named}{Blue}
+
+%General definitions:
+%-------------------
+%\newcommand{\PlotPath}{e:/thesa/latex/thesa_plots/}
+\newcommand{\PlotPath}{y:/thesa_plots/}
+\newcommand{\inp}[2]{\left<{{#1},{#2}}\right>} %inner product
+\newcommand{\etal}{{\em {et al.}}}
+\newcommand{\B}[1]{\mathbf{#1}}
+\newcommand{\df}{\triangleq}
+\newcommand{\W}{\omega}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\RE}{\operatorname{Re}}
+\newcommand{\IM}{\operatorname{Im}}
+\newcommand{\sgma}[3]{\sum\limits_{{#1}={#2}}^{#3}}
+\newcommand{\Brk}[1]{\left(#1\right)} %Put argument in brackets
+\newcommand{\E}[1]{E\left\{#1\right\}} %Expectation
+\newcommand{\Var}[1]{Var\left\{#1\right\}} %Variance
+\newcommand{\Cov}[1]{Cov\left\{#1\right\}} %Covariance
+\newcommand{\Brace}[1]{\left\{{#1}\right\}} %Braces
+\newcommand{\Brack}[1]{\left({#1}\right)} %Brackets
+\newcommand{\sBrack}[1]{\left[{#1}\right]} %square Brackets
+\newcommand{\Mtr}[2] %short notation for 2x1 Matrix.
+{\begin{bmatrix}
+  #1 \\
+  #2
+\end{bmatrix}}
+\newcommand{\cMtr}[2] %short notation for 2x1 Matrix with curves.
+{\left(
+\begin{array}{c}
+    {#1} \\
+    {#2} \\
+\end{array}
+\right)}
+\newcommand{\Mtrs}[2] %short notation for 2x1 Matrix star (adjoint)
+{\begin{bmatrix}
+  #1 &
+  #2
+\end{bmatrix}}
+\newcommand{\Mtrt}[3] %short notation for 3x1 Matrix.
+{\begin{bmatrix}
+  #1 \\
+  #2 \\
+  #3
+\end{bmatrix}}
+
+\newcommand{\Cases}[4]{
+\left\{
+\begin{tabular}{lcl}
+    $#1$ & $=$ & $#2$\\
+    $#3$     & $=$ & $#4$
+\end{tabular}
+\right. }
+
+\newcommand{\und}{\underline} %How lazy can I get?
+\newcommand{\ovr}{\overline}
+\newcommand{\conj}[1]{{#1}^\ast} %Conjugation
+
+\newcommand{\ls}[2]{\Brk{\conj{#1} {#1}}^{-1}\conj{#1}{#2}} %LS
+\newcommand{\wls}[3]{\Brk{\conj{#1}{#3}{#1}}^{-1}\conj{#1}{#3}{#2}} %weighted LS
+
+\newcommand{\iter}[1]{^{({#1})}}
+\newcommand{\ut}{\und{\theta}} %underline theta
+\newcommand{\us}{\und{s}} %underline s.
+\newcommand{\usk}[1]{\und{s}^{(#1)}} %underline s at k-th iteration
+\newcommand{\ust}[1]{\und{s}({#1})} %underline s at time t
+\newcommand{\ti}[1]{\und{\theta}^{(#1)}} %theta^(i)
+\newcommand{\tli}[1]{\und{\theta}{(#1)}} %theta low i: theta_i (for time indexing)
+\newcommand{\htli}[1]{\hat{\und{\theta}}{(#1)}} %theta low i: theta_i (for time indexing)
+
+
+
+%identity matrices:
+\newcommand{\It}{I_2}
+\newcommand{\Io}{I_1}
+\newcommand{\uz}{\und{0}} %underline Zero
+\newcommand{\uo}{\und{1}} %underline One
+
+
+%Power spectrum shortcuts:
+\newcommand{\nw}[1]{({#1},\W)}
+\newcommand{\Ps}{\Phi_{ss}(\W)}
+\newcommand{\Psk}[1]{\Phi_{ss}({#1},\W)}
+\newcommand{\Pn}{\Phi_{nn}(\W)}
+\newcommand{\uPn}{\und{\Phi}_{nn}(\W)} %underline Pnn
+\newcommand{\Poo}{\Phi_{z_1z_1}(\W)} %P one one
+\newcommand{\hPoo}{\hat{\Phi}_{z_1z_1}(\W)} %hat P one one
+\newcommand{\uPoo}{\und{\Phi}_{z_1z_1}(\W)} %underline P one one
+\newcommand{\uhPoo}{\hat{\und{\Phi}}_{z_1z_1}(\W)} %underline hat P one one
+\newcommand{\Pook}[1]{\hat{\Phi}_{z_1z_1}\nw{#1}} %the argument is the frame index.
+\newcommand{\Pot}{\Phi_{z_1z_2}(\W)} %P one two
+\newcommand{\Pto}{\Phi_{z_2z_1}(\W)} %P two one
+\newcommand{\Ptt}{\Phi_{z_2z_2}(\W)} %P two two
+\newcommand{\Pom}{\Phi_{z_1z_m}(\W)} %P one m
+\newcommand{\Pij}{\Phi_{z_iz_j}(\W)} %P i j
+\newcommand{\Pii}{\Phi_{z_iz_i}(\W)} %P i i
+\newcommand{\Pjj}{\Phi_{z_jz_j}(\W)} %P j j
+\newcommand{\hPij}{\hat{\Phi}_{z_iz_j}(\W)} %hat P i j
+\newcommand{\hPom}{\hat{\Phi}_{z_1z_m}(\W)} %P one m
+\newcommand{\uPom}{\und{\Phi}_{z_1z_m}(\W)} %underline P one m
+\newcommand{\uhPom}{\und{\hat{\Phi}}_{z_1z_m}(\W)} %underline hat P one m
+\newcommand{\Pmo}{\Phi_{z_mz_1}(\W)} %P m one
+\newcommand{\hPmo}{\hat{\Phi}_{z_mz_1}(\W)} % hat P m one
+\newcommand{\uPmo}{\und{\Phi}_{z_mz_1}(\W)} %underline P m one
+\newcommand{\uhPmo}{\und{\hat{\Phi}}_{z_mz_1}(\W)} %underline hat P m one
+\newcommand{\Pmok}[1]{\hat{\Phi}_{z_mz_1}\nw{#1}} %the argument is the frame index.
+\newcommand{\Pomk}[1]{\hat{\Phi}_{z_1z_m}\nw{#1}} %the argument is the frame index.
+\newcommand{\Pmmk}[1]{\hat{\Phi}_{z_mz_m}\nw{#1}} %the argument is the frame index.
+\newcommand{\Pmm}{\Phi_{z_mz_m}(\W)} %P m m
+\newcommand{\hPmm}{\hat{\Phi}_{z_mz_m}(\W)} %hat P m m
+\newcommand{\uPmm}{\und{\Phi}_{z_mz_m}(\W)} %underline P m m
+\newcommand{\uhPmm}{\und{\hat{\Phi}}_{z_mz_m}(\W)} %underline hat P m m
+\newcommand{\Pz} %Pz matrix
+{\begin{bmatrix}
+  \Poo & \Pom\\
+  \Pmo & \Pmm
+\end{bmatrix}}
+%decorrelation matrix stuff
+\newcommand{\uow}{u_1(\W)}
+\newcommand{\utw}{u_2(\W)}
+\newcommand{\utwn}{\conj{u}_2(\W)}
+
+
+%\newcommand{\Pu}{{\Phi}_{\check{n}}(\W)}
+\newcommand{\biasOne}{b_1} %will be used for the PSD and the correlation.
+\newcommand{\Pbo}{{\Phi}_{\biasOne}(\W)} %P bias one
+\newcommand{\Pbok}[1]{{\Phi}_{\biasOne}^{(#1)}(\W)} %P bias one, at the k-th iteration
+\newcommand{\hPbo}{{\hat{\Phi}}_{\biasOne}(\W)} %hat P bias one
+\newcommand{\hPbot}[1]{{\hat{\Phi}}_{\biasOne}({#1},\W)} %hat P bias one at the t-th time instance
+\newcommand{\biasm}{b_m} %The seond bias. will be used for the PSD
+\newcommand{\Pbm}{{\Phi}_{\biasm}(\W)} %P bias m
+\newcommand{\hPbm}{\hat{\Phi}_{\biasm}(\W)} %P bias m
+
+
+%Signals Fourier transforms:
+\newcommand{\N}{N(\W)} %N
+\newcommand{\Sig}{S(\W)} %S
+\newcommand{\Zo}{Z_1(\omega)} %Z one
+\newcommand{\Zt}{Z_2(\omega)} %Z two
+
+%Transfer functions:
+\newcommand{\Ao}{{A_1(\omega)}}
+\newcommand{\At}{{A_m(\omega)}}
+\newcommand{\Am}{{A_m(\omega)}}
+\newcommand{\Bo}{{B_1(\omega)}}
+\newcommand{\Bt}{{B_m(\omega)}}
+\newcommand{\Bm}{{B_m(\omega)}}
+\newcommand{\Aon}{\conj{A_1}(\omega)}
+\newcommand{\Amn}{\conj{A_m}(\omega)}
+\newcommand{\Bon}{\conj{B_1}(\omega)}
+\newcommand{\Bmn}{\conj{B_m}(\omega)}
+\newcommand{\Hm}{{\mathcal{H}_m(\omega)}}
+\newcommand{\Hmk}[1]{{\mathcal{H}_m^{(#1)}(\omega)}}
+\newcommand{\hHm}{{\hat{\mathcal{H}}_m(\W)}} %hat Hm
+\newcommand{\hHmt}[1]{{\hat{\mathcal{H}}_m({#1},\W)}} %hat Hm at the t-th time instance
+\newcommand{\Gm}{{\mathcal{G}_m(\W)}}
+\newcommand{\Gmn}{\conj{\mathcal{G}}_m(\W)} %conj Gm
+\newcommand{\Gmnk}[1]{\conj{\mathcal{G}_m^{(#1)}}(\W)} %conj Gm at the k-th iteration
+\newcommand{\hGmnt}[1]{\conj{\hat{\mathcal{G}}}_m({#1},\W)} %hat conj Gm at the t-th time instance.
+\newcommand{\Ar}{\frac{\Am}{\Ao}} % Am/A1 ratio
+\newcommand{\Br}{\frac{\Bm}{\Bo}} % Bm/B1 ratio
+
+%Impulse response shortcuts:
+\newcommand{\hm}{h_m}
+\newcommand{\hhm}{\hat{h}_m} %hat hm
+\newcommand{\uhm}{\und{h}_m} %underlined hm
+\newcommand{\uhhm}{\und{\hat{h}}_m} %underlined hm
+\newcommand{\ao}{a_1} %a one
+\newcommand{\at}{a_2} %a two
+\newcommand{\am}{a_m} %a m
+\newcommand{\bo}{b_1} %b one
+%\newcommand{\bt}{b_2} %b two
+%\newcommand{\bm}{b_m} %b m
+
+
+%Special notations for transfer function ratios (related to decorrelation):
+\newcommand{\ko}{k_1(\omega)} %k one
+\newcommand{\ktw}{k_2(\omega)} %k two
+\newcommand{\kt}{k_3(\omega)} %k three
+\newcommand{\kon}{\overline{\ko}} %k one negate
+\newcommand{\ktwn}{\overline{\ktw}} %k two negate
+\newcommand{\ktn}{\overline{\kt}} %k three negate
+
+%Correlation shortcuts:
+\newcommand{\Roo}{R_{z_1z_1}} %R one one
+\newcommand{\Rmo}{R_{z_mz_1}} %R m one
+\newcommand{\Rhoo}{\hat{R}_{z_1z_1}} %R hat one one
+\newcommand{\Rhook}[1]{\Rhoo^{(#1)}} %R hat one one at k'th (n'th) frame
+\newcommand{\uRhoo}{{\underline \Rhoo}} %underlined R hat one one
+\newcommand{\uRhook}[1]{\underline {\Rhoo^{(#1)}}} %underlined R hat one one at k'th (n'th) frame
+%\newcommand{\Rto}{R_{z_2z_1}} %R two one
+\newcommand{\Rhmo}{\hat{R}_{z_mz_1}} %R hat m one
+\newcommand{\Rhmok}[1]{\Rhmo^{(#1)}} %R hat m one at k'th frame
+\newcommand{\uRhmo}{{\und{\hat{R}}_{z_mz_1}}} %underlined R hat m one
+\newcommand{\uRhmok}[1]{\und{\hat{R}}_{z_mz_1}^{(#1)}} %underlined R hat m one at k'th frame
+\newcommand{\Rhu}{\hat{R}_{\check{n}}} %the noise bias vector
+\newcommand{\Too}{\hat{\B{T}}_{z_1z_1}} %T one one (Toeplitz matrix for z1 z1)
+\newcommand{\Took}[1]{\Too^{(#1)}} %T one one (Toeplitz matrix for z1 z1) at k'th frame
+\newcommand{\Rbo}{R_{\biasOne}} %R bias one
+\newcommand{\uRbo}{\und{R}_{\biasOne}} %underlined R noise one
+\newcommand{\uhRbo}{\hat{\und{R}}_{\biasOne}} %underlined hat R noise one
+
+\newenvironment{alg}[5]
+{
+\begin{figure}[htbp]
+\begin{center}
+\fbox{
+  \begin{ColorBoxedminipage}{13cm}
+%    \leftline{\color{Black}\bf {#1}}
+    {#4}
+   \end{ColorBoxedminipage}
+   }
+\end{center}
+  \bcaptionff{#1}{#2}{}{#3}
+  \label{#5}
+\end{figure}
+}{}

@@ -1,0 +1,1242 @@
+\documentclass[10pt,pdflatex,headrule,landscape]{beamer}
+\setbeamertemplate{caption}[numbered]
+
+\setbeamertemplate{bibliography item}[text]
+
+%\usepackage{cite}
+\usepackage{psfrag}
+\usepackage{graphics}
+%\usepackage{sistaposter}
+%\usepackage[pdftex]{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage[small]{caption}
+\usepackage{fancybox}
+\usepackage{bm}
+\usepackage{psfrag}
+\usepackage{multimedia}
+\usepackage{subfigure,wrapfig}
+%\usepackage{apalike}
+\usepackage{bm,appendixnumberbeamer,float}
+\usepackage[english]{babel}
+%\usepackage{subfig,wrapfig}
+\usepackage[crop=pdfcrop]{pstool}
+
+\usepackage{times}
+
+%\usepackage{float}
+%\usepackage{color}
+%\usepackage{makeidx}
+%\usepackage{tikz}
+%\usetikzlibrary{shapes,arrows}
+%\usepackage{enumerate}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+%\usepackage[\ifnum\pdfoutput=1breaklinks\fi]{hyperref}
+
+%
+%\newtheorem{example}{Example}[section]
+%\newtheorem{property}{Property}[section]
+
+%\graphicspath{{/}}
+
+
+%\newcommand{\be}{\begin{equation*}}
+%\newcommand{\ee}{\end{equation*}}
+%\newcommand{\bea}{\begin{eqnarray*}}
+%\newcommand{\eea}{\end{eqnarray*}}
+%\newcommand{\beaa}{\begin{eqnarray*}}
+%\newcommand{\eeaa}{\end{eqnarray*}}
+%
+%\newcommand{\dfn}{\stackrel{\triangle}{=}}
+%\newcommand{\calC}{{\cal C}}
+%\newcommand{\calL}{{\cal L}}
+%\newcommand{\NN}{\mathcal{N}}
+%\newcommand{\EE}{{\mathbb E}}
+
+%\usepackage{beamerthemesplit}
+\mode<presentation> {
+  \usetheme{Warsaw}
+\usecolortheme{seahorse}
+\usecolortheme{rose}
+%\usefonttheme{structurebold}
+\usefonttheme{professionalfonts}
+}
+
+\title[Single-Channel Enhancement: Time Domain \insertframenumber $\backslash$\inserttotalframenumber]{Single-Channel Signal Enhancement in the Time Domain}
+
+\author[Prof. Israel Cohen]{Prof. Israel Cohen}
+
+\institute[SFU]{%
+%   \includegraphics[width=1.0cm]{sfu-crest}\\
+   Department of Electrical Engineering \\
+Technion - Israel Institute of Technology \\
+Technion City, Haifa 3200003, Israel
+}
+\date[] % (optional, should be abbreviation of conference name)
+{\footnotesize Source: J. Benesty, I. Cohen, and J. Chen, \textit{Fundamentals of Signal Enhancement and Array Signal Processing}, Wiley-IEEE Press, 2017.}
+
+%
+%\newtheorem{example}{Example}[section]
+\newtheorem{property}{Property}[section]
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+%\section{Outline}
+%\frame{\tableofcontents}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[hideallsubsections]
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+\setlength{\parskip}{1em}
+
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \frametitle{Introduction}
+
+We study the signal enhancement problem in the time domain with a single sensor.
+
+We show how to fully exploit the temporal information in order to reduce the level of additive noise from the observations.
+
+We study this fundamental problem from the classical Wiener filtering perspective.
+
+\end{frame}
+
+\section{Signal Model and Problem Formulation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Signal Model and Problem Formulation}
+We are concerned with the signal enhancement\index{signal enhancement!single channel, time domain} (or noise reduction) problem, in which the time-domain desired signal\index{desired signal!single channel, time domain}, $x(t)$, with $t$ being the discrete-time index, needs to be recovered from the noisy observation (sensor signal) \cite{C2-benesty2009}, \cite{C2-vary2006}, \cite{C2-loizou2007}:
+\begin{eqnarray}
+\label{C2-y(t)}
+ y(t) = x(t) + v(t),
+\end{eqnarray}
+where $v(t)$ is the unwanted additive noise signal\index{noise signal!single channel, time domain}, which is assumed to be uncorrelated with $x(t)$. All signals are considered to be real, zero mean, stationary, and broadband.
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+The signal model can be put into a vector form by considering the $L$ most recent successive time samples, i.e.,
+\begin{eqnarray}
+\label{C2-y(t)-vect}
+ \mathbf{y}(t) = \mathbf{x}(t) + \mathbf{v}(t),
+\end{eqnarray}
+where
+\begin{equation}
+\label{C2-y(t)-v-def}
+ \mathbf{y}(t) = \left[ \begin{array}{cccc} y(t) & y(t-1) & \cdots & y(t-L+1) \end{array} \right]^T
+\end{equation}
+is a vector of length $L$, superscript $^T$ denotes transpose of a vector or a matrix, and $\mathbf{x}(t)$ and $\mathbf{v}(t)$ are defined in a similar way to $\mathbf{y}(t)$.
+
+Since $x(t)$ and $v(t)$ are uncorrelated by assumption, the correlation matrix\index{correlation matrix} (of size $L \times L$) of the noisy signal can be written as
+\begin{align}
+\label{C2-Ryy}
+ \mathbf{R}_{\mathbf{y}} &= E \left[ \mathbf{y}(t) \mathbf{y}^T(t) \right] \\
+ &= \mathbf{R}_{\mathbf{x}}+\mathbf{R}_{\mathbf{v}}, \nonumber
+\end{align}
+where $E [\cdot]$ denotes mathematical expectation, and $\mathbf{R}_{\mathbf{x}}= E \left[ \mathbf{x}(t) \mathbf{x}^T(t) \right]$ and $\mathbf{R}_{\mathbf{v}}= E \left[ \mathbf{v}(t) \mathbf{v}^T(t) \right]$ are the correlation matrices of $\mathbf{x}(t)$ and $\mathbf{v}(t)$, respectively.
+
+We assume that the noise correlation matrix is full rank, i.e., $\mathrm{rank}\left( \mathbf{R}_{\mathbf{v}} \right)=L$.
+
+The objective of single-channel noise reduction\index{noise reduction!single channel, time domain} in the time domain is to find a ``good'' estimate of the sample $x(t)$ from the vector $\mathbf{y}(t)$.
+
+By good, we mean that the additive noise, $v(t)$, is significantly reduced while the desired signal, $x(t)$, is not much distorted.
+
+\end{frame}
+
+\section{Linear Filtering}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Linear Filtering}
+We try to estimate the desired signal sample, $x(t)$, by applying a real-valued linear filter to the observation signal vector, $\mathbf{y}(t)$, i.e.,
+\begin{align}
+\label{C2-z(t)}
+ z(t) &= \sum_{l=1}^{L} h_l y(t+1-l) \\
+ &= \mathbf{h}^T \mathbf{y}(t), \nonumber
+\end{align}
+where $z(t)$ is the estimate of $x(t)$ and
+\begin{eqnarray}
+ \mathbf{h} = \left[ \begin{array}{cccc} h_1 & h_2 & \cdots & h_{L} \end{array} \right]^T
+\end{eqnarray}
+is a filter of length $L$ (see Fig.~\ref{diag2_1}).
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+The estimate of $x(t)$ can be expressed as
+\begin{align}
+\label{C2-z(t)-2}
+ z(t) &= \mathbf{h}^T \left[ \mathbf{x}(t) + \mathbf{v}(t) \right] \\
+ &= x_{\mathrm{fd}}(t) + v_{\mathrm{rn}}(t), \nonumber
+\end{align}
+where
+\begin{eqnarray}
+ x_{\mathrm{fd}}(t) = \mathbf{h}^T \mathbf{x}(t)
+\end{eqnarray}
+is the filtered desired signal\index{filtered desired signal!single channel, time domain} and
+\begin{eqnarray}
+ v_{\mathrm{rn}}(t) = \mathbf{h}^T \mathbf{v}(t)
+\end{eqnarray}
+is the residual noise\index{residual noise!single channel, time domain}.
+
+Since the estimate of the desired signal at time $t$ is the sum of two terms that are uncorrelated, the variance\index{variance} of $z(t)$ is
+\begin{align}
+\label{C2-var-z(t)}
+ \sigma_z^2 &= E\left[ z^2(t) \right] \\
+ &= \mathbf{h}^T \mathbf{R}_{\mathbf{y}} \mathbf{h} \nonumber \\
+ &= \sigma_{x_{\mathrm{fd}}}^2 + \sigma_{v_{\mathrm{rn}}}^2, \nonumber
+\end{align}
+where
+\begin{eqnarray}
+\label{C2-var-x-fd(t)}
+ \sigma_{x_{\mathrm{fd}}}^2 = \mathbf{h}^T \mathbf{R}_{\mathbf{x}} \mathbf{h}
+\end{eqnarray}
+is the variance of the filtered desired signal and
+\begin{eqnarray}
+\label{C2-var-v-rn(t)}
+ \sigma_{v_{\mathrm{rn}}}^2 = \mathbf{h}^T \mathbf{R}_{\mathbf{v}} \mathbf{h}
+\end{eqnarray}
+is the variance of the residual noise.
+
+
+\end{frame}
+
+\section{Performance Measures}
+\subsection{Signal-to-Noise Ratio}
+\begin{frame}
+    \frametitle{Performance Measures}
+    \framesubtitle{Signal-to-Noise Ratio}
+
+One of the most fundamental measures in all aspects of signal enhancement is the signal-to-noise ratio (SNR)\index{signal-to-noise ratio (SNR)}.
+
+The input SNR\index{input SNR!single channel, time domain} is a second-order measure, which quantifies the level of the noise present relative to the level of the desired signal. It is defined as
+\begin{align}
+\label{C2-iSNR}
+ \mathrm{iSNR} &= \frac{\mathrm{tr}\left( \mathbf{R}_{\mathbf{x}} \right)}{\mathrm{tr}\left( \mathbf{R}_{\mathbf{v}} \right)} \\
+ &= \frac{\sigma_x^2}{\sigma_v^2}, \nonumber
+\end{align}
+where $\mathrm{tr}(\cdot)$ denotes the trace of a square matrix, and $\sigma_{x}^2 = E \left[ x^2(t) \right]$ and $\sigma_{v}^2 = E \left[ v^2(t) \right]$ are the variances of the desired and noise signals, respectively.
+
+\end{frame}
+\begin{frame}
+
+The output SNR helps to quantify the level of the noise remaining at the filter output signal. The output SNR\index{output SNR!single channel, time domain} is given by
+\begin{align}
+\label{C2-oSNR}
+ \mathrm{oSNR}\left( \mathbf{h} \right) &= \frac{ \sigma_{x_{\mathrm{fd}}}^2 } { \sigma_{v_{\mathrm{rn}}}^2 } \\
+ &= \frac{ \mathbf{h}^T \mathbf{R}_{\mathbf{x}} \mathbf{h} } { \mathbf{h}^T \mathbf{R}_{\mathbf{v}} \mathbf{h} } . \nonumber
+\end{align}
+
+The objective of the signal enhancement filter is to make the output SNR greater than the input SNR.
+
+Consequently, the quality of the filtered output signal, $z(t)$, may be enhanced as compared to the noisy signal, $y(t)$.
+
+\end{frame}
+\begin{frame}
+
+For the particular filter of length $L$:
+\begin{eqnarray}
+ \mathbf{i}_{\mathrm{i}} = \left[ \begin{array}{cccc} 1 & 0 & \cdots & 0 \end{array} \right]^T,
+\end{eqnarray}
+we have
+\begin{eqnarray}
+ \mathrm{oSNR}\left( \mathbf{i}_{\mathrm{i}} \right) = \mathrm{iSNR}.
+\end{eqnarray}
+With the identity filter\index{identity filter!single channel, time domain}, $\mathbf{i}_{\mathrm{i}}$, the SNR cannot be improved.
+
+\end{frame}
+
+\subsection{Noise Reduction Factor}
+\begin{frame}
+    \frametitle{Noise Reduction Factor}
+
+The noise reduction factor\index{noise reduction factor!single channel, time domain} quantifies the amount of noise being rejected by the filter. This quantity is defined as the ratio of the power of the noise at the sensor over the power of the noise remaining at the filter output, i.e.,
+\begin{eqnarray}
+\label{C2-NRF}
+ \xi_{\mathrm{n}}\left(\mathbf{h} \right) = \frac{ \sigma_v^2 } { \mathbf{h}^T \mathbf{R}_{\mathbf{v}} \mathbf{h} }.
+\end{eqnarray}
+The noise reduction factor is expected to be higher than 1; otherwise, the filter amplifies the noise received at the sensor.
+
+The higher the value of the noise reduction factor, the more noise that is rejected.
+
+While the output SNR is upper bounded, the noise reduction factor is not.
+
+\end{frame}
+
+\subsection{Desired-Signal Reduction Factor}
+\begin{frame}
+ \frametitle{Desired-Signal Reduction Factor}
+
+Since the noise is reduced by the filtering operation, so is, in general, the desired signal.
+
+The desired-signal reduction (or cancellation) implies, in general, distortion.
+
+The desired-signal reduction factor is defined as the ratio of the variance of the desired signal at the
+sensor over the variance of the filtered desired signal, i.e.,
+\begin{eqnarray}
+\label{C2-SRF}
+ \xi_{\mathrm{d}}\left(\mathbf{h} \right) = \frac{ \sigma_x^2 } { \mathbf{h}^T \mathbf{R}_{\mathbf{x}} \mathbf{h} }.
+\end{eqnarray}
+The closer the value of $\xi_{\mathrm{d}}\left(\mathbf{h} \right)$ is to 1, the less distorted is the desired signal.
+
+\end{frame}
+
+\begin{frame}
+It is easy to verify that we have the following fundamental relation:
+\begin{eqnarray}
+\label{C2-fund-rel}
+ \frac{ \mathrm{oSNR}\left(\mathbf{h} \right) } { \mathrm{iSNR} } = \frac{ \xi_{\mathrm{n}}\left(\mathbf{h} \right) }
+ { \xi_{\mathrm{d}}\left(\mathbf{h} \right) }.
+\end{eqnarray}
+This expression indicates the equivalence between gain/loss in SNR and distortion (of both the desired and noise signals).
+
+Suppressing noise (increasing the noise reduction factor) and reducing desired-signal cancellation (decreasing the desired-signal reduction factor)
+imply a gain in SNR.
+
+\end{frame}
+
+\subsection{Desired-Signal Distortion Index}
+\begin{frame}
+ \frametitle{Desired-Signal Distortion Index}
+
+Another way to measure the distortion of the desired signal due to the filtering operation is via the desired-signal distortion
+index.
+
+The desired-signal distortion
+index is defined as the mean-squared error between the desired signal and the filtered desired signal, normalized by the variance of the desired signal, i.e.,
+\begin{align}
+\label{C2-SDI}
+ \upsilon_{\mathrm{d}}\left(\mathbf{h} \right) &=
+ \frac{ E \left\{ \left[ x_{\mathrm{fd}}(t) - x(t) \right]^2 \right\} } { E \left[ x^2(t) \right] } \\
+ &= \frac{ \left( \mathbf{h} - \mathbf{i}_{\mathrm{i}} \right)^T \mathbf{R}_{\mathbf{x}}
+ \left( \mathbf{h} - \mathbf{i}_{\mathrm{i}} \right) } { \sigma_x^2 } . \nonumber
+\end{align}
+$\upsilon_{\mathrm{d}}\left(\mathbf{h} \right)$ is close to 0 if there is no distortion and expected to be greater than 0 when distortion occurs.
+
+\end{frame}
+
+\subsection{Mean-Squared Error}
+\begin{frame}
+ \frametitle{Mean-Squared Error}
+
+Error criteria play a critical role in deriving optimal filters.
+The mean-squared error (MSE)\index{mean-squared error (MSE)!single channel, time domain} \cite{C2-haykin2002} is, by far, the most practical one.
+
+We define the error signal\index{error signal!single channel, time domain} between the estimated and desired signals as
+\begin{align}
+\label{C2-error}
+ e(t) &= z(t) - x(t) \\
+ &= x_{\mathrm{fd}}(t) + v_{\mathrm{rn}}(t) - x(t). \nonumber
+\end{align}
+
+The error signal can be written as the sum of two uncorrelated error signals:
+\begin{eqnarray}
+\label{C2-error-2}
+ e(t) = e_{\mathrm{d}}(t) + e_{\mathrm{n}}(t),
+\end{eqnarray}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+where
+\begin{align}
+\label{C2-error-d}
+ e_{\mathrm{d}}(t) &= x_{\mathrm{fd}}(t) - x(t) \\
+ &= \left( \mathbf{h} - \mathbf{i}_{\mathrm{i}} \right)^T \mathbf{x}(t) \nonumber
+\end{align}
+is the desired-signal distortion due to the filter and
+\begin{align}
+\label{C2-error-n}
+ e_{\mathrm{n}}(t) &= v_{\mathrm{rn}}(t) \\
+ &= \mathbf{h}^T \mathbf{v}(t) \nonumber
+\end{align}
+represents the residual noise\index{residual noise!single channel, time domain}.
+
+Therefore, the MSE criterion\index{MSE criterion!single channel, time domain} is
+\begin{align}
+\label{C2-MSE}
+ J\left( \mathbf{h} \right) &= E\left[ e^2(t) \right] \\
+ &= \sigma_x^2 - 2 \mathbf{h}^T \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}}
+ + \mathbf{h}^T \mathbf{R}_{\mathbf{y}} \mathbf{h} \nonumber \\
+ &= J_{\mathrm{d}}\left( \mathbf{h} \right) + J_{\mathrm{n}}\left( \mathbf{h} \right), \nonumber
+\end{align}
+where
+\begin{align}
+ \label{C2-MSE-d}
+ J_{\mathrm{d}}\left( \mathbf{h} \right) &= E\left[ e_{\mathrm{d}}^2(t) \right] \\
+ &= \left( \mathbf{h} - \mathbf{i}_{\mathrm{i}} \right)^T \mathbf{R}_{\mathbf{x}} \left( \mathbf{h} - \mathbf{i}_{\mathrm{i}} \right) \nonumber \\
+ &= \sigma_x^2 \upsilon_{\mathrm{d}}\left(\mathbf{h} \right) \nonumber
+\end{align}
+
+and
+\begin{align}
+ \label{C2-MSE-n}
+ J_{\mathrm{n}}\left( \mathbf{h} \right) &= E\left[ e_{\mathrm{n}}^2(t) \right] \\
+ &= \mathbf{h}^T \mathbf{R}_{\mathbf{v}} \mathbf{h} \nonumber \\
+ &= \frac{\sigma_v^2} { \xi_{\mathrm{n}}\left(\mathbf{h} \right) }. \nonumber
+\end{align}
+We deduce that
+\begin{eqnarray}
+ J\left( \mathbf{h} \right) = \sigma_v^2 \left[ \mathrm{iSNR} \times \upsilon_{\mathrm{d}}\left(\mathbf{h} \right)
+ + \frac{1} { \xi_{\mathrm{n}}\left(\mathbf{h} \right) } \right]
+\end{eqnarray}
+and
+\begin{align}
+ \frac{J_{\mathrm{d}} \left( \mathbf{h} \right)}{J_{\mathrm{n}} \left( \mathbf{h} \right)} &=
+ \mathrm{iSNR} \times \xi_{\mathrm{n}}\left(\mathbf{h} \right) \times
+ \upsilon_{\mathrm{d}}\left(\mathbf{h} \right) \\
+ &= \mathrm{oSNR}\left(\mathbf{h} \right) \times \xi_{\mathrm{d}}\left(\mathbf{h} \right) \times
+ \upsilon_{\mathrm{d}}\left(\mathbf{h} \right). \nonumber
+\end{align}
+We observe how the MSEs are related to the different performance measures.
+
+\end{frame}
+
+
+\section{Optimal Filters}
+\subsection{Wiener Filter}
+\begin{frame}
+    \frametitle{Optimal Filters}
+    \framesubtitle{Wiener Filter}
+
+The Wiener filter\index{Wiener filter!single channel, time domain} is derived by taking the gradient of the MSE, $J\left( \mathbf{h} \right)$ [eq. (\ref{C2-MSE})], with respect to $\mathbf{h}$ and equating the result to zero:
+\begin{eqnarray}
+ \label{C2-Wiener-filt}
+ \mathbf{h}_{\mathrm{W}} = \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} .
+\end{eqnarray}
+This optimal filter can also be expressed as
+\begin{eqnarray}
+ \label{C2-Wiener-filt2}
+ \mathbf{h}_{\mathrm{W}} = \left( \mathbf{I}_L - \mathbf{R}_{\mathbf{y}}^{-1}
+ \mathbf{R}_{\mathbf{v}} \right) \mathbf{i}_{\mathrm{i}},
+\end{eqnarray}
+where $\mathbf{I}_L$ is the identity matrix of size $L \times L$.
+
+The above formulation is more interesting in practice since it depends on the second-order statistics of the observation and noise signals.
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+The correlation matrix $\mathbf{R}_{\mathbf{y}}$ can be immediately estimated from the observation signal while the other correlation matrix, $\mathbf{R}_{\mathbf{v}}$, is often known or can be indirectly estimated.
+
+In speech applications, for example, $\mathbf{R}_{\mathbf{v}}$ can be estimated during silences.
+
+Let us define the normalized correlation matrices\index{normalized correlation matrix}:
+\begin{align*}
+ \mathbf{\Gamma}_{\mathbf{v}} &= \frac{ \mathbf{R}_{\mathbf{v}} }{ \sigma_v^2 }, \\
+ \mathbf{\Gamma}_{\mathbf{x}} &= \frac{ \mathbf{R}_{\mathbf{x}} }{ \sigma_x^2 }, \\
+ \mathbf{\Gamma}_{\mathbf{y}} &= \frac{ \mathbf{R}_{\mathbf{y}} }{ \sigma_y^2 }.
+\end{align*}
+Another interesting way to write the Wiener filter is
+\begin{align}
+\label{C2-Wiener-filt3}
+ \mathbf{h}_{\mathrm{W}} &= \left( \frac{ \mathbf{I}_L } { \mathrm{iSNR} }
+ + \mathbf{\Gamma}_{\mathbf{v}}^{-1} \mathbf{\Gamma}_{\mathbf{x}} \right)^{-1}
+ \mathbf{\Gamma}_{\mathbf{v}}^{-1} \mathbf{\Gamma}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} \\
+ &= \rho^2(x,y) \mathbf{\Gamma}_{\mathbf{y}}^{-1} \mathbf{\Gamma}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} \nonumber \\
+ &= \left[ \mathbf{I}_L - \rho^2(v,y) \mathbf{\Gamma}_{\mathbf{y}}^{-1} \mathbf{\Gamma}_{\mathbf{v}} \right] \mathbf{i}_{\mathrm{i}}, \nonumber
+\end{align}
+where
+\begin{align}
+\label{C2-SPCC-xy}
+ \rho^2(x,y) &= \frac{ E^2 \left[ x(t) y(t) \right]}{ \sigma_x^2 \sigma_y^2 } \\
+ &= \frac{ \sigma_x^2 }{ \sigma_y^2 } \nonumber \\
+ &= \frac{ \mathrm{iSNR} }{ 1 + \mathrm{iSNR} } \nonumber
+\end{align}
+is the squared Pearson correlation coefficient (SPCC)\index{squared Pearson correlation coefficient (SPCC)} between $x(t)$ and $y(t)$, and
+\begin{align}
+\label{C2-SPCC-vy}
+ \rho^2(v,y) &= \frac{ E^2 \left[ v(t) y(t) \right]}{ \sigma_v^2 \sigma_y^2 } \\
+ &= \frac{ \sigma_v^2 }{ \sigma_y^2 } \nonumber \\
+ &= \frac{ 1 }{ 1 + \mathrm{iSNR} } \nonumber
+\end{align}
+is the SPCC between $v(t)$ and $y(t)$.
+
+We can see from (\ref{C2-Wiener-filt3}) that
+\begin{align}
+ \lim_{ \mathrm{iSNR} \rightarrow \infty} \mathbf{h}_{\mathrm{W}} &= \mathbf{i}_{\mathrm{i}}, \\
+ \lim_{ {\mathrm{iSNR}} \rightarrow 0} \mathbf{h}_{\mathrm{W}} &= \mathbf{0},
+\end{align}
+where $\mathbf{0}$ is the zero vector.
+
+Clearly, the Wiener filter may have a disastrous effect at very low input SNRs since it may remove
+everything (noise and desired signals).
+
+The estimate of the desired signal with the Wiener filter is
+\begin{eqnarray}
+ \label{C2-z(t)-Wien}
+ z_{\mathrm{W}}(t) = \mathbf{h}_{\mathrm{W}}^T \mathbf{y}(t) .
+\end{eqnarray}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+\begin{property}
+With the optimal Wiener filter given in (\ref{C2-Wiener-filt}), the output SNR is always greater than or equal to the input SNR, i.e., $\mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) \geq \mathrm{iSNR}$.
+\end{property}
+
+\noindent \textbf{Proof}. There are different ways to show this property. Here, we show it with the help of the different SPCCs \cite{C2-benesty2008}. We recall that for any two zero-mean random variables $a(t)$ and $b(t)$, we have
+\begin{eqnarray}
+ 0 \leq \rho^2\left(a,b \right) \leq 1 .
+\end{eqnarray}
+It can be checked that
+\begin{eqnarray}
+\label{C2-SPCC-xz}
+ \rho^2\left(x,z \right) = \rho^2\left(x,x_{\mathrm{fd}} \right) \times \rho^2\left(x_{\mathrm{fd}},z \right) \leq
+ \rho^2\left(x_{\mathrm{fd}},z \right),
+\end{eqnarray}
+where
+\begin{eqnarray}
+\label{C2-SPCC-xfdz}
+ \rho^2\left(x_{\mathrm{fd}},z \right) = \frac{ \mathrm{oSNR}\left( \mathbf{h} \right) } { 1 + \mathrm{oSNR}\left( \mathbf{h} \right) }.
+\end{eqnarray}
+As a result, we have
+\begin{eqnarray}
+\label{C2-SPCC-xz-inq}
+ \rho^2\left(x,z_{\mathrm{W}} \right) \leq \frac{ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) }
+ { 1 + \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) }.
+\end{eqnarray}
+Let us evaluate the SPCC between $y(t)$ and $z_{\mathrm{W}}(t)$:
+\begin{align*}
+ \rho^2(y,z_{\mathrm{W}}) &=
+ \frac{ \left( \mathbf{i}_{\mathrm{i}}^T \mathbf{R}_{\mathbf{y}} \mathbf{h}_{\mathrm{W}} \right)^2 }
+ { \sigma_y^2 \mathbf{h}_{\mathrm{W}}^T \mathbf{R}_{\mathbf{y}} \mathbf{h}_{\mathrm{W}} } \nonumber \\
+ &= \frac{ \sigma_x^2 } { \sigma_y^2 } \times
+ \frac{ \sigma_x^2 } { \mathbf{i}_{\mathrm{i}}^T \mathbf{R}_{\mathbf{x}} \mathbf{h}_{\mathrm{W}} } \nonumber \\
+ &= \frac{ \rho^2(x,y) } { \rho^2(x,z_{\mathrm{W}}) }.
+\end{align*}
+Therefore,
+\begin{eqnarray}
+\label{C2-SPCC-xy-inq}
+ \rho^2(x,y) = \rho^2(y,z_{\mathrm{W}}) \times \rho^2(x,z_{\mathrm{W}}) \leq \rho^2(x,z_{\mathrm{W}}).
+\end{eqnarray}
+
+Substituting (\ref{C2-SPCC-xy}) and (\ref{C2-SPCC-xz-inq}) into (\ref{C2-SPCC-xy-inq}), we get
+\begin{eqnarray*}
+ \frac{ \mathrm{iSNR} } { 1 +  \mathrm{iSNR} } \leq \frac{ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) }
+ { 1+ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) },
+\end{eqnarray*}
+%that we can slightly rearranged to
+%\begin{eqnarray*}
+% \frac{ 1 } { 1 + \displaystyle \frac{ 1 } { \mathrm{iSNR} } } \leq
+% \frac{ 1 }
+% { 1 + \displaystyle \frac{1} { \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) } },
+%\end{eqnarray*}
+which implies that
+\begin{eqnarray*}
+ \frac{ 1 } { \mathrm{iSNR} } \geq \frac{ 1 } { \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) }.
+\end{eqnarray*}
+Consequently, we have
+\begin{eqnarray*}
+ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) \geq \mathrm{iSNR}.
+\end{eqnarray*}
+\hspace{4.2in} $\blacksquare$
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+
+The minimum MSE (MMSE)\index{minimum MSE (MMSE)!single channel, time domain} is obtained by replacing (\ref{C2-Wiener-filt}) in (\ref{C2-MSE}):
+\begin{align}
+\label{C2-MMSE}
+ J\left( \mathbf{h}_{\mathrm{W}} \right) &= \sigma_x^2 - \mathbf{i}_{\mathrm{i}}^T \mathbf{R}_{\mathbf{x}}
+ \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} \\
+  &= \sigma_v^2 - \mathbf{i}_{\mathrm{i}}^T \mathbf{R}_{\mathbf{v}}
+ \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{v}} \mathbf{i}_{\mathrm{i}}, \nonumber
+\end{align}
+which can be rewritten as
+\begin{align}
+\label{C2-MMSE2}
+ J\left( \mathbf{h}_{\mathrm{W}} \right) &= \sigma_x^2 \left[1 - \rho^2(x,z_{\mathrm{W}}) \right] \\
+  &= \sigma_v^2 \left[1 - \rho^2(v,y-z_{\mathrm{W}}) \right]. \nonumber
+\end{align}
+Clearly, we always have
+\begin{eqnarray}
+ J\left( \mathbf{h}_{\mathrm{W}} \right) \leq J\left( \mathbf{h} \right), \ \forall \mathbf{h}
+\end{eqnarray}
+and, in particular,
+\begin{eqnarray}
+ J\left( \mathbf{h}_{\mathrm{W}} \right) \leq J\left( \mathbf{i}_{\mathrm{i}} \right) = \sigma_v^2 .
+\end{eqnarray}
+
+The different performance measures with the Wiener filter are
+\begin{align}
+ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) &= \frac{ \mathbf{i}_{\mathrm{i}}^T \mathbf{R}_{\mathbf{x}} \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} }
+ { \mathbf{i}_{\mathrm{i}}^T \mathbf{R}_{\mathbf{x}} \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{v}} \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} } \geq \mathrm{iSNR} , \\
+ \xi_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{W}} \right) &= \frac{ \sigma_v^2 }
+ { \mathbf{i}_{\mathrm{i}}^T \mathbf{R}_{\mathbf{x}} \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{v}} \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} } \geq 1 , \\
+ \xi_{\mathrm{d}}\left( \mathbf{h}_{\mathrm{W}} \right) &= \frac{ \sigma_x^2 }
+ { \mathbf{i}_{\mathrm{i}}^T \mathbf{R}_{\mathbf{x}} \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} } \geq 1, \\
+ \upsilon_{\mathrm{d}}\left( \mathbf{h}_{\mathrm{W}} \right) &=
+ \frac{ \left( \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} - \mathbf{i}_{\mathrm{i}} \right)^T \mathbf{R}_{\mathbf{x}} \left( \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} - \mathbf{i}_{\mathrm{i}} \right) } { \sigma_x^2 } \leq 1.
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Example 1}
+
+Suppose that the desired signal is a harmonic\index{harmonic} random process:
+\begin{eqnarray*}
+x(t)=A\cos\left(2\pi f_0 t+\phi\right) ,
+\end{eqnarray*}
+with fixed amplitude $A$ and frequency $f_0$, and random phase $\phi$, uniformly distributed on the interval from $0$ to $2\pi$.
+
+This signal needs to be recovered from the noisy observation $y(t)=x(t)+v(t)$, where $v(t)$ is additive white Gaussian noise, i.e., $v(t)\sim {\cal N}\left(0,\sigma_v^2\right)$, that is uncorrelated with $x(t)$.
+
+The input SNR is
+\begin{eqnarray*}
+\mathrm{iSNR}=10\log\frac{A^2/2}{\sigma_v^2} \quad \mathrm{(dB)} .
+\end{eqnarray*}
+The correlation matrix of $\mathbf{v}(t)$ is $\mathbf{R}_{\mathbf{v}}=\sigma_v^2\mathbf{I}_L$, and the elements of the correlation matrix of $\mathbf{x}(t)$ are $\left[\mathbf{R}_{\mathbf{x}}\right]_{i,j}=\frac{1}{2} A^2\cos\left[2\pi f_0(i-j)\right]$.
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+Since the desired and noise signals are uncorrelated, the correlation matrix of the observation signal vector $\mathbf{y}(t)$ is $\mathbf{R}_{\mathbf{y}}=\mathbf{R}_{\mathbf{x}}+\mathbf{R}_{\mathbf{v}}$.
+
+The optimal filter $\mathbf{h}_{\mathrm{W}}$ is obtained from (\ref{C2-Wiener-filt}). The output SNR and the MMSE are obtained by substituting $\mathbf{h}_{\mathrm{W}}$ into (\ref{C2-oSNR}) and (\ref{C2-MSE}), respectively.
+
+To demonstrate the performance of the Wiener filter, we choose $A=0.5$, $f_0=0.1$, and $\sigma_v^2=0.3$. The input SNR is $-3.80$~dB.
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+Figure~\ref{fig2_1} shows the effect of the filter length, $L$, on the gain in SNR, i.e., ${\cal G}(\mathbf{h}_{\mathrm{W}}) = \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) / \mathrm{iSNR}$, and the MMSE, $J(\mathbf{h}_{\mathrm{W}})$.
+As the length of the filter increases, the Wiener filter better enhances the harmonic signal, in terms of higher gain in SNR and lower MMSE.
+
+% \begin{figure}[t!]
+%   \centering
+%   \resizebox{8.5cm}{!}{\includegraphics{fig2_1.eps}}
+%   \caption{\footnotesize (a) The gain in SNR and (b) the MMSE of the Wiener filter as a function of the filter length. }
+%   \label{fig2_1}
+% \end{figure}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+
+If we choose a fixed filter length, $L=30$, and change $\sigma_v^2$ so that iSNR varies from $0$ to $20$~dB, then Fig.~\ref{fig2_2} shows plots of the output SNR and the MMSE as a function of the input SNR.
+
+% \begin{figure}[t!]
+%   \centering
+%   \resizebox{8.5cm}{!}{\includegraphics{fig2_2.eps}}
+%   \caption{\footnotesize (a) The output SNR and (b) the MMSE of the Wiener filter as a function of the input SNR. }
+%   \label{fig2_2}
+% \end{figure}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+Figure~\ref{fig2_3} shows plots of the noise reduction factor, $\xi_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{W}} \right)$, the desired-signal reduction factor, $\xi_{\mathrm{d}}\left( \mathbf{h}_{\mathrm{W}} \right)$, and the desired-signal distortion index, $\upsilon_{\mathrm{d}}\left( \mathbf{h}_{\mathrm{W}} \right)$, as a function of the input SNR.
+
+% \begin{figure}[t!]
+%   \centering
+%   \resizebox{5.5cm}{!}{\includegraphics{fig2_3.eps}}
+%   \caption{}
+%   \label{fig2_3}
+% \end{figure}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+Figure~\ref{fig2_4} shows a realization of the noise corrupted and filtered sinusoidal signals for $\mathrm{iSNR}=0$~dB.
+
+% \begin{figure}[t!]
+%   \centering
+%   \resizebox{8.5cm}{!}{\includegraphics{fig2_4.eps}}
+%   \caption{\footnotesize Example of (a) noise corrupted and (b) Wiener filtered sinusoidal signals. }
+%   \label{fig2_4}
+% \end{figure}
+
+\end{frame}
+
+\subsection{Tradeoff Filter}
+\begin{frame}
+    \frametitle{Tradeoff Filter}
+
+The objective of the Wiener filter is to minimize the MSE; therefore, it leads to the MMSE.
+
+However, this optimal filter does not show much flexibility since it is not possible to compromise between desired-signal distortion and noise reduction.
+
+It is instructive to observe that the MSE as given in (\ref{C2-MSE}) is the sum of two other MSEs. One depends on the desired-signal distortion while the other one depends on the noise reduction.
+
+Instead of minimizing the MSE with respect to $\mathbf{h}$ as we already did to find the Wiener filter, we can minimize the distortion-based MSE subject to the constraint that the noise-reduction-based MSE is equal to some desired value.
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+Mathematically, this is equivalent to
+\begin{eqnarray}
+ \label{C2-TD-crit}
+ \min_{ \mathbf{h} } J_{\mathrm{d}}\left( \mathbf{h} \right) \ \ \ \mathrm{subject \ to} \ \ \
+ J_{\mathrm{n}}\left( \mathbf{h} \right) = \aleph \sigma_v^2 ,
+\end{eqnarray}
+where $0 < \aleph < 1$ to ensure that we have some noise reduction.
+
+If we use a Lagrange multiplier\index{Lagrange multiplier}, $\mu$, to
+adjoin the constraint to the cost function, (\ref{C2-TD-crit}) can be rewritten as
+\begin{eqnarray}
+\label{C2-TD-crit-2}
+ \mathbf{h}_{\mathrm{T},\mu} = \arg \min_{\mathbf{h}} {\cal L}(\mathbf{h}, \mu),
+\end{eqnarray}
+with
+\begin{eqnarray}
+ {\cal L}(\mathbf{h}, \mu) = J_{\mathrm{d}}\left( \mathbf{h} \right) + \mu
+ \left[ J_{\mathrm{n}}\left( \mathbf{h} \right) - \aleph \sigma_v^2 \right]
+\end{eqnarray}
+and $\mu \geq 0$.
+
+From (\ref{C2-TD-crit-2}), we easily derive the tradeoff filter\index{tradeoff filter!single channel, time domain}:
+\begin{align}
+\label{C2-trdf-filt}
+ \mathbf{h}_{\mathrm{T},\mu} &= \left( \mathbf{R}_{\mathbf{x}} + \mu \mathbf{R}_{\mathbf{v}} \right)^{-1}
+ \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} \\
+ &= \left[ \mathbf{R}_{\mathbf{y}} + (\mu - 1) \mathbf{R}_{\mathbf{v}} \right]^{-1}
+ \left( \mathbf{R}_{\mathbf{y}} - \mathbf{R}_{\mathbf{v}} \right) \mathbf{i}_{\mathrm{i}}, \nonumber
+\end{align}
+where the Lagrange multiplier, $\mu$, satisfies $J_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{T},\mu} \right) = \aleph \sigma_v^2$, which implies that
+\begin{eqnarray}
+ \xi_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{T},\mu} \right) = \frac{1}{\aleph} > 1.
+\end{eqnarray}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+In practice it is not easy to determine the optimal $\mu$. Therefore, when this parameter is chosen in a heuristic way, we can see that for
+\begin{itemize}
+ \item $\mu = 1$, $\mathbf{h}_{\mathrm{T},1} = \mathbf{h}_{\mathrm{W}}$, which is the Wiener filter;
+ \item $\mu = 0$, $\mathbf{h}_{\mathrm{T},0} = \mathbf{i}_{\mathrm{i}}$, which is the identity filter;
+ \item $\mu > 1$, results in a filter with low residual noise at the expense of high desired-signal distortion; and
+ \item $\mu < 1$, results in a filter with low desired-signal distortion and small amount of noise reduction.
+\end{itemize}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+\begin{property}
+With the tradeoff filter given in (\ref{C2-trdf-filt}), the output SNR is always greater than or equal to the input SNR, i.e., $\mathrm{oSNR}\left(\mathbf{h}_{\mathrm{T},\mu} \right) \geq \mathrm{iSNR}, \ \forall \mu \geq 0$.
+\end{property}
+
+\noindent \textbf{Proof}.
+The SPCC between $x(t)$ and $x(t)+\sqrt{\mu} v(t)$ is
+\begin{align*}
+ \rho^2 \left( x, x+\sqrt{\mu} v \right) &= \frac{ \sigma_x^4 }
+ { \sigma_x^2 \left( \sigma_x^2 + \mu \sigma_v^2 \right) } \\
+ &= \frac{ \mathrm{iSNR} } { \mu + \mathrm{iSNR} }.
+\end{align*}
+The SPCC between $x(t)$ and $\mathbf{h}_{\mathrm{T},\mu}^T \mathbf{x}(t)+\sqrt{\mu} \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{v}(t)$ is
+\begin{align*}
+ \rho^2 \left( x, \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{x}+\sqrt{\mu} \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{v} \right) &=
+ \frac{ \left( \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} \right)^2 }
+ { \sigma_x^2 \mathbf{h}_{\mathrm{T},\mu}^T \left( \mathbf{R}_{\mathbf{x}} +
+ \mu \mathbf{R}_{\mathbf{v}} \right) \mathbf{h}_{\mathrm{T},\mu} } \\
+ &= \frac{ \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} } { \sigma_x^2 }.
+\end{align*}
+Another way to write the same SPCC is the following:
+\begin{align*}
+ \rho^2 \left( x, \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{x}+\sqrt{\mu} \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{v} \right) &=
+ \frac{ \left( \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} \right)^2 }
+ { \sigma_x^2 \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{R}_{\mathbf{x}} \mathbf{h}_{\mathrm{T},\mu} } \times
+ \frac{ \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right) } { \mu + \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right) } \\
+ &= \rho^2 \left( x, \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{x} \right) \times \nonumber \\
+ &~~~~~ \rho^2 \left( \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{x}, \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{x}
+ + \sqrt{\mu} \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{v} \right) \nonumber \\
+ & \leq  \frac{ \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right) } { \mu + \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right) }.
+\end{align*}
+Now, let us evaluate the SPCC between $x(t)+ \sqrt{\mu} v(t)$ and $\mathbf{h}_{\mathrm{T},\mu}^T \mathbf{x}(t) + \sqrt{\mu}
+\mathbf{h}_{\mathrm{T},\mu}^T \mathbf{v}(t)$:
+\begin{align*}
+ \rho^2 \left( x+ \sqrt{\mu} v, \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{x} + \sqrt{\mu} \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{v} \right)
+ &= \frac{ \left[ \mathbf{h}_{\mathrm{T},\mu}^T \left( \mathbf{R}_{\mathbf{x}} + \mu \mathbf{R}_{\mathbf{v}} \right) \mathbf{i}_{\mathrm{i}} \right]^2 } { \left( \sigma_x^2 + \mu \sigma_v^2 \right)
+ \mathbf{h}_{\mathrm{T},\mu}^T \left( \mathbf{R}_{\mathbf{x}} + \mu \mathbf{R}_{\mathbf{v}} \right) \mathbf{h}_{\mathrm{T},\mu} } \\
+ &= \frac{ \sigma_x^2 } { \sigma_x^2 + \mu \sigma_v^2 } \times
+ \frac{ \sigma_x^2 } { \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}} } \\
+ &= \frac{ \rho^2 \left( x, x + \sqrt{\mu} v \right) } { \rho^2 \left( x, \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{x}
+ + \sqrt{\mu} \mathbf{h}_{\mathrm{T},\mu}^T \mathbf{v} \right) }.
+\end{align*}
+Therefore,
+\begin{align*}
+ \rho^2 \left( x, x + \sqrt{\mu} v \right) &= \frac{ \mathrm{iSNR} } { \mu + \mathrm{iSNR} } \\
+ &= \rho^2 \left( x + \sqrt{\mu} v, \mathbf{h}_{\mathrm{T},\mu}^T\mathbf{x} + \sqrt{\mu} \mathbf{h}_{\mathrm{T},\mu}^T\mathbf{v} \right) \times \nonumber \\
+ &~~~~~ \rho^2 \left( x, \mathbf{h}_{\mathrm{T},\mu}^T\mathbf{x} + \sqrt{\mu} \mathbf{h}_{\mathrm{T},\mu}^T\mathbf{v} \right) \\
+ & \leq  \rho^2 \left( x, \mathbf{h}_{\mathrm{T},\mu}^T\mathbf{x} + \sqrt{\mu} \mathbf{h}_{\mathrm{T},\mu}^T\mathbf{v} \right) \\
+ & \leq  \frac{ \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right) } { \mu + \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right) }.
+\end{align*}
+As a result,
+\begin{eqnarray*}
+ \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right) \geq \mathrm{iSNR}.
+\end{eqnarray*}
+\hspace{4.3in} $\blacksquare$
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example 2}
+Consider a desired signal, $x(t)$, with the autocorrelation sequence:
+\begin{eqnarray*}
+E\left[x(t) x(t')\right] = \alpha^{\left|t-t' \right|}, \quad -1<\alpha<1 ,
+\end{eqnarray*}
+which is corrupted by additive white Gaussian noise $v(t)\sim {\cal N}\left(0,\sigma_v^2\right)$ that is uncorrelated with $x(t)$.
+The desired signal needs to be recovered from the noisy observation $y(t)=x(t)+v(t)$.
+
+The input SNR is
+\begin{eqnarray*}
+\mathrm{iSNR} = 10\log\frac{1}{\sigma_v^2} \quad \mathrm{(dB)} .
+\end{eqnarray*}
+The correlation matrix of $\mathbf{v}(t)$ is $\mathbf{R}_{\mathbf{v}}=\sigma_v^2\mathbf{I}_L$, and the elements of the correlation matrix of $\mathbf{x}(t)$ are $\left[\mathbf{R}_{\mathbf{x}}\right]_{i,j}=\alpha^{\left|i-j \right|}$. Since the desired signal and the noise signal are uncorrelated, the correlation matrix of observation signal vector $\mathbf{y}(t)$ is $\mathbf{R}_{\mathbf{y}}=\mathbf{R}_{\mathbf{x}}+\mathbf{R}_{\mathbf{v}}$. The tradeoff filter $\mathbf{h}_{\mathrm{T},\mu}$ is obtained from (\ref{C2-trdf-filt}) where the Lagrange multiplier, $\mu$, satisfies $J_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{T},\mu} \right) = \aleph \sigma_v^2$.
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+
+To demonstrate the performance of the tradeoff filter, we choose $\alpha=0.8$, a filter length $L=30$, and several values of $\aleph$.
+
+Figure~\ref{fig2_5} shows plots of the gain in SNR, ${\cal G}\left(\mathbf{h}_{\mathrm{T},\mu}\right)$, the MSE, $J\left(\mathbf{h}_{\mathrm{T},\mu}\right)$, the noise reduction factor, $\xi_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{T},\mu} \right)$, and
+the desired-signal reduction factor, $\xi_{\mathrm{d}}\left( \mathbf{h}_{\mathrm{T},\mu} \right)$, as a function of the input SNR, for several values of $\aleph$. Figure~\ref{fig2_5}(c) shows that the tradeoff filter satisfies $\xi_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{T},\mu} \right)=-10\log(\aleph)$~dB.
+
+\end{frame}
+\begin{frame}
+
+% \begin{figure}[t!]
+%   \centering
+%   \resizebox{7.5cm}{!}{\includegraphics{fig2_5.eps}}
+%   \caption{\footnotesize (a) The gain in SNR, (b) the MSE, (c) the noise reduction factor, and (d) the desired-signal reduction factor of the tradeoff filter for several values of $\aleph$: $\aleph=-12$~dB (solid line with circles), $\aleph=-13$~dB (dashed line with asterisks), $\aleph=-14$~dB (dotted line with squares), and $\aleph=-15$~dB (dash-dot line with triangles). }
+%   \label{fig2_5}
+% \end{figure}
+
+\end{frame}
+
+\subsection{MVDR Filter}
+\begin{frame}
+    \frametitle{MVDR Filter}
+
+Both Wiener and tradeoff filters always distort the desired signal since $\xi_{\mathrm{d}}\left( \mathbf{h}_{\mathrm{T},\mu} \right) \neq 1, \ \forall \mu \geq 0$. It is fair to ask if it is possible to derive a distortionless filter that can mitigate the level of the noise. The answer is positive as long as the desired-signal correlation matrix is rank deficient.
+
+Let us assume that $\mathrm{rank}\left( \mathbf{R}_{\mathbf{x}} \right) = P \leq L$. Using the well-known eigenvalue decomposition\index{eigenvalue decomposition} \cite{C2-golub1996}, the desired-signal correlation matrix can be diagonalized as
+\begin{eqnarray}
+\label{C2-Rx-eig}
+ \mathbf{Q}_{\mathbf{x}}^T \mathbf{R}_{\mathbf{x}} \mathbf{Q}_{\mathbf{x}} = \mathbf{\Lambda}_{\mathbf{x}},
+\end{eqnarray}
+where
+\begin{eqnarray}
+ \mathbf{Q}_{\mathbf{x}} =
+ \left[ \begin{array}{cccc} \mathbf{q}_{\mathbf{x},1} & \mathbf{q}_{\mathbf{x},2} & \cdots &
+ \mathbf{q}_{\mathbf{x},L} \end{array} \right]
+\end{eqnarray}
+is an orthogonal matrix\index{orthogonal matrix}, i.e., $\mathbf{Q}_{\mathbf{x}}^T \mathbf{Q}_{\mathbf{x}} = \mathbf{Q}_{\mathbf{x}} \mathbf{Q}_{\mathbf{x}}^T = \mathbf{I}_L$
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+and
+\begin{eqnarray}
+ \mathbf{\Lambda}_{\mathbf{x}} = \mathrm{diag} \left( \lambda_{\mathbf{x},1}, \lambda_{\mathbf{x},2}, \ldots, \lambda_{\mathbf{x},L} \right)
+\end{eqnarray}
+is a diagonal matrix.
+
+The orthonormal vectors\index{orthonormal vector} $\mathbf{q}_{\mathbf{x},1}, \mathbf{q}_{\mathbf{x},2}, \ldots, \mathbf{q}_{\mathbf{x},L}$ are the eigenvectors\index{eigenvector} corresponding, respectively, to the eigenvalues\index{eigenvalue} $\lambda_{\mathbf{x},1}, \lambda_{\mathbf{x},2}, \ldots, \lambda_{\mathbf{x},L}$ of the matrix $\mathbf{R}_{\mathbf{x}}$, where $\lambda_{\mathbf{x},1} \geq
+\lambda_{\mathbf{x},2} \geq \cdots \geq \lambda_{\mathbf{x},P} >0$ and $\lambda_{\mathbf{x},P+1} =
+\lambda_{\mathbf{x},P+2} = \cdots = \lambda_{\mathbf{x},L}=0$.
+
+Let
+\begin{eqnarray}
+ \mathbf{Q}_{\mathbf{x}} =
+\left[ \begin{array}{cc} \mathbf{Q}_{\mathbf{x}}' & \mathbf{Q}_{\mathbf{x}}'' \end{array} \right],
+\end{eqnarray}
+where the $L \times P$ matrix $\mathbf{Q}_{\mathbf{x}}'$ contains the eigenvectors corresponding to the nonzero eigenvalues of $\mathbf{R}_{\mathbf{x}}$ and the $L \times (L-P)$ matrix $\mathbf{Q}_{\mathbf{x}}''$ contains the eigenvectors corresponding to the null eigenvalues of $\mathbf{R}_{\mathbf{x}}$.
+
+It can be verified that
+\begin{eqnarray}
+\label{C2-orth-proj}
+ \mathbf{I}_L = \mathbf{Q}_{\mathbf{x}}' \mathbf{Q}_{\mathbf{x}}'^T +
+ \mathbf{Q}_{\mathbf{x}}'' \mathbf{Q}_{\mathbf{x}}''^T.
+\end{eqnarray}
+
+Notice that $\mathbf{Q}_{\mathbf{x}}'\mathbf{Q}_{\mathbf{x}}'^T$ and $\mathbf{Q}_{\mathbf{x}}'' \mathbf{Q}_{\mathbf{x}}''^T$ are two orthogonal projection matrices\index{projection matrix} of rank $P$ and $L-P$, respectively. Hence, $\mathbf{Q}_{\mathbf{x}}' \mathbf{Q}_{\mathbf{x}}'^T$ is the orthogonal projector onto the desired-signal subspace\index{subspace} (where all the energy of the desired signal is concentrated) or the range of $\mathbf{R}_{\mathbf{x}}$ and $\mathbf{Q}_{\mathbf{x}}'' \mathbf{Q}_{\mathbf{x}}''^T$ is the orthogonal projector\index{orthogonal projector} onto the null subspace of $\mathbf{R}_{\mathbf{x}}$.
+
+Using (\ref{C2-orth-proj}), we can write the desired-signal vector as
+\begin{align}
+\label{C2-x-vect}
+ \mathbf{x}(t) &= \mathbf{Q}_{\mathbf{x}} \mathbf{Q}_{\mathbf{x}}^T \mathbf{x}(t) \\
+ &= \mathbf{Q}_{\mathbf{x}}' \mathbf{Q}_{\mathbf{x}}'^T \mathbf{x}(t). \nonumber
+\end{align}
+We deduce from (\ref{C2-x-vect}) that the distortionless constraint is
+\begin{eqnarray}
+\label{C2-const-M}
+ \mathbf{h}^T \mathbf{Q}_{\mathbf{x}}' = \mathbf{i}_{\mathrm{i}}^T \mathbf{Q}_{\mathbf{x}}',
+\end{eqnarray}
+since, in this case,
+\begin{align}
+ \mathbf{h}^T \mathbf{x}(t) &= \mathbf{h}^T \mathbf{Q}_{\mathbf{x}}' \mathbf{Q}_{\mathbf{x}}'^T \mathbf{x}(t) \\
+ &= \mathbf{i}_{\mathrm{i}}^T \mathbf{Q}_{\mathbf{x}}' \mathbf{Q}_{\mathbf{x}}'^T \mathbf{x}(t) \nonumber \\
+ &= x(t) . \nonumber
+\end{align}
+Now, from the minimization of the criterion:
+\begin{eqnarray}
+\label{C2-crit-MVDR}
+ \min_{ \mathbf{h} } J_{\mathrm{n}}\left( \mathbf{h} \right) \ \ \
+ \mathrm{subject \ to} \ \ \  \mathbf{h}^T \mathbf{Q}_{\mathbf{x}}' = \mathbf{i}_{\mathrm{i}}^T \mathbf{Q}_{\mathbf{x}}',
+\end{eqnarray}
+we find the minimum variance distortionless response\index{minimum variance distortionless response (MVDR)} (MVDR)\index{MVDR filter!single channel, time domain} filter:
+\begin{eqnarray}
+\label{C2-MVDR-filtv}
+ \mathbf{h}_{\mathrm{MVDR}} =
+ \mathbf{R}_{\mathbf{v}}^{-1} \mathbf{Q}_{\mathbf{x}}' \left( \mathbf{Q}_{\mathbf{x}}'^T
+ \mathbf{R}_{\mathbf{v}}^{-1} \mathbf{Q}_{\mathbf{x}}' \right)^{-1} \mathbf{Q}_{\mathbf{x}}'^T \mathbf{i}_{\mathrm{i}} .
+\end{eqnarray}
+It can be shown that (\ref{C2-MVDR-filtv}) can also be expressed as
+\begin{eqnarray}
+\label{C2-MVDR-filty}
+ \mathbf{h}_{\mathrm{MVDR}} =
+ \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{Q}_{\mathbf{x}}' \left( \mathbf{Q}_{\mathbf{x}}'^T
+ \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{Q}_{\mathbf{x}}' \right)^{-1} \mathbf{Q}_{\mathbf{x}}'^T \mathbf{i}_{\mathrm{i}} .
+\end{eqnarray}
+It can be verified that, indeed, $J_{\mathrm{d}} \left( \mathbf{h}_{\mathrm{MVDR}} \right) = 0$.
+
+Of course, for $P=L$, the MVDR filter simplifies to the identity filter, i.e., $\mathbf{h}_{\mathrm{MVDR}}=\mathbf{i}_{\mathrm{i}}$. As a consequence, we can state that the higher is the dimension of the nullspace of $\mathbf{R}_{\mathbf{x}}$, the more the MVDR filter is efficient in terms of noise reduction. The best scenario corresponds to $P=1$.
+
+For a white noise signal, i.e., for $\mathbf{R}_{\mathbf{v}} = \sigma_v^2 \mathbf{I}_L$, the MVDR filter simplifies to
+\begin{eqnarray}
+\label{C2-MVDR-filtv-wn}
+ \mathbf{h}_{\mathrm{MVDR}} = \mathbf{Q}_{\mathbf{x}}' \mathbf{Q}_{\mathbf{x}}'^T \mathbf{i}_{\mathrm{i}} ,
+\end{eqnarray}
+which is the minimum-norm solution of (\ref{C2-const-M}).
+
+\begin{property}
+With the MVDR filter given in (\ref{C2-MVDR-filtv}), the output SNR is always greater than or equal to the input SNR, i.e., $\mathrm{oSNR}\left(\mathbf{h}_{\mathrm{MVDR}} \right) \geq \mathrm{iSNR}$.
+\end{property}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example 3}
+Consider a desired signal that is a sum of harmonic\index{harmonic} random processes:
+\begin{eqnarray*}
+x(t) = \sum_{k=1}^K A_k \cos\left( 2\pi f_k t+\phi_k \right) ,
+\end{eqnarray*}
+with fixed amplitudes $\left\{A_k\right\}$ and frequencies $\left\{f_k\right\}$, and independent and identically distributed (IID) random phases $\left\{\phi_k\right\}$, uniformly distributed on the interval from $0$ to $2\pi$.
+
+This signal needs to be recovered from the noisy observation $y(t)=x(t)+v(t)$, where $v(t)$ is additive white Gaussian noise, i.e., $v(t)\sim {\cal N}\left(0,\sigma_v^2\right)$, that is uncorrelated with $x(t)$.
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+The input SNR is
+\begin{eqnarray*}
+\mathrm{iSNR} = 10\log\frac{\sum_{k=1}^K A_k^2}{2 \sigma_v^2} \quad \mathrm{(dB)} .
+\end{eqnarray*}
+The correlation matrix of $\mathbf{v}(t)$ is $\mathbf{R}_{\mathbf{v}}=\sigma_v^2\mathbf{I}_L$ and the elements of the correlation matrix of $\mathbf{x}(t)$ are $\left[\mathbf{R}_{\mathbf{x}}\right]_{i,j}=\frac{1}{2}\sum_{k=1}^K {A_k^2\cos\left[2\pi f_k(i-j)\right]}$. The rank of this matrix is $\mathrm{rank}\left(\mathbf{R}_{\mathbf{x}}\right)=2 K$. The MVDR filter, $\mathbf{h}_{\mathrm{MVDR}}$, for the case of white noise is obtained from (\ref{C2-MVDR-filtv-wn}).
+
+To demonstrate the performance of the MVDR filter, we choose $A_k=0.5$ ($k=1,\ldots,K$), $f_k=0.05\,k$  ($k=1,\ldots,K$), a filter length of $L=30$, and several values of $K$.
+The dimension of the nullspace of $\mathbf{R}_{\mathbf{x}}$ is $L-2K$.
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+Figure~\ref{fig2_6} shows plots of the gain in SNR, ${\cal G}\left(\mathbf{h}_{\mathrm{MVDR}}\right)$, the MSE, $J\left(\mathbf{h}_{\mathrm{MVDR}}\right)$, the noise reduction factor, $\xi_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{MVDR}} \right)$, and the desired-signal reduction factor, $\xi_{\mathrm{d}}\left( \mathbf{h}_{\mathrm{MVDR}} \right)$, as a function of the input SNR, for several values of $K$.
+
+Clearly, the desired-signal reduction factor is zero, and the higher is the dimension of the nullspace of $\mathbf{R}_{\mathbf{x}}$ (smaller $K$), the higher is the noise reduction factor.
+
+\end{frame}
+\begin{frame}
+
+% \begin{figure}[t!]
+%   \centering
+%   \resizebox{7.5cm}{!}{\includegraphics{fig2_6.eps}}
+%   \caption{\footnotesize (a) The gain in SNR, (b) the MSE, (c) the noise reduction factor, and (d) the desired-signal reduction factor of the MVDR filter for several desired signals with different values of $K$: $K=1$ (solid line with circles), $K=2$ (dashed line with asterisks), $K=4$ (dotted line with squares), and $K=8$ (dash-dot line with triangles). }
+%   \label{fig2_6}
+% \end{figure}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+With the eigenvalue decomposition of $\mathbf{R}_{\mathbf{x}}$, the correlation matrix of the observation signal vector can be written as
+\begin{eqnarray}
+\label{C2-Ryy-eig}
+ \mathbf{R}_{\mathbf{y}} = \mathbf{Q}_{\mathbf{x}}' \mathbf{\Lambda}_{\mathbf{x}}' \mathbf{Q}_{\mathbf{x}}'^T + \mathbf{R}_{\mathbf{v}},
+\end{eqnarray}
+where
+\begin{eqnarray}
+ \mathbf{\Lambda}_{\mathbf{x}}' = \mathrm{diag} \left( \lambda_{\mathbf{x},1}, \lambda_{\mathbf{x},2}, \ldots, \lambda_{\mathbf{x},P} \right).
+\end{eqnarray}
+Determining the inverse of $\mathbf{R}_{\mathbf{y}}$ from (\ref{C2-Ryy-eig}) with the Woodbury's identity\index{Woodbury's identity}, we get
+\begin{eqnarray}
+\label{C2-iRyy-eig}
+ \mathbf{R}_{\mathbf{y}}^{-1} = \mathbf{R}_{\mathbf{v}}^{-1} - \mathbf{R}_{\mathbf{v}}^{-1} \mathbf{Q}_{\mathbf{x}}'
+ \left( \mathbf{\Lambda}_{\mathbf{x}}'^{-1} + \mathbf{Q}_{\mathbf{x}}'^T \mathbf{R}_{\mathbf{v}}^{-1} \mathbf{Q}_{\mathbf{x}}' \right)^{-1}
+ \mathbf{Q}_{\mathbf{x}}'^T \mathbf{R}_{\mathbf{v}}^{-1} .
+\end{eqnarray}
+Substituting (\ref{C2-iRyy-eig}) into (\ref{C2-Wiener-filt}), leads to another interesting formulation of the Wiener filter:
+\begin{eqnarray}
+\label{C2-wiener-filt-eig}
+ \mathbf{h}_{\mathrm{W}} = \mathbf{R}_{\mathbf{v}}^{-1} \mathbf{Q}_{\mathbf{x}}' \left( \mathbf{\Lambda}_{\mathbf{x}}'^{-1} + \mathbf{Q}_{\mathbf{x}}'^T
+ \mathbf{R}_{\mathbf{v}}^{-1} \mathbf{Q}_{\mathbf{x}}' \right)^{-1} \mathbf{Q}_{\mathbf{x}}'^T \mathbf{i}_{\mathrm{i}} .
+\end{eqnarray}
+
+This formulation shows how the MVDR and Wiener filters are strongly related.
+
+In the same way, we can express the tradeoff filter as
+\begin{eqnarray}
+\label{C2-trdf-filt-eig}
+ \mathbf{h}_{\mathrm{T},\mu} = \mathbf{R}_{\mathbf{v}}^{-1} \mathbf{Q}_{\mathbf{x}}' \left( \mu \mathbf{\Lambda}_{\mathbf{x}}'^{-1} + \mathbf{Q}_{\mathbf{x}}'^T
+ \mathbf{R}_{\mathbf{v}}^{-1} \mathbf{Q}_{\mathbf{x}}' \right)^{-1} \mathbf{Q}_{\mathbf{x}}'^T \mathbf{i}_{\mathrm{i}} .
+\end{eqnarray}
+This filter is strictly equivalent to the tradeoff filter given in (\ref{C2-trdf-filt}), except for $\mu = 0$, where the two give different results when $\mathbf{R}_{\mathbf{x}}$ is not full rank; the one in (\ref{C2-trdf-filt}) leads to the identity filter while the one in (\ref{C2-trdf-filt-eig}) leads to the MVDR filter. In fact, the filter given in (\ref{C2-trdf-filt}) is not defined for $\mu = 0$ and when $\mathbf{R}_{\mathbf{x}}$ is not full rank.
+
+\end{frame}
+
+\subsection{Maximum SNR Filter}
+\begin{frame}
+    \frametitle{Maximum SNR Filter}
+
+So far, we showed how to exploit the MSE criterion to derive all kind of useful optimal filters. But we can also exploit the definition of the output SNR to derive the so-called maximum SNR filter.
+
+Let us denote by $\lambda_1$ the maximum eigenvalue of the matrix $\mathbf{R}_{\mathbf{v}}^{-1} \mathbf{R}_{\mathbf{x}}$ and by $\mathbf{t}_1$ the corresponding eigenvector.
+
+The maximum SNR filter\index{maximum SNR filter!single channel, time domain}, $\mathbf{h}_{\mathrm{max}}$, is obtained by maximizing the output SNR as given in (\ref{C2-oSNR}) from which we recognize the generalized Rayleigh quotient\index{generalized Rayleigh quotient} \cite{C2-golub1996}.
+
+It is well known that this quotient is maximized with the eigenvector corresponding to the maximum eigenvalue of $\mathbf{R}_{\mathbf{v}}^{-1} \mathbf{R}_{\mathbf{x}}$.
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+Therefore, We have
+\begin{eqnarray}
+\label{C2-maxSNR-filt}
+ \mathbf{h}_{\mathrm{max}} = \varsigma \mathbf{t}_1 ,
+\end{eqnarray}
+where $\varsigma \neq 0$ is an arbitrary real number. We deduce that
+\begin{eqnarray}
+ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{max}} \right) = \lambda_1 .
+\end{eqnarray}
+Clearly, we always have
+\begin{eqnarray}
+ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{max}} \right) \geq \mathrm{iSNR}
+\end{eqnarray}
+and
+\begin{eqnarray}
+ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{max}} \right) \geq \mathrm{oSNR}\left( \mathbf{h} \right), \ \forall \mathbf{h}.
+\end{eqnarray}
+While the maximum SNR filter maximizes the output SNR, it leads to large distortions of the desired signal.
+
+Let us consider the very particular case of a matrix $\mathbf{R}_{\mathbf{v}}^{-1} \mathbf{R}_{\mathbf{x}}$ that has a maximum eigenvalue $\lambda_1$ with multiplicity $P \leq L$.
+
+We denote by $\mathbf{t}_1, \mathbf{t}_2, \ldots, \mathbf{t}_P$ the corresponding eigenvectors.
+
+It is not hard to see that the maximum SNR filter is now
+\begin{eqnarray}
+\label{C2-maxSNR-filt-P}
+ \mathbf{h}_{\mathrm{max}} = \sum_{p=1}^P \varsigma_p \mathbf{t}_p ,
+\end{eqnarray}
+since
+\begin{eqnarray}
+ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{max}} \right) = \lambda_1 ,
+\end{eqnarray}
+where $\varsigma_p, \ p=1,2,\ldots,P$ are real numbers with at least one of them different from $0$.
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+To summarize the performance of all the optimal filters derived in this subsection, we can state that for $\mu < 1$,
+\begin{eqnarray}
+ \label{C2-snr_relation1}
+ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{max}} \right) \geq \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) \geq
+ \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right) \geq \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{MVDR}} \right) ,
+\end{eqnarray}
+and for $\mu > 1$,
+\begin{eqnarray}
+ \label{C2-snr_relation2}
+ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{max}} \right) \geq \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right) \geq
+ \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) \geq \mathrm{oSNR}\left( \mathbf{h}_{\mathrm{MVDR}} \right) .
+\end{eqnarray}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+Table~\ref{C2-table-Opt-Filts} summarizes all the optimal filters studied in this section.
+
+\begin{table}[t!]
+\centering \caption{\footnotesize Optimal linear filters for single-channel signal enhancement in the time domain.}
+\label{C2-table-Opt-Filts} {
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{rcl}
+\hline\noalign{\smallskip}
+ Wiener: & & $\displaystyle \mathbf{h}_{\mathrm{W}} = \mathbf{R}_{\mathbf{y}}^{-1} \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}}$ \\ \hline
+ Tradeoff: & & $\displaystyle \mathbf{h}_{\mathrm{T},\mu} = \left( \mathbf{R}_{\mathbf{x}} + \mu \mathbf{R}_{\mathbf{v}} \right)^{-1}
+ \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}}, \ \mu \geq 0$ \\ \hline
+ MVDR: & & $\displaystyle \mathbf{h}_{\mathrm{MVDR}} =
+ \mathbf{R}_{\mathbf{v}}^{-1} \mathbf{Q}_{\mathbf{x}}' \left( \mathbf{Q}_{\mathbf{x}}'^T
+ \mathbf{R}_{\mathbf{v}}^{-1} \mathbf{Q}_{\mathbf{x}}' \right)^{-1} \mathbf{Q}_{\mathbf{x}}'^T \mathbf{i}_{\mathrm{i}}$ \\ \hline
+ Maximum SNR: & & $\displaystyle \mathbf{h}_{\mathrm{max}} = \varsigma \mathbf{t}_1 , \ \varsigma \neq 0$ \\ \hline
+ \noalign{\smallskip}\hline
+\end{tabular} }
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Example 4}
+
+Consider a desired signal consisting of four harmonic\index{harmonic} random processes:
+\begin{eqnarray*}
+ x(t)= \sum_{k=1}^4 A_k\cos\left(2\pi f_k t+\phi_k\right),
+\end{eqnarray*}
+with fixed amplitudes $\left\{A_k\right\}$ and frequencies $\left\{f_k\right\}$, and IID random phases $\left\{\phi_k\right\}$, uniformly distributed on the interval from $0$ to $2\pi$. This signal needs to be recovered from the noisy observation $y(t)=x(t)+v(t)$, where $v(t)$ is additive white Gaussian noise, i.e., $v(t)\sim {\cal N}\left(0,\sigma_v^2\right)$, that is uncorrelated with $x(t)$.
+
+The input SNR is
+\begin{eqnarray*}
+\mathrm{iSNR} = 10 \log\frac{\sum_{k=1}^4 A_k^2}{2 \sigma_v^2}\quad \mathrm{(dB)} .
+\end{eqnarray*}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+
+The correlation matrix of $\mathbf{v}(t)$ is $\mathbf{R}_{\mathbf{v}}=\sigma_v^2\mathbf{I}_L$ and the elements of the correlation matrix of $\mathbf{x}(t)$ are $\left[\mathbf{R}_{\mathbf{x}}\right]_{i,j}=\frac{1}{2}\sum_{k=1}^4 {A_k^2\cos\left[2\pi f_k(i-j)\right]}$. The rank of this matrix is $\mathrm{rank}\left(\mathbf{R}_{\mathbf{x}}\right)=8$.
+
+To demonstrate the performances of the optimal filters, we choose $A_k=0.5$ ($k=1,\ldots,4$), $f_k=0.1+0.03(k-1)$  ($k=1,\ldots,4$), and a filter length of $L=20$.
+
+The value of $\varsigma$ in (\ref{C2-maxSNR-filt}) is chosen to minimize the MSE. Substituting (\ref{C2-maxSNR-filt}) into (\ref{C2-MSE}) we have
+\begin{eqnarray*}
+ J\left( \mathbf{h}_{\mathrm{max}} \right) = \sigma_x^2 - 2\varsigma \mathbf{t}_1^T \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}}
+ + \varsigma^2\mathbf{t}_1^T \mathbf{R}_{\mathbf{y}} \mathbf{t}_1 .
+\end{eqnarray*}
+Taking the derivative of the MSE with respect to $\varsigma$ and equating the result to zero, we get
+\begin{eqnarray*}
+ \varsigma=\frac{\mathbf{t}_1^T \mathbf{R}_{\mathbf{x}} \mathbf{i}_{\mathrm{i}}}{\mathbf{t}_1^T \mathbf{R}_{\mathbf{y}} \mathbf{t}_1} .
+\end{eqnarray*}
+
+Figures~\ref{fig2_7} and \ref{fig2_8} show plots of the gain in SNR, ${\cal G}\left(\mathbf{h}\right)$, the MSE, $J\left(\mathbf{h}\right)$, the noise reduction factor, $\xi_{\mathrm{n}}\left( \mathbf{h} \right)$, and the desired-signal reduction factor, $\xi_{\mathrm{d}}\left( \mathbf{h} \right)$, as a function of the input SNR, for all the optimal filters derived in this subsection: the maximum SNR, Wiener, MVDR, and tradeoff filters.
+
+In Fig.~\ref{fig2_7} the Lagrange multiplier of the tradeoff filter is $\mu=0.5$, whereas in Fig.~\ref{fig2_8}, $\mu=5$.
+
+Clearly, (\ref{C2-snr_relation1}) is satisfied in Fig.~\ref{fig2_7}(a), whereas (\ref{C2-snr_relation2}) is satisfied in Fig.~\ref{fig2_8}(a).
+
+\end{frame}
+\begin{frame}
+
+Specifically, the maximum oSNR is obtained with $\mathbf{h}_{\mathrm{max}}$, the minimum oSNR is obtained with $\mathbf{h}_{\mathrm{MVDR}}$, and oSNR is larger when applying the Wiener filter rather than the tradeoff filter if $\mu<1$, while the opposite is true if $\mu>1$.
+
+Furthermore, the MSE is minimal for the Wiener filter, and the desired-signal reduction factor is $0$~dB for the MVDR filter, since the desired-signal correlation matrix is rank deficient.
+
+\end{frame}
+\begin{frame}
+
+% \begin{figure}[t!]
+%   \centering
+%   \resizebox{7.5cm}{!}{\includegraphics{fig2_7.eps}}
+%   \caption{\footnotesize (a) The gain in SNR, (b) the MSE, (c) the noise reduction factor, and (d) the desired-signal reduction factor as a function of the input SNR for different optimal filters: $\mathbf{h}_{\mathrm{max}}$ (solid line with circles), $\mathbf{h}_{\mathrm{W}}$ (dashed line with asterisks), $\mathbf{h}_{\mathrm{MVDR}}$ (dotted line with squares), and $\mathbf{h}_{\mathrm{T},\mu}$ with $\mu=0.5$ (dash-dot line with triangles). }
+%   \label{fig2_7}
+% \end{figure}
+
+\end{frame}
+\begin{frame}
+
+% \begin{figure}[t!]
+%   \centering
+%   \resizebox{7.5cm}{!}{\includegraphics{fig2_8.eps}}
+%   \caption{\footnotesize (a) The gain in SNR, (b) the MSE, (c) the noise reduction factor, and (d) the desired-signal reduction factor as a function of the input SNR for different optimal filters: $\mathbf{h}_{\mathrm{max}}$ (solid line with circles), $\mathbf{h}_{\mathrm{W}}$ (dashed line with asterisks), $\mathbf{h}_{\mathrm{MVDR}}$ (dotted line with squares), and $\mathbf{h}_{\mathrm{T},\mu}$ with $\mu=5$ (dash-dot line with triangles). }
+%   \label{fig2_8}
+% \end{figure}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+Suppose that we wish to design a tradeoff filter, $\mathbf{h}_{\mathrm{T},\mu}$, that satisfies $\xi_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{T},\mu} \right)=10$~dB. Then, a plot of the Lagrange multiplier, $\mu$, that satisfies this constraint is shown in Fig.~\ref{fig2_9}.
+
+Plots of the gain in SNR, the MSE, the noise reduction factor, and the desired-signal reduction factor, under this constraint, are shown in Fig.~\ref{fig2_10}.
+
+In this scenario, $\mu<1$ for $\mathrm{iSNR}<-3.61$~dB, and $\mu>1$ for $\mathrm{iSNR}>-3.61$~dB.
+
+Hence, $\mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) \geq \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right)$ for $\mathrm{iSNR}<-3.61$~dB, and $\mathrm{oSNR}\left( \mathbf{h}_{\mathrm{W}} \right) \leq \mathrm{oSNR} \left( \mathbf{h}_{\mathrm{T},\mu} \right)$ for $\mathrm{iSNR}>-3.61$~dB.
+
+\end{frame}
+\begin{frame}
+
+% \begin{figure}[t!]
+%   \centering
+%   \resizebox{6.0cm}{!}{\includegraphics{fig2_9.eps}}
+%   \caption{\footnotesize The Lagrange multiplier, $\mu$, of the tradeoff filter, $\mathbf{h}_{\mathrm{T},\mu}$, as a function of the input SNR, that yields a constant noise reduction factor $\xi_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{T},\mu} \right)=10$~dB. }
+%   \label{fig2_9}
+% \end{figure}
+
+\end{frame}
+\begin{frame}
+
+% \begin{figure}[t!]
+%   \centering
+%   \resizebox{7.5cm}{!}{\includegraphics{fig2_10.eps}}
+%   \caption{\footnotesize (a) The gain in SNR, (b) the MSE, (c) the noise reduction factor, and (d) the desired-signal reduction factor for different optimal filters: $\mathbf{h}_{\mathrm{max}}$ (solid line with circles), $\mathbf{h}_{\mathrm{W}}$ (dashed line with asterisks), $\mathbf{h}_{\mathrm{MVDR}}$ (dotted line with squares), and $\mathbf{h}_{\mathrm{T},\mu}$ with $\mu$ that satisfies $\xi_{\mathrm{n}}\left( \mathbf{h}_{\mathrm{T},\mu} \right)=10$~dB (dash-dot line with triangles). }
+%   \label{fig2_10}
+% \end{figure}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+\footnotesize
+\setlength{\parskip}{0em}
+\bibliographystyle{apalike}
+\begin{thebibliography}{99}
+%
+\bibitem{C2-benesty2009}
+J. Benesty, J. Chen, Y. Huang, and I. Cohen, \emph{Noise Reduction in Speech Processing}. Berlin, Germany: Springer-Verlag, 2009.
+
+\bibitem{C2-vary2006}
+P. Vary and R. Martin, \emph{Digital Speech Transmission: Enhancement, Coding and Error Concealment}. Chichester, England: John Wiley \& Sons Ltd, 2006.
+
+\bibitem{C2-loizou2007}
+P. Loizou, \emph{Speech Enhancement: Theory and Practice}. Boca Raton, FL: CRC Press, 2007.
+
+\bibitem{C2-benesty2011}
+J. Benesty and J. Chen, \emph{Optimal Time-domain Noise Reduction Filters--A Theoretical Study}. Springer Briefs in Electrical and Computer Engineering, 2011.
+
+\bibitem{C2-benesty2005}
+J. Benesty, J. Chen, Y. Huang, and S. Doclo, ``Study of the Wiener filter for noise reduction,'' in \emph{Speech Enhancement}, J. Benesty, S. Makino, and J. Chen, Eds., Berlin, Germany: Springer-Verlag, 2005, Chapter 2, pp. 9--41.
+
+\bibitem{C2-chen2006}
+J. Chen, J. Benesty, Y. Huang, and S. Doclo, ``New insights into the noise reduction Wiener filter,'' \emph{IEEE Trans. Audio, Speech, Language Process.}, vol. 14, pp. 1218--1234, July 2006.
+
+\bibitem{C2-haykin2002}
+S. Haykin, \emph{Adaptive Filter Theory}. Fourth Edition, Upper Saddle River, NJ: Prentice-Hall, 2002.
+
+\bibitem{C2-benesty2008}
+J. Benesty, J. Chen, and Y. Huang, ``On the importance of the Pearson correlation coefficient in noise reduction,'' \emph{IEEE Trans. Audio, Speech, Language Process.}, vol. 16, pp. 757--765, May 2008.
+
+\bibitem{C2-golub1996}
+G. H. Golub and C. F. Van Loan, \emph{Matrix Computations}. Third Edition. Baltimore, Maryland: The Johns Hopkins University Press, 1996.
+
+\bibitem{C2-franklin1968}
+J. N. Franklin, \emph{Matrix Theory}. Englewood Cliffs, NJ: Prentice-Hall, 1968.
+
+\bibitem{C2-wang2005}
+D. Wang, ``On ideal binary mask as the computational goal of auditory scene analysis,'' in \emph{Speech Separation by Humans and Machines}, Pierre Divenyi, Ed., pp. 181--197, Kluwer, 2005.
+
+\bibitem{C2-dendrinos1991}
+M. Dendrinos, S. Bakamidis, and G. Carayannis, ``Speech enhancement from noise: a regenerative approach,'' \emph{Speech Commun.}, vol. 10, pp. 45--57, Jan. 1991.
+
+\bibitem{C2-ephraim1995}
+Y. Ephraim and H. L. Van Trees, ``A signal subspace approach for speech enhancement,'' \emph{IEEE Trans. Speech Audio Process.}, vol. 3, pp. 251--266, July 1995.
+
+\bibitem{C2-jensen1995}
+S. H. Jensen, P. C. Hansen, S. D. Hansen, and J. A. S\o{}rensen, ``Reduction of broad-band noise in speech by truncated QSVD,'' \emph{IEEE Trans. Speech Audio Process.}, vol. 3, pp. 439--448, Nov. 1995.
+
+\end{thebibliography}
+
+\end{frame}
+
+\end{document}

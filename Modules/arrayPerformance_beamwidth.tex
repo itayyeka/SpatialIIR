@@ -1,0 +1,313 @@
+\chapter{array performance - beam-width}
+\label{apdx:arrayPerformance_beamwidth}
+Our main goal in integrating the feedback into the array processing is to achieve a "sharp" spatial response. When we use the term "sharp", we mean that the spatial width of the main-lobe is small. The customary way of evaluating the main-lobe spatial width is to calculate the spatial direction of which the array response is lower by $3_{dB}$.
+Before discussing the beamwidth, we define two kinds of angles. The geometric $\theta_{g,x}$ which represents the actual DOA and the electrical $\theta_{e,x}$ which holds the electrical phase in a ULA ($\theta_{e,x} = \frac{\omega{Dcos(\theta_{g,x})}}{c}$ where $\omega$ is the radial frequency of the signal $D$ is the inter-element spacing of the array and $c$ is the signal propagation velocity). For simplicity reasons, unless said otherwise, we treat $\theta_{x}$ as $\theta_{e,x}$. 
+\section{Classic passive ULA}
+Continuing the ULA analysis, the beamwidth is calculated for cases where the array is coherently steered towards a specific direction $\theta_{s}$, i.e $ \vecnot{\alpha} = \vecnot{d^{*}_{\theta_{s}}}$ so that the maximal response is when the steering vector projection on the complex weights is at $\theta_{s}$.
+To evaluate the beam width we look for $\theta_{B}$ in which 
+$ \left|\frac{
+\vecnot{\alpha}^{H}\vecnot{d_{\theta_{B}}}
+}{
+\vecnot{\alpha}^{H}\vecnot{d_{\theta_{s}}}
+}\right| = \frac{1}{\sqrt{2}}$.
+$$
+\left|\frac{
+d^{H}_{\theta_{s}}d_{\theta_{B}}
+}{
+d^{H}_{\theta_{s}}d_{\theta_{B}}
+}\right|
+=
+\left|
+\frac{1+e^{j(\theta_{s}-\theta_{B})}+\hdots+e^{j(N-1)(\theta_{s}-\theta_{B})}
+}{
+N^2
+}
+\right|
+=
+\left|
+\frac{1}{N^2}\frac{
+1-e^{jN(\theta_{s}-\theta_{B})}
+}{
+1-e^{j(\theta_{s}-\theta_{B})}
+}
+\right|
+=
+\frac{1}{N^{2}}
+\frac{
+sin\left(\frac{N\left(\theta_{s}-\theta_{B}\right)}{2}\right)
+}{
+sin\left(\frac{\left(\theta_{s}-\theta_{B}\right)}{2}\right)
+}
+$$
+which for $\theta_{g,s} = 0$ results in $\theta_{g,B} \approx 0.89\frac{\lambda}{N}$ where $\lambda = \frac{c}{f}$ is the wavelength and $f = \frac{\omega}{2\pi}$ is the signal frequency.
+\section{Feedback based active ULA}
+Considering the feedback based ``spatial-IIR`` architecture, 
+$$ 
+y_{\theta}^{\mathcal{F}}(\omega) 
+=
+\frac
+{
+\vecnot{\alpha}^{T}
+\vecnot{d}_{\theta}
+e^{-j\omega\tau}
+}
+{
+1
+-
+\vecnot{\beta}^{T}\vecnot{d}_{\theta}
+e^{-j\omega\tau}
+}
+x^{\mathcal{F}}(\omega)
+$$,
+one should set both $\vecnot{\alpha}$ and $\vecnot{\beta}$ coefficients and while the treatment of $\vecnot{\alpha}$ is similar, the $\vecnot{\beta}$ coefficients can be determined using a different approaches. 
+\subsection{The coherent null steering approach}
+In this approach, we use the denominator structure, $ 1 - \vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau} $, to apply null steering in a similar, coherent summation scheme, that was used to steer the passive ULA. namely, we set $ \vecnot{\beta} $ such that $ \vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}} = 1 $ (where $\tau_{s}$ is determined by the target's location) which results in the desired amplification. To avoid $\infty$-valued expressions, we present $r$ which will function as a restraining factor, i.e. we will set $ \vecnot{\beta} $ such that $ \vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}} = r $ (i.e. $ \vecnot{\alpha} = \frac{\vecnot{\beta}}{r} = \frac{1}{N}\vecnot{d^{*}_{s}e^{-j\tau_{s}}} $). Now, to evaluate the beamwidth, we look for $\left(\theta,\tau\right)$ such that 
+$$
+\left|
+\frac{
+\sfrac
+{
+\vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+}
+{
+1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+}
+}{
+\sfrac
+{
+\vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+}
+{
+1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+}
+}
+\right|
+=
+\sqrt{2}
+$$.
+After algebraic simplification, one results in
+\ifdefined\showDev
+    \\
+    \fbox{
+    \begin{minipage}{35em}
+    \textbf{development specifics}
+    $$
+    \left|
+    \frac{
+    \sfrac
+    {
+    \vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+    }
+    {
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+    }
+    }{
+    \sfrac
+    {
+    \vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+    }
+    {
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+    }
+    }
+    \right|
+    =
+    \left|
+    \frac{
+    \vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}
+    }{
+    \vecnot{\alpha}^{T}\vecnot{d}_{\theta}
+    }
+    \frac{
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+    }{
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+    }
+    \right|
+    =
+    \left|
+    \frac{
+    1
+    }{
+    1-r
+    }
+    \frac{
+    N-r\vecnot{d}^{H}_{\theta_{s}}\vecnot{d}_{\theta}e^{j\tau}
+    }{
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+    }
+    \right|
+    $$
+    .Using the geometric progression sum of the steering vectors product,
+    $$
+    \vecnot{d}^{H}_{\theta_{s}}\vecnot{d}_{\theta} = \Sigma_{n=0}^{N-1}e^{j\left(\theta-\theta_{s}\right)}
+    $$
+    and defining $\Delta_{\theta} \triangleq \theta-\theta_{s}$ one gets
+    $$
+    \vecnot{d}^{H}_{\theta_{s}}\vecnot{d}_{\theta} = e^{j\frac{N-1}{2}\Delta_{\theta}}\frac{
+    \sin{N\Delta_{\theta}}
+    }{
+    \sin{\Delta_{\theta}}
+    }
+    $$.
+    Integrated into the last expression, it yield 
+    \begin{align*}
+    \left|
+    \frac{
+    1
+    }{
+    1-r
+    }
+    \frac{
+    N-r\vecnot{d}^{H}_{\theta_{s}}\vecnot{d}_{\theta}e^{j\tau}
+    }{
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+    }
+    \right|^{2}
+    &=
+    \left|
+    \frac{
+    1
+    }{
+    1-r
+    }
+    \left(
+    N\frac{
+    \sin{\Delta_{\theta}}
+    }{
+    \sin{N\Delta_{\theta}}
+    }
+    e^{j\frac{N-1}{2}\Delta_{\theta}}
+    - 
+    re^{j\Delta_{\tau}}
+    \right)
+    \right|^{2}
+    \\
+    &=
+    \frac{1}{\left(1-r\right)^{2}}
+    \frac{N^{2}\sin^{2}{\Delta_{\theta}}}{}
+    \end{align*}
+    where $ \Delta_{\tau} \triangleq \tau-\tau_{s}$
+    \end{minipage}
+    }
+\else
+\fi
+\subsection{The pole approach}
+In this approach, we look for setting the response "poles" which minimize the denominator, thus maximizing the overall response magnitude. To evaluate the beamwidth, we chose to allocate all of the system's poles in a single position such that 
+$
+1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+=
+\left(e^{j\theta}-re^{j\theta_{s}}\right)^{N}
+$
+where $N$ is the number of array sensors and $r \in \left[0,1\right)$ enables us to avoid treatment of $\infty$-valued expressions. Next, we look for $\theta_{B}$ such that
+$
+\left|\frac{
+\frac
+{
+\vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}
+}{
+\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}
+}
+}{
+\frac
+{
+\vecnot{\alpha}^{T}\vecnot{d}_{\theta_{B}}
+}{
+\vecnot{\beta}^{T}\vecnot{d}_{\theta_{B}}
+}
+}\right|
+= \frac{1}{\sqrt{2}}
+$. Assuming that, like in classical IIR filter design theory, the numerator behaviour is significantly "slower" than the denominator's which results in $\vecnot{\alpha}^{T}\vecnot{d}_{\theta_{B}} 
+\approx
+\vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}$ reults in
+\begin{align*}
+    \left|\frac{
+    \vecnot{\beta}^{T}\vecnot{d}_{\theta_{B}}
+    }{
+    \vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}
+    }\right|
+    &= \frac{1}{\sqrt{2}}
+    \\
+    \left|
+    \frac{
+    \left(e^{j\theta}-re^{j\theta_{B}}\right)^{N}
+    }{
+    \left(e^{j\theta}-re^{j\theta_{s}}\right)^{N}
+    }
+    \right|
+    &=
+    \left|
+    \frac{
+    \left(1-re^{j\left(\theta_{s}-\theta_{B}\right)}\right)
+    }{
+    \left(1-r\right)
+    }
+    \right|^{N}
+    \\
+    &=
+    \left|
+    \frac{
+    1+r^{2}-2r\cos{\left(\theta_{s}-\theta_{B}\right)}
+    }{
+    \left(1-r\right)^{2}
+    }
+    \right|^{\frac{N}{2}}
+    =
+    \left(\frac{1}{2}\right)^{\frac{1}{2}}
+    \\
+    \Rightarrow 
+    1+r^{2}-2r\cos{\left(\theta_{s}-\theta_{B}\right)}
+    &=
+    \left(1-r\right)^{2}2^{\frac{1}{N}}
+    \\
+    \cos{\left(\theta_{s}-\theta_{B}\right)}
+    &=
+    \frac{
+    1+r^{2}-\left(1-r\right)^{2}2^{\frac{1}{N}}
+    }{
+    2r
+    }
+    \\
+    \Rightarrow
+    \frac{\omega{D\left(cos(\theta_{g,s})-cos(\theta_{g,B})\right)}}{c}
+    &=
+    cos^{-1}
+    \left(
+    \frac{1+r^{2}-\left(1-r\right)^{2}2^{\frac{1}{N}}}{2r}
+    \right)
+\end{align*}.
+Therefore,
+\begin{equation}
+    \theta_{g,B} 
+    &= 
+    cos^{-1}
+    \left(
+    cos(\theta_{g,s})
+    -
+    \frac{c}{\omega{D}}
+    cos^{-1}
+    \left(
+    \frac{1+r^{2}-\left(1-r\right)^{2}2^{\frac{1}{N}}}{2r}
+    \right)
+    \right)
+\end{equation}
+Few observations can be derived from the $ \theta_{g,B} $:
+\begin{itemize}
+    \item $r\rightarrow{1}$ (i.e. setting the pole on the unit circle) causes $\theta_{g,B}\rightarrow\theta_{g,s}$ due to the $\infty$ valued response at $\theta_{g,s}$
+    \item The interval 
+    $
+    \left\{
+    \theta_{g,s}
+    \ \Bigg{|}\ 
+    cos(\theta_{g,s})
+    -
+    \frac{c}{\omega{D}}
+    cos^{-1}
+    \left(
+    \frac{1+r^{2}-\left(1-r\right)^{2}2^{\frac{1}{N}}}{2r}
+    \right)
+    <-1
+    \right\}
+    $, has no solution. In simulations, when evaluating such $\theta_{g,s}$ values, one can observe that the actual beampattern does not resemble the designed one due to the ULA geometric properties.
+    \item The number of sensors $N$ seems to have low impact on the beamwidth.
+\end{itemize}

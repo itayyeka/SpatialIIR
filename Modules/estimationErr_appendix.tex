@@ -1,0 +1,173 @@
+\chapter{affects of $ \tau $\textbackslash$ \theta $ estimation error}
+\label{apdx:MathDerv}
+\section{abstract}
+\par The system's transfer function
+$$
+\input{./Modules/Spatial_IIR-TransferFunction.tex}
+$$
+predicts that zeros of its denominator will act as poles. Obviously, we design the system after setting the $\tau, \theta$ which are commonly estimated by one of the many known algorithms. We want to study the robustness\textbackslash sensitivity of the system to errors in the estimation. In order to do so, we will study mainly the denominator due to the fact that it has the $ 1 $ element which is independent of the system's parameters and as will be explained, causes the sensitivity issues.
+
+\par To achieve an ``IIR-like`` response in a pre-determined $(\tau_{w}, \theta_{w})$ we tune the $\vecnot{\beta}$ coefficients such that 
+$$ 1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{w}}e^{-j\omega (\tau_{w})}=0 $$. To study the estimation errors affects, we will understand the aberrations to this ideal equality. 
+
+\section{$ \tau $ estimation error}
+Assume that the actual range ($\tau$) of the speaker is $\tau = \tau_{w} + \tau_{err}$. Obviously several natural questions rise
+\begin{itemize}
+    \item ``Does the pole stay in its spatial direction ($\theta$)?``
+    \begin{itemize}
+        \item If not: 
+        \begin{itemize}
+            \item ``What is the amplified direction now?``
+            \item ``How high is the amplification in the \textbf{original} direction?`` 
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+To answer the first question we re-evaluate the denominator.
+$$ 1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{w}}e^{-j\omega (\tau_{w}+\tau_{err})}\stackrel{?}{=}0 $$
+We know that
+$$ 1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{w}}e^{-j\omega (\tau_{w})}=0 $$
+therefore, obviously
+$$ 1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{w}}e^{-j\omega (\tau_{w}+\tau_{err})}\neq0 $$.
+Next, to answer the second question we modify it to ``what is the direction $\theta_{n}$ that minimizes the distance between the two elements of the denominator?". Now,
+\begin{equation}
+    \theta_{n} = 
+    \underset{\theta}{\mathrm{argmin}} 
+    \left\{\left|
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega (\tau_{w}+\tau_{err})}
+    \right|
+    \right\}
+\end{equation}
+and we will solve a similar, more convenient problem
+$$
+\theta_{n} = 
+\underset{\theta}{\mathrm{argmin}} 
+\left\{\left|
+1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega (\tau_{w}+\tau_{err})}
+\right|^2
+\right\}
+$$ 
+$$
+\frac{\partial}{\partial \theta}
+\left\{
+\left(
+1 - \vecnot{\beta}^{T}\vecnot{d}e^{-j\omega\tau}
+\right)
+\left(
+1 - \vecnot{d}^{H}\vecnot{\beta}^{*}e^{+j\omega\tau}
+\right)^{*}
+\right\} 
+\stackrel{!}{=} 0
+$$.
+Plugging the ULA steering vector derivative
+$$
+\frac{\partial\vecnot{d}_{\theta}}{\partial \theta}
+=
+j\omega\frac{d\sin(\theta)}{c}A\vecnot{d}_{\theta}
+\ ;\ 
+A \triangleq 
+\begin{bmatrix}
+1                   &       &           &\mbox{\huge{0}}\\
+                    &    2  &           &               \\
+                    &       &   \ddots  &               \\
+\mbox{\huge{0}}     &       &           & N-1           \\
+\end{bmatrix}
+$$,
+one gets
+\begin{equation}
+    j\omega\frac{d\sin(\theta)}{c}
+    \left(
+    2j\Im
+    \left\{
+    \vecnot{d}^{H}A\vecnot{\beta}^{*}e^{j\omega\tau}
+    \right\}
+    +
+    \vecnot{\beta}^{T}
+    \left(
+    A\vecnot{d}_{\theta}\vecnot{d}_{\theta}^{H}
+    -
+    \vecnot{d}_{\theta}\vecnot{d}_{\theta}^{H}A
+    \right)
+    \vecnot{\beta}^{*}
+    \right)
+    \stackrel{!}{=} 0
+\end{equation}
+which results in two separate equations. The first is for the real ($\Re$) part 
+\begin{equation}
+    \Im
+    \left\{
+    \frac{1}{2j}
+    \vecnot{\beta}^{T}
+    \left(
+    \vecnot{d}_{\theta}\vecnot{d}_{\theta}^{H}A
+    -
+    A\vecnot{d}_{\theta}\vecnot{d}_{\theta}^{H}
+    \right)
+    \vecnot{\beta}^{*}
+    \right\}
+    \stackrel{!}{=} 
+    0    
+\end{equation}
+which does not depend on $\tau$ and therefore continues to be true as in the basic calibration of the array coefficients.
+The second equation is for the imaginary ($\Im$) part
+\begin{equation}
+    \Im
+    \left\{
+    \vecnot{d}^{H}A\vecnot{\beta}^{*}e^{j\omega\tau}
+    \right\}
+    \stackrel{!}{=}
+    \frac{1}{2j}
+    \left(
+    \vecnot{\beta}^{T}
+    \left
+    (A\vecnot{d}_{\theta}\vecnot{d}_{\theta}^{H}
+    -
+    \vecnot{d}_{\theta}\vecnot{d}_{\theta}^{H}A
+    \right)
+    \vecnot{\beta}^{*}
+    \right)    
+\end{equation} 
+and holds the information about the amplified direction relation to the estimation error $\tau_{err}$.
+\par
+Denoting $a, b$ and $c$ as 
+$
+\Re\left\{\vecnot{\beta}^{T}A\vecnot{d}_{\theta}\right\}
+,
+-\Im\left\{\vecnot{\beta}^{T}A\vecnot{d}_{\theta}\right\}
+$
+and
+$
+\frac{1}{2j}
+\Re
+\left\{
+\vecnot{\beta}^{T}
+\left
+(A\vecnot{d}_{\theta}\vecnot{d}_{\theta}^{H}
+-
+\vecnot{d}_{\theta}\vecnot{d}_{\theta}^{H}A
+\right)
+\vecnot{\beta}^{*}
+\right\}
+$
+respectively and plugging the known problem's ($ a\cos(x) + b\sin(x) = c $) solution of
+$\cos^{2}(x) = \frac{\left(c-b\right)^{2}}{a^{2}+b^{2}}$, one gets
+\begin{equation}
+    \label{eq_tauErrTheta}
+    \cos^{2}\left(\omega\left(\tau_{pd}+\tau_{tx}+\tau_{err}\right)\right) 
+    =
+    \freac
+    {\left(
+    \frac{1}{2j}
+    \vecnot{\beta}^{T}
+    \left
+    (A\vecnot{d}_{\theta_{n}}\vecnot{d}_{\theta_{n}}^{H}
+    -
+    \vecnot{d}_{\theta_{n}}\vecnot{d}_{\theta_{n}}^{H}A
+    \right)
+    \vecnot{\beta}^{*}
+    +
+    \Re\left\{\vecnot{d}_{\theta_{n}}^{H}A\vecnot{\beta}^{*}\right\}
+    \right)^{2}}
+    {
+    \left| \vecnot{\beta}^{T}A\vecnot{d}_{\theta_{n}} \right|^{2}
+    }
+\end{equation}.

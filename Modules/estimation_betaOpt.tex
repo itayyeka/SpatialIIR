@@ -1,0 +1,341 @@
+\chapter{Optimal $\vecnot{\beta}$ coefficients}
+\label{apdx:betaOpt}
+After calculating the FIM (appendix \ref{apdx:clacFim_chapter}), one should ask what set of $\vecnot{\beta}$ are optimal for achieving a certain goal or maximizing a certain criterion. Naturally, one could search for the $\vecnot{\beta}$ values that minimize the estimation variance (i.e. CRLB) of some estimated parameter.
+\par The CRLB bounds for estimating parameters in the system are the diagonal elements of the inverted FIM, so we look for the $\vecnot{\beta}$ set that brings the chosen bound to its minimum, i.e. 
+$
+\vecnot{\beta}_{opt} = 
+\underset{\vecnot{\beta}}{\mathrm{argmin}} 
+\left\{
+CRLB_{\theta}
+\right\}
+$.
+\par Defining $\#\vecnot{x}$ as the number of elements in $\vecnot{x}$ and $$
+tr_{\#\vecnot{x}}
+\left\{
+C\frac{\partial{J}}{\partial{\vecnot{\beta}}}
+\right\} 
+\triangleq
+\left[
+Ctr\left\{\frac{\partial{J}}{\partial{\beta_{1}}}\right\},
+Ctr\left\{\frac{\partial{J}}{\partial{\beta_{2}}}\right\},
+\hdots
+Ctr\left\{\frac{\partial{J}}{\partial{\beta_{\#\vecnot{\beta}}}}\right\}
+\right]^{T} $$ where $C$ is a constant matrix, enables a more convenient way of expressing the CRLB derivatives with respect to $\vecnot{\beta}$.
+\\  
+\ifdefined\showDev
+    \fbox{
+    \begin{minipage}{38em}
+    \textbf{development specifics}\\
+    Given the $2\times 2$ FIM ($J$), one can express the inverted matrix diagonal elements as 
+    $$
+    CRLB_{\theta} = \frac{J_{\tau\tau}}{\det\left\{J\right\}}
+    ,
+    CRLB_{\tau} = \frac{J_{\theta\theta}}{\det\left\{J\right\}} 
+    $$
+    and after derivation with respect to $\vecnot{\beta}$
+    \begin{align*}
+        \frac{\partial CRLB_{\theta}}{\partial \vecnot{\beta}}
+        &=
+        \frac{
+        \frac{\partial{J_{\tau\tau}}}{\partial{\vecnot{\beta}}}
+        \det\left\{J\right\}
+        -
+        J_{\tau\tau}
+        \frac{\partial{\det\left\{J\right\}}}{\partial{\vecnot{\beta}}}
+        }{
+        \det^{2}\left\{J\right\}
+        }
+        \\
+        &=
+        \frac{
+        \frac{\partial{J_{\tau\tau}}}{\partial{\vecnot{\beta}}}
+        \det\left\{J\right\}
+        -
+        J_{\tau\tau}
+        \det\left\{J\right\}
+        tr_{\#\vecnot{\beta}}
+        \left\{
+        J^{-1}\frac{\partial{J}}{\partial{\vecnot{\beta}}}
+        \right\} 
+        }{
+        \det^{2}\left\{J\right\}
+        }
+        \\
+        &=
+        \frac{
+        \frac{\partial{J_{\tau\tau}}}{\partial{\vecnot{\beta}}}
+        -
+        J_{\tau\tau}
+        tr_{\#\vecnot{\beta}}
+        \left\{
+        J^{-1}\frac{\partial{J}}{\partial{\vecnot{\beta}}}
+        \right\} 
+        }{
+        \det\left\{J\right\}
+        }
+    \end{align*}
+    and similarly
+    \begin{align*}
+        \frac{\partial CRLB_{\tau}}{\partial \vecnot{\beta}}
+        &=
+        \frac{
+        \frac{\partial{J_{\theta\theta}}}{\partial{\vecnot{\beta}}}
+        -
+        J_{\theta\theta}
+        tr_{\#\vecnot{\beta}}
+        \left\{
+        J^{-1}\frac{\partial{J}}{\partial{\vecnot{\beta}}}
+        \right\} 
+        }{
+        \det\left\{J\right\}
+        }
+    \end{align*}
+    \end{minipage}
+    }
+\else
+\fi\\
+\begin{align}
+    \frac{\partial CRLB_{\tau}}{\partial \vecnot{\beta}}
+    &=
+    \frac{
+    \frac{\partial{J_{\theta\theta}}}{\partial{\vecnot{\beta}}}
+    -
+    J_{\theta\theta}
+    tr_{\#\vecnot{\beta}}
+    \left\{
+    J^{-1}\frac{\partial{J}}{\partial{\vecnot{\beta}}}
+    \right\} 
+    }{
+    \det\left\{J\right\}
+    }
+    \\
+    \frac{\partial CRLB_{\theta}}{\partial \vecnot{\beta}}
+    &=
+    \frac{
+    \frac{\partial{J_{\tau\tau}}}{\partial{\vecnot{\beta}}}
+    -
+    J_{\tau\tau}
+    tr_{\#\vecnot{\beta}}
+    \left\{
+    J^{-1}\frac{\partial{J}}{\partial{\vecnot{\beta}}}
+    \right\} 
+    }{
+    \det\left\{J\right\}
+    }
+\end{align}.
+Now, the FIM elements derivatives are\\
+\ifdefined\showDev
+    \fbox{
+    \begin{minipage}{35em}
+    \textbf{development specifics}\\
+    \begin{align*}
+        \frac{\partial{J_{\tau\tau}}}{\partial{\vecnot{\beta}}}
+        &=
+        \frac{1}{2\pi\Phi}
+        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+        \omega^{2}\left|\vecnot{\alpha^{T}d_{\theta}}\right|^{2}
+        \frac{\partial}{\partial{\vecnot{\beta}}}
+        \left\{\frac{1}{\left|\left(1-g\right)^{2}\right|^{2}}\right\}
+        \left|s\left(\omega\right)^{2}\right|^{2}
+        d\omega\\
+        \frac{\partial}{\partial{\vecnot{\beta}}}
+        \left\{\left|\left(1-g\right)^{2}\right|^{2}\right\}
+        &=
+        -2\left(1-g\right)
+        \frac{\partial}{\partial{\vecnot{\beta}}}
+        \left\{\left(\left(1-g\right)^{2}\right)^{*}\right\}
+        +
+        \left(1-g\right)^{2}\left(-2\left(1-g\frac{\partial{g}}{\partial{\vecnot{\beta}}}\right)\right)^{*}\\
+        &=
+        -4\left|1-g\right|^{2}\Re{\left\{\left(1-g^{*}\right)\frac{\partial{g}}{\partial{\vecnot{\beta}}}\right\}}\\
+        &=
+        -4\left|1-g\right|^{2}\Re\left\{\left(1-\vecnot{\beta}^{H}\vecnot{d}_{\theta}^{*}e^{j\omega\tau}\right)\frac{\partial{g}}{\partial{\vecnot{\beta}}}\right\}\\
+        &=
+        -4\left|1-g\right|^{2}\Re\left\{\frac{1}{2}\left(1-\vecnot{\beta}^{H}\vecnot{d}_{\theta}^{*}e^{j\omega\tau}\right)\left(\vecnot{d_{\theta}e^{-j\omega\tau}\left(1-j\right)}\right)\right\}
+    \end{align*}
+    where the complex derivative,$ \frac{\partial{g}}{\partial{\vecnot{\beta}}} = \frac{1}{2}\left(\frac{\partial}{\partial\vecnot{\beta}_{\Re}}-j\frac{\partial}{\partial\vecnot{\beta}_{\Im}}\right) $, scheme was used.\\
+    A useful complex derivatives rule is
+    \begin{align*}
+        \frac{\partial}{\partial{\vecnot{\beta}}}
+        &=
+        \frac{\partial}{\partial{\vecnot{\beta}}^{*}}
+        \frac{\partial{\vecnot{\beta}^{*}}}{\partial{\vecnot{\beta}}}
+        =
+        \frac{\partial}{\partial{\vecnot{\beta}}^{*}}
+        \left\{
+        \frac{1}{2}
+        \left(
+        \frac{\partial{\vecnot{\beta}^{*}}}{\partial{\vecnot{\beta}_{\Re}}}
+        -j
+        \frac{\partial{\vecnot{\beta}^{*}}}{\partial{\vecnot{\beta}_{\Im}}}
+        \right)
+        \right\}
+        =
+        \frac{1}{2}\left(1+j\right)
+        \frac{\partial}{\partial{\vecnot{\beta}^{*}}}
+    \end{align*}
+    , which combined with $ \left|x\right|^{2} = xx^{*} $ and 
+    \begin{align*}
+        \left|
+        \vecnot{\alpha}^{T}\left(
+        A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+        \right)
+        \right|^{2}
+        &=
+        \vecnot{\alpha}^{T}A\vecnot{d}_{\theta}\vecnot{\alpha}^{H}A^{*}\vecnot{d}^{*}
+        +
+        \vecnot{\alpha}^{T}A\vecnot{d}_{\theta}\vecnot{\alpha}^{H}B^{*}\vecnot{\beta}^{*}e^{j\omega\tau}
+        \\&+
+        \vecnot{\alpha}^{T}B\vecnot{\beta}e^{-j\omega\tau}\vecnot{\alpha}^{H}A^{*}\vecnot{d}^{*}+B\vecnot{\beta}e^{-j\omega\tau}\vecnot{\alpha}^{H}B^{*}\vecnot{\beta}^{*}e^{j\omega\tau}
+    \end{align*}
+    leads to
+    \begin{align*}
+        &\frac{\partial}{\partial{\vecnot{\beta}}}
+        \left\{\left|\frac{
+        \vecnot{\alpha}^{T}\left(
+        A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+        \right)
+        }{
+        \left(1-g\right)^{2}
+        }\right|^{2}\right\}
+        =\\
+        &=
+        \frac{
+        \begin{align*}
+        \Biggl(
+        \frac{1}{2}\left(1+j\right)&\vecnot{\alpha}^{T}A\vecnot{d}_{\theta}\vecnot{\alpha}^{H}B^{*}e^{-j\omega\tau}
+        +
+        \vecnot{\alpha}^{T}B\vecnot{\beta}\vecnot{\alpha}^{H}A^{*}\vecnot{d}_{\theta}^{*}
+        +
+        \vecnot{\alpha}^{H}B^{*}\vecnot{\beta}^{*}B
+        +
+        \frac{1}{2}\left(1+j\right)\vecnot{\alpha}^{H}B\vecnot{\beta}B^{*}
+        \Biggl)
+        \left|\left(1-g\right)^{2}\right|^{2}
+        \\&+
+        4\left|
+        \vecnot{\alpha}^{T}\left(
+        A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+        \right)
+        \right|^{2}
+        \left|\left(1-g\right)^{2}\right|^{2}
+        \Re\left\{\left(1-g^{*}\right)\frac{\partia{g}}{\partial{\vecnot{\beta}}}\right\}
+        \end{align*}
+        }{
+        \left|\left(1-g\right)^{2}\right|^{4}
+        }
+        \\
+        \\
+        &=
+        \frac{
+        \begin{align*}
+        \Biggl(
+        \frac{1}{2}\left(1+j\right)&\vecnot{\alpha}^{T}A\vecnot{d}_{\theta}\vecnot{\alpha}^{H}B^{*}e^{-j\omega\tau}
+        +
+        \vecnot{\alpha}^{T}B\vecnot{\beta}\vecnot{\alpha}^{H}A^{*}\vecnot{d}_{\theta}^{*}
+        +
+        \vecnot{\alpha}^{H}B^{*}\vecnot{\beta}^{*}B
+        +
+        \frac{1}{2}\left(1+j\right)\vecnot{\alpha}^{H}B\vecnot{\beta}B^{*}
+        \Biggl)
+        \\&+
+        4\left|
+        \vecnot{\alpha}^{T}\left(
+        A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+        \right)
+        \right|^{2}
+        \Re\left\{\left(1-g^{*}\right)\frac{\partia{g}}{\partial{\vecnot{\beta}}}\right\}
+        \end{align*}
+        }{
+        \left|\left(1-g\right)^{2}\right|^{2}
+        }
+    \end{align*}
+    and now the expression of $\frac{\partial{J_{\theta\theta}}}{\partial{\vecnot{\beta}}}$.
+    \begin{align*}
+        \frac{\partial{J_{\theta\theta}}}{\partial{\vecnot{\beta}}}
+        &=
+        \frac{1}{2\pi\Phi}
+        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+        \frac{\partial}{\partial{\vecnot{\beta}}}
+        \left\{\left|\frac{
+        \vecnot{\alpha}^{T}\left(
+        A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+        \right)
+        }{
+        \left(1-g\right)^{2}
+        }\right|^{2}\right\}
+        \left|s\left(\omega\right)\right|^{2}
+        d\omega
+    \end{align*}
+    is enabled.
+    \end{minipage}
+    }
+\else
+\fi\\
+\begin{align*}
+    \frac{\partial{J_{\tau\tau}}}{\partial{\vecnot{\beta}}}
+    &=
+    \frac{1}{2\pi\Phi}
+    \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+    \omega^{2}\left|\vecnot{\alpha^{T}d_{\theta}}\right|^{2}
+    \frac{\partial}{\partial{\vecnot{\beta}}}
+    \left\{\frac{1}{\left|\left(1-g\right)^{2}\right|^{2}}\right\}
+    \left|s\left(\omega\right)^{2}\right|^{2}
+    d\omega 
+    \nonumber\\
+    \frac{\partial}{\partial{\vecnot{\beta}}}
+    \left\{\left|\left(1-g\right)^{2}\right|^{2}\right\}
+    &=
+    -4\left|1-g\right|^{2}\Re\left\{\frac{1}{2}\left(1-\vecnot{\beta}^{H}\vecnot{d}_{\theta}^{*}e^{j\omega\tau}\right)\left(\vecnot{d_{\theta}e^{-j\omega\tau}\left(1-j\right)}\right)\right\}
+    \nonumber\\
+    \frac{\partial{J_{\theta\theta}}}{\partial{\vecnot{\beta}}}
+    &=
+    \frac{1}{2\pi\Phi}
+    \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+    \frac{\partial}{\partial{\vecnot{\beta}}}
+    \left\{\left|\frac{
+    \vecnot{\alpha}^{T}\left(
+    A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+    \right)
+    }{
+    \left(1-g\right)^{2}
+    }\right|^{2}\right\}
+    \left|s\left(\omega\right)\right|^{2}
+    d\omega
+    \nunumber
+\end{align*}
+\begin{align*}
+    \frac{\partial}{\partial{\vecnot{\beta}}}
+    \left\{\left|\frac{
+    \vecnot{\alpha}^{T}\left(
+    A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+    \right)
+    }{
+    \left(1-g\right)^{2}
+    }\right|^{2}\right\}
+    =
+\end{align*}
+\begin{align}
+    \frac{
+    \begin{align*}
+        \Biggl(
+        \frac{1}{2}\left(1+j\right)&\vecnot{\alpha}^{T}A\vecnot{d}_{\theta}\vecnot{\alpha}^{H}B^{*}e^{-j\omega\tau}
+        +
+        \vecnot{\alpha}^{T}B\vecnot{\beta}\vecnot{\alpha}^{H}A^{*}\vecnot{d}_{\theta}^{*}
+        +
+        \vecnot{\alpha}^{H}B^{*}\vecnot{\beta}^{*}B
+        +
+        \frac{1}{2}\left(1+j\right)\vecnot{\alpha}^{H}B\vecnot{\beta}B^{*}
+        \Biggl)
+        \\
+        &+4\left|
+        \vecnot{\alpha}^{T}\left(
+        A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+        \right)
+        \right|^{2}
+        \Re\left\{\left(1-g^{*}\right)\frac{\partia{g}}{\partial{\vecnot{\beta}}}\right\}
+    \end{align*}
+    }{
+    \left|\left(1-g\right)^{2}\right|^{2}
+    }
+\end{align}

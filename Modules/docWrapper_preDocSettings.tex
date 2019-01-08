@@ -1,0 +1,93 @@
+%%%%%%%%%%%%  Generated using docx2latex.pythonanywhere.com  %%%%%%%%%%%%%%
+\documentclass[a4paper,12pt,oneside]{report}
+% Other options in place of 'report' are 1)article 2)book 3)letter
+% Other options in place of 'a4paper' are 1)a5paper 2)b5paper 3)letterpaper 4)legalpaper 5)executivepaper
+%%%%%%%%%%%%  Include Packages  %%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{txfonts}
+\usepackage{wasysym}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage{ragged2e}
+\usepackage{tabularx}
+\usepackage{changepage}
+\usepackage{setspace}
+\usepackage{hhline}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{fancyhdr}
+\usepackage[toc,page]{appendix}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{isomath}
+\usepackage{fixmath}
+\usepackage{tikz}
+\usepackage{textcomp}
+\usepackage{epstopdf} %converting to PDF
+\usepackage{upgreek}
+\usepackage{mathtools}
+\usepackage{xfrac}
+%\usepackage{mathpazo}
+%\usepackage[mathpazo]{flexisym}
+%\usepackage{breqn}
+\usetikzlibrary{shapes,shadows,arrows,calc}
+\usetikzlibrary{decorations.pathreplacing,decorations.markings,shapes.geometric}
+\usepackage[toc,page]{appendix}
+% \input{./Modules/LatexShortcuts_Itayyeka.tex}
+\input{./Modules/LatexShortcuts_Itayyeka_2.tex}
+%%%%%%%%%%%%  Define Colors For Hyperlinks  %%%%%%%%%%%%%%
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+filecolor=magenta,
+urlcolor=cyan,
+}
+\urlstyle{same}
+%%%%%%%%%%%%  Set Depths for Sections  %%%%%%%%%%%%%%
+% 1) Section
+% 1.1) SubSection
+% 1.1.1) SubSubSection
+% 1.1.1.1) Paragraph
+% 1.1.1.1.1) Subparagraph
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+%%%%%%%%%%%%  Set Page Margins  %%%%%%%%%%%%%%
+\usepackage[a4paper,bindingoffset=0.2in,headsep=0.5cm,left=1.25in,right=1.25in,bottom=2cm,top=2cm,headheight=2cm]{geometry}
+\everymath{\displaystyle}
+%%%%%%%%%%%%  Set Depths for Nested Lists created by \begin{enumerate}  %%%%%%%%%%%%%%
+\setlistdepth{9}
+\newlist{myEnumerate}{enumerate}{9}
+\setlist[myEnumerate,1]{label=\arabic*)}
+\setlist[myEnumerate,2]{label=\alph*)}
+\setlist[myEnumerate,3]{label=(\roman*)}
+\setlist[myEnumerate,4]{label=(\arabic*)}
+\setlist[myEnumerate,5]{label=(\Alph*)}
+\setlist[myEnumerate,6]{label=(\Roman*)}
+\setlist[myEnumerate,7]{label=\arabic*}
+\setlist[myEnumerate,8]{label=\alph*}
+\setlist[myEnumerate,9]{label=\roman*}
+\renewlist{itemize}{itemize}{9}
+\setlist[itemize]{label=$\cdot$}
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=$\circ$}
+\setlist[itemize,3]{label=$\ast$}
+\setlist[itemize,4]{label=$\dagger$}
+\setlist[itemize,5]{label=$\triangleright$}
+\setlist[itemize,6]{label=$\bigstar$}
+\setlist[itemize,7]{label=$\blacklozenge$}
+\setlist[itemize,8]{label=$\prime$} 
+%%%%%%%%%%%%  Header here  %%%%%%%%%%%%%%
+\pagestyle{fancy}
+\fancyhf{}
+%%%%%%%%%%%%  Footer here  %%%%%%%%%%%%%%
+%%%%%%%%%%%%  Print Page Numbers  %%%%%%%%%%%%%%
+\rfoot{\thepage}
+%%%%%%%%%%%%  This sets linespacing (verticle gap between Lines) Default=1 %%%%%%%%%%%%%%
+\setstretch{1.15}
+%%%%%%%%%%%%  Document Code starts here %%%%%%%%%%%%%%

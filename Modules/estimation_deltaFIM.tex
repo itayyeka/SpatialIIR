@@ -1,0 +1,176 @@
+\chapter{The $\vecnot{\beta}$ coefficients' contribution to the FIM}
+\label{apdx:deltaFIM}
+The specific structure of the system's transfer function,
+$$ 
+y_{\theta}^{\mathcal{F}}(\omega) 
+=
+\frac
+{
+\vecnot{\alpha}^{T}
+\vecnot{d}_{\theta}
+e^{-j\omega\tau}
+}
+{
+1
+-
+\vecnot{\beta}^{T}\vecnot{d}_{\theta}
+e^{-j\omega\tau}
+}
+x^{\mathcal{F}}(\omega)
+$$
+, which is easily degenerated to the passive array scenario (i.e. setting the $ \vecnot{\beta} $ coefficients to $ \vecnot{0} $), enables an evaluation $ \vecnot{\beta} $'s contribution to the system's residing information.
+\par The strategy is to express the distance between the FIM$_{\vecnot{\beta}\neq\vecnot{0}}$ to the FIM$_{\vecnot{\beta}=\vecnot{0}}$ and find the conditions of which it will be \textbf{positive semi-definite}, suggesting that the system is \textbf{more} informative and that parameter estimation accuracy should improve.
+\par We start by expressing the FIM distance using \ref{eqn_FIM}\\
+\resizebox{1.1 \textwidth}{!} 
+{
+\begin{equation*}
+    \Delta{J} \triangleq 
+    \begin{bmatrix}
+        \frac{1}{2\pi\phi}
+        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+        \left(\left|
+        \frac
+        {
+        \vecnot{\alpha}^{T}
+        \left(
+        Ad_{\theta} + B\vecnot{\beta}e^{-j\omega\tau}
+        \right)
+        }
+        {\left(1-g\right)^{2}}
+        \right|^{2}
+        -
+        \left|Ad_{\theta}\right|^{2}
+        \right)
+        \left|
+        s\left(\omega\right)
+        \right|^{2}
+        d\omega
+        &
+        \Re
+        \left\{
+        \frac{1}{2\pi\phi}
+        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+        \left(\frac
+        {
+        j\omega\vecnot{\alpha}^{T}
+        \left(
+        A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+        \right)
+        \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
+        }
+        {\left|\left(1-g\right)^{2}\right|^{2}}
+        -
+        j\omega\vecnot{\alpha}^{T}
+        \left(
+        A\vecnot{d}_{\theta}
+        \right)
+        \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
+        \right)
+        \left|
+        s\left(\omega\right)
+        \right|^{2}
+        d\omega
+        \right\}
+        \\
+        =\left\{\Delta{J}\right\}_{1,2}
+        & 
+        \frac{1}{2\pi\phi}
+        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+        \left(
+        \frac{
+        \omega^{2}
+        \left|
+        \vecnot{\alpha^{T}}\vecnot{d}_{\theta}
+        \right|^{2}
+        }
+        {\left|\left(1-g\right)^{2}\right|^{2}}
+        -
+        \omega^{2}
+        \left|
+        \vecnot{\alpha^{T}}\vecnot{d}_{\theta}
+        \right|^{2}
+        \right)
+        \left|
+        s\left(\omega\right)
+        \right|^{2}
+        d\omega
+        \\
+    \end{bmatrix}
+\end{equation*}
+}
+and denoting $ \kappa \triangleq \left(1-g\right)^{2}$ results in
+\\
+\resizebox{1.1 \textwidth}{!} 
+{
+\begin{equation}
+    \Delta{J} \triangleq 
+    \begin{bmatrix}
+        \frac{1}{2\pi\phi}
+        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+        \frac{
+        \left|
+        \vecnot{\alpha}^{T}A\vecnot{d}_{\theta}
+        \left(1-\left|\kappa\right|^{2}\right)
+        \right|^{2}
+        +
+        \left|
+        \vecnot{\alpha}^{T}B\vecnot{\beta}
+        \right|^{2}
+        +2\Re\left\{
+        \vecnot{\alpha}^{T}A\vecnot{d}_{\theta}B^{*}\vecnot{\beta}^{*}
+        \right\}
+        }{
+        \left|\kappa\right|^{2}
+        }
+        \left|
+        s\left(\omega\right)
+        \right|^{2}
+        d\omega
+        &
+        \Re
+        \left\{
+        \frac{1}{2\pi\phi}
+        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+        \frac{
+        j\omega\vecnot{\alpha}^{T}
+        \left(
+        A\vecnot{d}_{\theta}\vecnot{\alpha}^{H}\vecnot{d}_{\theta}^{*}\left(1-\left|\kappa\right|^{2}\right)
+        \right)
+        +
+        B\vecnot{\beta}e^{-j\omega\tau}\vecnot{\alpha}^{H}\vecnot{d}_{\theta}^{*}
+        }{
+        \left|\kappa\right|^{2}
+        }
+        \left|
+        s\left(\omega\right)
+        \right|^{2}
+        d\omega
+        \right\}
+        \\
+        =\left\{\Delta{J}\right\}_{1,2}
+        & 
+        \frac{1}{2\pi\phi}
+        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+        \frac{
+        \omega^{2}
+        \left|
+        \vecnot{\alpha^{T}}\vecnot{d}_{\theta}
+        \right|^{2}
+        \left(1-\left|\kappa\right|^{2}\right)
+        }{
+        \left|\kappa\right|^{2}
+        }
+        \left|
+        s\left(\omega\right)
+        \right|^{2}
+        d\omega
+        \\
+    \end{bmatrix}
+\end{equation}
+}
+, which leads to several immediate observations
+\begin{itemize}
+    \item $\Delta{J}$ is \textbf{real} and \textbf{symmetric}.
+    \item Being the only element in all integrands, $\kappa$ seems to have a significant influence.
+    \item 
+\end{itemize}

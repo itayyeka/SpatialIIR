@@ -421,6 +421,45 @@ The simulation engine pre-computes the minimal distance between the object and t
 According to the minimal distance and the propagation velocity of the signal, a simulation segment duration is set to ensure that all samples in the segment can be calculated from the pre-segment history, hence no dependencies exist between samples a particular segment.
 }
 \end{itemize}
+\section{2018 Dec 24$^{th}$}
+Update meeting summary:
+\begin{itemize}
+    \item Some format changes suggested by Tzvi - hand written.
+    \item The $ \det{J} $ expression in the CRLB appendix is wrong. Integrands were multiplied instead of integrals.
+    \item look for the right citation for the $\det(J)$ derivative.
+    \item look for FIM calculations of IIR-like systems - preferably in the frequency domain and link them to our work as references.
+    \item For the suggested simulation:
+    \begin{itemize}
+        \item The error should be in terms of $\tau_{err}$ in addition to the backoff factor.
+        \item It should be clear that we look for the conditions where the system outperforms the classic passive array.
+    \end{itemize}
+    \item A generalization to a full active array is needed. can be compared to \cite{Chiriac2010ZivSystems}.
+    \item Add a paragraph to explain the polynomial approach to the transfer function $ x \triangleq e^{j\omega{\frac{D\cos(\theta)}{c}}} $
+    \item look in literature for an analytic link between sensor position / gain / phase errors to the white-noise-gain and if none found, try and create such analytic link as an additional work.
+    \item Try to analyze common quality factors with comparison to the classic passive array
+    \begin{itemize}
+        \item white-noise-gain
+        \item directivity factor
+    \end{itemize}
+\end{itemize}
+\section{2018 Dec 25$^{th}$}
+After reading some papers about array perturbation modeling, two papers stand out.
+\begin{itemize}
+    \item \textbf{``A unified approach to the design of robust narrow-band antenna array processors``} \cite{Er2009AProcessors}\\
+    Which takes a generic approach and enables the error evaluation related to any parameter (or set of parameters) in a \textbf{weighted-passive array setup} through the perturbation probability.\\
+    A specific example is given to the DOA estimation.
+    \item \textbf{``Robust Algorithms for Direction-Finding in the Presence of Model Errors``}\cite{SwindlehurstRobustErrors}\\
+    A signal-space approach is taken to express the location\textbackslash phase\textbackslash gain perturbations effect on the signal-space and noise-space manifolds under the assumption that the number of impinging signals is known $d$ (in the paper).
+\end{itemize}
+Moreover, it seems that modelling the array perturbations as and additional white-noise it wrong. As can be seen in both discussed papers \cite{Er2009AProcessors,SwindlehurstRobustErrors}, the array imperfections contribute both uncorrelated noise \textbf{and correlated noise} which cannot be treated as white.
+\section{2019 Jan 1$^{st}$}
+After first stable version of the simulation some issues must be hadnled.
+\begin{itemize}
+    \item In the plots, show $\sqrt{J^{-1}_{i,i}}$ so the units will be the same as the estimated parameters.
+    \item Plot also the second term $J^{-1}_{2,2}$
+    \item Try to express the beamwidth/peak-to-sidelobe when feedback is enabled and express the improvment as an array aperture increment.
+    \item still, not all action-points from \textbf{2018 Dec 25$^{th}$} have been achieved. 
+\end{itemize}
 \clearpage
 \small
 {

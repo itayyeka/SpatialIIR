@@ -1,0 +1,231 @@
+\chapter{Fisher Information Matrix (FIM)}
+\label{apdx:clacFim_chapter}
+\section{Calculation of the FIM elements}
+A good evaluation method for the contribution of our proposed feedback mechanism is to measure the additional information in the system. Basically, it means that we calculate the improvement in the system's parameters estimation theoretical performance comparing to non-feedback-based systems. The most common way of expressing this measure is the \textbf{Cramer-Rao Lower Bound (CRLB)} which sets a lower bound to the variance of unbiased estimators. Due to the fact that our feedback-based transfer function, 
+$$ 
+y_{\theta}^{\mathcal{F}}(\omega) 
+=
+\frac
+{
+\vecnot{\alpha}^{T}
+\vecnot{d}_{\theta}
+e^{-j\omega\tau}
+}
+{
+1
+-
+\vecnot{\beta}^{T}\vecnot{d}_{\theta}
+e^{-j\omega\tau}
+}
+x^{\mathcal{F}}(\omega)
+$$
+,
+is expressed in the frequency domain, it seems natural the we should also, as done in \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses}, express the CRLB in the same domain. Following \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses}'s steps, with a simple modification of our system model (i.e. adding zero-mean Gaussian noise to the output of our system), we express the FIM ($ J_{n\times n} $, where $n$ is number of unknown parameters) of the system.
+\par The unknown parameters in our case are $ \eta = [\tau,\theta]^{T} $, therefore \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses} dictates that
+\begin{equation*}
+    \left[J(\eta)\right]_{kl} = 
+    \Re\left\{
+    \frac{1}{2\pi}
+    \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+    {
+    \frac{1}{\phi\left(\omega,\eta\right)}
+    \mathfrak{F}^{*}\left\{
+    \frac{\partial y(t,\eta)}{\partial\eta_{k}}
+    \right\}
+    \mathfrak{F}\left\{
+    \frac{\partial y(t,\eta)}{\partial\eta_{l}}
+    \right\}
+    d\omega
+    }
+    +
+    \frac{T}{4\pi}
+    \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+    \frac{
+    \frac{\partial\phi\left(\omega,\eta\right)}{\eta_{k}}
+    \frac{\partial\phi\left(\omega,\eta\right)}{\eta_{l}}
+    }
+    {\phi^{2}\left(\omega,\eta\right)}
+    d\omega
+    \right\}
+\end{equation*}
+where $\Re$ is the real-part-extraction operator, $k,l = 1..2$, $\phi\left(\omega,\eta\right)$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator and $T$ is the coherent integration time. In our model, the noise is white and does not depend on any of the parameters so the later expression (i.e. 
+$
+\frac{T}{4\pi}
+\int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+\frac{
+\frac{\partial\phi\left(\omega,\eta\right)}{\eta_{k}}
+\frac{\partial\phi\left(\omega,\eta\right)}{\eta_{l}}
+}
+{\phi^{2}\left(\omega,\eta\right)} 
+$) is $0$ and one can write $\phi\left(\omega,\eta\right) = \phi_{NOISE}$. With the steering vector's derivative, 
+$
+\frac{\partial \vecnot{d}_{\theta}}{\partial\theta} = A\vecnot{d}_{\theta}
+$ (where
+$
+A \triangleq
+-j\omega\frac{d\sin\left(\theta\right)}{c}
+\begin{bmatrix}
+0                   &       &           &\mbox{\huge{0}}\\
+                    &    1  &           &               \\
+                    &       &   \ddots  &               \\
+\mbox{\huge{0}}     &       &           & N-1           \\
+\end{bmatrix}
+$), $g \triangleq \vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}$ and $B \triangleq \vecnot{d}_{\theta}\vecnot{d}^{T}_{\theta}A - A\vecnot{d}_{\theta}\vecnot{d}^{T}_{\theta}$, we can write the FIM elements.
+\\
+\ifdefined\showDev
+    \fbox{
+    \begin{minipage}{35em}
+    \textbf{development specifics}
+    \begin{equation*}
+    \begin{split}
+        \frac{\partial y_{\theta}^{\mathcal{F}}(\omega) }{\partial\theta}
+        &=
+        \frac{
+        \vecnot{\alpha}^{T}Ad_{\theta}e^{-j\omega\tau}
+        -\vecnot{\alpha}^{T}Ad_{\theta}\vecnot{\beta}^{T}d_{\theta}e^{-2j\omega\tau}
+        +\vecnot{\alpha}^{T}d_{\theta}\vecnot{\beta}^{T}Ad_{\theta}e^{-2j\omega\tau}
+        }{
+        \left(1-g\right)^{2}
+        }
+        \\
+        &=
+        \frac{
+        \vecnot{\alpha}^{T}
+        \left(
+        Ad_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+        \right)e^{-j\omega\tau}
+        }{
+        \left(1-g\right)^{2}
+        }
+        \\
+        \frac{\partial y_{\theta}^{\mathcal{F}}(\omega) }{\partial\tau}
+        &=
+        \frac{
+        -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}\left(1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}\right)
+        -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-2j\omega\tau}
+        }{
+        \left(1-g\right)^{2}
+        }
+        \\
+        &=
+        \frac{
+        -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+        }{
+        \left(1-g\right)^{2}
+        }
+    \end{split}
+    \end{equation*}
+    \end{minipage}
+    }
+\else
+\fi
+\begin{equation}
+\label{eqn_FIM}
+\begin{split}
+    J_{\theta\theta}
+    = &
+    \frac{1}{2\pi\phi}
+    \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+    \left|
+    \frac
+    {
+    \vecnot{\alpha}^{T}
+    \left(
+    Ad_{\theta} + B\vecnot{\beta}e^{-j\omega\tau}
+    \right)
+    }
+    {\left(1-g\right)^{2}}
+    \right|^{2}
+    \left|
+    s\left(\omega\right)
+    \right|^{2}
+    d\omega
+    \\
+    J_{\tau\tau}
+    = &
+    \frac{1}{2\pi\phi}
+    \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+    \frac
+    {\omega^{2}
+    \left|
+    \vecnot{\alpha^{T}}\vecnot{d}_{\theta}
+    \right|^{2}}
+    {\left|\left(1-g\right)^{2}\right|^{2}}
+    \left|
+    s\left(\omega\right)
+    \right|^{2}
+    d\omega
+    \\
+    J_{\theta\tau} = J_{\tau\theta}^{*}
+    = &
+    \Re
+    \left\{
+    \frac{1}{2\pi\phi}
+    \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+    \frac
+    {
+    j\omega\vecnot{\alpha}^{T}
+    \left(
+    A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+    \right)
+    \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
+    }
+    {\left|\left(1-g\right)^{2}\right|^{2}}
+    \left|
+    s\left(\omega\right)
+    \right|^{2}
+    d\omega
+    \right\}
+\end{split}
+\end{equation}
+\ifdefined\showDev
+    \fbox{
+    \begin{minipage}{38em}
+    \textbf{development specifics}
+    \begin{align*}
+        \det\left\{J\right\}
+        &=
+        J_{\theta\theta}J_{\tau\tau}-J_{\theta\tau}J_{\tau\theta}
+        \\
+        &=
+        \frac{1}{4\pi^{2}\Phi^{2}}
+        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+        \frac{
+        \left|s\left(\omega\right)\right|^{2}
+        }{
+        \left|\left(1-g\right)^{2}\right|^{4}
+        }
+        \omega^{2}
+        \Biggl(
+        \left|\vecnot{\alpha^T\vecnot{d}_{\theta}}\right|^{2}
+        \left|\vecnot{\alpha}^T\left(A\vecnot{d}_{\theta}+B\becnot{\beta}e^{-j\omega\tau}\right)\right|^{2}
+        \\
+        &
+        -\Re^{2}
+        \left\{
+        j\omega\vecnot{\alpha}^{T}
+        \left(
+        A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+        \right)
+        \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
+        \right\}
+        \Biggl)
+        d\omega
+        \\
+    \end{align*}
+    \end{minipage}
+    }
+\else
+\fi
+\section{Simple case simulation}
+For a basic simulation, a $ 2^{nd} $ order system with $3$ sensors is simulated under some simplifying assumptions
+\begin{itemize}
+    \item $s\left(\omega\right) = \delta\left(\omega-\omega_{0}\right)$ where $\omega_{0}$ is within the system's bandwidth.
+    \item $\vecnot{\alpha} = \left[1,0,0\right]^{T}$
+    \item The target's locations parameters are stationary throughout the entire simulation
+    \begin{itemize}
+        \item $\tau$ is perfectly known.
+        \item $\theta$ is where the designed poles (roots of $\vecnot{\beta}\vecnot{d_{\theta}}$) are.
+    \end{itemize} 
+\end{itemize}
+while $\kappa \triangleq \left(1-\vecnot{\beta}\vecnot{d}_{\theta}\right)^{2}$ tends to $0$.

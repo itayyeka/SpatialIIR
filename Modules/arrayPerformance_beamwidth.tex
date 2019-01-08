@@ -62,7 +62,8 @@ $$,
 one should set both $\vecnot{\alpha}$ and $\vecnot{\beta}$ coefficients and while the treatment of $\vecnot{\alpha}$ is similar, the $\vecnot{\beta}$ coefficients can be determined using a different approaches. 
 \subsection{The coherent null steering approach}
 In this approach, we use the denominator structure, $ 1 - \vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau} $, to apply null steering in a similar, coherent summation scheme, that was used to steer the passive ULA. namely, we set $ \vecnot{\beta} $ such that $ \vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}} = 1 $ (where $\tau_{s}$ is determined by the target's location) which results in the desired amplification. To avoid $\infty$-valued expressions, we present $r$ which will function as a restraining factor, i.e. we will set $ \vecnot{\beta} $ such that $ \vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}} = r $ (i.e. $ \vecnot{\alpha} = \frac{\vecnot{\beta}}{r} = \frac{1}{N}\vecnot{d^{*}_{s}e^{-j\tau_{s}}} $). Now, to evaluate the beamwidth, we look for $\left(\theta,\tau\right)$ such that 
-$$
+\begin{align}
+\label{eqn_arrPerformance_beamwidth_3dB}
 \left|
 \frac{
 \sfrac
@@ -84,7 +85,7 @@ $$
 \right|
 =
 \sqrt{2}
-$$.
+\end{align}.
 After algebraic simplification, one results in
 \ifdefined\showDev
     \\
@@ -185,13 +186,117 @@ After algebraic simplification, one results in
     \\
     &=
     \frac{1}{\left(1-r\right)^{2}}
-    \frac{N^{2}\sin^{2}{\Delta_{\theta}}}{}
+    \left(
+    \frac{N^{2}\sin^{2}{\Delta_{\theta}}}{\sin^{2}{N\Delta_{\theta}}}
+    -2r
+    \frac{N\sin{\Delta_{\theta}}}{\sin{N\Delta_{\theta}}}\cos{\left(\Delta_{\theta}-\frac{N-1}{2}\Delta_{\tau}\right)}
+    +r^{2}
+    \right)
     \end{align*}
     where $ \Delta_{\tau} \triangleq \tau-\tau_{s}$
     \end{minipage}
     }
 \else
 \fi
+\begin{align}
+    \left|
+    \frac{
+    \sfrac
+    {
+    \vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+    }
+    {
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+    }
+    }{
+    \sfrac
+    {
+    \vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+    }
+    {
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+    }
+    }
+    \right|^{2}
+    =
+    \frac{1}{\left(1-r\right)^{2}}
+    \left(
+    \frac{N^{2}\sin^{2}{\Delta_{\theta}}}{\sin^{2}{N\Delta_{\theta}}}
+    -2r
+    \frac{N\sin{\Delta_{\theta}}}{\sin{N\Delta_{\theta}}}\cos{\left(\Delta_{\theta}-\frac{N-1}{2}\Delta_{\tau}\right)}
+    +r^{2}
+    \right)
+\end{align}
+where $ \Delta_{\tau} \triangleq \tau-\tau_{s} $ and $ \Delta_{\theta} \triangleq \tau-\tau_{s}$.
+which can be easily verified to tend to $ 1 $ when $ \Delta_{\tau},\Delta_{\theta} \rightarrow 0$. The difficulty of extracting analytic values of $ \Delta_{\tau},\Delta_{\theta} $ that achieve \ref{eqn_arrPerformance_beamwidth_3dB}, combined with simulations that show very high sensitivity to $ \Delta_{\tau},\Delta_{\theta} $ lead us to investigate the first order approximation of the expression.
+Using \textbf{L'Hôpital's rule} to evaluate the derivatives, results in 
+\begin{align*}
+    \left|
+    \frac{
+    \sfrac
+    {
+    \vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+    }
+    {
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+    }
+    }{
+    \sfrac
+    {
+    \vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+    }
+    {
+    1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+    }
+    }
+    \right|^{2}
+    \approx
+    1 
+    - \left(r\left(N-1\right)\sin{\Delta_{\tau}}\right)\Delta_{\theta}
+    - \left(\frac{2Nr\sin{\Delta_{\theta}}\sin{\left(\frac{N-1}{2}\Delta_{\theta}\right)}}{\sin{\left(N\Delta_{\theta}\right)}}\right)\Delta_{\tau}
+\end{align*}.
+Observing that setting $\Delta{\tau},\Delta{\theta} = 0$ zeros the first order coefficients, lead us to express the second order terms, resulting in 
+\begin{equation}
+    \begin{split}
+        &\left|
+        \frac{
+        \sfrac
+        {
+        \vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+        }
+        {
+        1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}}
+        }
+        }{
+        \sfrac
+        {
+        \vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+        }
+        {
+        1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+        }
+        }
+        \right|^{2}
+        \approx \\
+        &1 
+        \\
+        &- \left(r\left(N-1\right)\sin{\Delta_{\tau}}\right)\Delta_{\theta}
+        \\
+        &+ \frac{1}{2!}\left(\frac{-1}{6}\left(N-1\right)\left(4N-7\cos{\Delta_{\tau}}-Nr\cos{\Delta_{\tau}}+4\right)\right)\Delta^{2}_{\theta}
+        \\
+        &- \left(\frac{
+        2Nr\sin{\Delta_{\theta}}\sin{\left(\frac{N-1}{2}\Delta_{\theta}\right)}
+        }{
+        \sin{\left(N\Delta_{\theta}\right)}
+        }\right)\Delta_{\tau}
+        \\
+        &+ \frac{1}{2!}\left(\frac{2Nr\cos\left(\frac{N-1}{2}\Delta_{\theta}\right)\sin{\Delta_{\theta}}}{\sin{\left(N\Delta_{\theta}\right)}}\right)\Delta^{2}_{\tau}
+        \\
+        &\overset{\Delta{\tau},\Delta{\theta} \to 0}{=} 1 - \frac{1}{12}\left(N-1\right)\left(\left(4-r\right)N-3\right)\Delta^{2}_{\theta} + r\Delta^{2}_{\tau}
+    \end{split}
+\end{equation}.
+\subsubsection*{Matlab Code}
+\lstinputlisting{./Modules/arrayPerformance_beamwidth_nullSteeringApproach.m}
 \subsection{The pole approach}
 In this approach, we look for setting the response "poles" which minimize the denominator, thus maximizing the overall response magnitude. To evaluate the beamwidth, we chose to allocate all of the system's poles in a single position such that 
 $

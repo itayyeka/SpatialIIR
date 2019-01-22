@@ -1,13 +1,32 @@
-  \input{./Modules/docWrapper_preDocSettings.tex}
+\input{./Modules/docWrapper_preDocSettings.tex}
 \def\showDev{}
 \begin{document}
-%\input{./Modules/Spatial_IIR-ThesisProposal_ResearchGoals.tex}
 \begin{appendices}
-% \input{./Modules/estimationErr_appendix.tex}
-% \input{./Modules/estimation_CRLB_appendix.tex}
-% \input{./Modules/estimation_betaOpt.tex}
-% \input{./Modules/estimation_deltaFIM.tex}
+
+\chapter{affects of $ \tau $\textbackslash$ \theta $ estimation error}
+\label{apdx:MathDerv}
+\input{./Modules/estimationErr_appendix.tex}
+
+\chapter{Fisher Information Matrix (FIM)}
+\label{apdx:clacFim_chapter}
+\input{./Modules/estimation_CRLB_appendix.tex}
+
+\chapter{Optimal $\vecnot{\beta}$ coefficients}
+\input{./Modules/estimation_betaOpt.tex}
+
+\chapter{The $\vecnot{\beta}$ coefficients' contribution to the FIM}
+\label{apdx:deltaFIM}
+\input{./Modules/estimation_deltaFIM.tex}
+
+\chapter{array performance - beam-width}
+\label{apdx:arrayPerformance_beamwidth}
 \input{./Modules/arrayPerformance_beamwidth.tex}
+
+\chapter{Stability enhancement architecture - frequency pair approach}
+\label{apdx:stabilityEnhancement_freqPairApproach}
+\input{./Modules/stabilityEnhancement_freqPairApproach.tex}
+
 \end{appendices}
+
 \input{./Modules/docWrapper_postDocSettings.tex}
 \end{document}

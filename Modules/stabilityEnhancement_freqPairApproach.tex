@@ -1,0 +1,177 @@
+The transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) analysis and the supporting simulations, unveiled a significant sensitivity to the phase correction of the feedback-based coefficients. For nominal scenarios of RF signals, the necessary target range estimation for achieving the wanted system response, had to be too accurate for practical applications. We propose an architecture which achieves the goal transfer function while significantly relaxing the need for range estimation accuracy.
+\subsection*{Suggested architecture}
+Bearing in mind that the system's phase alignment sensitivity resides in the $e^{-j\omega\tau}$ term, and that the target's range (i.e. $\tau$) cannot be controlled, obviously leads to using lower frequencies. Unfortunately, in most cases, using such frequencies is in not physically feasible. One can recall the trigonometric analogy between sum of frequencies and their multiplication, which guides us to predict that using two relatively close frequencies $\left(f_{1},f_{2}=f_{1}+\Delta_{f} \ , \Delta_{f} \ll f_{1}\right)$ may yield the desired low-frequency-dependent transfer function. As can be easily verified, the temporal response of the feedback-based system, stimulated by a single harmony $x(t) = e^{j\omega_{0}t}$, is 
+$
+y_{\theta}(t)
+=
+\frac
+{
+\vecnot{\alpha}^{T}
+\vecnot{d}_{\omega_{0}\theta}
+e^{-j\omega_{0}\tau}
+}
+{
+1
+-
+\vecnot{\beta}^{T}\vecnot{d}_{\omega_{0}\theta}
+e^{-j\omega_{0}\tau}
+}
+e^{j\omega_{0}t}   
+$
+. Assume $s(t) = e^{j\omega_{1}t}+e^{j\omega_{2}t}, \omega_{i} = 2\pi{f_{i}}$ is the system transmission signal and $\vecnot{\alpha}_{1},\vecnot{\alpha}_{2},\vecnot{\beta}_{1},\vecnot{\beta}_{2}$ are predefined coefficients, of a feedback-based frequency-separated system such that two output signals are available
+$$
+y_{\theta,i}(t)
+=
+\frac
+{
+\vecnot{\alpha}_{i}^{T}
+\vecnot{d}_{\omega_{i}\theta}
+e^{-j\omega_{i}\tau}
+}
+{
+1
+-
+\vecnot{\beta}_{i}^{T}\vecnot{d}_{\omega_{i}\theta}
+e^{-j\omega_{i}\tau}
+}
+e^{j\omega_{i}t}
+,
+i=1,2
+$$.
+\subsection*{Suggested processing scheme}
+\todo{TODO}
+\textbf{The application described here is wrong but the concepts are true. I already thought of a similar corrected algorithm and should write it soon.}\\
+Multiplying the first output signal with the conjugate of the second results in
+\resizebox{.9\linewidth}{!}{
+  \begin{minipage}{\linewidth}
+    \begin{equation}
+        \label{eqn_FIMelements}
+        \begin{split}
+            y_{\theta}(t)
+            =
+            &y_{\theta,1}(t)y^{*}_{\theta,2}(t)
+            \\
+            &=
+            \frac
+            {
+            \vecnot{\alpha}_{1}^{T}
+            \vecnot{d}_{\omega_{1}\theta}
+            e^{-j\omega_{1}\tau}
+            }
+            {
+            1
+            -
+            \vecnot{\beta}_{1}^{T}\vecnot{d}_{\omega_{1}\theta}
+            e^{-j\omega_{1}\tau}
+            }
+            e^{j\omega_{1}t}
+            \frac
+            {
+            \vecnot{\alpha}_{2}^{H}
+            \vecnot{d}^{*}_{\omega_{2}\theta}
+            e^{j\omega_{2}\tau}
+            }
+            {
+            1
+            -
+            \vecnot{\beta}_{2}^{H}\vecnot{d}^{*}_{\omega_{2}\theta}
+            e^{j\omega_{2}\tau}
+            }
+            e^{-j\omega_{2}t}
+            \\
+            &=
+            \frac{
+            \vecnot{\alpha}_{1}^{T}
+            \vecnot{d}_{\omega_{1}\theta}
+            \vecnot{\alpha}_{2}^{H}
+            \vecnot{d}^{*}_{\omega_{2}\theta}
+            }{
+            1
+            -
+            \vecnot{\beta}_{2}^{H}\vecnot{d}^{*}_{\omega_{2}\theta}
+            e^{j\omega_{2}\tau}
+            -
+            \vecnot{\beta}_{1}^{T}\vecnot{d}_{\omega_{1}\theta}
+            e^{-j\omega_{1}\tau}
+            +
+            \vecnot{\beta}_{1}^{T}\vecnot{d}_{\omega_{1}\theta}\vecnot{\beta}_{2}^{H}\vecnot{d}^{*}_{\omega_{2}\theta}
+            e^{-j\Delta_{\omega}\tau}
+            }
+            e^{-j\Delta_{\omega}\left(t+\tau\right)}
+        \end{split}
+    \end{equation}
+  \end{minipage}
+}\hfill
+which is \textbf{almost} similar to the desired transfer function except for the $e^{j\omega_{i}\tau}$ terms in the denominator. 
+\subsection*{Setting \vecnot{\alpha_{i},\beta_{i}} coefficients}
+A perfect match between the resultant transfer function and the desired low frequency transfer function may be achieved by setting 
+\begin{align}
+    \label{eqn_stabilityEnhancement_freqPairApproach_term1}
+    \vecnot{\beta}_{2}^{H}\vecnot{d}^{*}_{\omega_{2}\theta}
+    e^{j\omega_{2}\tau}
+    +
+    \vecnot{\beta}_{1}^{T}\vecnot{d}_{\omega_{1}\theta}
+    e^{-j\omega_{1}\tau}
+    \overset{!}{=} 0
+\end{align}
+which results in
+\begin{align*}
+    y_{\theta}(t)
+    =
+    \frac{
+    \vecnot{\alpha}_{1}^{T}
+    \vecnot{d}_{\omega_{1}\theta}
+    \vecnot{\alpha}_{2}^{H}
+    \vecnot{d}^{*}_{\omega_{2}\theta}
+    }{
+    1
+    +
+    \vecnot{\beta}_{1}^{T}\vecnot{d}_{\omega_{1}\theta}\vecnot{\beta}_{2}^{H}\vecnot{d}^{*}_{\omega_{2}\theta}
+    e^{-j\Delta_{\omega}\tau}
+    }
+    e^{-j\Delta_{\omega}\left(t+\tau\right)}
+\end{align*}
+that enhances signals for which 
+\begin{align}
+    \label{eqn_stabilityEnhancement_freqPairApproach_term2}
+    \vecnot{\beta}_{1}^{T}\vecnot{d}_{\omega_{1}\theta}\vecnot{\beta}_{2}^{H}\vecnot{d}^{*}_{\omega_{2}\theta}e^{-j\Delta_{\omega}\tau} = -1
+\end{align}.
+One can easily verify that setting
+\ifdefined\showDev
+    \\
+    \fbox{
+    \begin{minipage}{35em}
+    \textbf{development specifics}
+    \\
+    combining \ref{eqn_stabilityEnhancement_freqPairApproach_term1} and \ref{eqn_stabilityEnhancement_freqPairApproach_term2} results in 
+    $$
+    \frac{
+    \vecnot{\beta}_{1}^{T}\vecnot{d}_{\omega_{1}\theta}
+    }{
+    \vecnot{\beta}^{H}_{1}^{T}\vecnot{d}^{*}_{\omega_{1}\theta}
+    }
+    =
+    \left|\vecnot{\beta}_{2}^{T}\vecnot{d}_{\omega_{2}\theta}\right|^{2}
+    $$
+    which dictates that $\angle{\left\{\vecnot{\beta}_{1}^{T}\vecnot{d}_{\omega_{1}\theta}\right\}} = \pi{k} \ \forall{k} \in \mathbb{W}$ (i.e. $\vecnot{\beta}_{1}^{T}\vecnot{d}_{\omega_{1}\theta} \triangleq R \in \mathbb{R}$) and that $\left|\vecnot{\beta}_{2}^{T}\vecnot{d}_{\omega_{2}\theta}\right| = 1$. we set $\phi \triangleq \angle{\left\{\vecnot{\beta}_{2}^{T}\vecnot{d}_{\omega_{2}\theta}\right\}}$ and plug the results into \ref{eqn_stabilityEnhancement_freqPairApproach_term1} which leads us to $ R = -e^{j\left(\phi + \Delta_{\omega}\tau\right)}$.
+    \\
+    setting $R = -1$ and $\phi = -\Delta_{\omega}\tau$ results in \ref{eqn_stabilityEnhancement_freqPairApproach_betaOpt}.
+    \end{minipage}
+    }
+\else
+\fi
+\begin{equation}
+    \label{eqn_stabilityEnhancement_freqPairApproach_betaOpt}
+    \vecnot{\beta}_{1} = \frac{-1}{N}\vecnot{d}^{*}_{\omega_{1}\theta} 
+    \ ,\ 
+    \vecnot{\beta}_{2} = \frac{1}{N}\vecnot{d}^{*}_{\omega_{2}\theta}e^{-j\Delta_{\omega}\tau}
+\end{equation}
+achieves both (\ref{eqn_stabilityEnhancement_freqPairApproach_term1}) and (\ref{eqn_stabilityEnhancement_freqPairApproach_term2}).
+Obviously, the numerator can be set to 
+\begin{equation*}
+    \vecnot{\alpha}_{1} = \frac{1}{N}\vecnot{d}^{*}_{\omega_{1}\theta} 
+    \ ,\ 
+    \vecnot{\alpha}_{2} = \frac{1}{N}\vecnot{d}^{*}_{\omega_{2}\theta}
+\end{equation*}
+using coherent steering scheme. 
+\subsection*{Simulations}

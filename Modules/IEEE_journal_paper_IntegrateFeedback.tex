@@ -1,0 +1,25 @@
+\subsection*{Proposed architecture}
+Similar to time-domain direct-form IIR filter design, which relies on feeding back the filter's recursive part with a combination of delayed instances of its output (see Figure \ref{fig:IIR_feedbachArch}), our approach relies on spatial feedback of received array signals back to the transmitter.
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.5\linewidth]{./Media/BASIC_IIR_FILTER_ARCH.png}
+\caption{Direct form IIR architecture. This architecture is based on feeding the input to the recursive part with delayed and weighted instances of its output.}
+\label{fig:IIR_feedbachArch}
+\end{center}
+\end{figure}
+In order to do so, we propose a dual beam-former architecture (see Figure \ref{fig:Proposed_spatialIIR_ARCH}), defined by two sets of spatial weights $\vecnot{\alpha},\vecnot{\beta}$, generating two independently spatially filtered signals $\vecnot{\alpha}^{T}\Steer{\theta_{g}},\vecnot{\beta}^{T}\Steer{\theta_{g}}$. One is the system's output and the other is fed back to the medium using a transmitting antenna.
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.75\linewidth]{./Media/SpatialIIR-diagram/SpatialIIR_VER5.pdf}
+\caption{The proposed ``dual beam-former`` architecture. One beam-former, $\vecnot{\alpha}$, is generates the output signal. The other $\vecnot{\beta}$ synthesize the feedback transmission.}
+\label{fig:Proposed_spatialIIR_ARCH}
+\end{center}
+\end{figure}
+\subsection*{The proposed system's spatial response}
+\input{./Modules/Spatial_IIR-MathDerivations.tex}
+\subsection*{Array beamwidth}
+\input{./Modules/arrayPerformance_beamwidth.tex}
+\subsection*{Phase alignment sensitivity}
+Although Evidently (\ref{fig_singleFreqFeedback_2ndTaylorNumericalValidation})
+\subsection*{Fisher information matrix}
+\input{./Modules/estimation_CRLB_appendix.tex}

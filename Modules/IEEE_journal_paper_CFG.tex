@@ -1,0 +1,73 @@
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xparse}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{txfonts}
+\usepackage{wasysym}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage{ragged2e}
+\usepackage{tabularx}
+\usepackage{changepage}
+\usepackage{setspace}
+\usepackage{hhline}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{fancyhdr}
+\usepackage[toc,page]{appendix}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{isomath}
+\usepackage{fixmath}
+\usepackage{tikz}
+\usepackage{textcomp}
+\usepackage{epstopdf} %converting to PDF
+\usepackage{upgreek}
+\usepackage{mathtools}
+\usepackage{xfrac}
+\usepackage{lipsum}
+\usepackage[colorinlistoftodos]{todonotes}
+\input{./Modules/LatexShortcuts_Itayyeka_2.tex}
+%%%%%%%%%%%%%%    aliases    %%%%%%%%%%%%%%
+\newcommand{\dTheta}{\Delta\theta}
+\newcommand{\dTau}{\Delta\tau}
+\newcommand{\D}[2]{\mathcal{D}\left(#1,#2\right)}
+\newcommand{\Dp}[3]{\mathcal{D}^{#3}\left(#1,#2\right)}
+\newcommand{\fbBpRatio}{
+\left|
+\frac{
+\frac
+{
+\vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}exp\left(-j\tau_{s}\right)
+}
+{
+1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}exp\left(-j\tau_{s}\right)
+}
+}{
+\frac
+{
+\vecnot{\alpha}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
+}
+{
+1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
+}
+}
+\right|
+}
+\newcommand{\Hr}[3]{\mathcal{H}^{#3}\left(#1,#2\right)}
+\newcommand{\Steer}[1]{\vecnot{d}_{#1}}
+
+\NewDocumentCommand{\evalat}{sO{\big}mm}{%
+  \IfBooleanTF{#1}
+   {\mleft. #3 \mright|_{#4}}
+   {#3#2|_{#4}}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% show developments steps %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \def\showDev{}
+%%%%%%%%%%%%  Document Code starts here %%%%%%%%%%%%%%

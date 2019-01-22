@@ -3,37 +3,37 @@
 % Other options in place of 'report' are 1)article 2)book 3)letter
 % Other options in place of 'a4paper' are 1)a5paper 2)b5paper 3)letterpaper 4)legalpaper 5)executivepaper
 %%%%%%%%%%%%  Include Packages  %%%%%%%%%%%%%%
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{latexsym}
-\usepackage{amsfonts}
+\usepackage{amsmath}%,amssymb,amsthm}
+% \usepackage{latexsym}
+% \usepackage{amsfonts}
 \usepackage{graphicx}
 \usepackage{txfonts}
-\usepackage{wasysym}
+% \usepackage{wasysym}
 \usepackage{enumitem}
-\usepackage{adjustbox}
-\usepackage{ragged2e}
-\usepackage{tabularx}
-\usepackage{changepage}
-\usepackage{setspace}
-\usepackage{hhline}
-\usepackage{multicol}
-\usepackage{float}
-\usepackage{multirow}
-\usepackage{makecell}
+% \usepackage{adjustbox}
+% \usepackage{ragged2e}
+% \usepackage{tabularx}
+% \usepackage{changepage}
+% \usepackage{setspace}
+% \usepackage{hhline}
+% \usepackage{multicol}
+% \usepackage{float}
+% \usepackage{multirow}
+% \usepackage{makecell}
 \usepackage{fancyhdr}
-\usepackage[toc,page]{appendix}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+% \usepackage[toc,page]{appendix}
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
 \usepackage{hyperref}
-\usepackage{isomath}
-\usepackage{fixmath}
-\usepackage{tikz}
-\usepackage{textcomp}
-\usepackage{epstopdf} %converting to PDF
-\usepackage{upgreek}
-\usetikzlibrary{shapes,shadows,arrows,calc}
-\usetikzlibrary{decorations.pathreplacing,decorations.markings,shapes.geometric}
-\usepackage[toc,page]{appendix}
+% \usepackage{isomath}
+% \usepackage{fixmath}
+% \usepackage{tikz}
+% \usepackage{textcomp}
+% \usepackage{epstopdf} %converting to PDF
+% \usepackage{upgreek}
+% \usetikzlibrary{shapes,shadows,arrows,calc}
+% \usetikzlibrary{decorations.pathreplacing,decorations.markings,shapes.geometric}
+% \usepackage[toc,page]{appendix}
 % \input{./Modules/LatexShortcuts_Itayyeka.tex}
 \input{./Modules/LatexShortcuts_Itayyeka_2.tex}
 %%%%%%%%%%%%  Define Colors For Hyperlinks  %%%%%%%%%%%%%%
@@ -119,6 +119,7 @@ The latter has a transponder which feeds the signal back to the array.
 \label{fig:SignalModel}
 \end{center}
 \end{figure}
+By creating the suggested setup (fig.\ref{fig:SignalModel}), we aim to achieve a spatial-IIR which was previously discussed. 
 \input{Modules/Spatial_IIR_OurSuggestedMethod.tex}
 Possible implementation of this approach is a multiple-speaker spatial filtering (Fig. \ref{fig:SpatialIIR_StageApplication}), where the speakers are enhanced or filtered according to their location. 
 The system may have a dynamic definition of its "hear-zones" which can be actively controlled by merely selecting the $ \vecnot{\alpha},\vecnot{\beta} $ coefficients.

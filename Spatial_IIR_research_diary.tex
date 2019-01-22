@@ -424,7 +424,7 @@ According to the minimal distance and the propagation velocity of the signal, a 
 \section{2018 Dec 24$^{th}$}
 Update meeting summary:
 \begin{itemize}
-    \item Some format changes suggested by Tzvi - hand written.
+    \item Some format changes suggested by Tsvi - hand written.
     \item The $ \det{J} $ expression in the CRLB appendix is wrong. Integrands were multiplied instead of integrals.
     \item look for the right citation for the $\det(J)$ derivative.
     \item look for FIM calculations of IIR-like systems - preferably in the frequency domain and link them to our work as references.
@@ -459,6 +459,70 @@ After first stable version of the simulation some issues must be hadnled.
     \item Plot also the second term $J^{-1}_{2,2}$
     \item Try to express the beamwidth/peak-to-sidelobe when feedback is enabled and express the improvment as an array aperture increment.
     \item still, not all action-points from \textbf{2018 Dec 25$^{th}$} have been achieved. 
+\end{itemize}
+\section{2019 Jan 9$^{th}$}
+\subsection{meeting with Tsvi}
+In our meeting, we talked about the $r$ factor that was introduced to avoid the $\infty$-valued expressions and he proposed two different approaches to tackle this issue:
+\begin{itemize}
+    \item The first approach acknowledges the fact that in real applications, the observation time ($T$) will be finite, therefore the frequency domain transfer function should be adjusted. Finite observation interval can be represented by a temporal rectangle multiplying the signal, which translates to frequency domain convolution with \textit{sinc} function. \textbf{Inserting the transfer function to an integral, removes the worry of singular points along the frequency domain}. continuing this line of thought, we thought of a certain strategy:
+    \begin{itemize}
+        \item The frequency domain expression should be 
+        $$
+        \frac{\vecnot{\alpha}^{T}\vecnot{d}_{\omega,\theta}
+        }{
+        1-\vecnot{\beta}^{T}\vecnot{d}_{\omega,\theta}e^{j\omega\tau}
+        }\circledast{sinc\left(T\omega\right)}
+        $$
+        \item We are interested in evaluating the ratio between the perfectly aligned system with an off-sync scenario $(\theta,\tau)\neq(\theta_{s},\tau_{s})$
+        $$
+        \left|\frac{
+        \frac{\vecnot{\alpha}^{T}\vecnot{d}_{\omega,\theta_{s}}
+        }{
+        1-\vecnot{\beta}^{T}\vecnot{d}_{\omega,\theta_{s}}e^{j\omega\tau_{s}}
+        }\circledast{sinc\left(T\omega\right)}
+        }{
+        \frac{\vecnot{\alpha}^{T}\vecnot{d}_{\omega,\theta}
+        }{
+        1-\vecnot{\beta}^{T}\vecnot{d}_{\omega,\theta}e^{j\omega\tau}
+        }\circledast{sinc\left(T\omega\right)}
+        }\right|
+        $$
+        \item The numerator, being the perfectly synced array for a certain narrow-band frequency $\omega_{0}$ can be approximately expressed as a convolution between $\delta$-function around $\omega_{0}$ (i.e. $\delta\left(\omega-\omega_{0}\right)$) which results in just a frequency shifted version of the sinc function $sinc\left(T\left(\omega-\omega_{0}\right)\right)$.
+        \item For treating the denominator, we assume that $T$ is large enough so that $sinc\left(T\omega\right)$ can treated as $\delta\left(\omega\right)$.
+        \\\textbf{NOTE:} the sinc function cannot be treated as $\delta$ due to the fact that its value on $x=0$ is 1 and not an infinite value.
+        Some other treatment should be use in my opinion.
+        \item we are left with 
+        $$
+        \left|
+        \frac{
+        sinc\left(T\left(\omega-\omega_{0}\right)\right)
+        }{
+        \frac{\vecnot{\alpha}^{T}\vecnot{d}_{\omega,\theta}
+        }{
+        1-\vecnot{\beta}^{T}\vecnot{d}_{\omega,\theta}e^{j\omega\tau}
+        }
+        }
+        \right|
+        $$
+        which can be further developed.
+    \end{itemize}
+    \item The second approach is to adjust the criteria. Instead of evaluating the transfer function in two specific points, we can evaluate two integrals, each integrate a small ($\Delta\omega$) neighbourhood around the points of interest. The same idea of removing the $\infty$-value issue through the use of integrals is suggested in a different approach.
+\end{itemize}
+other than treating the transfer function, Tsvi asked to find the detailed approximation of the classic ULA beamwidth $0.89\frac{\lambda}{N}$.
+\par Another interesting way of presentation, which will probably be based on the classic ULA beamwidth approximation, is to express an "improvement factor" which depends on the feedback design. 
+\subsection{meeting with Israel}
+After presenting the latest progress, we agreed on some action points
+\begin{itemize}
+    \item The research on array perturbations, modeled as white noise gain, is now postponed to enable the continuance of the current flow.
+    \item Prof Cohen asked that for the next meeting, a preliminary paper skeleton should be ready. Israel suggested to use the latex template of the paper that published Fuxi wen's work.
+    \item We talked about the final thesis structure
+    \begin{enumerate}
+        \item Preface
+        \item Current known related works
+        \item The main paper
+        \item Secondary paper (smalller)
+        \item Conclusion
+    \end{enumerate}
 \end{itemize}
 \clearpage
 \small

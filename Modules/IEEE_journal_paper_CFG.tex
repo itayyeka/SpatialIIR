@@ -45,7 +45,7 @@
 \vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}exp\left(-j\tau_{s}\right)
 }
 {
-1-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}exp\left(-j\tau_{s}\right)
+4c^{2}\tau_{s}^{2}-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}exp\left(-j\tau_{s}\right)
 }
 }{
 \frac
@@ -53,7 +53,7 @@
 \vecnot{\alpha}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
 }
 {
-1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
+4c^{2}\tau^{2}-\vecnot{\beta}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
 }
 }
 \right|
@@ -66,8 +66,11 @@
    {\mleft. #3 \mright|_{#4}}
    {#3#2|_{#4}}%
 }
+
+\newcommand{\hDen}{\left(4c^{2}\tau^{2}-\vecnot{\beta}^{T}\vecnot{d}e^{-j\omega\tau}\right)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% show developments steps %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%      Document flags     %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \def\showDev{}
+\def\DEFIncludeAttenuation
 %%%%%%%%%%%%  Document Code starts here %%%%%%%%%%%%%%

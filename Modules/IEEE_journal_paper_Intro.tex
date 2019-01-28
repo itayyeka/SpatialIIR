@@ -10,10 +10,10 @@ Related works propose various solutions.
 \cite{Wen2013ExtendingStructure} proposes two solutions, starting from synthetic spatial delay generation for the recursive part of the IIR, which achieves the same results as the MUSIC algorithm, demands a high accuracy delay chain which can be delicately controlled. The other solution is treating the ULA as multiple sub arrays, where the combination of the independent sub-arrays can be thought to be the recursive part of the spatial filter. Those two approaches does not achieve a recursive spatial response and are sensitive to estimation of the DOA-dependent delay between signals impinging the different sensors.
 Other works (\cite{Madanayake2008AFilters,Madanayake2008ABeamformer}) use the concept of $2D$ spatio-temporal plane wave representation, combined with ultra-wide-band \cite{YangLiuqingandGiannakisUltra-widebandCome} (UWB) filtering and use systolic processors for achieving the recursive part of the filter.
 The goal in this paper, same as the latter approach, is to find the analogous array structure that achieves a ``spatial-IIR``, while insisting on removing the temporal processing whatsoever. For this purpose, we integrate a transmitter into the array and suppose a cooperative target which reflects its received signal back to the receiver and we prove that an $N^{th}$ spatial IIR filter is achievable without using any temporal processing.
-\subsection*{Notation}
+\subsection*{Notations}
 Matrices are denoted by boldfaced capital letters (e.g., \vecnot{A}). Vectors are denoted by boldfaced lowercase letters (e.g., \vecnot{a}). Superscript $^{*}$ denotes conjugation, superscript $^{H}$ denotes transposed conjugation and superscript $^{\mathcal{F}}$ stands for Fourier transform. $\theta_{g}$ is a geometric angle, measured from the array virtual line (where $\theta_{g} = \frac{\pi}{2}$ is called the ``end-fire``),while $\theta_{e}$ is an electrical signal phase. Unless said otherwise, $\theta$ is treated as $\theta_{e}$.
 
-\subsection*{Signal modeling}
+\subsection*{Signal model}
 Consider an $N$-element ULA with inter element spacing $d$, impinged by a far-field signal, $x\left(t\right)$ ($t$ is time in seconds), traveling in an an-echoic flat-response medium, which arrives from a certain direction of a arrival (DOA), $\theta_{g}$. The signal received at the $n^{th}$ sensor can be expressed as 
 \begin{equation}
 x_{n,\theta}(t) = x\left(t-2\tau_{pd}-\tau_{n,\theta}\right),
@@ -22,7 +22,7 @@ x_{n,\theta}(t) = x\left(t-2\tau_{pd}-\tau_{n,\theta}\right),
 where $r$ is the range between the array and the signal source, $c$ represent the propagation velocity of the signal in the medium, $\tau_{pd} = \frac{r}{c}$ is the propagation delay from the source to the array and $\tau_{n,\theta} = n\frac{d\cos{\theta_{g}}}{c}$ is the impinging signal's time of arrival (TOA) difference between consecutive sensors. 
 \subsection*{The analogy between ULA and FIR}
 \label{subsec_ULAFIR_analogy}
-As explained in \cite{VanVeenBeamforming:Filtering}, FIR filters are basically delay-and-sum systems, weighting different delayed instances of a given received signal $x\left(k-n\right)$ with different weights $w_{n}$ and summing them to a single output $$y\left[k\right] = \sum_{n=0}^{N-1}w_{n}x\left[k-n\right] = w\left[k\right]*x\left[k\right],$$ where $*$ is the convolution operator. 
+FIR filters are basically delay-and-sum systems, weighting different delayed instances of a given received signal $x\left(k-n\right)$ with different weights $w_{n}$ and summing them to a single output $$y\left[k\right] = \sum_{n=0}^{N-1}w_{n}x\left[k-n\right] = w\left[k\right]*x\left[k\right],$$ where $*$ is the convolution operator. 
 Under the Fourier transform, the frequency domain representation of the FIR's output is $$y_{FIR}^{\mathcal{F}}\left(\omega\right) = x^{\mathcal{F}}\left(\omega\right)w_{FIR}^{\mathcal{F}}\left(\omega\right),$$ where $$ w_{FIR}^{\mathcal{F}}\left(\omega\right) = \sum_{n=0}^{N-1}w_{n}exp\left(-j{}\frac{\omega}{\omega_{s}}n\right),$$ $\omega_{s}$ is the radial sampling frequency, $\omega$ is the radial frequency domain variable and $j \triangleq \sqrt{-1}$ .
 Evidently, the attenuation/enhancement of spectral components of $x$ are determined by the spectral response of $\vecnot{w}$. 
 Considering (\ref{eqn:noFeedbackULA_singleSensor_temporal}), and switching to the frequency domain $$ y_{ULA}^{\mathcal{F}}\left(\omega\right) = x^{\mathcal{F}}\left(\omega\right)w_{ULA}^{\mathcal{F}}\left(\omega\right),$$ where $$ 
@@ -33,5 +33,5 @@ In this paper, to define the "beamwidth" we use $3_{dB}$-beam, more commonly kno
 $$
 u_{HPBW} = 2\left(\cos\left(\theta_{g}\right)-\cos\left(\theta_{g,s}\right)\right) = \frac{\lambda}{Nd}\frac{1.4}{\pi},
 $$
-which links the array beamforming performance (beamwidth) to its physical aperture ($Nd$). 
+where $\lambda$ is the signal wavelength which links the array beamforming performance (beamwidth) to its physical aperture ($Nd$). 
 Appendix \ref{appendix_theULABeamwidth} thoroughly elaborates the methodology used to evaluate the half power beamwidth (HPBW) in a passive ULA implementing the conventional beamformer ($\triangleq \frac{1}{N}\Steer{\theta_{g,s}}^{*}$) \cite{VanTrees2002DetectionIV}, where $\theta_{g,s}$ is the spatially enhanced DOA.

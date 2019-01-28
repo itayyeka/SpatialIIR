@@ -1,40 +1,100 @@
-Time domain analysis of the proposed feedback based architecture results in 
-\begin{equation}
-    \label{eqn:SingleSensorTemporalEquality}
-    x_{n,\theta}(t) = x\left(t-2\tau_{pd}-n\tau_{\theta}\right)+\sum_{m=0}^{N-1}{\beta_{m}x_{m,\theta}(t-2\tau_{pd}-n\tau_{\theta})}
-\end{equation}
-where $\tau_{\theta} \triangleq \frac{d\cos\left(\theta\right)}{c}$.
-Converting (\ref{eqn:SingleSensorTemporalEquality}) to frequency domain, one gets
-\begin{equation}
-\resizebox{\linewidth}{!}{%
-        $
-        x_{n,\theta}^{\mathcal{F}}(\omega) = 
-        x^{\mathcal{F}}(\omega)
-        exp\left(-j\omega(2\tau_{pd}+n\tau_{\theta})\right)
-        +\sum_{m=0}^{N-1}
-        {
-        \beta_{m}x_{m}^{\mathcal{F}}(\omega)
-        exp\left(-j\omega\left(2\tau_{pd}+n\tau_{\theta}\right)\right)
-        } 
-        $}
-\end{equation} 
-which, when generalized to the entire array transforms to its vector form,
-\begin{equation}
-\vecnot{x}^{\mathcal{F}}_{\theta}(\omega) = 
-x^{\mathcal{F}}(\omega)\vecnot{d}_{\theta}exp\left(-2j\omega\tau_{pd}\right)
-+
-\vecnot{d}_{\theta}\vecnot{\beta}^{T}exp\left(-j2\omega\tau_{pd}\right)\vecnot{x}_{\theta}^{\mathcal{F}}\left(\omega\right).
-\end{equation}
-It follows that
-$$
-\input{Modules/Spatial_IIR-GeneralTransferFunction.tex}
-$$
-, which with the use of the Woodbury matrix identity and denoting $\tau\triangleq2\omega\tau_{pd}$ \cite{woodbury1950inverting}, finally yields
-\begin{equation}
-\label{eqn:GeneralFeedbackTransferFunction}
-\input{./Modules/Spatial_IIR-TransferFunction.tex},
-\end{equation}
-which, under the same reasoning of \ref{subsec_ULAFIR_analogy}, is the desired spatial domain configurable (\vecnot{\alpha},\vecnot{\beta}) IIR response, allowing high gain and sharp (i.e. of spatially narrow) beampatterns.
-One very important observation is the effect of $\tau$, which unlike in the passive ULA case, significantly effects the array response gain (and not only its phase).
-From spatial filtering point of view, we interpret it as a very powerful range-DOA integrated beampatterning, adding another DOF (range) to our spatially selective system.
-This observation will be thoroughly investigated throughout this paper.
+\ifdefined\DEFIncludeAttenuation
+    Time domain analysis of the proposed feedback based architecture, considering both propagation delay and attenuation, results in 
+    \begin{equation}
+        \label{eqn:SingleSensorTemporalEquality}
+        x_{n,\theta}(t) = g^{2}\left(x\left(t-2\tau_{pd}-n\tau_{\theta}\right)+\sum_{m=0}^{N-1}{\beta_{m}x_{m,\theta}(t-2\tau_{pd}-n\tau_{\theta})}\right)
+    \end{equation}
+    where $g$ is the single-direction-range-dependent channel attenuation and $\tau_{\theta} \triangleq \frac{d\cos\left(\theta\right)}{c}$.
+    Converting (\ref{eqn:SingleSensorTemporalEquality}) to frequency domain, one gets
+    \begin{equation}
+        \begin{split}
+            x_{n,\theta}^{\mathcal{F}}(\omega) =
+            g^{2}\Bigg( & x^{\mathcal{F}}(\omega)
+            exp\left(-j\omega(2\tau_{pd}+n\tau_{\theta})\right)
+            \\&+\sum_{m=0}^{N-1}
+            {
+            \beta_{m}x_{m}^{\mathcal{F}}(\omega)
+            exp\left(-j\omega\left(2\tau_{pd}+n\tau_{\theta}\right)\right)
+            }\Bigg) 
+        \end{split}
+    \end{equation} 
+    which, when generalized to the entire array transforms to its vector form,
+    \begin{equation}
+        \resizebox{\linewidth}{!}{
+            $
+            \vecnot{x}^{\mathcal{F}}_{\theta}(\omega) = 
+            g^{2}\left(
+            x^{\mathcal{F}}(\omega)\vecnot{d}_{\theta}exp\left(-2j\omega\tau_{pd}\right)
+            +
+            \vecnot{d}_{\theta}\vecnot{\beta}^{T}exp\left(-j2\omega\tau_{pd}\right)\vecnot{x}_{\theta}^{\mathcal{F}}\left(\omega\right)\right).
+            $
+        }
+    \end{equation}
+    It follows that
+    $$
+    \input{Modules/Spatial_IIR-GeneralTransferFunction.tex}
+    $$
+    and with the use of the Woodbury matrix identity \cite{woodbury1950inverting} and denoting $\tau\triangleq2\omega\tau_{pd}$ , finally yields
+    \begin{equation}
+    \label{eqn:GeneralFeedbackTransferFunction}
+    \input{./Modules/Spatial_IIR-TransferFunction.tex},
+    \end{equation}
+    which, under the same reasoning of \cite{VanVeenBeamforming:Filtering}, is the desired spatial domain configurable (\vecnot{\alpha},\vecnot{\beta}) IIR response, allowing high gain and sharp (i.e. of spatially narrow) beampattern.
+    Plugging in the spherical EM wave decay (i.e. $g = \frac{1}{4\pi{}R}$ where $R\triangleq{}c\tau_{pd}$ is the range between the array and the reflector), results in
+    \begin{equation}
+    \label{eqn:GeneralFeedbackTransferFunction_sphericalDecay}
+    y_{\theta}^{\mathcal{F}}(\omega) 
+    =
+    \frac{    
+    \vecnot{\alpha}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
+    }{
+    4c^{2}\tau^{2} - \vecnot{\beta}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
+    }
+    x^{\mathcal{F}}(\omega)
+    \end{equation}
+    One very important observation is the effect of $\tau$, which unlike in the passive ULA case, significantly effects the array response gain (and not only its phase).
+    From spatial filtering point of view, we interpret it as a very powerful range-DOA integrated beampatterning, adding another DOF (range) to our spatially selective system.
+    This observation will be thoroughly investigated throughout this paper.
+\else
+    %%%%% - No attenuation
+    Time domain analysis of the proposed feedback based architecture results in 
+    \begin{equation}
+        \label{eqn:SingleSensorTemporalEquality}
+        x_{n,\theta}(t) = x\left(t-2\tau_{pd}-n\tau_{\theta}\right)+\sum_{m=0}^{N-1}{\beta_{m}x_{m,\theta}(t-2\tau_{pd}-n\tau_{\theta})}
+    \end{equation}
+    where $\tau_{\theta} \triangleq \frac{d\cos\left(\theta\right)}{c}$.
+    Converting (\ref{eqn:SingleSensorTemporalEquality}) to frequency domain, one gets
+    \begin{equation}
+    \resizebox{\linewidth}{!}{%
+            $
+            x_{n,\theta}^{\mathcal{F}}(\omega) = 
+            x^{\mathcal{F}}(\omega)
+            exp\left(-j\omega(2\tau_{pd}+n\tau_{\theta})\right)
+            +\sum_{m=0}^{N-1}
+            {
+            \beta_{m}x_{m}^{\mathcal{F}}(\omega)
+            exp\left(-j\omega\left(2\tau_{pd}+n\tau_{\theta}\right)\right)
+            } 
+            $}
+    \end{equation} 
+    which, when generalized to the entire array transforms to its vector form,
+    \begin{equation}
+    \vecnot{x}^{\mathcal{F}}_{\theta}(\omega) = 
+    x^{\mathcal{F}}(\omega)\vecnot{d}_{\theta}exp\left(-2j\omega\tau_{pd}\right)
+    +
+    \vecnot{d}_{\theta}\vecnot{\beta}^{T}exp\left(-j2\omega\tau_{pd}\right)\vecnot{x}_{\theta}^{\mathcal{F}}\left(\omega\right).
+    \end{equation}
+    It follows that
+    $$
+    \input{Modules/Spatial_IIR-GeneralTransferFunction.tex}
+    $$
+    , which with the use of the Woodbury matrix identity \cite{woodbury1950inverting} and denoting $\tau\triangleq2\omega\tau_{pd}$ , finally yields
+    \begin{equation}
+    \label{eqn:GeneralFeedbackTransferFunction}
+    \input{./Modules/Spatial_IIR-TransferFunction.tex},
+    \end{equation}
+    which, under the same reasoning of \ref{subsec_ULAFIR_analogy}, is the desired spatial domain configurable (\vecnot{\alpha},\vecnot{\beta}) IIR response, allowing high gain and sharp (i.e. of spatially narrow) beampatterns.
+    One very important observation is the effect of $\tau$, which unlike in the passive ULA case, significantly effects the array response gain (and not only its phase).
+    From spatial filtering point of view, we interpret it as a very powerful range-DOA integrated beampatterning, adding another DOF (range) to our spatially selective system.
+    This observation will be thoroughly investigated throughout this paper.
+\fi

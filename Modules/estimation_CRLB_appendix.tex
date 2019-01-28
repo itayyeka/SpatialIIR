@@ -31,172 +31,231 @@ A good evaluation method for the contribution of our proposed feedback mechanism
     \end{align}
   \end{minipage}
 }
-where $\Re$ is the real-part-extraction operator, $k,l = 1..2$, $\phi\left(\omega,\eta\right)$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator and $T$ is the coherent integration time. In our model, the noise is white and does not depend on any of the parameters so the later expression (i.e. 
-$
-\frac{T}{4\pi}
-\int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-\frac{
-\frac{\partial\phi\left(\omega,\eta\right)}{\eta_{k}}
-\frac{\partial\phi\left(\omega,\eta\right)}{\eta_{l}}
-}
-{\phi^{2}\left(\omega,\eta\right)} 
-$) is $0$ and one can write $\phi\left(\omega,\eta\right) = \phi_{NOISE}$. Denoting $A,B$ and $g$ such that, 
+where $\Re$ is the real-part-extraction operator, $k,l = 1..2$, $\phi\left(\omega,\eta\right)$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator and $T$ is the coherent integration time. In our model, the noise is white and does not depend on any of the parameters, which leads to vanishing the second expression, writing $\phi\left(\omega,\eta\right) = \phi_{NOISE}$. 
+Denoting $A,B$ and $g$ such that, 
 $
 \frac{\partial \vecnot{d}_{\theta}}{\partial\theta} = -j\omega\frac{d\sin\left(\theta\right)}{c}diag\left\{{\left[0,1,\hdots,N-1\right]}\right\} \triangleq A\vecnot{d}_{\theta}
 $
 , $B \triangleq \vecnot{d}_{\theta}\vecnot{d}^{T}_{\theta}A - A\vecnot{d}_{\theta}\vecnot{d}^{T}_{\theta}$ and $g \triangleq \vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}$, enables writing the FIM elements as 
 \\
-\ifdefined\showDev
-    \fbox{
-    \begin{minipage}{.95\linewidth}
-    \textbf{development specifics}
-    \begin{equation*}
-    \begin{split}
-        \frac{\partial y_{\theta}^{\mathcal{F}}(\omega) }{\partial\theta}
-        &=
-        \frac{
-        \vecnot{\alpha}^{T}Ad_{\theta}e^{-j\omega\tau}
-        -\vecnot{\alpha}^{T}Ad_{\theta}\vecnot{\beta}^{T}d_{\theta}e^{-2j\omega\tau}
-        +\vecnot{\alpha}^{T}d_{\theta}\vecnot{\beta}^{T}Ad_{\theta}e^{-2j\omega\tau}
-        }{
-        \left(1-g\right)^{2}
-        }
-        \\
-        &=
-        \frac{
-        \vecnot{\alpha}^{T}
-        \left(
-        Ad_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
-        \right)e^{-j\omega\tau}
-        }{
-        \left(1-g\right)^{2}
-        }
-        \\
-        \frac{\partial y_{\theta}^{\mathcal{F}}(\omega) }{\partial\tau}
-        &=
-        \frac{
-        -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}\left(1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}\right)
-        -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-2j\omega\tau}
-        }{
-        \left(1-g\right)^{2}
-        }
-        \\
-        &=
-        \frac{
-        -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
-        }{
-        \left(1-g\right)^{2}
-        }
-    \end{split}
-    \end{equation*}
-    \end{minipage}
+\ifdefined\DEFIncludeAttenuation
+    \resizebox{.97\linewidth}{!}{
+      \begin{minipage}{\linewidth}
+        \begin{equation}
+            \label{eqn_FIMelements}
+            \begin{split}
+                J_{\theta\theta}
+                = &
+                \frac{1}{2\pi\phi}
+                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+                \left|
+                \frac
+                {
+                \vecnot{\alpha}^{T}
+                \left(
+                4c^{2}\tau^{2}Ad_{\theta} + B\vecnot{\beta}e^{-j\omega\tau}
+                \right)
+                }
+                {\hDen^{2}}
+                \right|^{2}
+                \left|
+                s\left(\omega\right)
+                \right|^{2}
+                d\omega
+                \\
+                J_{\tau\tau}
+                = &
+                \frac{1}{2\pi\phi}
+                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+                \frac
+                {\omega^{2}
+                \left|
+                \vecnot{\alpha^{T}}\vecnot{d}_{\theta}
+                \right|^{2}}
+                {\left|\hDen^{2}\right|^{2}}
+                \left|
+                s\left(\omega\right)
+                \right|^{2}
+                d\omega
+                \\
+                J_{\theta\tau} = J_{\tau\theta}
+                = &
+                \Re
+                \left\{
+                \frac{1}{2\pi\phi}
+                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+                \frac
+                {
+                j\omega\vecnot{\alpha}^{T}
+                \left(
+                A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+                \right)
+                \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
+                }
+                {\left|\hDen^{2}\right|^{2}}
+                \left|
+                s\left(\omega\right)
+                \right|^{2}
+                d\omega
+                \right\}
+            \end{split}
+        \end{equation}
+      \end{minipage}
     }
 \else
-\fi
-\resizebox{.97\linewidth}{!}{
-  \begin{minipage}{\linewidth}
-    \begin{equation}
-        \label{eqn_FIMelements}
+    \ifdefined\showDev
+        \fbox{
+        \begin{minipage}{.95\linewidth}
+        \textbf{development specifics}
+        \begin{equation*}
         \begin{split}
-            J_{\theta\theta}
-            = &
-            \frac{1}{2\pi\phi}
-            \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-            \left|
-            \frac
-            {
+            \frac{\partial y_{\theta}^{\mathcal{F}}(\omega) }{\partial\theta}
+            &=
+            \frac{
+            \vecnot{\alpha}^{T}Ad_{\theta}e^{-j\omega\tau}
+            -\vecnot{\alpha}^{T}Ad_{\theta}\vecnot{\beta}^{T}d_{\theta}e^{-2j\omega\tau}
+            +\vecnot{\alpha}^{T}d_{\theta}\vecnot{\beta}^{T}Ad_{\theta}e^{-2j\omega\tau}
+            }{
+            \left(1-g\right)^{2}
+            }
+            \\
+            &=
+            \frac{
             \vecnot{\alpha}^{T}
             \left(
-            Ad_{\theta} + B\vecnot{\beta}e^{-j\omega\tau}
-            \right)
+            Ad_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+            \right)e^{-j\omega\tau}
+            }{
+            \left(1-g\right)^{2}
             }
-            {\left(1-g\right)^{2}}
-            \right|^{2}
-            \left|
-            s\left(\omega\right)
-            \right|^{2}
-            d\omega
             \\
-            J_{\tau\tau}
-            = &
-            \frac{1}{2\pi\phi}
+            \frac{\partial y_{\theta}^{\mathcal{F}}(\omega) }{\partial\tau}
+            &=
+            \frac{
+            -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}\left(1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}\right)
+            -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-2j\omega\tau}
+            }{
+            \left(1-g\right)^{2}
+            }
+            \\
+            &=
+            \frac{
+            -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
+            }{
+            \left(1-g\right)^{2}
+            }
+        \end{split}
+        \end{equation*}
+        \end{minipage}
+        }
+    \else
+    \fi
+    \resizebox{.97\linewidth}{!}{
+      \begin{minipage}{\linewidth}
+        \begin{equation}
+            \label{eqn_FIMelements}
+            \begin{split}
+                J_{\theta\theta}
+                = &
+                \frac{1}{2\pi\phi}
+                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+                \left|
+                \frac
+                {
+                \vecnot{\alpha}^{T}
+                \left(
+                Ad_{\theta} + B\vecnot{\beta}e^{-j\omega\tau}
+                \right)
+                }
+                {\left(1-g\right)^{2}}
+                \right|^{2}
+                \left|
+                s\left(\omega\right)
+                \right|^{2}
+                d\omega
+                \\
+                J_{\tau\tau}
+                = &
+                \frac{1}{2\pi\phi}
+                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+                \frac
+                {\omega^{2}
+                \left|
+                \vecnot{\alpha^{T}}\vecnot{d}_{\theta}
+                \right|^{2}}
+                {\left|\left(1-g\right)^{2}\right|^{2}}
+                \left|
+                s\left(\omega\right)
+                \right|^{2}
+                d\omega
+                \\
+                J_{\theta\tau} = J_{\tau\theta}^{*}
+                = &
+                \Re
+                \left\{
+                \frac{1}{2\pi\phi}
+                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
+                \frac
+                {
+                j\omega\vecnot{\alpha}^{T}
+                \left(
+                A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
+                \right)
+                \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
+                }
+                {\left|\left(1-g\right)^{2}\right|^{2}}
+                \left|
+                s\left(\omega\right)
+                \right|^{2}
+                d\omega
+                \right\}
+            \end{split}
+        \end{equation}
+      \end{minipage}
+    }
+    \ifdefined\showDev
+        \fbox{
+        \begin{minipage}{.95\linewidth}
+        \textbf{development specifics}
+        \begin{align*}
+            \det\left\{J\right\}
+            &=
+            J_{\theta\theta}J_{\tau\tau}-J_{\theta\tau}J_{\tau\theta}
+            \\
+            &=
+            \frac{1}{4\pi^{2}\Phi^{2}}
             \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-            \frac
-            {\omega^{2}
-            \left|
-            \vecnot{\alpha^{T}}\vecnot{d}_{\theta}
-            \right|^{2}}
-            {\left|\left(1-g\right)^{2}\right|^{2}}
-            \left|
-            s\left(\omega\right)
-            \right|^{2}
-            d\omega
+            \frac{
+            \left|s\left(\omega\right)\right|^{2}
+            }{
+            \left|\left(1-g\right)^{2}\right|^{4}
+            }
+            \omega^{2}
+            \Biggl(
+            \left|\vecnot{\alpha^T\vecnot{d}_{\theta}}\right|^{2}
+            \left|\vecnot{\alpha}^T\left(A\vecnot{d}_{\theta}+B\becnot{\beta}e^{-j\omega\tau}\right)\right|^{2}
             \\
-            J_{\theta\tau} = J_{\tau\theta}^{*}
-            = &
-            \Re
+            &
+            -\Re^{2}
             \left\{
-            \frac{1}{2\pi\phi}
-            \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-            \frac
-            {
             j\omega\vecnot{\alpha}^{T}
             \left(
             A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
             \right)
             \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
-            }
-            {\left|\left(1-g\right)^{2}\right|^{2}}
-            \left|
-            s\left(\omega\right)
-            \right|^{2}
-            d\omega
             \right\}
-        \end{split}
-    \end{equation}
-  \end{minipage}
-}
-\ifdefined\showDev
-    \fbox{
-    \begin{minipage}{.95\linewidth}
-    \textbf{development specifics}
-    \begin{align*}
-        \det\left\{J\right\}
-        &=
-        J_{\theta\theta}J_{\tau\tau}-J_{\theta\tau}J_{\tau\theta}
-        \\
-        &=
-        \frac{1}{4\pi^{2}\Phi^{2}}
-        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-        \frac{
-        \left|s\left(\omega\right)\right|^{2}
-        }{
-        \left|\left(1-g\right)^{2}\right|^{4}
+            \Biggl)
+            d\omega
+            \\
+        \end{align*}
+        \end{minipage}
         }
-        \omega^{2}
-        \Biggl(
-        \left|\vecnot{\alpha^T\vecnot{d}_{\theta}}\right|^{2}
-        \left|\vecnot{\alpha}^T\left(A\vecnot{d}_{\theta}+B\becnot{\beta}e^{-j\omega\tau}\right)\right|^{2}
-        \\
-        &
-        -\Re^{2}
-        \left\{
-        j\omega\vecnot{\alpha}^{T}
-        \left(
-        A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
-        \right)
-        \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
-        \right\}
-        \Biggl)
-        d\omega
-        \\
-    \end{align*}
-    \end{minipage}
-    }
-\else
+    \else
+    \fi
 \fi
 Analyzing the FIM elements (\ref{eqn_FIMelements}), few important observation arise
-\todo{TODO}
+\subsubsection*{The common denominator $\left|\left(1-g\right)^{2}\right|^{2}$}
+\subsubsection*{Wideband signals contribution}
 \begin{itemize}
     \item emphasize the $\tau$ sensitivity through $1-g$ 
     \item signal bandwidth non-negative contribution

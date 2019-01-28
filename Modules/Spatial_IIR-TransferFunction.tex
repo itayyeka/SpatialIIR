@@ -1,17 +1,26 @@
-\ensuremath{
-y_{\theta}^{\mathcal{F}}(\omega) 
-=
-\frac
-{
-\vecnot{\alpha}^{T}
-\vecnot{d}_{\theta}
-exp\left(-j\tau\right)
-}
-{
-1
--
-\vecnot{\beta}^{T}\vecnot{d}_{\theta}
-exp\left(-j\tau\right)
-}
-x^{\mathcal{F}}(\omega)
-}
+\ifdefined\DEFIncludeAttenuation
+    y_{\theta}^{\mathcal{F}}(\omega) 
+    =
+    \frac{    
+    \vecnot{\alpha}^{T}\vecnot{d}_{\theta}g^{2}exp\left(-j\tau\right)
+    }{
+    1 - g^{2}\vecnot{\beta}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
+    }
+    x^{\mathcal{F}}(\omega)
+\else
+    y_{\theta}^{\mathcal{F}}(\omega) 
+    =
+    \frac
+    {
+    \vecnot{\alpha}^{T}
+    \vecnot{d}_{\theta}
+    exp\left(-j\tau\right)
+    }
+    {
+    1
+    -
+    \vecnot{\beta}^{T}\vecnot{d}_{\theta}
+    exp\left(-j\tau\right)
+    }
+    x^{\mathcal{F}}(\omega)
+\fi

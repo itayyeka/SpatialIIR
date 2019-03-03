@@ -1,0 +1,88 @@
+Following \eqref{eq_beamPatternFreqDomain_FIM}, we elaborate the steps leading to \eqref{eqn_FIMelements}. First, we express the parial derivatives of $\F{y}$ with respect to $\vEta$, resulting in
+\begin{equation*}
+    \resizebox{.9\linewidth}{!}{
+        \begin{split}
+            \frac{\partial{\F{y}}}{\partial{\theta_{g}}} &= 
+            \frac{
+            \vBetaT{}A\vd\ePhi{-}\rBrace{1-\aTd\ePhi{-}}+\bTd\vAlphaT{}A\vd\ePhi{-2}
+            }{
+            \rBrace{1-\aTd\ePhi{-}}^{2}
+            }
+            \\&=
+            \frac{
+            \vBetaT{}A\vd\ePhi{-}-\vBetaT{}\rBrace{A\vd\vdT-\vd\vdT{}A}\vAlpha\ePhi{-2}
+            }{
+            \rBrace{1-\aTd\ePhi{-}}^{2}
+            }
+            \\&=
+            \frac{
+            \vBetaT{}A\vd\ePhi{-}-\vBetaT{}B\vAlpha\ePhi{-2}
+            }{
+            \rBrace{1-\aTd\ePhi{-}}^{2}
+            }
+        \end{split}
+    }
+\end{equation*}
+and
+\begin{equation*}
+    \resizebox{.9\linewidth}{!}{
+        \begin{split}
+            \frac{\partial{\F{y}}}{\partial{\phi}} &= 
+            \frac{
+            -j\bTd\ePhi{-}\rBrace{1-\aTd\ePhi{-}}-j\bTd\aTd\ePhi{-2}
+            }{
+            \rBrace{1-\aTd\ePhi{-}}^{2}
+            }
+            \\&=
+            \frac{
+            -j\bTd\ePhi{-}
+            }{
+            \rBrace{1-\aTd\ePhi{-}}^{2}
+            }
+        \end{split}
+    }
+\end{equation*}
+such that
+\begin{equation*}
+    % \resizebox{.9\linewidth}{!}{
+        \begin{split}
+            J_{\theta_{g}\theta_{g}} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{y}(\omega)}}{\partial{\theta_{g}}}}^{2}d\omega}
+            \\&=
+            \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
+            \lBrace{\vBetaT{}A\vd-\vBetaT{}B\vAlpha\ePhi{-}}^{2}
+            }{
+            \lBrace{1-\aTd\ePhi{-}}^{4}
+            }\lBrace{\F{x}(\omega)}^{2}d\omega},
+            \\
+            J_{\phi\phi} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{y}(\omega)}}{\partial{\phi}}}^{2}d\omega}
+            \\&=
+            \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
+            \lBrace{\bTd}^{2}
+            }{
+            \lBrace{1-\aTd\ePhi{-}}^{4}
+            }\lBrace{\F{x}(\omega)}^{2}d\omega}
+        \end{split}
+    % }
+\end{equation*}
+and the cross terms are
+\begin{equation*}
+    \resizebox{.9\linewidth}{!}{
+        \begin{split}
+            &J_{\theta_{g}\phi} = J_{\phi\theta_{g}}^{\ast} = 
+            \\&= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}
+            \rBrace{\frac{\partial{\F{y}(\omega)}}{\partial{\phi}}}^{\ast}
+            \frac{\partial{\F{y}(\omega)}}{\partial{\theta_{g}}}d\omega}
+            \\&=
+            \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
+            j\vBetaT{}\rBrace{A\vd-B\vAlpha\ePhi{-}}\vdH\vBeta^{\ast}
+            }{
+            \lBrace{1-\aTd\ePhi{-}}^{4}
+            }\lBrace{\F{x}(\omega)}^{2}d\omega}}.
+        \end{split}
+    }
+\end{equation*}
+Analyzing the cross terms, we find that for $\vAlpha,\vBeta\propto\vd^{\ast}$ the $\vBetaT{}B\vAlpha$~term vanishes. Assuming real input and real gain terms $g_n$ within the steering vector, the function
+\[
+\frac{\lBrace{\F{x}(\omega)}^{2}}{\lBrace{1-\aTd\ePhi{-}}^{4}}
+\]
+is even in $\omega$, and $j\vBetaT A \vd\vdH\vBeta^\ast \propto j\vBetaT A \vd \norm{\vd}^2$ is odd. Hence the cross terms vanish.

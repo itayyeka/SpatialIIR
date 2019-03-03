@@ -1,14 +1,3 @@
-$$
-f(x_j)=\sum_{n=0}^{\infty} \frac 1 {n!}\left(\sum_{i=1}^{m}(x_j-x_{j_0})\frac {\partial}{\partial x_i} \right)^n f(x_k)|_{x_k=x_{k0}}
-$$
-
-$$
-f(x,y)=\sum_{n=0}^{\infty} \frac 1 {n!}\left(x\frac {\partial}{\partial x}+y\frac {\partial}{\partial y} \right)^n f(x,y)|_{(x,y)=(0,0)}
-$$
-
-$$
-(x+y)^{n}=\sum _{k=0}^{n}{\binom {n}{k}}x^{n-k}y^{k}
-$$
 Following \cite{VanTrees2002DetectionIV}'s half power beam width (HPBW) calculation steps assuming classic passive ULA under the conventional beamformer, we start at equation (2.96) which express the beampattern in $u$-space, stating that
 $$
 B_{u}\left(u\right)=
@@ -49,7 +38,7 @@ $), results in
 \begin{equation}
     \evalat{f\left(x\right)}{x\to0}
     \approx
-    1 + \frac{1}{2!}\left(\frac{1-N^{2}}{3}\right)x^{2}.
+    1 + \frac{1}{2!}\left(\frac{N^{2}-1}{3}\right)x^{2}.
 \end{equation}
 Comparing to $1/\sqrt{2}$, one can write
 \begin{equation*}
@@ -62,9 +51,9 @@ which doesn't quite fit the stated value (\ref{eqn_classicULA_beamwidthCalc_VanT
     \approx
     1 
     + 
-    \frac{1}{2!}\left(\frac{1-N^{2}}{3}\right)x^{2}
+    \frac{1}{2!}\left(\frac{N^{2}-1}{3}\right)x^{2}
     +
-    \frac{1}{4!}\left(\frac{N^{4}}{5}-\frac{2N^{2}}{3}+\frac{7}{15}\right)x^{4}
+    \frac{1}{4!}\left(\frac{N^{4}}{10}-\frac{2N^{2}}{6}+\frac{1}{15}\right)x^{4}
 \end{equation}
 which conveniently generates a quadratic equation with respect to $x^{2}$. We plot $Nx_{HPBW}$ for various values of $N$ in fig.(\ref{fig_classicULA_beamwidth_Nx_HPBW}) and one can see that indeed, as stated in \cite{VanTrees2002DetectionIV}, $Nx_{HPBW}$ tends toward $1.4$ as $N$ increases.
 \begin{figure}

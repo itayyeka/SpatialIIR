@@ -1,264 +1,118 @@
-A good evaluation method for the contribution of our proposed feedback mechanism is to measure the additional information in the system. Basically, it means that we calculate the improvement in the system's parameters estimation theoretical performance comparing to non-feedback-based systems. The most common way of expressing this measure is the Cramer-Rao Lower Bound (CRLB) which sets a lower bound to the variance of unbiased estimators. Due to the fact that our feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in the frequency domain, it seems natural the we should also, as done in \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses}, express the CRLB in the same domain. Following \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses}'s steps, with a simple modification of our system model (i.e. adding zero-mean Gaussian noise to the output of our system), we express the Fisher Information Matrix (FIM) of the system.
-\par The unknown parameters in our case are $ \eta = [\tau,\theta]^{T} $, therefore \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses} dictates that
-\resizebox{.97\linewidth}{!}{
-  \begin{minipage}{\linewidth}
-      \begin{align}
-        \nonumber
-        \left[J(\eta)\right]_{kl} = 
-        \Re\Bigg\{&
-        \frac{1}{2\pi}
-        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-        {
-        \frac{1}{\phi\left(\omega,\eta\right)}
-        \mathfrak{F}^{*}\left\{
-        \frac{\partial y(t,\eta)}{\partial\eta_{k}}
-        \right\}
-        \mathfrak{F}\left\{
-        \frac{\partial y(t,\eta)}{\partial\eta_{l}}
-        \right\}
-        d\omega
-        }
-        \\ &+
-        \frac{T}{4\pi}
-        \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-        \frac{
-        \frac{\partial\phi\left(\omega,\eta\right)}{\eta_{k}}
-        \frac{\partial\phi\left(\omega,\eta\right)}{\eta_{l}}
-        }
-        {\phi^{2}\left(\omega,\eta\right)}
-        d\omega
-        \Bigg\}
-    \end{align}
-  \end{minipage}
-}
-where $\Re$ is the real-part-extraction operator, $k,l = 1..2$, $\phi\left(\omega,\eta\right)$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator and $T$ is the coherent integration time. In our model, the noise is white and does not depend on any of the parameters, which leads to vanishing the second expression, writing $\phi\left(\omega,\eta\right) = \phi_{NOISE}$. 
-Denoting $A,B$ and $g$ such that, 
-$
-\frac{\partial \vecnot{d}_{\theta}}{\partial\theta} = -j\omega\frac{d\sin\left(\theta\right)}{c}diag\left\{{\left[0,1,\hdots,N-1\right]}\right\} \triangleq A\vecnot{d}_{\theta}
-$
-, $B \triangleq \vecnot{d}_{\theta}\vecnot{d}^{T}_{\theta}A - A\vecnot{d}_{\theta}\vecnot{d}^{T}_{\theta}$ and $g \triangleq \vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}$, enables writing the FIM elements as 
-\\
-\ifdefined\DEFIncludeAttenuation
-    \resizebox{.97\linewidth}{!}{
-      \begin{minipage}{\linewidth}
-        \begin{equation}
-            \label{eqn_FIMelements}
-            \begin{split}
-                J_{\theta\theta}
-                = &
-                \frac{1}{2\pi\phi}
-                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-                \left|
-                \frac
-                {
-                \vecnot{\alpha}^{T}
-                \left(
-                4c^{2}\tau^{2}Ad_{\theta} + B\vecnot{\beta}e^{-j\omega\tau}
-                \right)
-                }
-                {\hDen^{2}}
-                \right|^{2}
-                \left|
-                s\left(\omega\right)
-                \right|^{2}
-                d\omega
-                \\
-                J_{\tau\tau}
-                = &
-                \frac{1}{2\pi\phi}
-                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-                \frac
-                {\omega^{2}
-                \left|
-                \vecnot{\alpha^{T}}\vecnot{d}_{\theta}
-                \right|^{2}}
-                {\left|\hDen^{2}\right|^{2}}
-                \left|
-                s\left(\omega\right)
-                \right|^{2}
-                d\omega
-                \\
-                J_{\theta\tau} = J_{\tau\theta}
-                = &
-                \Re
-                \left\{
-                \frac{1}{2\pi\phi}
-                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-                \frac
-                {
-                j\omega\vecnot{\alpha}^{T}
-                \left(
-                A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
-                \right)
-                \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
-                }
-                {\left|\hDen^{2}\right|^{2}}
-                \left|
-                s\left(\omega\right)
-                \right|^{2}
-                d\omega
-                \right\}
-            \end{split}
-        \end{equation}
-      \end{minipage}
-    }
-\else
-    \ifdefined\showDev
-        \fbox{
-        \begin{minipage}{.95\linewidth}
-        \textbf{development specifics}
-        \begin{equation*}
+A possible evaluation for the contribution of the suggested feedback mechanism is to measure the additional information in the system.
+To this end, the FIM will now be calculated with respect to the DOA parameter $\theta_g$ and the range related parameter $\phi$. 
+As our feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in the frequency domain, we rely on \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses}, to express the FIM in the frequency domain as well. 
+Introducing the additive noise term $n(t)$ as in Fig.~\ref{fig:Proposed_spatialIIR_ARCH},  and assuming it to be white and Gaussian, the $k,l$'th element of the FIM, notated by the matrix $J$, can be expressed as
+\begin{equation}
+    \resizebox{1\linewidth}{!}{
         \begin{split}
-            \frac{\partial y_{\theta}^{\mathcal{F}}(\omega) }{\partial\theta}
-            &=
-            \frac{
-            \vecnot{\alpha}^{T}Ad_{\theta}e^{-j\omega\tau}
-            -\vecnot{\alpha}^{T}Ad_{\theta}\vecnot{\beta}^{T}d_{\theta}e^{-2j\omega\tau}
-            +\vecnot{\alpha}^{T}d_{\theta}\vecnot{\beta}^{T}Ad_{\theta}e^{-2j\omega\tau}
-            }{
-            \left(1-g\right)^{2}
-            }
-            \\
-            &=
-            \frac{
-            \vecnot{\alpha}^{T}
-            \left(
-            Ad_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
-            \right)e^{-j\omega\tau}
-            }{
-            \left(1-g\right)^{2}
-            }
-            \\
-            \frac{\partial y_{\theta}^{\mathcal{F}}(\omega) }{\partial\tau}
-            &=
-            \frac{
-            -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}\left(1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}\right)
-            -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-2j\omega\tau}
-            }{
-            \left(1-g\right)^{2}
-            }
-            \\
-            &=
-            \frac{
-            -j\omega\vecnot{\alpha}^{T}\vecnot{d}_{\theta}e^{-j\omega\tau}
-            }{
-            \left(1-g\right)^{2}
-            }
-        \end{split}
-        \end{equation*}
-        \end{minipage}
-        }
-    \else
-    \fi
-    \resizebox{.97\linewidth}{!}{
-      \begin{minipage}{\linewidth}
-        \begin{equation}
-            \label{eqn_FIMelements}
-            \begin{split}
-                J_{\theta\theta}
-                = &
-                \frac{1}{2\pi\phi}
-                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-                \left|
-                \frac
-                {
-                \vecnot{\alpha}^{T}
-                \left(
-                Ad_{\theta} + B\vecnot{\beta}e^{-j\omega\tau}
-                \right)
-                }
-                {\left(1-g\right)^{2}}
-                \right|^{2}
-                \left|
-                s\left(\omega\right)
-                \right|^{2}
-                d\omega
-                \\
-                J_{\tau\tau}
-                = &
-                \frac{1}{2\pi\phi}
-                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-                \frac
-                {\omega^{2}
-                \left|
-                \vecnot{\alpha^{T}}\vecnot{d}_{\theta}
-                \right|^{2}}
-                {\left|\left(1-g\right)^{2}\right|^{2}}
-                \left|
-                s\left(\omega\right)
-                \right|^{2}
-                d\omega
-                \\
-                J_{\theta\tau} = J_{\tau\theta}^{*}
-                = &
-                \Re
-                \left\{
-                \frac{1}{2\pi\phi}
-                \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-                \frac
-                {
-                j\omega\vecnot{\alpha}^{T}
-                \left(
-                A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
-                \right)
-                \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
-                }
-                {\left|\left(1-g\right)^{2}\right|^{2}}
-                \left|
-                s\left(\omega\right)
-                \right|^{2}
-                d\omega
-                \right\}
-            \end{split}
-        \end{equation}
-      \end{minipage}
-    }
-    \ifdefined\showDev
-        \fbox{
-        \begin{minipage}{.95\linewidth}
-        \textbf{development specifics}
-        \begin{align*}
-            \det\left\{J\right\}
-            &=
-            J_{\theta\theta}J_{\tau\tau}-J_{\theta\tau}J_{\tau\theta}
-            \\
-            &=
-            \frac{1}{4\pi^{2}\Phi^{2}}
-            \int_{-\frac{\omega_{s}}{2}}^{\frac{\omega_{s}}{2}}
-            \frac{
-            \left|s\left(\omega\right)\right|^{2}
-            }{
-            \left|\left(1-g\right)^{2}\right|^{4}
-            }
-            \omega^{2}
-            \Biggl(
-            \left|\vecnot{\alpha^T\vecnot{d}_{\theta}}\right|^{2}
-            \left|\vecnot{\alpha}^T\left(A\vecnot{d}_{\theta}+B\becnot{\beta}e^{-j\omega\tau}\right)\right|^{2}
-            \\
-            &
-            -\Re^{2}
-            \left\{
-            j\omega\vecnot{\alpha}^{T}
-            \left(
-            A\vecnot{d}_{\theta}+B\vecnot{\beta}e^{-j\omega\tau}
-            \right)
-            \vecnot{\alpha}^{H}\vecnot{d}^{*}_{\theta}
+            \left[J(\eta)\right]_{kl} = 
+            &\Re\cBrace{
+            \frac{1}{2\pi}
+            \int_{-\omega_{s}/2}^{\omega_{s}/2}
+            {
+            \frac{1}{\Phi\rBrace{\omega}}
+            \mathfrak{F}^{*}\left\{
+            \frac{\partial y(t,\eta)}{\partial\eta_{k}}
             \right\}
-            \Biggl)
+            \mathfrak{F}\left\{
+            \frac{\partial y(t,\eta)}{\partial\eta_{l}}
+            \right\}
             d\omega
+            }}
+            \\ &+
+            \frac{T}{4\pi}
+            \int_{-\omega_{s}/2}^{\omega_{s}/2}
+            \frac{1}{\Phi^{2}\rBrace{\omega}}
+            \frac{\partial\Phi\rBrace{\omega}}{\eta_{k}}
+            \frac{\partial\Phi\rBrace{\omega}}{\eta_{l}}
+            d\omega
+        \end{split}
+    }
+\end{equation}
+where $ \eta = [\theta_g,\phi]^{T} $ is the parameters vector, $\Re$ stands for the real-part operator, $k,l \in\cBrace{1,2}$, $\Phi\rBrace{\omega}$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator, $T$ is the measurement observation interval and $\omega_{s}$ is the signal bandwidth. In our model, the noise is white with some constant power spectral density $\Phi(\omega)=\sigma^2$ and does not depend on the parameters $\eta$, hence the second term vanishes. 
+\par Assuming continuously differentiable functions (such that the order of the Fourier transform and the differentiation can be altered) the FIM is
+\begin{equation}
+    \label{eq_beamPatternFreqDomain_FIM}
+    % \resizebox{1\linewidth}{!}{
+        \begin{split}
+            \left[J(\eta)\right]_{kl} = 
+            \Re\cBrace{
+            \frac{1}{2\pi\sigma^2}
+            \int_{-\omega_{s}/2}^{\omega_{s}/2}
+            {
+            \rBrace{\frac{\partial{}y^{\mathcal{F}}\rBrace{\omega}}{\partial\eta_{k}}}^{\ast}
+            \frac{\partial{}y^{\mathcal{F}}\rBrace{\omega}}{\partial\eta_{l}}
+            d\omega
+            }}
+        \end{split}.
+    % }
+\end{equation}
+% \begin{figure}[t!]
+%     \begin{center}
+%         \begin{overpic}[width=0.6\linewidth, 
+%         % grid, 
+%         tics=10,trim=0 0 0 0]{./Media/basicGeneralGeometryArray.png}
+%             \put (72, 57){\footnotesize{$p_{0} \triangleq (0,0)$}}
+%             \put (11, 55){\footnotesize{$p_{1}$}}
+%             \put (62, 12){\footnotesize{$p_{2}$}}
+%             \put (18, 17){\footnotesize{$p_{N-1}$}}
+%             \put (49, 44){\footnotesize{$\theta_{g}$}}
+%             \put (80, 75){\footnotesize{Impinging signal}}
+%         \end{overpic}
+%     \end{center}
+%     \caption{An arbitrary geometry array, impinged by a Far-field signal which arrives from DOA $\theta_{g}$.}
+%     \label{fig_arbGeoArray}
+% \end{figure}
+\myTodo{inline}{\textbf{DONE:}\\here again you deal with the ULA, but try first to write a general expression in terms of the derivative. Only at the end plug in the specific case of ULA}
+% For a general array of some geometry (see Fig.~\ref{fig_arbGeoArray}), we can express the relative (setting $\tau_{0,\theta_{g}}=0$) impinging moments of the signal in the array sensors as
+% \begin{equation*}
+%     \begin{split}
+%         \tau_{n,\theta_{g}} =&\  \frac{\norm{p_{n}}}{c}\cos{\rBrace{\theta_{g}-\angle{p_{n}}}} - \frac{\norm{p_{0}}}{c}\cos{\rBrace{\theta_{g}-\angle{p_{0}}}} 
+%         \\\overset{p_{0}=0}{=}&\  \frac{\norm{p_{n}}}{c}\cos{\rBrace{\theta_{g}-\angle{p_{n}}}},
+%     \end{split}
+% \end{equation*}
+% where $\angle{p_{n}}$ is the relative angle, measured from the broadside of $p_{0}$. 
+Assuming smooth radiation patters and in order to simplify the analysis, we assume here that the derivative of the elements gain $\cBrace{g_n}$ with respect to the parameters $\vEta$ is negligible. Hence, using~\eqref{eq:d}, we can write that
+$$
+\frac{\partial\vd}{\partial\theta_g}=A\vd
+$$
+where $A$ is diagonal, with \[A[n,n]=-j\omega\frac{\partial \tau_{n,\theta_g}}{\partial{\theta_g}}.
+\]
+
+ In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
+\begin{equation}
+    \label{eqn_FIMelements}
+    \resizebox{.91\linewidth}{!}{
+        \begin{split}
+            &J_{\theta\theta}
+            =
+            \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
+            \lBrace{\vBetaT{}A\vd-\vBetaT{}B\vAlpha\ePhi{-}}^{2}
+            }{
+            \lBrace{\rBrace{1-\aTd\ePhi{-}}^{2}}^{2}
+            }\lBrace{\F{x}}^{2}d\omega}
             \\
-        \end{align*}
-        \end{minipage}
-        }
-    \else
-    \fi
-\fi
-Analyzing the FIM elements (\ref{eqn_FIMelements}), few important observation arise
-\subsubsection*{The common denominator $\left|\left(1-g\right)^{2}\right|^{2}$}
-\subsubsection*{Wideband signals contribution}
-\begin{itemize}
-    \item emphasize the $\tau$ sensitivity through $1-g$ 
-    \item signal bandwidth non-negative contribution
-    \item The fact that there is no information on the actual $\tau$ but on $\omega\tau \% 2\pi$
-\end{itemize}
-Here I intend to plot the $CRLB_{\theta}$ vs $\tau_{Err}$ and the signal bandiwdth.
+            &J_{\phi\phi}
+            =
+            \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
+            \lBrace{\bTd}^{2}
+            }{
+            \lBrace{\rBrace{1-\aTd\ePhi{-}}^{2}}^{2}
+            }\lBrace{\F{x}}^{2}d\omega}
+        \end{split}
+    }
+\end{equation}
+where $B\triangleq \vd \vdT A -A\vd\vdT$. Assuming weights which are proportional to the conjugate of the steering vector (i.e. $\vAlpha,\vBeta\propto\vd^{\ast}$), and with some additional mild assumptions, it can be shown (App.~\ref{apdx_clacFim}) that the cross terms of the FIM are nullified, i.e. $J_{\theta\phi} = J_{\phi\theta}^{*}=0$.
+This choice of weights can be seen as generalization of the conventional beamformer (CB) \cite{VanTrees2002DetectionIV} where  $\vBeta\propto\vd^{\ast}$ constitutes a coherent integration of the signal along the array elements. 
+
+From \eqref{eqn_FIMelements} we observe that minimization of the denominator $\lBrace{1-\aTd\ePhi{-}}$ should significantly increase the information.
+Hence, by setting
+\begin{equation}\label{eq:optimal_alpha}
+\vAlpha=\vd^\ast\ePhi{}/\norm{\vd}^2,
+\end{equation}
+which has the interpretation of coherently beamforming the feedback signal prior to its re-transmission, improved estimation of the DOA and range can be achieved.
+
+The FIM structure also suggests that by increasing the signal bandwidth one should also achieve information increase.
+
+\par In practice, though, there will be unavoidable errors, and perfect knowledge of the steering vector $\vd$ is not always available.
+In Sec.~\ref{sec_Performance}, we quantify the effect of mismatching $\vAlpha$ with the desired form \eqref{eq:optimal_alpha} and discuss its influence on the array performance. 

@@ -358,7 +358,7 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{ Localization with feedback.\\ From FIR to spatial IIR processing}
+\title{Novel approach to beamforming.\\Localization with spatial feedback.}
 %
 %
 % author names and IEEE memberships
@@ -370,12 +370,12 @@
 % was not built to handle multiple paragraphs
 %
 
-\author{Itay Yehezkel Karo ,~\IEEEmembership{Non Member,~IEEE,}
-        Israel Cohen,~\IEEEmembership{Fellow,~IEEE,}
-        Tsvi G. Dvorkind,~\IEEEmembership{Non Member,~IEEE}% <-this % stops a space
-\thanks{I. Y. Karo and I. Cohen are with the departement of EE, Technion, e-mail: (....)}% <-this % stops a space
-\thanks{T. G. Dvorkind is with Rafael.}% <-this % stops a space
-\thanks{...}}
+\author{Itay Yehezkel Karo,~\IEEEmembership{Non Member,~IEEE,}
+        Tsvi G. Dvorkind,~\IEEEmembership{Non Member,~IEEE,}
+        Israel Cohen,~\IEEEmembership{Fellow,~IEEE}
+\thanks{I. Y. Karo and I. Cohen are with the departement of EE, Technion.}% <-this % stops a space
+\thanks{T. G. Dvorkind is with Rafael corp.}% <-this % stops a space
+}
 
 % note the % following the last \IEEEmembership and also \thanks - 
 % these prevent an unwanted space from occurring between the last author name
@@ -398,8 +398,8 @@
 
 
 % The paper headers
-\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
-{Shell \MakeLowercase{\textit{et al.}}: Localization with feedback; From FIR to spatial IIR processing}
+\markboth{IEEE tran. sig. proc.}%
+{Karo \MakeLowercase{\textit{et al.}}: Beamforming with feedback}
 % The only time the second header will appear is for the odd numbered pages
 % after the title page when using the twoside option.
 % 
@@ -431,12 +431,12 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 \begin{abstract}
-A new feedback based approach to array processing, which significantly increases the received signal's residing spatial information is introduced. The proposed architecture is similar to standard active arrays, such as radars, which involve both transmitting and receiving signals from sensor arrays. 
+A new feedback based approach for array signal processing is suggested. In the proposed scheme, a signal is continuously re-transmitted between the array and the target of interest. We analyze this system in the context of beamforming for source localization and show a significant improvement in several key features, such as reducing the obtained beam-width, increasing its peak to side-lobe level and improving the array directivity. 
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-IEEE, IEEEtran, journal, \LaTeX, paper, template.
+Spatial array processing, localization, beam-pattern.
 \end{IEEEkeywords}
 
 
@@ -470,10 +470,104 @@ IEEE, IEEEtran, journal, \LaTeX, paper, template.
 % and "HIS" in caps to complete the first word.
 \section{Introduction}
 \input{./Modules/IEEE_journal_paper_Intro.tex}
-\section{Integrating feedback}
+\section{Introducing Spatial Feedback}
+\label{sec_introduceFeedback}
 \input{./Modules/IEEE_journal_paper_IntegrateFeedback.tex}
-\section{Example detection application}
-\input{./Modules/stabilityEnhancement_freqPairApproach.tex}
+\section{Simulations}
+In this section, we first aim to validate the derivations of Sec.~\ref{sec_introduceFeedback}, while still considering the steer error scenario. Time domain simulations are presented in Fig.~\ref{fig_steerErrorTemporalSim}, showing perfect match between the simulations and the expected spatial response (\ref{eqn:GeneralFeedbackTransferFunction}).
+\begin{figure}[t!]
+   \centering
+   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+        % grid, 
+        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r0.png}
+            \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0$}}
+            \put (65, 65){\tiny{Expected pattern}}
+            \put (65, 61) {\tiny{Simulation results}}
+            \put (49, -1) {\tiny{$\dTheta\vBrace{RAD}$}}
+            \put (0, 40) {\tiny{dB}}
+        \end{overpic}\label{subfig_steerErrorTemporalSim_r0}}\quad
+   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+        % grid, 
+        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r06.png}
+            \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0.6$}}
+            \put (49, -1) {\tiny{$\dTheta$}}
+            \put (0, 40) {\tiny{dB}}
+        \end{overpic}\label{subfig_steerErrorTemporalSim_r06}}\\
+   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+        % grid, 
+        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r08.png}
+            \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0.8$}}
+            \put (49, -1) {\tiny{$\dTheta$}}
+            \put (0, 40) {\tiny{dB}}
+        \end{overpic}\label{subfig_steerErrorTemporalSim_r08}}\quad
+   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+        % grid, 
+        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r095.png}
+            \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0.95$}}
+            \put (49, -1) {\tiny{$\dTheta$}}
+            \put (0, 40) {\tiny{dB}}
+        \end{overpic}\label{subfig_steerErrorTemporalSim_r095}}
+   \caption{For simulating the system's spatial response, we considered the steer-error case only in acoustic environment, where the signal's frequency is $10_{kHz}$ and steered a feedback-based array of $3$ elements towards the end-fire direction. For each $r$ value, we generate multiple simulations of a far-field target in different angular positions, covering $\theta_{g}\in\vBrace{0,\pi}$ and for each $\theta_{g}$ we plot the final array output magnitude. Each simulation was $100$ iterations long, where one iteration is the time that takes for a signal to get to the target, reflect and re-impinge the array. In \ref{subfig_steerErrorTemporalSim_r0} we simulate the passive array ($r=0$) for reference. Introducing the feedback, \ref{subfig_steerErrorTemporalSim_r06},\ref{subfig_steerErrorTemporalSim_r08} and \ref{subfig_steerErrorTemporalSim_r095} are simulations of the same array with $r$ values of $0.6, 0.8$ and $0.95$ respectively. The reader may observe that the beampattern sharpens and the side-lobes are decayed as $r$ increases, as predicted in Sec.~\ref{sec_Performance}.}
+   \label{fig_steerErrorTemporalSim}
+\end{figure}
+\par Next, we investigate $h\rBrace{\theta,\omega}$ (\ref{eqn:GeneralFeedbackTransferFunction}) under the general case of both steer and range misalignment. In Fig.~\ref{fig_hDUDTContour}, we plot the general case system response (the integrand in \ref{eqn_arrayPerformance_directivity_integral}) and observe that although $r\to1$ significantly improves the spatial selectivity of the system, unfortunately the response is very sensitive to phase alignment errors. Phase alignment errors are originated in differences between the enhanced range which is determined by the array designer and the range of the actual target. Analysis of $h\rBrace{\theta,\omega}$ show that the phase alignment error is $2\pi$-periodic which states that the matching range error ($R_{error}$) period is $\lambda/2$. For example, as can be seen in Fig.~\ref{fig_rangError}, even range errors of $\approx0.1\lambda$ significantly distort the beampattern, making the system too sensitive for any practical application. The sensitivity is also present in electro-magnetic (EM) environments and under some scenarios even worse.
+\begin{figure}[t!]
+   \centering
+   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+        % grid, 
+        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/spatialIIR_amb_N3r04.png}
+            \put (12, 73.5){\tiny{$\lBrace{h\rBrace{\dTheta,\dPhi}}_{\vBrace{dB}}, r=0.4$}}
+            \put (47.5, -1) {\tiny{$\dTheta/\pi$}}
+            \put (-3, 38) {\tiny{$\dPhi/\pi$}}
+        \end{overpic}\label{subfig_hDUDTContour_r04}}\quad
+    \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+        % grid, 
+        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/spatialIIR_amb_N3r06.png}
+            \put (12, 73.5){\tiny{$\lBrace{h\rBrace{\dTheta,\dPhi}}_{\vBrace{dB}}, r=0.6$}}
+            \put (47.5, -1) {\tiny{$\dTheta/\pi$}}
+            \put (-3, 38) {\tiny{$\dPhi/\pi$}}
+        \end{overpic}\label{subfig_hDUDTContour_r06}}\\
+   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+        % grid, 
+        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/spatialIIR_amb_N3r08.png}
+            \put (12, 73.5){\tiny{$\lBrace{h\rBrace{\dTheta,\dPhi}}_{\vBrace{dB}}, r=0.8$}}
+            \put (47.5, -1) {\tiny{$\dTheta/\pi$}}
+            \put (-3, 38) {\tiny{$\dPhi/\pi$}}
+        \end{overpic}\label{subfig_hDUDTContour_r08}}\quad
+   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+        % grid, 
+        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/spatialIIR_amb_N3r09.png}
+            \put (12, 73.5){\tiny{$\lBrace{h\rBrace{\dTheta,\dPhi}}_{\vBrace{dB}}, r=0.9$}}
+            \put (47.5, -1) {\tiny{$\dTheta/\pi$}}
+            \put (-3, 38) {\tiny{$\dPhi/\pi$}}
+        \end{overpic}\label{subfig_hDUDTContour_r09}}
+   \caption{Here we plot the general scenario array response, computed for both steer error ($\dTheta$) and phase alignment errors ($\dPhi$). Due to the $2\pi$ periodic behaviour of the response regarding $\dTheta$ and $\dPhi$, we plot the response for $-\pi<\dTheta,\dPhi<\pi$. We plot the system's response for $r = 0.4,0.6,0.8$ and $0.9$ in \ref{subfig_hDUDTContour_r04},\ref{subfig_hDUDTContour_r06},\ref{subfig_hDUDTContour_r08} and \ref{subfig_hDUDTContour_r09} respectively, and observe that as $r$ increases the spatial selectivity (regarding to both $\dTheta$ and $\dPhi$) significantly rise.}
+   \label{fig_hDUDTContour}
+\end{figure}
+\begin{figure}[t!]
+    \begin{center}
+        \begin{overpic}[width=.6\linewidth, 
+        % grid, 
+        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/rangeError_r06.png}
+            \put (0, 73.5){\footnotesize{$\lBrace{H\rBrace{\dTheta,\dPhi}}$}}
+            \put (0, 37) {\footnotesize{dB}}
+            \put (48, 0) {\footnotesize{$\dTheta$}}
+            \put (75, 35) {\tiny{$R_{error}=0$}}
+            \put (75, 55) {\tiny{$R_{error}=0.1\lambda$}}
+            \put (75, 63) {\tiny{$R_{error}=0.3\lambda$}}
+        \end{overpic}
+    \end{center}
+    \caption{Phase misalignment can significantly distort the spatial response. Here we plot the response of 3 element feedback based array, where $r=0.6$, in perfect alignment as a reference in addition to scenarios of $0.1\lambda$ and $0.3\lambda$ range errors. In each simulation we normalize the response such that its maximal magnitude is $0_{dB}$ so that the comparison is not influenced by the array gain.}
+    \label{fig_rangError}
+\end{figure}
+\par This leads us to seek for ways of reducing this sensitivity to allow practical usage of the suggested feedback based array processing. One such application is described in Sec.~\ref{sec_app}. 
+\ifdefined\DEFInclueApplication
+    \section{Example detection application}
+    \label{sec_app}
+    \input{./Modules/stabilityEnhancement_freqPairApproach.tex}
+\else
+\fi
+
 % needed in second column of first page if using \IEEEpubid
 %\IEEEpubidadjcol
 
@@ -579,6 +673,7 @@ IEEE, IEEEtran, journal, \LaTeX, paper, template.
 
 
 \section{Conclusion}
+\label{sec_conclusions}
 The conclusion goes here.
 
 
@@ -601,9 +696,12 @@ The conclusion goes here.
 
 
 \appendices
-\section{The ULA beamwidth}
-\label{appendix_theULABeamwidth}
-\input{./Modules/classicULA_beamwidth.tex}
+\section{FIM calculation}
+\label{apdx_clacFim}
+\input{./Modules/FIM_calc.tex}
+% \section{The ULA beamwidth}
+% \label{appendix_theULABeamwidth}
+% \input{./Modules/classicULA_beamwidth.tex}
 % you can choose not to have a title for an appendix
 % if you want by leaving the argument blank
 % use section* for acknowledgment
@@ -662,22 +760,34 @@ The authors would like to thank...
 %\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
 % or if you just want to reserve a space for a photo:
 
-\begin{IEEEbiography}{Michael Shell}
-Biography text here.
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{./Media/addPhotoHere.PNG}}]{Israel Cohen}
+(M’01–SM’03–F’15) He received the B.Sc. (Summa Cum Laude), M.Sc., and Ph.D. degrees in electrical engineering from the Technion – Israel Institute of Technology, Haifa, Israel, in 1990, 1993, and 1998, respectively.
+He is currently a Professor of electrical engineering with the Technion – Israel Institute of Technology.
+From 1990 to 1998, he was a Research Scientist with RAFAEL Research Laboratories, Israel Ministry of Defense, Haifa. 
+From 1998 to 2001, he was a Postdoctoral Research Associate with the Computer Science Department, Yale University, New Haven, CT, USA. In 2001, he joined the Electrical Engineering Department, Technion – Israel Institute of Technology.
+He is a coeditor of the Multichannel Speech Processing Section of the Springer Handbook of Speech Processing (Springer, 2008), and a coauthor of Fundamentals of Signal Enhancement and Array Signal Processing (Wiley-IEEE Press, 2017). 
+His research interests include array processing, statistical signal processing, analysis and modeling of acoustic signals, speech enhancement, noise estimation, microphone arrays, source localization, blind source separation, system identification, and adaptive filtering.
+Dr. Cohen was awarded the Norman Seiden Prize for Academic Excellence (2017), the SPS Signal Processing Letters Best Paper Award (2014), the Alexander Goldberg Prize for Excellence in Research (2010), and the Muriel and David Jacknow Award for Excellence in Teaching (2009). 
+He is currently an Associate Member of the IEEE Audio and Acoustic Signal Processing Technical Committee. 
+He was an Associate Editor for the IEEE TRANSACTIONS ON AUDIO, SPEECH, AND LANGUAGE PROCESSING and the IEEE SIGNAL PROCESSING LETTERS, and as Member of the IEEE Audio and Acoustic Signal Processing
+Technical Committee and the IEEE Speech and Language Processing Technical Committee.
 \end{IEEEbiography}
 
 % if you will not have a photo at all:
-\begin{IEEEbiographynophoto}{John Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{./Media/addPhotoHere.PNG}}]{Tsvi G. Dvorkind}
+Tsvi G. Dvorkind received the B.Sc. degree (summa cum laude) in computer engineering in 2000, the M.Sc. degree (summa cum laude) in electrical engineering in 2003, and the Ph.D. degree in electrical engineering in 2007, all from the Technion—Israel Institute of Technology, Haifa, Israel.
+From 1998 to 2000 he worked at the Electro-Optics Research & Development Company at the Technion, and during 2000–2001 at the Jigami Corporation.
+He is now with the Rafael Company, Haifa, Israel.
+His research interests include speech enhancement and acoustical localization, general parameter estimation problems, and sampling theory.
+\end{IEEEbiography}
 
 % insert where needed to balance the two columns on the last page with
 % biographies
 %\newpage
 
-\begin{IEEEbiographynophoto}{Jane Doe}
+\begin{IEEEbiography}{Itay Yehezkel Karo}
 Biography text here.
-\end{IEEEbiographynophoto}
+\end{IEEEbiography}
 
 % You can push biographies down or up by placing
 % a \vfill before or after them. The appropriate

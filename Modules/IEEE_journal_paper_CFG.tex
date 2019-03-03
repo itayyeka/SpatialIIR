@@ -21,6 +21,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
 \usepackage{isomath}
 \usepackage{fixmath}
 \usepackage{tikz}
@@ -31,35 +37,40 @@
 \usepackage{xfrac}
 \usepackage{lipsum}
 \usepackage[colorinlistoftodos]{todonotes}
+\usepackage[percent]{overpic}
 \input{./Modules/LatexShortcuts_Itayyeka_2.tex}
+\usepackage{subfig}
 %%%%%%%%%%%%%%    aliases    %%%%%%%%%%%%%%
+\newcommand{\Brace}[1]{\left\{{#1}\right\}}
+\newcommand{\rBrace}[1]{\left({#1}\right)}
+\newcommand{\lBrace}[1]{\left|{#1}\right|}
+\newcommand{\vBrace}[1]{\left[{#1}\right]}
+\newcommand{\cBrace}[1]{\left\{{#1}\right\}}
 \newcommand{\dTheta}{\Delta\theta}
-\newcommand{\dTau}{\Delta\tau}
-\newcommand{\D}[2]{\mathcal{D}\left(#1,#2\right)}
-\newcommand{\Dp}[3]{\mathcal{D}^{#3}\left(#1,#2\right)}
-\newcommand{\fbBpRatio}{
-\left|
-\frac{
-\frac
-{
-\vecnot{\alpha}^{T}\vecnot{d}_{\theta_{s}}exp\left(-j\tau_{s}\right)
-}
-{
-4c^{2}\tau_{s}^{2}-\vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}exp\left(-j\tau_{s}\right)
-}
-}{
-\frac
-{
-\vecnot{\alpha}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
-}
-{
-4c^{2}\tau^{2}-\vecnot{\beta}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
-}
-}
-\right|
-}
-\newcommand{\Hr}[3]{\mathcal{H}^{#3}\left(#1,#2\right)}
-\newcommand{\Steer}[1]{\vecnot{d}_{#1}}
+\newcommand{\dPhi}{\Delta\phi}
+\newcommand{\dOmega}{\Delta\omega}
+\newcommand{\dR}{\Delta{R}}
+\newcommand{\dTau}{CHANGE_TO_DPHI}
+\newcommand{\D}[2]{\mathcal{D}\rBrace{#1,#2}}
+\newcommand{\Dp}[3]{\mathcal{D}^{#3}\rBrace{#1,#2}}
+
+\newcommand{\vd}{\vecnot{d}}
+\newcommand{\vx}{\vecnot{x}}
+\newcommand{\vAlpha}{\vecnot{\alpha}}
+\newcommand{\vBeta}{\vecnot{\beta}}
+\newcommand{\vdT}{\vd^{T}}
+\newcommand{\vxT}{\vecnot{x}^{T}}
+\newcommand{\vAlphaT}{\vAlpha^{T}}
+\newcommand{\vBetaT}{\vBeta^{T}}
+\newcommand{\vdH}{\vd^{H}}
+\newcommand{\vxH}{\vecnot{x}^{H}}
+\newcommand{\vAlphaH}{\vAlpha^{H}}
+\newcommand{\vBetaH}{\vBeta^{H}}
+\newcommand{\vEta}{\vecnot{\eta}}
+\newcommand{\vEtaT}{\vEta^{T}}
+\newcommand{\vEtaH}{\vEta^{H}}
+\newcommand{\F}[1]{#1^{\mathcal{F}}}
+\newcommand{\ePhi}[1]{\exp{\rBrace{#1j\phi}}}
 
 \NewDocumentCommand{\evalat}{sO{\big}mm}{%
   \IfBooleanTF{#1}
@@ -67,10 +78,18 @@
    {#3#2|_{#4}}%
 }
 
-\newcommand{\hDen}{\left(4c^{2}\tau^{2}-\vecnot{\beta}^{T}\vecnot{d}e^{-j\omega\tau}\right)}
+\newcommand{\Steer}[1]{\vd_{#1}} 
+\newcommand{\aTd}{\vAlpha^{T}\Steer{}} 
+\newcommand{\bTd}{\vBeta^{T}\Steer{}}
+\newcommand{\Hr}[3]{\mathcal{H}^{#3}\rBrace{#1,#2}}
+\newcommand{\myTodo}[2]{\ifdefined\showTodo{\todo[#1]{#2}}\else\fi}
+\newcommand{\coefSetName}{\text{CB}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%      Document flags     %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \def\showDev{}
-\def\DEFIncludeAttenuation
+%\def\showDev{}
+% \def\showTodo{}
+\def\DEFIncludeAttenuation{}
+\def\DEFInclueApplication{}
 %%%%%%%%%%%%  Document Code starts here %%%%%%%%%%%%%%

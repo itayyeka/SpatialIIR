@@ -1,12 +1,13 @@
 \ifdefined\DEFIncludeAttenuation
-    y_{\theta}^{\mathcal{F}}(\omega) 
+    h\rBrace{\theta,\omega} 
+    \triangleq
+    \frac{y_{\theta}^{\mathcal{F}}(\omega)}{x^{\mathcal{F}}(\omega)} 
     =
     \frac{    
-    \vecnot{\alpha}^{T}\vecnot{d}_{\theta}g^{2}exp\left(-j\tau\right)
+    g\aTd{}exp\rBrace{-j\phi}
     }{
-    1 - g^{2}\vecnot{\beta}^{T}\vecnot{d}_{\theta}exp\left(-j\tau\right)
+    1 - g\bTd{}exp\rBrace{-j\phi}
     }
-    x^{\mathcal{F}}(\omega)
 \else
     y_{\theta}^{\mathcal{F}}(\omega) 
     =

@@ -1,73 +1,59 @@
-Many approaches may be considered while setting $\vecnot{\alpha},\vecnot{\beta}$ in order to achieve optimal utilization of the spatial IIR structure in (\ref{eqn:GeneralFeedbackTransferFunction}), all sharing the same purpose of minimizing the IIR component (i.e. the denominator) for specific spatially selected signals.
-One naturally considered approach is the dual-conventional-beamformer (DCBF). In this approach, to achieve minimization of the IIR component,$ \vecnot{\beta}^{T}\vecnot{d}_{\theta_{s}}e^{-j\omega\tau_{s}} = 4c^{2}\tau_{s}^{2} $ (where $\tau_{s}$ is determined by the target's location), in order to achieve the desired high spatial selectivity. Considering the array phase and gain mismatch, we present $\rho = re^{\Phi}$, which will function as the array-mismatch-factor. Combined with the conventional beamformer (\cite{VanTrees2002DetectionIV}) we set $ \vecnot{\alpha} = \frac{1}{4c^{2}\tau_{s}^{2}}\vecnot{\beta} = \frac{\rho}{N}\vecnot{d^{*}_{s}e^{-j\tau_{s}}} $). Comparing the perfectly-aligned scenario $\left(\theta = \theta_{s}, \tau = \tau_{s}\right)$ with the general scenario, enables calculation of the half-power-beamwidth (HPBW) by setting $\left|\frac{H_{\theta_{s}\tau_{s}}\left(\omega{}\right)}{H_{\theta,\tau}\left(\omega{}\right)}\right|^{2} = 2$, which translates to 
-\begin{align}
-\label{eqn_arrPerformance_beamwidth_3dB}
-\Hr{\theta}{\tau}{}
-\triangleq
-\fbBpRatio
-=
-2\ .
-\end{align}
+A commonly used parameter for quantifying the narrowness of the array main lobe is the Half-Power-Beam-Width (HPBW), marking the DOA where the beampattern's energy reduces to half of its maximal value. 
+\par For the passive ULA case, it is known \cite{VanTrees2002DetectionIV} that 
+$$
+u_{\text{HPBW}} \doteq \frac{\lambda\dTheta_{\text{HPBW}}}{2\pi{}d} = \frac{\lambda}{\pi{}Nd}1.4,
+$$
+where $\lambda$ is the signal wavelength, linking the HPBW to the array physical aperture $Nd$.
+\myTodo{inline}{\textbf{DONE:}\\maybe you can also express this last equation in terms of the electric phase $\theta$, or even better, the error $\Delta\theta$ as well. Then the connection to (12) will be clearer I hope.}
+\myTodo{inline}{got up till here with the check. Will continue when I can. Best, Tsvika.}
 \ifdefined\DEFIncludeAttenuation
-    Following \cite{VanTrees2002DetectionIV}'s steps (discussed in section \ref{section_arrayPerformance_classicULA}), we investigate $\Hr{\theta}{\tau}{}$ through calculation of its multivariate (i.e. $\dTheta\triangleq\theta-\theta_{s}, \dTau\triangleq\tau-\tau_{s}$) Taylor series. Considering the perfect phase alignment scenario (i.e. $\dTau=0$), as shown in (Figure \ref{fig_feedbackULA_beamwidth_Nx_HPBW_1_r_2}), one can observe that $\frac{N\dTheta_{HPBW}}{\left(1-r\right)^{2}}$ tends to an $r$-dependent finite limit when $N$ increases. 
-    \begin{figure}
+    \par Bearing in mind the tendency of $N\dTheta_{\text{HPBW}}$ towards a finite limit in passive ULA case, we simulate $\Hr{\dTheta}{\dPhi}{}$ for various $\rBrace{N,r,\theta}$ triplets. Investigating  the simulation results lead to the following observations.
+    \begin{itemize}
+        \item $N\dTheta_{\text{HPBW}}$ tendency towards a finite limit is kept, though the limit value changes for different $r$ values. Figure (\ref{fig_feedbackULA_beamwidth_limit_r_dependent}) shows, for several $r$ values, the tendency of $N\dTheta_{\text{HPBW}}$ with increasing $N$ values. 
+        \item Plotting the $\underset{N\to\infty}{lim}N\dTheta_{\text{HPBW}}$ for various $r$ values, and fitting it with $3^{rd}$ order polynomial curve, results in $\underset{N\to\infty}{lim}N\dTheta_{\text{HPBW}} \approx \rBrace{1-r}\rBrace{0.4r^{2}-r+1.4}$ which degenerates to the passive ULA result when setting $r=0$ (i.e. cancelling the feedback).
+    \end{itemize}
+    \begin{figure}[t!]
+        \begin{center}
+            \begin{overpic}[width=0.65\linewidth, 
+            %grid, 
+            tics=10,trim=0 0 0 0]{./Media/spatial_IIR_MATLAB/arrayParameters/HPBW_vs_N_various_r.eps}
+                \put (2, 72){\footnotesize{$N\dTheta_{\text{HPBW}}$}}
+                \put (50, 62.5) {\footnotesize{$r=0$}}
+                \put (50, 54) {\footnotesize{$r=0.1$}}
+                \put (50, 39.5) {\footnotesize{$r=0.3$}}
+                \put (50, 28.5) {\footnotesize{$r=0.5$}}
+                \put (50, 19.75) {\footnotesize{$r=0.7$}}
+                \put (50, 12.5) {\footnotesize{$r=0.9$}}
+                \put (50, 2) {\footnotesize{$N$}}
+            \end{overpic}
+        \end{center}
+         \caption{Plot of $N\dTheta_{\text{HPBW}}$ vs. N for various $r$ values. In each simulation, $r$ is constant and $\dTheta_{\text{HPBW}}$ is calculated for each $N$ separately and the stored value is $N\dTheta_{\text{HPBW}}$.}
         \label{fig_feedbackULA_beamwidth_Nx_HPBW_1_r_2}
-        \centering
-        \includegraphics[width=0.8\linewidth]{./Media/spatial_IIR_MATLAB/beamwidth/HPBW_vs_N_various_r.eps}
-        \caption{Plot of $N\dTheta_{HPBW}$ vs. N for various $r$ values. In each simulation, $r$ is constant and $\dTheta_{HPBW}$ is calculated for each $N$ separately and the stored value is $N\dTheta_{HPBW}$.}
     \end{figure}
-    Plotting the limits of $\frac{N\dTheta_{HPBW}}{\left(1-r\right)^{2}}$ as a function of $r$, as can be seen in (Figure \ref{fig_feedbackULA_beamwidth_limit_r_dependent}), reveals that the limit is determined by $\frac{2}{1-r}$.
-    \begin{figure}
-        \label{fig_feedbackULA_beamwidth_limit_r_dependent}
-        \centering
-        \includegraphics[width=0.8\linewidth]{./Media/spatial_IIR_MATLAB/beamwidth/HPBW_limit_vs_r.eps}
-        \caption{Plot of $\underset{N\to\infty}{lim}N\dTheta_{HPBW}$ vs. $r$ and comparing to $r^{2}-4r+3$}
-    \end{figure}
-    These two important empirical observations allows us the formulation of the feedback based HPBW expression
-    \begin{equation}
-            \dTheta_{HPBW} =& \frac{\left(r-1\right)\left(r-3\right)}{N}
-    \end{equation}
-    which is naturally compared of the known \cite{VanTrees2002DetectionIV} matching passive ULA case (i.e. $\frac{\pi{}Nd}{\lambda}u = 1.4$, where $u\triangleq{}2\cos\left(\theta_{g}\right)$) and translated to the DCBF feedback related HPBW improvement factor ($\triangleq\mu_{DCBF}$)
-    \begin{equation}
-        \mu_{DCBF}=\frac{1.4}{\left(r-1\right)\left(r-3\right)},
-    \end{equation}
-    stating that a perfectly aligned array (i.e. $r\to1$) will achieve a zero-width spatial beam.
-    % Using L'Hôpital's rule (due to $\frac{0}{0}$ expressions when setting $\dTheta=0$), we express its $4^{th}$ series
-    % \begin{equation}
-    %     \label{eqn_FIMelements}
-    %     \begin{split}
-    %         \evalat{\Hr{\theta}{\tau}{}}{\dTheta\to{}0,\dTau\to{}0} \approx& 1
-    %         \\&
-    %         +\frac{1}{1!}\binom{1}{0}0\dTheta
-    %         \\&
-    %         +\frac{1}{1!}\binom{1}{1}\frac{4r}{\tau_{s}(r-1)}\dTau
-    %         \\&
-    %         +\frac{1}{2!}\binom{2}{0}\frac{\left(N-1\right)\left(n-4r+2Nr+1\right)}{6\left(r-1\right)^{2}}\dTheta^{2}
-    %         \\&
-    %         +\frac{1}{2!}\binom{2}{1}\frac{-r\omega\left(N-1\right)}{\left(r-1\right)^{2}}\dTheta\dTau
-    %         \\&
-    %         +\frac{1}{2!}\binom{2}{2}\frac{2\left(2\omega^{2}\tau_{s}^{2}+20r-12\right)}{\tau_{s}\left(r-1\right)^{2}}\dTau^{2}
-    %         \\&
-    %         +\frac{1}{3!}\binom{3}{0}0\dTheta^{3}
-    %         \\&
-    %         +\frac{1}{3!}\binom{3}{1}\frac{-2r\left(N^{2}-3N+2\right)}{3\tau_{s}\left(r-1\right)^{2}}\dTheta^{2}\dTau
-    %         \\&
-    %         +\frac{1}{3!}\binom{3}{2}\frac{4r\omega\left(N-1\right)}{\tau_{s}\left(r-1\right)^{2}}\dTheta\dTau^{2}
-    %         \\&
-    %         +\frac{1}{3!}\binom{3}{3}\frac{-12r\left(\tau_{s}^{2}\omega^{2} + 10r - 4\right)}{\tau_{s}^{3}\left(r-1\right)^{2}}\dTau^{3}
-    %         \\&
-    %         +\frac{1}{4!}\binom{4}{0}
-    %         \\&
-    %         +\frac{1}{4!}\binom{4}{1}
-    %         \\&
-    %         +\frac{1}{4!}\binom{4}{2}
-    %         \\&
-    %         +\frac{1}{4!}\binom{4}{3}
-    %         \\&
-    %         +\frac{1}{4!}\binom{4}{4}
-    %     \end{split}
-    % \end{equation}
     
+    \begin{figure}[t!]
+        \begin{center}
+            \begin{overpic}[width=0.65\linewidth, 
+            %grid, 
+            tics=10,trim=0 0 0 0]{./Media/spatial_IIR_MATLAB/arrayParameters/HPBW_limit_vs_r.eps}
+                \put (40, 61) {\footnotesize{Simulation results}}
+                \put (40, 56) {\footnotesize{$\rBrace{1-r}\rBrace{0.4r^{2}-r+1.4}$}}
+                \put (-1, 72){\footnotesize{$\underset{N\to\infty}{lim}N\dTheta_{\text{HPBW}}$}}
+                \put (50, 2) {\footnotesize{$r$}}
+            \end{overpic}
+        \end{center}
+        \caption{$\underset{N\to\infty}{lim}N\dTheta_{\text{HPBW}}$ vs. $r$ and comparing to $\rBrace{1-r}\rBrace{0.4r^{2}-r+1.4}$}
+        \label{fig_feedbackULA_beamwidth_limit_r_dependent}
+    \end{figure}
+    Following theses two important empirical observations, we formulate the feedback based HPBW expression
+    \begin{equation}
+            \dTheta_{HPBW} =& \frac{\rBrace{1-r}\rBrace{0.4r^{2}-r+1.4}}{N},
+    \end{equation}
+    which is naturally translated to the \coefSetName{} feedback related HPBW improvement factor ($\triangleq\mu_{\coefSetName}$)
+    \begin{equation}
+        \mu_{\text{HPBW},\coefSetName}=\frac{1.4}{\rBrace{1-r}\rBrace{0.4r^{2}-r+1.4}},
+    \end{equation}
+    stating that a perfectly aligned array (i.e. $r\to1$) will achieve a zero-width spatial beam and an infinite improvement over the classic passive ULA case.
 \else
     Defining $\D{N}{x} = \frac{\sin{Nx}}{\sin{x}}$ , and performing some algebraic simplification, one gets
     \ifdefined\showDev
@@ -106,7 +92,7 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
         $$
         .Using the geometric progression sum of the steering vectors product,
         $$
-        \vecnot{d}^{H}_{\theta_{s}}\vecnot{d}_{\theta} = \Sigma_{n=0}^{N-1}e^{j\left(\theta-\theta_{s}\right)}
+        \vecnot{d}^{H}_{\theta_{s}}\vecnot{d}_{\theta} = \Sigma_{n=0}^{N-1}e^{j\rBrace{\theta-\theta_{s}}}
         $$
         and defining $\Delta_{\theta} \triangleq \theta-\theta_{s}$ one gets
         $$
@@ -135,12 +121,12 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
         }{
         1-\rho
         }
-        \left(
+        \rBrace{
         N\Dp{N}{\dTheta/2}{-1}
         e^{-j\frac{N-1}{2}\Delta_{\theta}}
         - 
         \rho{}e^{j\Delta_{\tau}}
-        \right)
+        }
         \right|^{2}
         \\&=
         \left|
@@ -149,20 +135,20 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
         }{
         1-\rho
         }
-        \left(
+        \rBrace{
         N\Dp{N}{\dTheta/2}{-1}
         - 
-        \rho{}e^{j\left(\Delta_{\tau}+\frac{N-1}{2}\Delta_{\theta}\right)}
-        \right)
+        \rho{}e^{j\rBrace{\Delta_{\tau}+\frac{N-1}{2}\Delta_{\theta}}}
+        }
         \right|^{2}
         \\
         &=
         \frac{1}{\left|1-\rho\right|^{2}}
-        \left(
+        \rBrace{
         N^{2}\Dp{N}{\dTheta/2}{-2}
-        -2rN\Dp{N}{\dTheta/2}{-1}\cos{\left(\Phi+\Delta_{\tau}+\frac{N-1}{2}\Delta_{\theta}\right)}
+        -2rN\Dp{N}{\dTheta/2}{-1}\cos{\rBrace{\Phi+\Delta_{\tau}+\frac{N-1}{2}\Delta_{\theta}}}
         +r^{2}
-        \right)
+        }
         \end{align*}
         \end{minipage}}
         \\
@@ -183,7 +169,7 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
             & 
             N^{2}\Dp{N}{\dTheta/2}{-2} 
             \\ \nonumber &
-            - 2rN\Dp{N}{\dTheta/2}{-1}\cos{\left(\Phi+\Delta_{\tau} + \frac{N-1}{2}\Delta_{\theta}\right)}
+            - 2rN\Dp{N}{\dTheta/2}{-1}\cos{\rBrace{\Phi+\Delta_{\tau} + \frac{N-1}{2}\Delta_{\theta}}}
             \\ & 
             + r^{2}\Bigg),
         \end{align}
@@ -191,7 +177,7 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
     }
     where $ \Delta_{\tau} \triangleq \tau-\tau_{s} $ and $ \Delta_{\theta} \triangleq \theta-\theta_{s}$.
     which can be easily verified to tend to $ 1 $ when $ \Delta_{\tau},\Delta_{\theta} \rightarrow 0$. 
-    Following \cite{VanTrees2002DetectionIV}'s steps (discussed in section \ref{section_arrayPerformance_classicULA}), we start by investigating the first order taylor expansion,$$ \evalat{f\left(x,y\right)}{x\to{}a,y\to{}b} \approx f(a,b) + \evalat{\frac{\partial{f}}{\partial{x}}}{\left(x=a,x=b\right)}\left(x-a\right) + \frac{\partial{f}}{\partial{x}}\left(a,b\right) $$,of the expression.
+    Following \cite{VanTrees2002DetectionIV}'s steps (discussed in section \ref{section_arrayPerformance_classicULA}), we start by investigating the first order taylor expansion,$$ \evalat{f\rBrace{x,y}}{x\to{}a,y\to{}b} \approx f(a,b) + \evalat{\frac{\partial{f}}{\partial{x}}}{\rBrace{x=a,x=b}}\rBrace{x-a} + \frac{\partial{f}}{\partial{x}}\rBrace{a,b} $$,of the expression.
     Using L'Hôpital's rule to evaluate the derivatives, results in 
     \resizebox{.97\linewidth}{!}{
       \begin{minipage}{\linewidth}
@@ -200,9 +186,9 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
             \propto &
             1 
             \\ &
-            - \left(r\left(N-1\right)\sin{\Delta_{\tau}}\right)\Delta_{\theta}
+            - \rBrace{r\rBrace{N-1}\sin{\Delta_{\tau}}}\Delta_{\theta}
             \\ &
-            -\left(2Nr\mathcal{D}^{-1}\left(N,\sfrac{\Delta}{2}\right)\sin{\left(\frac{N-1}{2}\frac{\Delta_{\theta}}{2}\right)}\right)\Delta_{\tau}.
+            -\rBrace{2Nr\mathcal{D}^{-1}\rBrace{N,\sfrac{\Delta}{2}}\sin{\rBrace{\frac{N-1}{2}\frac{\Delta_{\theta}}{2}}}}\Delta_{\tau}.
         \end{align*}
       \end{minipage}
     }
@@ -218,11 +204,11 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
             +
             \frac{1}{\left|1-\rho\right|^{2}}
             \Bigg(&
-            \frac{1}{12}\left(N-1\right)\left(\left(1+2r\right)N-4r+1\right)\Delta^{2}_{\theta}
+            \frac{1}{12}\rBrace{N-1}\rBrace{\rBrace{1+2r}N-4r+1}\Delta^{2}_{\theta}
             \\& \nonumber
             + r\Delta^{2}_{\tau}
             \\&
-            + r\left(N-1\right)\Delta_{\theta}\Delta_{\tau}
+            + r\rBrace{N-1}\Delta_{\theta}\Delta_{\tau}
             \Bigg).
         \end{align}
       \end{minipage}
@@ -234,7 +220,7 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
         \includegraphics[width=0.9\linewidth]{./Media/spatial_IIR_MATLAB/beamwidth/BW_approx_validation.eps}
         \caption{Graphically comparing (\ref{eqn_arrayPerformance_beamwidth_fullEpxr}) and (\ref{eqn_arrayPerformance_beamwidth_approx}) for $N=4$ and $\rho=0.91$. The approximation seems to closely match the original expression.}
     \end{figure}
-    Unlike the passive ULA case, it is evident from figure (\ref{fig_singleFreqFeedback_2ndTaylorNumericalValidation}) that the $4^{th}$ order terms are not needed for the evaluation of $\theta_{HPBW}$. In perfect phase alignment (i.e. $\Delta_{\tau}=0$), the u-space expression for the HPBW is $$u_{HPBW} =
+    Unlike the passive ULA case, it is evident from figure (\ref{fig_singleFreqFeedback_2ndTaylorNumericalValidation}) that the $4^{th}$ order terms are not needed for the evaluation of $\theta_{\text{HPBW}}$. In perfect phase alignment (i.e. $\Delta_{\tau}=0$), the u-space expression for the HPBW is $$u_{\text{HPBW}} =
     \frac{
     \left|1-\rho\right|
     }{
@@ -244,7 +230,7 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
     \sqrt{\frac{
     12
     }{
-    \left(N-1\right)\left(\left(1+2r\right)N-4r+1\right)
+    \rBrace{N-1}\rBrace{\rBrace{1+2r}N-4r+1}
     }}.
     $$
     Comparing to the classic ULA beamwidth \cite{VanTrees2002DetectionIV}, thoroughly discussed in appendix \ref{appendix_theULABeamwidth}, we can express the improvement factor as
@@ -252,7 +238,7 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
     \frac{
     0.89\frac{\lambda}{ND}
     }{
-    \theta_{HPBW,IIR}
+    \theta_{\text{HPBW},IIR}
     }
     =
     \frac{0.89}{\left|1-\rho\right|}\sqrt{\frac{1+2r}{12}}
@@ -265,9 +251,9 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
 % $
 % 1-\vecnot{\beta}^{T}\vecnot{d}_{\theta}e^{-j\tau}
 % =
-% \left(e^{j\theta}-re^{j\theta_{s}}\right)^{N}
+% \rBrace{e^{j\theta}-re^{j\theta_{s}}}^{N}
 % $
-% where $N$ is the number of array sensors and $r \in \left[0,1\right)$ enables us to avoid treatment of $\infty$-valued expressions. Next, we look for $\theta$ such that
+% where $N$ is the number of array sensors and $r \in \left[0,1}$ enables us to avoid treatment of $\infty$-valued expressions. Next, we look for $\theta$ such that
 % $
 % \left|\frac{
 % \frac
@@ -298,66 +284,66 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
 %     \\
 %     \left|
 %     \frac{
-%     \left(e^{j\theta}-re^{j\theta}\right)^{N}
+%     \rBrace{e^{j\theta}-re^{j\theta}}^{N}
 %     }{
-%     \left(e^{j\theta}-re^{j\theta_{s}}\right)^{N}
+%     \rBrace{e^{j\theta}-re^{j\theta_{s}}}^{N}
 %     }
 %     \right|
 %     &=
 %     \left|
 %     \frac{
-%     \left(1-re^{j\left(\theta_{s}-\theta\right)}\right)
+%     \rBrace{1-re^{j\rBrace{\theta_{s}-\theta}}}
 %     }{
-%     \left(1-r\right)
+%     \rBrace{1-r}
 %     }
 %     \right|^{N}
 %     \\
 %     &=
 %     \left|
 %     \frac{
-%     1+r^{2}-2r\cos{\left(\theta_{s}-\theta\right)}
+%     1+r^{2}-2r\cos{\rBrace{\theta_{s}-\theta}}
 %     }{
-%     \left(1-r\right)^{2}
+%     \rBrace{1-r}^{2}
 %     }
 %     \right|^{\frac{N}{2}}
 %     =
-%     \left(\frac{1}{2}\right)^{\frac{1}{2}}
+%     \rBrace{\frac{1}{2}}^{\frac{1}{2}}
 %     \\
 %     \Rightarrow 
-%     1+r^{2}-2r\cos{\left(\theta_{s}-\theta\right)}
+%     1+r^{2}-2r\cos{\rBrace{\theta_{s}-\theta}}
 %     &=
-%     \left(1-r\right)^{2}2^{\frac{1}{N}}
+%     \rBrace{1-r}^{2}2^{\frac{1}{N}}
 %     \\
-%     \cos{\left(\theta_{s}-\theta\right)}
+%     \cos{\rBrace{\theta_{s}-\theta}}
 %     &=
 %     \frac{
-%     1+r^{2}-\left(1-r\right)^{2}2^{\frac{1}{N}}
+%     1+r^{2}-\rBrace{1-r}^{2}2^{\frac{1}{N}}
 %     }{
 %     2r
 %     }
 %     \\
 %     \Rightarrow
-%     \frac{\omega{D\left(cos(\theta_{g,s})-cos(\theta_{g,B})\right)}}{c}
+%     \frac{\omega{D\rBrace{cos(\theta_{g,s})-cos(\theta_{g,B})}}}{c}
 %     &=
 %     cos^{-1}
-%     \left(
-%     \frac{1+r^{2}-\left(1-r\right)^{2}2^{\frac{1}{N}}}{2r}
-%     \right)
+%     \rBrace{
+%     \frac{1+r^{2}-\rBrace{1-r}^{2}2^{\frac{1}{N}}}{2r}
+%     }
 % \end{align*}.
 % Therefore,
 % \begin{equation}
 %     \theta_{g,B} 
 %     &= 
 %     cos^{-1}
-%     \left(
+%     \rBrace{
 %     cos(\theta_{g,s})
 %     -
 %     \frac{c}{\omega{D}}
 %     cos^{-1}
-%     \left(
-%     \frac{1+r^{2}-\left(1-r\right)^{2}2^{\frac{1}{N}}}{2r}
-%     \right)
-%     \right)
+%     \rBrace{
+%     \frac{1+r^{2}-\rBrace{1-r}^{2}2^{\frac{1}{N}}}{2r}
+%     }
+%     }
 % \end{equation}
 % Few observations can be derived from the $ \theta_{g,B} $:
 % \begin{itemize}
@@ -371,9 +357,9 @@ One naturally considered approach is the dual-conventional-beamformer (DCBF). In
 %     -
 %     \frac{c}{\omega{D}}
 %     cos^{-1}
-%     \left(
-%     \frac{1+r^{2}-\left(1-r\right)^{2}2^{\frac{1}{N}}}{2r}
-%     \right)
+%     \rBrace{
+%     \frac{1+r^{2}-\rBrace{1-r}^{2}2^{\frac{1}{N}}}{2r}
+%     }
 %     <-1
 %     \right\}
 %     $, has no solution. In simulations, when evaluating such $\theta_{g,s}$ values, one can observe that the actual beampattern does not resemble the designed one due to the ULA geometric properties.

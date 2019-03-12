@@ -40,6 +40,7 @@
 \usepackage[percent]{overpic}
 \input{./Modules/LatexShortcuts_Itayyeka_2.tex}
 \usepackage{subfig}
+\usepackage{stfloats}
 %%%%%%%%%%%%%%    aliases    %%%%%%%%%%%%%%
 \newcommand{\Brace}[1]{\left\{{#1}\right\}}
 \newcommand{\rBrace}[1]{\left({#1}\right)}
@@ -52,7 +53,7 @@
 \newcommand{\dR}{\Delta{R}}
 \newcommand{\dTau}{CHANGE_TO_DPHI}
 \newcommand{\D}[2]{\mathcal{D}\rBrace{#1,#2}}
-\newcommand{\Dp}[3]{\mathcal{D}^{#3}\rBrace{#1,#2}}
+\newcommand{\Dp}[2]{\mathcal{D}^{#2}\rBrace{#1}}
 
 \newcommand{\vd}{\vecnot{d}}
 \newcommand{\vx}{\vecnot{x}}
@@ -81,9 +82,10 @@
 \newcommand{\Steer}[1]{\vd_{#1}} 
 \newcommand{\aTd}{\vAlpha^{T}\Steer{}} 
 \newcommand{\bTd}{\vBeta^{T}\Steer{}}
-\newcommand{\Hr}[3]{\mathcal{H}^{#3}\rBrace{#1,#2}}
+\newcommand{\Hr}{\mathcal{H}}
 \newcommand{\myTodo}[2]{\ifdefined\showTodo{\todo[#1]{#2}}\else\fi}
 \newcommand{\coefSetName}{\text{CB}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%      Document flags     %%%%%%%%%%%%%%%

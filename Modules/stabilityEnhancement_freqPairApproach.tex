@@ -12,16 +12,16 @@ y_{\theta,i}(t)=h\rBrace{\theta,\omega_{i}}exp\rBrace{j\omega_{i}t}\ \for{i\in\v
             \lBrace{
             \frac
             {
-            g^{2}\vBetaT_{1}\vd_{1}\vBetaT_{2}\vd_{2}
+            g\vBetaT_{1}\vd_{1}\vBetaT_{2}\vd_{2}
             }{
-            g\vBetaT_{2}\vd_{2}e^{-j\dOmega\tau}-g\vBetaT_{1}\vd_{1}
-            -g^{2}e^{-j\omega_{2}\tau}\rBrace{\vBetaT_{1}\vd_{1}\vAlphaT_{2}\vd_{2}-\vBetaT_{2}\vd_{2}\vAlphaT_{1}\vd_{1}}
+            \vBetaT_{2}\vd_{2}\exp{\rBrace{-j\dOmega\tau}}-\vBetaT_{1}\vd_{1}
+            -g\rBrace{\vBetaT_{1}\vd_{1}\vAlphaT_{2}\vd_{2}-\vBetaT_{2}\vd_{2}\vAlphaT_{1}\vd_{1}}\exp{\rBrace{-j\omega_{2}\tau}}
             }
             },
         \end{split}
     }
 \end{equation*}
-which when setting $\vAlphaT_{i}=\vBetaT_{i},\    \vBeta_{2}=\vBrace{\hat{g},0,\hdots,0}^{T}$ degenerates to 
+which when setting $\vAlphaT_{i}=\vBetaT_{i},\    \vBeta_{2}=\vBrace{1,0,\hdots,0}^{T}$ degenerates to 
 \begin{equation}
     \label{eqn_twoFreqApproach_h}
     \lBrace{h_{APP}\rBrace{\theta}} = \lBrace{\frac{g\vBetaT_{1}\vd_{1}}{\hat{g}^{-1}\vBetaT_{1}\vd_{1}exp\rBrace{j2\dOmega\tau}-1}}.

@@ -18,35 +18,57 @@ Similar to time-domain IIR architecture, a feedback is required to generate the 
     \caption{Direct form II $2^{nd}$ order IIR architecture.}
     \label{fig_IIRBasicArch}
 \end{figure}
-In order to do so in the spatial domain, we propose a dual beam-former architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), defined by two sets of weights $\vBeta$ and $\vAlpha$.
+In order to do so in the spatial domain, we propose a feedback beam-former architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), defined by two sets of weights $\vBeta$ and $\vAlpha$.
 The beamformed signal, $\sum_{n}x_{n,\theta_g}(t)\beta_n$, can be seen as with classical beamforming while the weights $\vAlpha$ generate the recursive part of the response by re-transmitting the received array signals $\Brace{x_{n,\theta_g}}$ and the input $x(t)$ back to the target. 
 \begin{figure}[t!]
     \begin{center}
-        \begin{overpic}[width=0.8\linewidth, 
+        \begin{overpic}[width=0.95\linewidth, 
         % grid, 
-        tics=10,trim=0 0 0 0]{./Media/SpatialIIR-diagram/SpatialIIR_VER6.png}
-            \put (3.5, 25){\footnotesize{$\beta_{0}$}}
-            \put (14.5, 25){\footnotesize{$\beta_{1}$}}
-            \put (37, 25){\footnotesize{$\beta_{N-1}$}}
-            \put (48, 25){\footnotesize{$\alpha_{0}$}}
-            \put (59.5, 25){\footnotesize{$\alpha_{1}$}}
-            \put (85, 25){\footnotesize{$\alpha_{N-1}$}}
-            \put (29, 53){\footnotesize{$d$}}
-            \put (91.5, 87){\footnotesize{$p_{t}$}}
-            \put (60, 40){\footnotesize{$p_{N-1}$}}
-            \put (37, 40){\footnotesize{$p_{1}$}}
-            \put (25.5, 40){\footnotesize{$p_{0}$}}
-            \put (46, 52){\footnotesize{$\theta_{g}$}}
-            \put (17.5, 12){\footnotesize{$\Sigma$}}
-            \put (62, 12){\footnotesize{$\Sigma$}}
-            \put (43.5, 12){\footnotesize{$x\rBrace{t}$}}
-            \put (32.2, 12){\footnotesize{$n\rBrace{t}$}}
-            \put (20,5){\footnotesize{$y\rBrace{t}$}}
+        tics=10,trim={0 0 0 0}]{./Media/SpatialIIR-diagram/SpatialIIR_VER7.png}
+            %% ver 6
+            % \put (3.5, 25){\footnotesize{$\beta_{0}$}}
+            % \put (14.5, 25){\footnotesize{$\beta_{1}$}}
+            % \put (37, 25){\footnotesize{$\beta_{N-1}$}}
+            % \put (48, 25){\footnotesize{$\alpha_{0}$}}
+            % \put (59.5, 25){\footnotesize{$\alpha_{1}$}}
+            % \put (85, 25){\footnotesize{$\alpha_{N-1}$}}
+            % \put (29, 53){\footnotesize{$d$}}
+            % \put (91.5, 87){\footnotesize{$p_{t}$}}
+            % \put (60, 40){\footnotesize{$p_{N-1}$}}
+            % \put (37, 40){\footnotesize{$p_{1}$}}
+            % \put (25.5, 40){\footnotesize{$p_{0}$}}
+            % \put (46, 52){\footnotesize{$\theta_{g}$}}
+            % \put (17.5, 12){\footnotesize{$\Sigma$}}
+            % \put (62, 12){\footnotesize{$\Sigma$}}
+            % \put (43.5, 12){\footnotesize{$x\rBrace{t}$}}
+            % \put (32.2, 12){\footnotesize{$n\rBrace{t}$}}
+            % \put (20,5){\footnotesize{$y\rBrace{t}$}}
+            %% ver 7
+            \put (1.5, 43.5){\footnotesize{$\beta_{0}$}}
+            \put (12, 43.5){\footnotesize{$\beta_{1}$}}
+            \put (30, 43.5){\footnotesize{$\beta_{N-1}$}}
+            \put (48, 43.5){\footnotesize{$\alpha_{0}$}}
+            \put (59, 43.5){\footnotesize{$\alpha_{1}$}}
+            \put (80, 43.5){\footnotesize{$\alpha_{N-1}$}}
+            \put (30.5, 66){\footnotesize{$d$}}
+            \put (89, 96){\footnotesize{$p_{t}$}}
+            \put (58, 58){\footnotesize{$p_{N-1}$}}
+            \put (37, 58){\footnotesize{$p_{1}$}}
+            \put (26.5, 58){\footnotesize{$p_{0}$}}
+            \put (41.5, 64.5){\footnotesize{$\theta_{g}$}}
+            \put (19, 27){$\Sigma$}
+            \put (19, 11.25){\large{$+$}}
+            \put (61.5, 27){$\Sigma$}
+            \put (44.75, 11.75){$x\rBrace{t}$}
+            \put (33.15, 11.75){$n\rBrace{t}$}
+            \put (21,4){$y\rBrace{t}$}
+            \put (63.5,14){$\text{Tx}\rBrace{t}$}
+            \put (1, 51){$\text{FB}_{\vAlpha,\vBeta}$}
         \end{overpic}
     \end{center}
-    \caption{The proposed ``dual beam-former" architecture. The weights $\vBeta$ generate the output signal $y(t)$. The  weights $\vAlpha$ synthesize the feedback transmission.
+    \caption{The proposed feedback beam-former architecture. The weights $\vBeta$ generate the output signal $y(t)$. The  weights $\vAlpha$ synthesize the feedback transmission $\text{Tx}\rBrace{t}$.
     $x(t)$ is the input waveform which is transmitted together with the feedback beamformed signal.
-    An additive noise model $n\rBrace{t}$ is assumed at the array output.}
+    An additive noise model $n\rBrace{t}$ is assumed at the array output. We designate this feedback beamformer as the FB block (dashed line) for later use.}
     \label{fig:Proposed_spatialIIR_ARCH}
 \end{figure}
 \subsection*{Obtained spatial response}
@@ -80,18 +102,18 @@ Following previous observations, we  analyze the case of CB, where we coherently
 \vBeta_{\coefSetName{}}=\vAlpha_{\coefSetName{}}=\hat{\vd}^{\ast}\exp\rBrace{j\hat{\phi}}/\norm{\hat{\vd}}^2
 \end{equation}
 where 
-\[
+\begin{equation}\label{eq:d_hat}
 \hat{\vd}=\hat{g}\sBrack{1,\exp(-\hat\theta),\ldots,\exp(-(N-1)\hat\theta)}^T
-\]
-is an estimate of the steering vector, and $\hat{\phi}, \hat\theta$ are the estimates of the range-related phase, and the DOA-related phase, respectively.
+\end{equation}
+is an estimate of the steering vector, and $\hat{\phi}, \hat\theta$ are the estimates of the range-related phase and the DOA-related phase respectively.
 Plugging \eqref{eq:alpha_beta_hat} within \eqref{eqn:GeneralFeedbackTransferFunction}, we obtain
-\begin{equation*}
+\begin{equation}\label{eq:SF_CB}
     \resizebox{1.01\linewidth}{!}{
         \begin{split}
-            H_{\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}}\triangleq{}H_{\dTheta,\dPhi}\rBrace{\omega}=\frac{r\D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{\dPhi+(N-1)\dTheta/2}}}{1-r\D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{\dPhi+(N-1)\dTheta/2}}}
+            H_{\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}}\rBrace{\omega}=\frac{r\D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{\dPhi+(N-1)\dTheta/2}}}{1-r\D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{\dPhi+(N-1)\dTheta/2}}}
         \end{split}
     }
-\end{equation*}
+\end{equation}
 where \[
 \D{x}{N}\triangleq\frac{1}{N}\frac{\sin\rBrace{Nx}}{\sin\rBrace{x}}
 \]
@@ -101,8 +123,8 @@ we define the DOA, range and gain error terms
 \dTheta\triangleq {\theta-\hat{\theta}},\ \dPhi\triangleq {\phi-\hat{\phi}},\ 
 r\triangleq g/\hat{g},
 \]
-respectively. From here now, we shall use the $H_{\dTheta,\dPhi}$ notation, such that $H_{x,y}=H_{\dTheta=x,\dPhi=y}$.
-\par We will consider the following four fundamental scenarios
+respectively. 
+\par There are four fundamental scenarios:
 \begin{itemize}
     \item{\makebox[.55\linewidth]{The perfectly aligned scenario \hfill} $\rBrace{\dTheta=0\ , \dPhi=0}$}
     \item{\makebox[.55\linewidth]{The steer error scenario \hfill} $\rBrace{\abs{\dTheta}>0\ , \dPhi=0}$}
@@ -149,125 +171,161 @@ respectively. From here now, we shall use the $H_{\dTheta,\dPhi}$ notation, such
 \fi
 \subsection*{The normalized beampattern}
 \label{subsection_spatialIIR_normBP}
-Common ULA array parameter analysis \cite{VanTrees2002DetectionIV}, investigates certain characteristics of normalized beampatterns (i.e. main lobe gain of $0_{dB}$) in order to achieve an objective analysis which is independent of its coefficients magnitude. Motivated by the same purpose, we define the normalized beampattern as
+As commonly done for ULA parameter analysis \cite{VanTrees2002DetectionIV}, we focus on the normalized response (i.e. where the peak main lobe gain is set to $0_{dB}$). Hence forth, we define by $\Hr$ the normalized pattern
 \begin{equation}
-    \label{eqn_arrPerformance_beamwidth_3dB}
-    \resizebox{.89\linewidth}{!}{
+    \label{eq_narmalized_pattern}
+    %\resizebox{.89\linewidth}{!}{
     \begin{split}
-        \Hr_{\dTheta,\dPhi}&\triangleq
-        \lBrace{
+        \Hr_{\dTheta,\dPhi,r}\rBrace{\omega}&\triangleq
         \frac{
-        H_{\dTheta,\dPhi}\rBrace{\omega}
+        H_{\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}}\rBrace{\omega}
         }{
-        H_{0,0}\rBrace{\omega}
+        H_{\vBeta,\vAlpha}\rBrace{\omega}
         }
-        }^{2}
-        =
-        \lBrace{
-        \frac{
-        H_{\dTheta,\dPhi}\rBrace{\omega}
+         =
+         \frac{
+        H_{\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}}\rBrace{\omega}
         }{
-        r^{2}/\rBrace{1-r}^{2}
+        r/\rBrace{1-r}
         }
-        }^{2}
-        \\
-        &=\frac{\rBrace{1-r}^{2}\Dp{\dTheta/2,N}{2}}{1+r^{2}\Dp{\dTheta/2,N}{2}-2r\D{\dTheta/2}{N}\cos{\rBrace{\dPhi+\frac{N-1}{2}\dTheta}}},
+        % \\
+        % &=\frac{\rBrace{1-r}^{2}\Dp{\dTheta/2,N}{2}}{1+r^{2}\Dp{\dTheta/2,N}{2}-2r\D{\dTheta/2}{N}\cos{\rBrace{\dPhi+\frac{N-1}{2}\dTheta}}},
     \end{split}
-    }
+    %}
 \end{equation}
-% \begin{figure*}[bh!]
-%     \begin{equation}\label{eqn_generalCaseBp}
-%         \resizebox{.91\linewidth}{!}{
-%             \begin{split}
-%                 \Hr_{\dTheta,\dPhi} = 
-%                 \frac{                \rBrace{1-\cos{\rBrace{N\dTheta}}}\rBrace{1-r}^{2}
-%                 }{
-%                 N^{2}\rBrace{1-\cos{\rBrace{\dTheta}}}             +r^{2}\rBrace{1-\cos{\rBrace{N\dTheta}}}
-%                 +Nr\rBrace{\cos{\rBrace{N\dTheta-\dPhi}}-\cos{\rBrace{\rBrace{N-1}\dTheta-\dPhi}}+\cos{\rBrace{\dTheta+\dPhi}}-\cos{\rBrace{\dPhi}}}
-%                 }
-%             \end{split}
-%         }
-%     \end{equation}
-% \end{figure*}
-suppressing $\omega$ in the notation. 
-% $\Hr{\theta,\phi}{}{}$ can be conveniently expressed as in \eqref{eqn_generalCaseBp}.
-\par Throughout this section, aiming for an objective comparison to the traditional ULA case, we focus on the steer error case (i.e. $\dPhi=0$), in which 
-\begin{equation}
-    \label{eqn_steerError_Bp}
-    % \resizebox{.9\linewidth}{!}{
-            \begin{split}
-                \Hr_{\dTheta}\doteq&\Hr_{\dTheta,\dPhi=0}.
-            \end{split}
-    % }
+where $\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}$ are the weights as in \eqref{eq:alpha_beta_hat} and $\vBeta,\vAlpha$ are optimal weights assuming exact knowledge of the steering vector and the phase $\phi$, 
+\[
+\vBeta=\vAlpha={\vd}^{\ast}\exp\rBrace{j{\phi}}/\norm{{\vd}}^2.
+\]
+Note that as $\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}$ are functions of the DOA, range and gain errors, we add to $\Hr$ the subscript of $\dTheta,\dPhi$ and $r$. Explicitly writing $\Hr$ gives rise to 
+\begin{equation}\label{eq_generalH}
+    \resizebox{0.89\linewidth}{!}{
+        \begin{split}
+             \Hr_{\dTheta,\dPhi,r} \rBrace{\omega}=
+             \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{\dPhi+(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}}.
+        \end{split}
+        }
 \end{equation}
-\par We will also formulate improvement factors for each array parameter that will be investigated, $$\mu_{x,CB},$$ where $x$ stands for the parameter name. Those factors may be interpreted as the spatial feedback related virtual aperture increase.
+Note that the normalized pattern of the standard ULA is simply 
+\[
+\Hr_{\dTheta,\dPhi=0,r=0}\rBrace{\omega}=
+             \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}}.
+\]
+
+
+\par We now focus on the steer error scenario, i.e. $\dPhi=0$, and compare the beamwidth, sidelobe level and directivity of  
+\begin{equation}\label{eq_Hdphi0}
+\Hr_{\dTheta,\dPhi=0,r}\rBrace{\omega}=
+             \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}}
+\end{equation}
+with that of the standard ULA $\Hr_{\dTheta,\dPhi=0,r=0}$. Throughout this contribution, for simplicity, we suppress the $\omega$ dependency in the notation such that $\Hr_{\dTheta,\dPhi,r} \triangleq \Hr_{\dTheta,\dPhi,r}\rBrace{\omega}$ where possible.
+
 \subsection*{Half power beamwidth}
 \input{./Modules/arrayPerformance_beamwidth.tex}
-\subsection*{Location of sidelobes and the rate of decrease}
-Unlike the passive ULA case, it is clear from (\ref{eqn_arrPerformance_beamwidth_3dB}) that the positions of the feedback based beampattern sidelobes are affected both by the numerator and the denominator of $\Hr_{\dTheta}$. Considering the \coefSetName{} approach (i.e. single DOA enhancement), the denominator has only one single minima on the main lobe. Therefore, the sidelobes positions, same as the ULA case, are known \cite{VanTrees2002DetectionIV} to be 
+\subsection*{Sidelobes attenuation}
+\ifdefined\showDev
+    \fbox{
+    \begin{minipage}{0.9\linewidth}
+    \textbf{development specifics}\\
+    Let $f\rBrace{\dTheta} \triangleq \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}},$ such that $\Hr_{\dTheta,\dPhi=0,r}\rBrace{\omega} = \frac{f\rBrace{\dTheta}}{1-rf\rBrace{\dTheta}}.$ Then, we compute the beampattern's derivative and state that
+    \begin{equation*}
+    % \resizebox{0.9\linewidth}{!}{
+        \begin{split}
+            &\frac{\partial}{\partial\dTheta}\Hr_{\dTheta,\dPhi=0,r}\rBrace{\omega} &\\
+            &=\frac{\Dp{\dTheta/2,N}{'}\rBrace{1-r\D{\dTheta/2}{N}}-\D{\dTheta/2}{N}\rBrace{-r\Dp{\dTheta/2,N}{'}}}{\rBrace{1-r\D{\dTheta/2}{N}}^{2}}
+            \\
+            &=\frac{\Dp{\dTheta/2,N}{'}}{\rBrace{1-r\D{\dTheta/2}{N}}^{2}}.
+        \end{split}
+        % }
+    \end{equation*}
+    It follows that the sidelobes of the feedback based beampattern are located at the same angles as the in the ULA case.
+    \end{minipage}
+    }
+\else
+\fi
+By taking a derivative of $\Hr_{\dTheta,\dPhi=0,r}\rBrace{\omega}$  with respect to $\dTheta$ it can be easily verified that extrema points of the beampattern are obtained at the same points as those of the standard ULA. Specifically, the sidelobes locations are
 \begin{equation}
     \label{eqn_CB_sidelobesLocations}
-    \dTheta_{\coefSetName{},\text{sidelobes}} = \frac{\rBrace{2m+1}\pi}{N}\ \forall m\in\cBrace{1,2,\hdots}.
+    \dTheta_{\text{sidelobe}} = \frac{\rBrace{2m+1}\pi}{N}\ \forall m\in\cBrace{\pm 1,\pm 2,\hdots}.
 \end{equation}
-Our initial interest is the first sidelobe (i.e. $m=1$), therefore we express the normalized beampattern at $\dTheta = \frac{3\pi}{N}$ (and setting $\dPhi=0$ for objective comparison). It can easily be verified that 
-\begin{equation*}
-    \Hr_{\frac{3\pi}{N}}
+Our main interest is with the first sidelobe (i.e. $m=1$), therefore we evaluate \eqref{eq_Hdphi0} at $\dTheta = 3\pi/N$, which results in
+\begin{equation}
+    \abs{\Hr_{{3\pi}/{N},0,r}(\omega)}^2
     =
     \frac{
     2\rBrace{1-r}^{2}
     }{
     \rBrace{N^{2}-2Nr}\rBrace{1-\cos{\rBrace{\frac{3\pi}{N}}}}+2r^{2}
-    },
-\end{equation*}
-which for large $N$ values (as seen in Fig.~\ref{fig_firstSidelobeGain_CB}), can be well approximated by
+    }.
+    \label{eq_HSidelobes}
+\end{equation}
+For large $N$ values 
 \begin{equation*}
-    \sqrt{\Hr_{\frac{3\pi}{N}}}
-    \overset{N\gg1}{\approx}
-    \frac{
+    \lim_{N\rightarrow\infty}\abs{\Hr_{3\pi/N,0,r}(\omega)}=\frac{
     2\rBrace{1-r}
     }{
     3\pi
     }.
 \end{equation*}
-\begin{figure}[t!]
-    \begin{center}
-        \begin{overpic}[width=.75\linewidth, 
-        %grid, 
-        tics=10,trim=0 0 0 0]{./Media/spatial_IIR_MATLAB/arrayParameters/firstSidelobeGain_vs_N_various_r.eps}
-            \put (6, 72){\footnotesize{$\Hr_{\frac{3\pi}{N}}{}$ - First sidelobe gain}}
-            \put (20, 54) {\footnotesize{$r=0$ (i.e. no feedback)}}
-            \put (20, 42) {\footnotesize{$r=0.3$}}
-            \put (20, 33) {\footnotesize{$r=0.5$}}
-            \put (20, 24) {\footnotesize{$r=0.7$}}
-            \put (20, 14) {\footnotesize{$r=0.9$}}
-            \put (-3, 50.5) {{$\frac{2\rBrace{1-0}}{3\pi}$}}
-            \put (-3, 37.5) {{$\frac{2\rBrace{1-0.3}}{3\pi}$}}
-            \put (-3, 28.5) {{$\frac{2\rBrace{1-0.5}}{3\pi}$}}
-            \put (-3, 20) {{$\frac{2\rBrace{1-0.7}}{3\pi}$}}
-            \put (-3, 12) {{$\frac{2\rBrace{1-0.9}}{3\pi}$}}
-            \put (50, 2) {\footnotesize{$N$}}
-        \end{overpic}
-    \end{center}
-    \caption{Plot of $\Hr_{\frac{3\pi}{N}}{}$ (i.e. the first sidelobe gain) vs. N for various $r$ values. The expected limit values (for large $N$) are presented as horizontal lines for each instance of $r$. Evidently, as expected, the gains tend to unite with the matching limits. $r=0$ is of special importance, being the reference for evaluation of the integrated feedback related improvement.}
-    \label{fig_firstSidelobeGain_CB}
-\end{figure}
-It follows that, comparing to the known \cite{VanTrees2002DetectionIV} result of the passive ULA case (i.e. first sidelobe gain of $\frac{2}{3\pi}$), the first sidelobe gain improvement factor under the \coefSetName{} approach is
-\begin{equation}
-    \mu_{\text{first-sidelobe-gain,\coefSetName{}}} = \frac{1}{1-r}.
-\end{equation}
-Since the denominator magnitude, under the \coefSetName{} approach, is practically flat when not around the main lobe, the rate of sidelobes decay stays approximately the same as the numerators, which is similar to the known \cite{VanTrees2002DetectionIV} passive ULA sidelobe decay rate of $1/\rBrace{2m+1}$ (where $m$ is the sidelobe index).
+\ifdefined\showDev
+    \fbox{
+    \begin{minipage}{0.9\linewidth}
+    \textbf{development specifics}\\
+    We know that \eqref{eq_Hdphi0} can be rewritten as
+    \begin{equation*}
+        \begin{split}
+            \Hr_{\dTheta,\dPhi=0,r} \rBrace{\omega}=
+            \frac{
+            \rBrace{1-\cos{\rBrace{N\dTheta}}}\rBrace{1-r}^{2}
+            }{
+            \begin{split}
+                N^{2}&\rBrace{1-\cos{\dTheta}}+r^{2}\rBrace{1-\cos{N\dTheta}}
+                \\
+                &+Nr\Bigg(1+\cos{\rBrace{\rBrace{N-1}\dTheta}}
+                \\
+                &-\cos{\rBrace{N\dTheta}-\cos{\rBrace{\dTheta}}}\Bigg)
+            \end{split}
+            }
+        \end{split}
+    \end{equation*}
+    Using the symbolic toolbox in MATLAB, setting $\dTheta=3\pi/N$, results in \eqref{eq_HSidelobes}.
+    \end{minipage}
+    }
+\else
+\fi
+For classical ULA, the gain of the first sidelobe is known to be $\frac{2}{3\pi}$ \cite{VanTrees2002DetectionIV}, which implies that the suggested feedback based system has a suppression improvement of $\rBrace{1-r}$ at the first sidelobe.
+
 \subsection*{Array directivity}
-Another common measure for the array performance is the directivity \cite{VanTrees2002DetectionIV}, $\text{D}$. In the context of this work, considering the steer error scenario, it is defined as
-\begin{equation*}
-    \text{D}_{\coefSetName{}} = \frac{\Hr_{0}}{\frac{1}{2\pi}\int^{0}_{2\pi}\Hr_{\dTheta}\ d\dTheta},
-\end{equation*}
-measuring the ratio between the maximal array gain to the averaged gains in all directions. For uniformly weighted passive ULAs, assuming normalized beampattern, it is known \cite{VanTrees2002DetectionIV} that $D = N$.
-\par Numerically sweeping various $\vBrace{N,r}$ sets, unveils that
-\begin{equation}
-    \text{D}_{\coefSetName{}} = \frac{r^{2}-\rBrace{N-1}r+N}{\rBrace{r-1}^{2}},
+Another common measure for the array performance is its directivity \cite{VanTrees2002DetectionIV}, $\mathrm{D}$,
+\begin{equation}\label{eq_D}
+    \mathrm{D}(r) = \frac{\Hr_{\dTheta=0,\dPhi=0,r}}{\frac{1}{2\pi}\int_{0}^{2\pi}\Hr_{\dTheta,\dPhi=0,r}\ d\dTheta},
 \end{equation}
-matching the passive ULA result (i.e. $\evalat{D_{ULA}}{r=0}=N$), which leads to expressing the \coefSetName{} directivity improvement factor 
-\begin{equation}
-    \mu_{\text{D},\coefSetName{}}= \frac{r^{2}-\rBrace{N-1}r+N}{N\rBrace{r-1}^{2}}\overset{N\to\infty}{\to}\frac{1}{\rBrace{r-1}}.
+which measures the ratio between the maximal array gain at its mainlobe, to the averaged gains in all directions. For uniformly weighted passive ULAs, it is known \cite{VanTrees2002DetectionIV} that $\mathrm{D}(r=0) = N$.
+\par Plugging \eqref{eq_Hdphi0} within \eqref{eq_D} and by numerical evaluation, we fit the following model for arbitrary $0\leq r\leq 1$
+\begin{equation}\label{eq_D}
+    \mathrm{D}(r) = \frac{r^{2}-\rBrace{N-1}r+N}{\rBrace{1-r}^{2}}.
 \end{equation}
-It is worth mentioning that for $\vBrace{r\to1,N\gg1}$ value sets, classic numerical approximations for the integral fail around $\dTheta\to0$ due to the the fact that both the numerator and the denominator tend to 0 (known to have a finite limit of 1 for $\dTheta=0$), forcing symbolic evaluation which was achieved using MATHEMATICA.
+It is worth mentioning that for $r=0$ the passive ULA result is obtained, while for $r\to1$ and $N>3$, by L'Hôpital's rule $ \lim_{r\rightarrow 1}\mathrm{D}(r)=\infty$ implying infinite directivity for the feedback based array, with perfect gain matching. Finally, expressing the improvement in directivity compared to the classical ULA, we have that for large $N$,
+\begin{equation}\label{eq_Dimprovement}
+\frac{\mathrm{D}(r)}{\mathrm{D}(0)}\overset{N\gg1}{=}\frac{1}{1-r}
+\end{equation}
+implying that this is the directivity improvement for general $0\leq r \leq 1$.
+\subsection*{Summary}
+To conclude this section, we present Table.~\ref{table_arrayPerformance} which exemplifies the superior performance of our suggested architecture over the standard ULA case.
+\begin{table}[h!]
+    \centering
+    \resizebox{1\linewidth}{!}{
+        \begin{tabular}{||c c c c||} 
+            \hline
+            & ULA & \thead{Feedback\\based} & Improvement \\ [0.5ex] 
+            \hline\hline
+            HPBW & $ 1.4/N$ & $1/B(r)N$ with $B$ of \eqref{eq_Bapprox} & $1.4B\rBrace{r}$ times smaller\\ 
+            \thead{First sidelobe\\gain} & $2/3\pi$ & $2\rBrace{1-r}/3\pi$ & $1-r$ \\
+            Directivity & $N$ & $\mathrm{D}$ of \eqref{eq_D} & $1/\rBrace{1-r}$ \\
+            [1ex] 
+            \hline
+         \end{tabular}
+     }
+ \caption{Comparing performance between the classical ULA and the proposed feedback based architecture, with gain mismatch $r$.}
+ \label{table_arrayPerformance}
+\end{table}

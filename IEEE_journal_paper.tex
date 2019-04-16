@@ -473,108 +473,132 @@ Spatial array processing, localization, beam-pattern.
 \section{Introducing Spatial Feedback}
 \label{sec_introduceFeedback}
 \input{./Modules/IEEE_journal_paper_IntegrateFeedback.tex}
-\section{Simulations}
-In this section, we first aim to validate the derivations of Sec.~\ref{sec_introduceFeedback}, while still considering the steer error scenario. Time domain simulations are presented in Fig.~\ref{fig_steerErrorTemporalSim}, showing perfect match between the simulations and the expected spatial response (\ref{eqn:GeneralFeedbackTransferFunction}).
+\section{Range Error Sensitivity}
+\label{sec_sim}
+% In this section, we first aim to validate the derivations of Sec.~\ref{sec_introduceFeedback}, while still considering the steer error scenario. Time domain simulations are presented in Fig.~\ref{fig_steerErrorTemporalSim}, showing perfect match between the simulations and the expected spatial response (\ref{eqn:GeneralFeedbackTransferFunction}).
+% \begin{figure}[t!]
+%   \centering
+%   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+%         % grid, 
+%         tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r0.png}
+%             \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0$}}
+%             \put (65, 65){\tiny{Expected pattern}}
+%             \put (65, 61) {\tiny{Simulation results}}
+%             \put (49, -1) {\tiny{$\dTheta\vBrace{RAD}$}}
+%             \put (0, 40) {\tiny{dB}}
+%         \end{overpic}\label{subfig_steerErrorTemporalSim_r0}}\quad
+%   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+%         % grid, 
+%         tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r06.png}
+%             \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0.6$}}
+%             \put (49, -1) {\tiny{$\dTheta$}}
+%             \put (0, 40) {\tiny{dB}}
+%         \end{overpic}\label{subfig_steerErrorTemporalSim_r06}}\\
+%   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+%         % grid, 
+%         tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r08.png}
+%             \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0.8$}}
+%             \put (49, -1) {\tiny{$\dTheta$}}
+%             \put (0, 40) {\tiny{dB}}
+%         \end{overpic}\label{subfig_steerErrorTemporalSim_r08}}\quad
+%   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+%         % grid, 
+%         tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r095.png}
+%             \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0.95$}}
+%             \put (49, -1) {\tiny{$\dTheta$}}
+%             \put (0, 40) {\tiny{dB}}
+%         \end{overpic}\label{subfig_steerErrorTemporalSim_r095}}
+%   \caption{For simulating the system's spatial response, we considered the steer-error case only in acoustic environment, where the signal's frequency is $10_{kHz}$ and steered a feedback-based array of $3$ elements towards the end-fire direction. For each $r$ value, we generate multiple simulations of a far-field target in different angular positions, covering $\theta_{g}\in\vBrace{0,\pi}$ and for each $\theta_{g}$ we plot the final array output magnitude. Each simulation was $100$ iterations long, where one iteration is the time that takes for a signal to get to the target, reflect and re-impinge the array. In \ref{subfig_steerErrorTemporalSim_r0} we simulate the passive array ($r=0$) for reference. Introducing the feedback, \ref{subfig_steerErrorTemporalSim_r06},\ref{subfig_steerErrorTemporalSim_r08} and \ref{subfig_steerErrorTemporalSim_r095} are simulations of the same array with $r$ values of $0.6, 0.8$ and $0.95$ respectively. The reader may observe that the beampattern sharpens and the side-lobes are decayed as $r$ increases, as predicted in Sec.~\ref{sec_Performance}.}
+%   \label{fig_steerErrorTemporalSim}
+% \end{figure}
+In this section we investigate $\Hr_{\dTheta,\dPhi,r}\rBrace{\omega}$ of \eqref{eq_generalH} for the general case, where the range misalignment phase term $\dPhi$ is possibly non zero. In Fig.~\ref{fig_hDUDTContour}, we plot $\abs{\Hr_{\dTheta,\dPhi,r}\rBrace{\omega}}$ in logarithmic scale, with respect to both steer and range misalignments. 
+We first note that the sensitivity to range errors is  $2\pi$-periodic in $\dPhi$, as also evident from \eqref{eq_generalH}, and demonstrated in Fig.~\ref{fig_hDUDTContour_mutliPeak}.
+One can also observe that as $r$ tends to one, this significantly sharpens the spatial selectivity of the system. Unfortunately, the response is very sensitive to range errors, as the main beam is supported on a small interval along the $\dPhi/\pi$ axis.
+As we defined
+\[
+\phi\triangleq\omega\tau_{pd}=\frac{2\pi R_{rt}}{\lambda}
+\]
+where $R_{rt}$ is the round-trip distance between the array and the target of interest, we can express range errors as
+\[
+\Delta R_{rt}=\frac{\dPhi \lambda}{2\pi}. 
+\]
+The range related sensitivity is also emphasized in Fig.~\ref{fig_rangError}, demonstrating that even minor range errors significantly distort the beampattern.
+\par At first glance, this sensitivity to range errors renders the system being too sensitive for any practical use.
 \begin{figure}[t!]
-   \centering
-   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
+    \begin{center}
+        \begin{overpic}[width=.95\linewidth, 
         % grid, 
-        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r0.png}
-            \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0$}}
-            \put (65, 65){\tiny{Expected pattern}}
-            \put (65, 61) {\tiny{Simulation results}}
-            \put (49, -1) {\tiny{$\dTheta\vBrace{RAD}$}}
-            \put (0, 40) {\tiny{dB}}
-        \end{overpic}\label{subfig_steerErrorTemporalSim_r0}}\quad
-   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
-        % grid, 
-        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r06.png}
-            \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0.6$}}
-            \put (49, -1) {\tiny{$\dTheta$}}
-            \put (0, 40) {\tiny{dB}}
-        \end{overpic}\label{subfig_steerErrorTemporalSim_r06}}\\
-   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
-        % grid, 
-        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r08.png}
-            \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0.8$}}
-            \put (49, -1) {\tiny{$\dTheta$}}
-            \put (0, 40) {\tiny{dB}}
-        \end{overpic}\label{subfig_steerErrorTemporalSim_r08}}\quad
-   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
-        % grid, 
-        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/steerError_r095.png}
-            \put (12, 72){\tiny{$\lBrace{h\rBrace{\dTheta}}, r=0.95$}}
-            \put (49, -1) {\tiny{$\dTheta$}}
-            \put (0, 40) {\tiny{dB}}
-        \end{overpic}\label{subfig_steerErrorTemporalSim_r095}}
-   \caption{For simulating the system's spatial response, we considered the steer-error case only in acoustic environment, where the signal's frequency is $10_{kHz}$ and steered a feedback-based array of $3$ elements towards the end-fire direction. For each $r$ value, we generate multiple simulations of a far-field target in different angular positions, covering $\theta_{g}\in\vBrace{0,\pi}$ and for each $\theta_{g}$ we plot the final array output magnitude. Each simulation was $100$ iterations long, where one iteration is the time that takes for a signal to get to the target, reflect and re-impinge the array. In \ref{subfig_steerErrorTemporalSim_r0} we simulate the passive array ($r=0$) for reference. Introducing the feedback, \ref{subfig_steerErrorTemporalSim_r06},\ref{subfig_steerErrorTemporalSim_r08} and \ref{subfig_steerErrorTemporalSim_r095} are simulations of the same array with $r$ values of $0.6, 0.8$ and $0.95$ respectively. The reader may observe that the beampattern sharpens and the side-lobes are decayed as $r$ increases, as predicted in Sec.~\ref{sec_Performance}.}
-   \label{fig_steerErrorTemporalSim}
-\end{figure}
-\par Next, we investigate $h\rBrace{\theta,\omega}$ (\ref{eqn:GeneralFeedbackTransferFunction}) under the general case of both steer and range misalignment. In Fig.~\ref{fig_hDUDTContour}, we plot the general case system response (the integrand in \ref{eqn_arrayPerformance_directivity_integral}) and observe that although $r\to1$ significantly improves the spatial selectivity of the system, unfortunately the response is very sensitive to phase alignment errors. Phase alignment errors are originated in differences between the enhanced range which is determined by the array designer and the range of the actual target. Analysis of $h\rBrace{\theta,\omega}$ show that the phase alignment error is $2\pi$-periodic which states that the matching range error ($R_{error}$) period is $\lambda/2$. For example, as can be seen in Fig.~\ref{fig_rangError}, even range errors of $\approx0.1\lambda$ significantly distort the beampattern, making the system too sensitive for any practical application. The sensitivity is also present in electro-magnetic (EM) environments and under some scenarios even worse.
-\begin{figure}[t!]
-   \centering
-   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
-        % grid, 
-        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/spatialIIR_amb_N3r04.png}
-            \put (12, 73.5){\tiny{$\lBrace{h\rBrace{\dTheta,\dPhi}}_{\vBrace{dB}}, r=0.4$}}
-            \put (47.5, -1) {\tiny{$\dTheta/\pi$}}
-            \put (-3, 38) {\tiny{$\dPhi/\pi$}}
-        \end{overpic}\label{subfig_hDUDTContour_r04}}\quad
-    \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
-        % grid, 
-        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/spatialIIR_amb_N3r06.png}
-            \put (12, 73.5){\tiny{$\lBrace{h\rBrace{\dTheta,\dPhi}}_{\vBrace{dB}}, r=0.6$}}
-            \put (47.5, -1) {\tiny{$\dTheta/\pi$}}
-            \put (-3, 38) {\tiny{$\dPhi/\pi$}}
-        \end{overpic}\label{subfig_hDUDTContour_r06}}\\
-   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
-        % grid, 
-        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/spatialIIR_amb_N3r08.png}
-            \put (12, 73.5){\tiny{$\lBrace{h\rBrace{\dTheta,\dPhi}}_{\vBrace{dB}}, r=0.8$}}
-            \put (47.5, -1) {\tiny{$\dTheta/\pi$}}
-            \put (-3, 38) {\tiny{$\dPhi/\pi$}}
-        \end{overpic}\label{subfig_hDUDTContour_r08}}\quad
-   \subfloat[][]{\begin{overpic}[width=.45\linewidth, 
-        % grid, 
-        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/spatialIIR_amb_N3r09.png}
-            \put (12, 73.5){\tiny{$\lBrace{h\rBrace{\dTheta,\dPhi}}_{\vBrace{dB}}, r=0.9$}}
-            \put (47.5, -1) {\tiny{$\dTheta/\pi$}}
-            \put (-3, 38) {\tiny{$\dPhi/\pi$}}
-        \end{overpic}\label{subfig_hDUDTContour_r09}}
-   \caption{Here we plot the general scenario array response, computed for both steer error ($\dTheta$) and phase alignment errors ($\dPhi$). Due to the $2\pi$ periodic behaviour of the response regarding $\dTheta$ and $\dPhi$, we plot the response for $-\pi<\dTheta,\dPhi<\pi$. We plot the system's response for $r = 0.4,0.6,0.8$ and $0.9$ in \ref{subfig_hDUDTContour_r04},\ref{subfig_hDUDTContour_r06},\ref{subfig_hDUDTContour_r08} and \ref{subfig_hDUDTContour_r09} respectively, and observe that as $r$ increases the spatial selectivity (regarding to both $\dTheta$ and $\dPhi$) significantly rise.}
-   \label{fig_hDUDTContour}
+        tics=10,
+        % trim={<left> <lower> <right> <upper>}
+        trim={0cm 0cm 1.5cm 0cm}
+        ]{./Media/spatialIIR_amb_N3_all_r.eps}
+            \put (91, 74) {\footnotesize{dB}}
+            %\put (43, 57.5) {$\frac{\dPhi}{\pi}$}
+            %\put (43, 22) {$\frac{\dPhi}{\pi}$}
+            %\put (-2, 57.5) {$\frac{\dPhi}{\pi}$}
+            \put (-2, 22) {$\frac{\dPhi}{\pi}$}
+            \put (5, 74) {\footnotesize{$r=0.4$}}
+            \put (51, 74) {\footnotesize{$r=0.6$}}
+            \put (5, 38) {\footnotesize{$r=0.7$}}
+            \put (51, 38) {\footnotesize{$r=0.8$}}
+            \put (19, 3) {\footnotesize{$\dTheta/\pi$}}
+            %\put (65, 3) {\footnotesize{$\dTheta/\pi$}}
+            %\put (19, 43) {\footnotesize{$\dTheta/\pi$}}
+            %\put (65, 43) {\footnotesize{$\dTheta/\pi$}}
+            % \put (21, 44) {\footnotesize{(a)}}
+            % \put (21, -1) {\footnotesize{(c)}}
+            % \put (67, 44) {\footnotesize{(b)}}
+            % \put (67, -1) {\footnotesize{(d)}}
+
+        \end{overpic}
+    \end{center}
+    \caption{Evaluation of $10\log_{10}\abs{\Hr_{\dTheta,\dPhi,r}}^2$, considering both steer ($\dTheta$) and range related ($\dPhi$) errors. Centered in each plot, is the 3dB main lobe (white color fill), exemplifying that as the gain mismatch $r$ is set closer to one, we observe an increase of the spatial selectivity (regarding  both $\dTheta$ and $\dPhi$).}
+  \label{fig_hDUDTContour}
 \end{figure}
 \begin{figure}[t!]
     \begin{center}
-        \begin{overpic}[width=.6\linewidth, 
+        \begin{overpic}[width=0.6\linewidth, 
         % grid, 
-        tics=10,trim=0 0 0 0]{./Media/h_thetaTau/rangeError_r06.png}
-            \put (0, 73.5){\footnotesize{$\lBrace{H\rBrace{\dTheta,\dPhi}}$}}
-            \put (0, 37) {\footnotesize{dB}}
-            \put (48, 0) {\footnotesize{$\dTheta$}}
-            \put (75, 35) {\tiny{$R_{error}=0$}}
-            \put (75, 55) {\tiny{$R_{error}=0.1\lambda$}}
-            \put (75, 63) {\tiny{$R_{error}=0.3\lambda$}}
+        tics=10,
+        % trim={<left> <lower> <right> <upper>}
+        trim={0 0 0 0}
+        ]{./Media/spatialIIR_amb_N3r04_multiPeak.eps}
+            \put (83, 71) {\tiny{dB}}
+            \put (42, -0.5) {\scriptsize{$\dTheta/\pi$}}
+            \put (0, 37) {$\frac{\dPhi}{\pi}$}
         \end{overpic}
     \end{center}
-    \caption{Phase misalignment can significantly distort the spatial response. Here we plot the response of 3 element feedback based array, where $r=0.6$, in perfect alignment as a reference in addition to scenarios of $0.1\lambda$ and $0.3\lambda$ range errors. In each simulation we normalize the response such that its maximal magnitude is $0_{dB}$ so that the comparison is not influenced by the array gain.}
-    \label{fig_rangError}
+    \caption{Evaluation of $10\log_{10}\abs{\Hr_{\dTheta,\dPhi,r=0.4}}^2$ for $-3\pi\leq\dPhi\leq 3\pi$. The response is $2\pi$ periodic.}
+  \label{fig_hDUDTContour_mutliPeak}
 \end{figure}
-\par This leads us to seek for ways of reducing this sensitivity to allow practical usage of the suggested feedback based array processing. One such application is described in Sec.~\ref{sec_app}. 
-\ifdefined\DEFInclueApplication
-    \section{Example detection application}
-    \label{sec_app}
-    \input{./Modules/stabilityEnhancement_freqPairApproach.tex}
-\else
-\fi
+\begin{figure}[t!]
+    \begin{center}
+        \begin{overpic}[width=0.7\linewidth, 
+        % grid, 
+        tics=10,
+        % trim={<left> <lower> <right> <upper>}
+        trim={0 0 0 0}
+        ]{./Media/rangeError_r06.eps}
+            \put (-1, 74) {\footnotesize{$10\log_{10}\abs{\Hr_{\dTheta,\dPhi,r}}^2$}}
+            \put (46, -1) {\footnotesize{$\dTheta/\pi$}}
+            \put (0, 37) {\footnotesize{dB}}
+            \put (92, 40) {\footnotesize{$\Delta R_{rt}=0.1\lambda$}}
+            \put (92, 50) {\footnotesize{$\Delta R_{rt}=0.3\lambda$}}
+            \put (92, 30) {\footnotesize{$\Delta R_{rt}=0$}}
+        \end{overpic}
+    \end{center}
+    \caption{Evaluation of the array response for several values of range error $\Delta R_{rt}$ (where $r=0.4$). Even minor range errors significantly distort the beampattern.}
+  \label{fig_rangError}
+\end{figure}
+This leads us to seek robust implementations, as demonstrated in Sec.~\ref{sec_app}. 
 
+\section{Mitigating Range Error Sensitivity}
+\label{sec_app}
+\input{./Modules/stabilityEnhancement_freqPairApproach.tex}
 % needed in second column of first page if using \IEEEpubid
 %\IEEEpubidadjcol
-
 %\input{./Modules/estimation_CRLB_appendix.tex}
 %\input{./Modules/arrayPerformance_beamwidth.tex}
-
-
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
 % For figures, \caption should occur after the \includd to preserve the operation of \label within \caption
@@ -597,11 +621,8 @@ In this section, we first aim to validate the derivations of Sec.~\ref{sec_intro
 %\caption{Simulation results for the network.}
 %\label{fig_sim}
 %\end{figure}
-
 % Note that the IEEE typically puts floats only at the top, even when this
 % results in a large percentage of a column being occupied by floats.
-
-
 % An example of a double column floating figure using two subfigures.
 % (The subfig.sty package must be loaded for this to work.)
 % The subfigure \label commands are set within each subfloat command,
@@ -628,8 +649,6 @@ In this section, we first aim to validate the derivations of Sec.~\ref{sec_intro
 % labels, the optional argument to \subfloat must be present. If a
 % subcaption is not desired, just leave its contents blank,
 % e.g., \subfloat[].
-
-
 % An example of a floating table. Note that, for IEEE style tables, the
 % \caption command should come BEFORE the table and, given that table
 % captions serve much like titles, are usually capitalized except for words
@@ -657,8 +676,6 @@ In this section, we first aim to validate the derivations of Sec.~\ref{sec_intro
 %\hline
 %\end{tabular}
 %\end{table}
-
-
 % Note that the IEEE does not put floats in the very first column
 % - or typically anywhere on the first page for that matter. Also,
 % in-text middle ("here") positioning is typically not used, but it
@@ -668,18 +685,12 @@ In this section, we first aim to validate the derivations of Sec.~\ref{sec_intro
 % Note that, LaTeX2e, unlike IEEE journals/conferences, places
 % footnotes above bottom floats. This can be corrected via the
 % \fnbelowfloat command of the stfloats package.
-
-
-
-
-\section{Conclusion}
+\section{Conclusions}
 \label{sec_conclusions}
-The conclusion goes here.
-
-
-
-
-
+In this contribution we have presented a novel concept of spatial feedback-based beamforming. In the context of ULA, this approach can be seen as extension of FIR filtering, to IIR filter design, for spatial localization.
+\par We have analyzed and shown that the feedback-beamformer is superior to the conventional delay and sum beamformer, achieving improved beamwidth, sidelobe attenuation and directivity.
+\par The suggested approach revealed itself to be sensitive to target range errors. Hence, we have suggested to mitigate this sensitivity by transmitting with two  independent and closely spaced frequencies.
+\par This paper lays the ground for a diverse future research, starting from different approaches of setting the beamformer weights $\vAlpha,\vBeta$, waveform design, localization performance analysis, extension to moving targets and generalization to multiple-input-multiple-output (MIMO) systems.
 % if have a single appendix:
 %\appendix[Proof of the Zonklar Equations]
 % or
@@ -693,12 +704,13 @@ The conclusion goes here.
 % \subsection or using \label (\appendices by itself
 % starts a section numbered zero.)
 %
-
-
 \appendices
 \section{FIM calculation}
 \label{apdx_clacFim}
 \input{./Modules/FIM_calc.tex}
+\section{Half power beamwidth}
+\label{apdx_HPBW}
+\input{./Modules/HPBW_apndx.tex}
 % \section{The ULA beamwidth}
 % \label{appendix_theULABeamwidth}
 % \input{./Modules/classicULA_beamwidth.tex}

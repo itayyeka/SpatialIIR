@@ -18,8 +18,7 @@ Similar to time-domain IIR architecture, a feedback is required to generate the 
     \caption{Direct form II $2^{nd}$ order IIR architecture.}
     \label{fig_IIRBasicArch}
 \end{figure}
-In order to do so in the spatial domain, we propose a feedback beam-former architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), defined by two sets of weights $\vBeta$ and $\vAlpha$.
-The beamformed signal, $\sum_{n}x_{n,\theta_g}(t)\beta_n$, can be seen as with classical beamforming while the weights $\vAlpha$ generate the recursive part of the response by re-transmitting the received array signals $\Brace{x_{n,\theta_g}}$ and the input $x(t)$ back to the target. 
+In order to do so in the spatial domain, we propose a feedback beam-former architecture. In Fig.~\ref{fig:Proposed_spatialIIR_ARCH} we preset a detailed model of the array configuration. The weights $\vBeta$ generate the output signal $y(t)$ while $\vAlpha$ are used to synthesize the feedback transmission $\text{Tx}\rBrace{t}$. $x(t)$ is the input waveform which is transmitted together with the beamformed feedback signal, thus generating the recursive part of the system. Also, an additive noise model $n\rBrace{t}$ is assumed at the array output. Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed signal, $\sum_{n}x_{n,\theta_g}(t)\beta_n$, can be seen as with classical beamformer. 
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.95\linewidth, 
@@ -66,9 +65,7 @@ The beamformed signal, $\sum_{n}x_{n,\theta_g}(t)\beta_n$, can be seen as with c
             \put (1, 51){$\text{FB}_{\vAlpha,\vBeta}$}
         \end{overpic}
     \end{center}
-    \caption{The proposed feedback beam-former architecture. The weights $\vBeta$ generate the output signal $y(t)$. The  weights $\vAlpha$ synthesize the feedback transmission $\text{Tx}\rBrace{t}$.
-    $x(t)$ is the input waveform which is transmitted together with the feedback beamformed signal.
-    An additive noise model $n\rBrace{t}$ is assumed at the array output. We designate this feedback beamformer as the FB block (dashed line) for later use.}
+    \caption{The proposed feedback beamformer architecture consisting of ULA of inter-element distance $d$, where the target is assumed to reflect the impinged signal. We designate the feedback beamformer (FB) block (dashed line) for later use.}
     \label{fig:Proposed_spatialIIR_ARCH}
 \end{figure}
 \subsection*{Obtained spatial response}
@@ -313,19 +310,19 @@ implying that this is the directivity improvement for general $0\leq r \leq 1$.
 \subsection*{Summary}
 To conclude this section, we present Table.~\ref{table_arrayPerformance} which exemplifies the superior performance of our suggested architecture over the standard ULA case.
 \begin{table}[h!]
+    \caption{Comparing performances of classical ULA and the proposed feedback based architecture, with gain mismatch $r$.}
     \centering
     \resizebox{1\linewidth}{!}{
         \begin{tabular}{||c c c c||} 
             \hline
-            & ULA & \thead{Feedback\\based} & Improvement \\ [0.5ex] 
+            & ULA & \thead{FEEDBACK\\BASED} & IMPROVEMENT \\ [0.5ex] 
             \hline\hline
             HPBW & $ 1.4/N$ & $1/B(r)N$ with $B$ of \eqref{eq_Bapprox} & $1.4B\rBrace{r}$ times smaller\\ 
-            \thead{First sidelobe\\gain} & $2/3\pi$ & $2\rBrace{1-r}/3\pi$ & $1-r$ \\
-            Directivity & $N$ & $\mathrm{D}$ of \eqref{eq_D} & $1/\rBrace{1-r}$ \\
+            \thead{FIRST\\SIDELOBE\\GAIN} & $2/3\pi$ & $2\rBrace{1-r}/3\pi$ & $1-r$ \\
+            DIRECTIVITY & $N$ & $\mathrm{D}$ of \eqref{eq_D} & $1/\rBrace{1-r}$ \\
             [1ex] 
             \hline
          \end{tabular}
      }
- \caption{Comparing performance between the classical ULA and the proposed feedback based architecture, with gain mismatch $r$.}
- \label{table_arrayPerformance}
+    \label{table_arrayPerformance}
 \end{table}

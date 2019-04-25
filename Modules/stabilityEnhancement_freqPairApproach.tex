@@ -4,7 +4,6 @@ As demonstrated in the previous section, the beampattern \eqref{eq_generalH} is 
 Bearing in mind that the system's phase alignment sensitivity resides in \eqref{eq_generalH} via the  term $\exp\Brack{j\dPhi}=\exp\Brack{j\omega\Delta\tau_{pd}}$, and that the round-trip delay (i.e. $\tau_{pd}$) cannot be controlled, one may suggest to use lower frequencies. Unfortunately, in most cases, this is irrelevant, being physically unfeasible to transmit at very low frequency. Another approach is to simultaneously use several frequencies in order to resolve the range error sensitivity. In the following, we show a possible algorithm which achieves this goal by transmitting with two frequencies $\omega_1$ and $\omega_2$.
 
 \subsection*{Suggested processing scheme}
-We use two independently configured instances of the feedback beamformer of Fig.~\ref{fig:Proposed_spatialIIR_ARCH}, such that each instance treats only a specific frequency. This is demonstrated in Fig.~\ref{fig_app}. Assume $x_{i}(t) = e^{j\omega_{i}t}, \omega_{i} = 2\pi{f_{i}}$ with $i=1,2$ are two independent, narrow band, stimuli signals.
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.95\linewidth, 
@@ -31,10 +30,14 @@ We use two independently configured instances of the feedback beamformer of Fig.
             \put (30.75, 25){\footnotesize{$\mathcal{F}_{\omega_{2}}$}}
         \end{overpic}
     \end{center}
-    \caption{The suggested dual-frequency beamformer. We use two independent FB blocks (as in Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) and 4 band-pass-filters (BPF) to generate both the transmitted feedback signal ($\text{Tx}_{i}$) and the beamformers' outputs $y_{i}$. $x_{i}$ are the stimuli signals of the FB blocks, while $n_{i}$ are additive noise instances. The blocks marked by $\mathcal{F}_{\omega_{i}}$ compute the Fourier coefficients in $\omega_{i}$ and their outputs feed the harmonic mean calculator which generates the DF beamformer's output.}
+    \caption{Dual-frequency beamformer, consisting of two independent FB blocks and nerrwoband bandpass filters. The blocks marked by $\mathcal{F}_{\omega_{i}}$ compute the Fourier coefficients in $\omega_{i}$ and their outputs feed the harmonic mean calculator which generates the DF beamformer's output.}
     \label{fig_app}
 \end{figure}
-Note that we do not increase the number of array elements, but merely double the beamformer processing part. The output of each beamformer $y_i(t)$, as well as the re-transmitted feedback signal $\text{Tx}_i(t)$ are filtered by a band pass filter (BPF) around each stimulus frequency. For each beamformer \eqref{eqn:GeneralFeedbackTransferFunction} the output is
+In Fig.~\ref{fig_app}, we exemplify the use of two independently configured instances of the feedback beamformer (of Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), where each instance is designed to treat only a specific frequency. 
+\par For this, two independent FB blocks and 4 nerrow-band band-pass-filters ($\text{BPF}_{\omega_{i}}$ filters a nerrow band slice around $\omega_{i}$) are used to generate both the transmitted feedback signal ($\text{Tx}_{i}$) and the beamformers' outputs $y_{i}$. 
+\par Also, $x_{i}(t) = e^{j\omega_{i}t}, \omega_{i} = 2\pi{f_{i}}$ with $i=1,2$ are two independent, narrow band, stimuli signals and $n_{i}$ are additive noise instances. 
+\par Note that we do not increase the number of array elements, but merely double the beamformer processing part. 
+\par For each single frequency FB block \eqref{eqn:GeneralFeedbackTransferFunction} the output is
 \[
 y_{i}(t)=H_{\vAlpha_{i},\vBeta_{i}}\rBrace{\omega_{i}}\exp{\rBrace{j\omega_{i}t}}\ \ {i\in\cBrace{1,2}},
 \]
@@ -83,7 +86,7 @@ By straight forward derivations, one may deduce that $\lBrace{H_{\text{DF}}}^{-1
         \end{split}
     }
 \end{equation*}
-Note that in the special case  where we choose $\vAlpha_{1}=\vBeta_{1}, \vAlpha_{2}=-\vBeta_2{}$, the resultant beampattern is simplified to
+Note that in the special case  where we choose $\vAlpha_{1}~=~\vBeta_{1},\ \vAlpha_{2}~=~-~\vBeta_2{}$, the resultant beampattern is simplified to
 \begin{equation}
     \label{eqn_twoFreqApproach_h}
     \abs{H_{\text{DF}}} = \lBrace{\frac{\vBetaT_{1}\vd_{1}}{1+\frac{\vBetaT_{1}\vd_{1}}{\vBetaT_{2}\vd_{2}}\exp{\rBrace{-j\rBrace{\phi_{1}-\phi_{2}}}}}}.
@@ -157,11 +160,12 @@ where $\hat{\vd}$ is the estimated steering vector, as in \eqref{eq:d_hat}. With
     }
 \end{equation}
 where $\kappa\triangleq{}r_{1}/r_{2}$ is the gain mismatch ratio. Note that if the array elements have similar gain at $\omega_1$ and $\omega_2$ we also mitigate the gain mismatch, as $\kappa$ will be close to one.
-In Fig.~\ref{fig_dualfreq_rangeErrorHighSnr}, we simulate the beampattern (normalized to $0$dB peak gain) for the single and dual frequency case. We also plot (in blue circles) the perfectly aligned pattern, which is obtained when there are no range errors. As can be seen, the resultant beampattern of the dual frequency beamformer is very close to the, ideal, range-error free case. 
+\par In Fig.~\ref{fig_dualfreq_rangeErrorHighSnr}, we simulate the beampattern (normalized to $0$dB peak gain) for the single and dual frequency case, where frequency separation was configured to obtain range errors as in \eqref{eq_DF_phErr} (i.e. $f_1=10_{GHz},\;f_2=f_1+150_{KHz}$ to mitigate range errors up till $\Delta{}R_{rt}=10_m=333\frac{1}{3}\lambda$). 
+\par We also plot (in blue circles) the perfectly aligned pattern, which is obtained when there are no range errors. 
+\par As can be seen, the resultant beampattern of the dual frequency beamformer practically achieves the ideal, range-error free case. 
 
 In Fig.~\ref{fig_dualfreq_perfectAlignLowSnr}
-we repeat the case of fractional range error of $\Delta{}R_{rt}=0.3\lambda$, while adding white Gaussian noise to the output of each feedback beamformer.
-As can be seen, the suggested approach operates reasonably well also in the noisy scenario. 
+we repeat the case of fractional range error of $\Delta{}R_{rt}=0.3\lambda$, while adding white Gaussian noise to the output of each feedback beamformer. Evidently, the dual-frequency beamformer (green diamonds) achieves close-to-ideal beampattern (blue circles), while the single-frequency approach (red squares) suffers severe distortions.
 % \begin{figure}[t!]
 %     \begin{center}
 %         \begin{overpic}[width=.9\linewidth, 
@@ -183,17 +187,16 @@ As can be seen, the suggested approach operates reasonably well also in the nois
         \begin{overpic}[width=.7\linewidth, 
         % grid, 
         tics=10,trim=0 0 0 0]{./Media/fig_dualfreq_rangeErrorHighSnr.eps}
-            \put (47.5, 43){\scriptsize{Ideal}}
-            \put (47.5, 37.5){\scriptsize{SF}}
-            \put (47.5, 32){\scriptsize{DF}}
+            \put (48, 43){\scriptsize{Ideal}}
+            \put (48, 37.5){\scriptsize{SF}}
+            \put (48, 32){\scriptsize{DF}}
             \put (2, 37.5){\footnotesize{dB}}
             \put (47,0){\footnotesize{$\dTheta/\pi$}}
             \put (92,58){\footnotesize{$\Delta{}R_{rt}=0.3\lambda$}}
         \end{overpic}
     \end{center}
     \caption{Simulating 3 element ULA with $r_1=0.6^{2},\; r_2=0.6$ (hence $\kappa=0.6$) for infinite SNR. The (fractional) range error is $\Delta{}R_{rt}=0.3\lambda$.
-    Comparing the ideal response which would be obtained for $\Delta{}R_{rt}=0$ (blue dots), with the single frequency (SF) beamformer (red squares) and the  dual-frequency (DF) solution (green diamonds). 
-    For the latter, the frequency separation was configured to obtain range errors as in \eqref{eq_DF_phErr}, i.e. $f_1=10_{GHz},\;f_2=f_1+150_{KHz}$ to mitigate range errors up till $\Delta{}R_{rt}=10_m=333\frac{1}{3}\lambda$. 
+    The ideal response is obtained for $\Delta{}R_{rt}=0$ (blue dots), with the single frequency (SF) beamformer (red squares) and the  dual-frequency (DF) solution (green diamonds). 
     }
     \label{fig_dualfreq_rangeErrorHighSnr}
 \end{figure}
@@ -205,15 +208,15 @@ As can be seen, the suggested approach operates reasonably well also in the nois
         % trim={<left> <lower> <right> <upper>}
         trim={1.75cm 0 1.75cm 0}
         ]{./Media/fig_dualfreq_rangeErrorLowSnr.eps}
-            \put (42,17.5){\scriptsize{Ideal}}
-            \put (42, 14.5){\scriptsize{SF}}
-            \put (42, 11.75){\scriptsize{DF}}
+            \put (42.25, 17.5){\scriptsize{Ideal}}
+            \put (42.25, 14.5){\scriptsize{SF}}
+            \put (42.25, 11.5){\scriptsize{DF}}
             \put (-1, 26.5){\footnotesize{dB}}
             \put (22, 0){\footnotesize{$\dTheta/\pi$}}
-            \put (20,17){\scriptsize{$\text{SNR}=6_{dB}$}}
-            \put (72,17){\scriptsize{$\text{SNR}=0_{dB}$}}
+            \put (19,17){\scriptsize{$\text{SNR}=6_{dB}$}}
+            \put (71.5,17){\scriptsize{$\text{SNR}=0_{dB}$}}
         \end{overpic}
     \end{center}
-    \caption{Directional response of the 3 element ULA, as in Fig.~\ref{fig_dualfreq_rangeErrorHighSnr}, simulated for the noisy scenario. The additive noises $n_1(t)$ and $n_2(t)$ (see Fig.~\ref{fig_app}), are set to obtain SNR of $6_{dB}$ (left plot) and $0_{dB}$ (right plot). The dual-frequency beamformer (green diamonds) achieves close-to-ideal beampattern (blue circles), while the single-frequency approach (red squares) suffers severe distortions.}
+    \caption{Directional response of the 3 element ULA, as in Fig.~\ref{fig_dualfreq_rangeErrorHighSnr}, simulated for the noisy scenario. The additive noises $n_1(t)$ and $n_2(t)$ (see Fig.~\ref{fig_app}), are set to obtain SNR of $6_{dB}$ (left plot) and $0_{dB}$ (right plot).}
     \label{fig_dualfreq_perfectAlignLowSnr}
 \end{figure}

@@ -1,4 +1,4 @@
-Similar to time-domain IIR architecture, a feedback is required to generate the recursive part of the response. For example in Fig.~\ref{fig_IIRBasicArch}, we show a second order IIR filter, where weighted and delayed versions of the input signal $x$ are fed back to the  input.  
+An intuitive understanding of the spatial feedback concept may be achieved when inspecting one of the two main IIR filter architectures, known as the ``Direct form II" (see Fig.~\ref{fig_IIRBasicArch}). In this architecture, the recursive part of the filter is implemented by feeding the input ($x$) with it's delayed and independently weighted (with $\vAlpha$ weights) instances before entering the FIR part (defined by $\vBeta$).
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.65\linewidth, 
@@ -18,7 +18,9 @@ Similar to time-domain IIR architecture, a feedback is required to generate the 
     \caption{Direct form II $2^{nd}$ order IIR architecture.}
     \label{fig_IIRBasicArch}
 \end{figure}
-In order to do so in the spatial domain, we propose a feedback beam-former architecture. In Fig.~\ref{fig:Proposed_spatialIIR_ARCH} we preset a detailed model of the array configuration. The weights $\vBeta$ generate the output signal $y(t)$ while $\vAlpha$ are used to synthesize the feedback transmission $\text{Tx}\rBrace{t}$. $x(t)$ is the input waveform which is transmitted together with the beamformed feedback signal, thus generating the recursive part of the system. Also, an additive noise model $n\rBrace{t}$ is assumed at the array output. Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed signal, $\sum_{n}x_{n,\theta_g}(t)\beta_n$, can be seen as with classical beamformer. 
+\par Inspired by this architecture, we seek for an analogous structure which will mimic the feedback loop in the spatial domain. 
+\par In order to do so, we propose a feedback beamformer architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) where the weights $\vBeta$ generate the output signal ($y$), $\vAlpha$ are used to synthesize the feedback transmission ($\text{Tx}$) and $x$ is the input waveform. Also, an additive noise model ($n$) is assumed at the array output. 
+\par Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed signal, $\sum_{n}x_{n,\theta_g}(t)\beta_n$, acts as the classic beamformer. 
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.95\linewidth, 

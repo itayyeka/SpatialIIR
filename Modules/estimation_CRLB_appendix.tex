@@ -1,7 +1,7 @@
-A possible evaluation for the contribution of the suggested feedback mechanism is to measure the additional information in the system.
+A possible evaluation for the contribution of the presented feedback mechanism is to measure the additional information in the system.
 To this end, the FIM will now be calculated with respect to the DOA parameter $\theta_g$ and the range related parameter $\phi$. 
-As our feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in the frequency domain, we rely on \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses}, to express the FIM in the frequency domain as well. 
-Introducing the additive noise term $n(t)$ as in Fig.~\ref{fig:Proposed_spatialIIR_ARCH},  and assuming it to be white and Gaussian, the $k,l$'th element of the FIM, notated by the matrix $J$, can be expressed as
+\par As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in the frequency domain, we rely on \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses}, to express the FIM in the frequency domain as well. 
+\par Introducing the additive noise term $n(t)$ as in Fig.~\ref{fig:Proposed_spatialIIR_ARCH},  and assuming it to be white and Gaussian, the $k,l$'th element of the FIM, notated by the matrix $J$, can be expressed as
 \begin{equation}
     \resizebox{1\linewidth}{!}{
         \begin{split}
@@ -29,7 +29,8 @@ Introducing the additive noise term $n(t)$ as in Fig.~\ref{fig:Proposed_spatialI
         \end{split}
     }
 \end{equation}
-where $ \eta = [\theta_g,\phi]^{T} $ is the parameters vector, $\Re$ stands for the real-part operator, $k,l \in\cBrace{1,2}$, $\Phi\rBrace{\omega}$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator, $T$ is the measurement observation interval and $\omega_{s}$ is the signal bandwidth. In our model, the noise is white with some constant power spectral density $\Phi(\omega)=\sigma^2$ and does not depend on the parameters $\eta$, hence the second term vanishes. 
+where $ \eta = [\theta_g,\phi]^{T} $ is the parameters vector, $\Re$ stands for the real-part operator, $k,l \in\cBrace{1,2}$, $\Phi\rBrace{\omega}$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator, $T$ is the measurement observation interval and $\omega_{s}$ is the signal bandwidth. 
+\par In the presented model, the noise is white with some constant power spectral density $\Phi(\omega)=\sigma^2$ and does not depend on the parameters $\eta$, hence the second term vanishes. 
 \par Assuming continuously differentiable functions (such that the order of the Fourier transform and the differentiation can be altered) the FIM is
 \begin{equation}
     \label{eq_beamPatternFreqDomain_FIM}
@@ -47,39 +48,15 @@ where $ \eta = [\theta_g,\phi]^{T} $ is the parameters vector, $\Re$ stands for 
         \end{split}.
     % }
 \end{equation}
-% \begin{figure}[t!]
-%     \begin{center}
-%         \begin{overpic}[width=0.6\linewidth, 
-%         % grid, 
-%         tics=10,trim=0 0 0 0]{./Media/basicGeneralGeometryArray.png}
-%             \put (72, 57){\footnotesize{$p_{0} \triangleq (0,0)$}}
-%             \put (11, 55){\footnotesize{$p_{1}$}}
-%             \put (62, 12){\footnotesize{$p_{2}$}}
-%             \put (18, 17){\footnotesize{$p_{N-1}$}}
-%             \put (49, 44){\footnotesize{$\theta_{g}$}}
-%             \put (80, 75){\footnotesize{Impinging signal}}
-%         \end{overpic}
-%     \end{center}
-%     \caption{An arbitrary geometry array, impinged by a Far-field signal which arrives from DOA $\theta_{g}$.}
-%     \label{fig_arbGeoArray}
-% \end{figure}
-\myTodo{inline}{\textbf{DONE:}\\here again you deal with the ULA, but try first to write a general expression in terms of the derivative. Only at the end plug in the specific case of ULA}
-% For a general array of some geometry (see Fig.~\ref{fig_arbGeoArray}), we can express the relative (setting $\tau_{0,\theta_{g}}=0$) impinging moments of the signal in the array sensors as
-% \begin{equation*}
-%     \begin{split}
-%         \tau_{n,\theta_{g}} =&\  \frac{\norm{p_{n}}}{c}\cos{\rBrace{\theta_{g}-\angle{p_{n}}}} - \frac{\norm{p_{0}}}{c}\cos{\rBrace{\theta_{g}-\angle{p_{0}}}} 
-%         \\\overset{p_{0}=0}{=}&\  \frac{\norm{p_{n}}}{c}\cos{\rBrace{\theta_{g}-\angle{p_{n}}}},
-%     \end{split}
-% \end{equation*}
-% where $\angle{p_{n}}$ is the relative angle, measured from the broadside of $p_{0}$. 
-Assuming smooth radiation patters and in order to simplify the analysis, we assume here that the derivative of the elements gain $\cBrace{g_n}$ with respect to the parameters $\vEta$ is negligible. Hence, using~\eqref{eq:d}, we can write that
+Assuming also smooth radiation patters, we simplify the analysis, stating that the elements gain $\rBrace{g_n}$ derivative (with respect to $\vEta$) is negligible such that
 $$
 \frac{\partial\vd}{\partial\theta_g}=A\vd
 $$
-where $A$ is diagonal, with \[A[n,n]=-j\omega\frac{\partial \tau_{n,\theta_g}}{\partial{\theta_g}}.
+where $A$ is diagonal, with 
+\[
+A[n,n]=-j\omega\frac{\partial \tau_{n,\theta_g}}{\partial{\theta_g}}.
 \]
-
- In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
+\par In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
 \begin{equation}
     \label{eqn_FIMelements}
     \resizebox{.91\linewidth}{!}{
@@ -106,13 +83,6 @@ where $B\triangleq \vd \vdT A -A\vd\vdT$. Assuming weights which are proportiona
 This choice of weights can be seen as generalization of the conventional beamformer (CB) \cite{VanTrees2002DetectionIV} where  $\vBeta\propto\vd^{\ast}$ constitutes a coherent integration of the signal along the array elements. 
 
 From \eqref{eqn_FIMelements} we observe that minimization of the denominator $\lBrace{1-\aTd\ePhi{-}}$ should significantly increase the information.
-Hence, by setting
-%\begin{equation}\label{eq:optimal_alpha}
-$\vAlpha=\vd^\ast\ePhi{}/\norm{\vd}^2$,
-%\end{equation}
-which has the interpretation of coherently beamforming the feedback signal prior to its re-transmission, improved estimation of the DOA and range can be achieved.
-
-The FIM structure also suggests that by increasing the signal bandwidth one should also achieve information increase.
-
+Note that setting $\vAlpha=\vd^\ast\ePhi{}/\norm{\vd}^2$ may be interpreted as the conventional beamformer, applied to the feedback signal indicating that improved estimation of the DOA and range can be achieved. This observation corresponds with the information increase, predicted by the FIM elements.
 \par In practice, though, there will be unavoidable errors, and perfect knowledge of the steering vector $\vd$ is not always available.
 In Sec.~\ref{sec_Performance}, we quantify the effect of mismatching $\vAlpha$ with the desired form and discuss its influence on the array performance. 

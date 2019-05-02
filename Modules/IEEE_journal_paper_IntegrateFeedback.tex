@@ -19,7 +19,7 @@ An intuitive understanding of the spatial feedback concept may be achieved when 
     \label{fig_IIRBasicArch}
 \end{figure}
 \par Inspired by this architecture, we seek for an analogous structure which will mimic the feedback loop in the spatial domain. 
-\par In order to do so, we propose a feedback beamformer architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) where the weights $\vBeta$ generate the output signal ($y$), $\vAlpha$ are used to synthesize the feedback transmission ($\text{Tx}$) and $x$ is the input waveform. Also, an additive noise model ($n$) is assumed at the array output. 
+\par In order to do so, we propose a feedback beamformer architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) where the weights $\vBeta$ generate the output signal ($y$), the $\vAlpha$ weights are used to synthesize the feedback transmission ($\text{Tx}$) and $x$ is the input waveform. Also, an additive noise model ($n$) is assumed at the array's output. 
 \par Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed signal, $\sum_{n}x_{n,\theta_g}(t)\beta_n$, acts as the classic beamformer. 
 \begin{figure}[t!]
     \begin{center}
@@ -71,12 +71,6 @@ An intuitive understanding of the spatial feedback concept may be achieved when 
     \label{fig:Proposed_spatialIIR_ARCH}
 \end{figure}
 \subsection*{Obtained spatial response}
-\myTodo{inline} {this is not clear. \\
-\textbf{DONE}\\Please write the propagation model: $x_{n=0,\theta}=...$ actually this is like eq(1) but we need to add the attenuation g there. Note that g should depend on the angle, and the index of the antenna $g=g_{n,\theta}$. Only if there is no choice, we can assume isotropic antennas such that this dependency can be removed. 
-\\\textbf{DONE:}\\Also, if $g$ represents the total attenuation (up link+down link+antenna gain in that specific direction) we do not need to write $g^2$. 
-\\\textbf{DONE:}\\Also, use the notations $x_{n,\theta}$ within eq(2).
-\\\textbf{DONE:}\\Also, I dont think eq (2) is exact. Why have you added the $n\tau_\theta$ in the second (sum) term? 
-\\\textbf{DONE:}\\Also, start with general manifold and plug in the ULA only at the end as a special case.}
 \input{./Modules/Spatial_IIR-MathDerivations.tex}
 \section{Fisher Information Matrix}
 \label{sec_FIM}
@@ -84,12 +78,6 @@ An intuitive understanding of the spatial feedback concept may be achieved when 
 \section{Performance Analysis}
 \label{sec_Performance}
 In this section we analyze some of the fundamental properties of the suggested array; it's beamwidth, peak to side-lobe level and it's directivity which are all compared to traditional array processing. Focusing on ULA, we show that by integrating the spatial feedback, we obtain improved performance compared to the classic beamforming.
-
-\myTodo{inline}{\textbf{DONE:}\\Please rephrase the following text. Maybe you meant something like: As seen from the FIM structure, large information can be obtained by setting the denominator close to zero. This implies that $\bTd g\exp\Brack{-j\phi}$ should be as close to one as possible. Assuming that we choose the beamformer weights in the form of $\alpha=\hat{g}^{-1}\exp\Brack{j\hat{\phi}}d_{\hat{\theta}}$  in order to coherently sum up the energy from a presumed direction $\hat{\theta}$, while compensating for the channel attenuation $g$ and phase $\phi$ with their estimated values. 
-\\\textbf{Comment : But the steering vectors are not normalized. They consist from exponents.}
-\\\footnote{we need in advance state that we assume all steering vectors are normalized ... }
-\\\textbf{DONE:} 
-\\I also don't like the use of this DCBF. Why not to call this coherent beamformer approach? (CB in short) }
 \subsection*{Error terms}
 We now focus on an $N$-element ULA, with steering vector
 \[

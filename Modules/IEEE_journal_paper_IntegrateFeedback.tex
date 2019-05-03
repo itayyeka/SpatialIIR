@@ -77,25 +77,25 @@ An intuitive understanding of the spatial feedback concept may be achieved when 
 \input{./Modules/estimation_CRLB_appendix.tex}
 \section{Performance Analysis}
 \label{sec_Performance}
-In this section we analyze some of the fundamental properties of the suggested array; it's beamwidth, peak to side-lobe level and it's directivity which are all compared to traditional array processing. Focusing on ULA, we show that by integrating the spatial feedback, we obtain improved performance compared to the classic beamforming.
+In this section we analyze some of the fundamental properties of the suggested array; it's beamwidth, peak to side-lobe level and it's directivity which are all compared to traditional array processing. Focusing on ULA, we show that by integrating the spatial feedback, we obtain improved performance compared to classic beamforming.
 \subsection*{Error terms}
 We now focus on an $N$-element ULA, with steering vector
 \[
 \vd=g\sBrack{1,\exp(-\theta),\ldots,\exp(-(N-1)\theta)}^T
 \]
 with $\theta$ of \eqref{eq:thetaULA}, and some real gain $g$. 
-Following previous observations, we  analyze the case of CB, where we coherently sum the array elements using
+\par Following previous observations, we analyze the case of CB (i.e. coherently sum the array elements) using
 \begin{equation}\label{eq:alpha_beta_hat}
-\vBeta_{\coefSetName{}}=\vAlpha_{\coefSetName{}}=\hat{\vd}^{\ast}\exp\rBrace{j\hat{\phi}}/\norm{\hat{\vd}}^2
+\vBeta_{\coefSetName{}}=\vAlpha_{\coefSetName{}}=\hat{\vd}^{\ast}\exp\rBrace{j\hat{\phi}}/\norm{\hat{\vd}}^2,
 \end{equation}
-where 
+where we denote 
 \begin{equation}\label{eq:d_hat}
 \hat{\vd}=\hat{g}\sBrack{1,\exp(-\hat\theta),\ldots,\exp(-(N-1)\hat\theta)}^T
 \end{equation}
-is an estimate of the steering vector, and $\hat{\phi}, \hat\theta$ are the estimates of the range-related phase and the DOA-related phase respectively.
-Plugging \eqref{eq:alpha_beta_hat} within \eqref{eqn:GeneralFeedbackTransferFunction}, we obtain
+as the steering vector estimation and $\hat{\phi}, \hat\theta$ are the range-related phase and the DOA-related phase estimations respectively.
+\par Plugging \eqref{eq:alpha_beta_hat} within \eqref{eqn:GeneralFeedbackTransferFunction}, we obtain
 \begin{equation}\label{eq:SF_CB}
-    \resizebox{1.01\linewidth}{!}{
+    \resizebox{.894\linewidth}{!}{
         \begin{split}
             H_{\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}}\rBrace{\omega}=\frac{r\D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{\dPhi+(N-1)\dTheta/2}}}{1-r\D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{\dPhi+(N-1)\dTheta/2}}}
         \end{split}
@@ -111,7 +111,7 @@ we define the DOA, range and gain error terms
 r\triangleq g/\hat{g},
 \]
 respectively. 
-\par There are four fundamental scenarios:
+\par We then define four fundamental scenarios:
 \begin{itemize}
     \item{\makebox[.55\linewidth]{The perfectly aligned scenario \hfill} $\rBrace{\dTheta=0\ , \dPhi=0}$}
     \item{\makebox[.55\linewidth]{The steer error scenario \hfill} $\rBrace{\abs{\dTheta}>0\ , \dPhi=0}$}
@@ -158,7 +158,7 @@ respectively.
 \fi
 \subsection*{The normalized beampattern}
 \label{subsection_spatialIIR_normBP}
-As commonly done for ULA parameter analysis \cite{VanTrees2002DetectionIV}, we focus on the normalized response (i.e. where the peak main lobe gain is set to $0_{dB}$). Hence forth, we define by $\Hr$ the normalized pattern
+As commonly done for ULA parameter analysis \cite{VanTrees2002DetectionIV}, we focus on the normalized response (i.e. where the peak main lobe gain is set to $0_{dB}$). Hence forth, we define $\Hr$ to be the normalized pattern
 \begin{equation}
     \label{eq_narmalized_pattern}
     %\resizebox{.89\linewidth}{!}{
@@ -200,12 +200,12 @@ Note that the normalized pattern of the standard ULA is simply
 \]
 
 
-\par We now focus on the steer error scenario, i.e. $\dPhi=0$, and compare the beamwidth, sidelobe level and directivity of  
+\par We now focus on the steer error scenario, i.e. $\dPhi=0$, and compare the beamwidth, sidelobe level and directivity between  
 \begin{equation}\label{eq_Hdphi0}
 \Hr_{\dTheta,\dPhi=0,r}\rBrace{\omega}=
              \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}}
 \end{equation}
-with that of the standard ULA $\Hr_{\dTheta,\dPhi=0,r=0}$. Throughout this contribution, for simplicity, we suppress the $\omega$ dependency in the notation such that $\Hr_{\dTheta,\dPhi,r} \triangleq \Hr_{\dTheta,\dPhi,r}\rBrace{\omega}$ where possible.
+and the standard ULA beampattern, $\Hr_{\dTheta,\dPhi=0,r=0}$. To simplify the exposition, we shall suppress the $\omega$ dependency in the following sections (i.e. $\Hr_{\dTheta,\dPhi,r} \triangleq \Hr_{\dTheta,\dPhi,r}\rBrace{\omega}$) where possible.
 
 \subsection*{Half power beamwidth}
 \input{./Modules/arrayPerformance_beamwidth.tex}
@@ -280,23 +280,22 @@ For large $N$ values
     }
 \else
 \fi
-For classical ULA, the gain of the first sidelobe is known to be $\frac{2}{3\pi}$ \cite{VanTrees2002DetectionIV}, which implies that the suggested feedback based system has a suppression improvement of $\rBrace{1-r}$ at the first sidelobe.
+For classical ULA, the gain of the first sidelobe is known to be $\frac{2}{3\pi}$ \cite{VanTrees2002DetectionIV}, which implies that the suggested feedback based system has a suppression improvement of $1/\rBrace{1-r}$ at the first sidelobe.
 
 \subsection*{Array directivity}
 Another common measure for the array performance is its directivity \cite{VanTrees2002DetectionIV}, $\mathrm{D}$,
 \begin{equation}\label{eq_D}
-    \mathrm{D}(r) = \frac{\Hr_{\dTheta=0,\dPhi=0,r}}{\frac{1}{2\pi}\int_{0}^{2\pi}\Hr_{\dTheta,\dPhi=0,r}\ d\dTheta},
+    \mathrm{D}(r) = \frac{\Hr_{\dTheta=0,\dPhi=0,r}}{\frac{1}{2\pi}\int_{0}^{2\pi}\Hr_{\dTheta,\dPhi=0,r}\ d\dTheta}.
 \end{equation}
-which measures the ratio between the maximal array gain at its mainlobe, to the averaged gains in all directions. For uniformly weighted passive ULAs, it is known \cite{VanTrees2002DetectionIV} that $\mathrm{D}(r=0) = N$.
+It measures the ratio between the maximal array gain at its mainlobe, to the averaged gain over all directions. For uniformly weighted ULAs with no feedback, it is known \cite{VanTrees2002DetectionIV} that $\mathrm{D}(r=0) = N$.
 \par Plugging \eqref{eq_Hdphi0} within \eqref{eq_D} and by numerical evaluation, we fit the following model for arbitrary $0\leq r\leq 1$
 \begin{equation}\label{eq_D}
     \mathrm{D}(r) = \frac{r^{2}-\rBrace{N-1}r+N}{\rBrace{1-r}^{2}}.
 \end{equation}
-It is worth mentioning that for $r=0$ the passive ULA result is obtained, while for $r\to1$ and $N>3$, by L'Hôpital's rule $ \lim_{r\rightarrow 1}\mathrm{D}(r)=\infty$ implying infinite directivity for the feedback based array, with perfect gain matching. Finally, expressing the improvement in directivity compared to the classical ULA, we have that for large $N$,
+It is worth mentioning that for $r=0$ the passive ULA result is obtained. Also, for $r\to1$, we use L'Hôpital's rule to state that $\lim_{r\rightarrow 1}\mathrm{D}(r)=\infty$, implying infinite directivity for the perfectly gain matched feedback based array. Finally, expressing the improvement in directivity compared to the classical ULA, we have that for large $N$,
 \begin{equation}\label{eq_Dimprovement}
-\frac{\mathrm{D}(r)}{\mathrm{D}(0)}\overset{N\gg1}{=}\frac{1}{1-r}
+\frac{\mathrm{D}(r)}{\mathrm{D}(0)}\overset{N\gg1}{=}\frac{1}{1-r}.
 \end{equation}
-implying that this is the directivity improvement for general $0\leq r \leq 1$.
 \subsection*{Summary}
 To conclude this section, we present Table.~\ref{table_arrayPerformance} which exemplifies the superior performance of our suggested architecture over the standard ULA case.
 \begin{table}[h!]

@@ -32,12 +32,12 @@ Bearing in mind that the system's phase alignment sensitivity resides in \eqref{
             \put (30.75, 25){\footnotesize{$\mathcal{F}_{\omega_{2}}$}}
         \end{overpic}
     \end{center}
-    \caption{Dual-frequency beamformer, consisting of two independent FB blocks and nerrwoband bandpass filters. The blocks marked by $\mathcal{F}_{\omega_{i}}$ compute the Fourier coefficients in $\omega_{i}$ and their outputs feed the harmonic mean calculator which generates the DF beamformer's output.}
+    \caption{Dual-frequency beamformer, consisting of two independent FB blocks and narrowband bandpass filters. The blocks marked by $\mathcal{F}_{\omega_{i}}$ compute the Fourier coefficients in $\omega_{i}$ and their outputs feed the harmonic mean calculator which generates the DF beamformer's output.}
     \label{fig_app}
 \end{figure}
 In Fig.~\ref{fig_app}, we exemplify the use of two independently configured instances of the feedback beamformer (of Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), where each instance is designed to treat only a specific frequency. 
-\par For this, two independent FB blocks and 4 nerrow-band band-pass-filters ($\text{BPF}_{\omega_{i}}$ filters a nerrow band slice around $\omega_{i}$) are used to generate both the transmitted feedback signal ($\text{Tx}_{i}$) and the beamformers' outputs $y_{i}$. 
-\par Also, $x_{i}(t) = e^{j\omega_{i}t}, \omega_{i} = 2\pi{f_{i}}$ with $i=1,2$ are two independent, narrow band, stimuli signals and $n_{i}$ are additive noise instances. 
+\par For this, two independent FB blocks and 4 band-pass-filters ($\text{BPF}_{\omega_{i}}$ filters a narrowband slice around $\omega_{i}$) are used to generate both the transmitted feedback signal ($\text{Tx}_{i}$) and the beamformers' outputs $y_{i}$. 
+\par Also, $x_{i}(t) = e^{j\omega_{i}t}, \omega_{i} = 2\pi{f_{i}}$ with $i=1,2$ are two independent, narrowband, stimuli signals and $n_{i}$ are additive noise instances. 
 \par Note that we do not increase the number of array elements, but merely double the beamformer processing part. 
 \par For each single frequency FB block \eqref{eqn:GeneralFeedbackTransferFunction} the output is
 \[

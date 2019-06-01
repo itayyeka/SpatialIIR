@@ -2,7 +2,7 @@ Following \eqref{eq_beamPatternFreqDomain_FIM}, we elaborate the steps leading t
 \begin{equation*}
     \resizebox{.9\linewidth}{!}{
         \begin{split}
-            \frac{\partial{\F{y}}}{\partial{\theta_{g}}} &= 
+            \frac{\partial{\F{y}}}{\partial{\thetaD}} &= 
             \frac{
             \vBetaT{}A\vd\ePhi{-}\rBrace{1-\aTd\ePhi{-}}+\bTd\vAlphaT{}A\vd\ePhi{-2}
             }{
@@ -46,7 +46,7 @@ such that
 \begin{equation*}
     % \resizebox{.9\linewidth}{!}{
         \begin{split}
-            J_{\theta_{g}\theta_{g}} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{y}(\omega)}}{\partial{\theta_{g}}}}^{2}d\omega}
+            J_{\thetaD\thetaD} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{y}(\omega)}}{\partial{\thetaD}}}^{2}d\omega}
             \\&=
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
             \lBrace{\vBetaT{}A\vd-\vBetaT{}B\vAlpha\ePhi{-}}^{2}
@@ -68,10 +68,10 @@ and the cross terms are
 \begin{equation*}
     \resizebox{.9\linewidth}{!}{
         \begin{split}
-            &J_{\theta_{g}\phi} = J_{\phi\theta_{g}}^{\ast} = 
+            &J_{\thetaD\phi} = J_{\phi\thetaD}^{\ast} = 
             \\&= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}
             \rBrace{\frac{\partial{\F{y}(\omega)}}{\partial{\phi}}}^{\ast}
-            \frac{\partial{\F{y}(\omega)}}{\partial{\theta_{g}}}d\omega}
+            \frac{\partial{\F{y}(\omega)}}{\partial{\thetaD}}d\omega}
             \\&=
             \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
             j\vBetaT{}\rBrace{A\vd-B\vAlpha\ePhi{-}}\vdH\vBeta^{\ast}

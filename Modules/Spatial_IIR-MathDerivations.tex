@@ -3,41 +3,41 @@ Time domain analysis of the proposed feedback based architecture, considering bo
     \label{eqn:SingleSensorTemporalEquality}
     % \resizebox{.91\linewidth}{!}{
         \begin{split}
-            x_{n,\theta_g}(t) = g_{n,\theta_g}\Bigg{(}&x\rBrace{t-\tau_{pd}-\tau_{n,\theta_g}}\\
-            &+\sum_{m=0}^{N-1}{\alpha_{m}x_{m,\theta_g}\rBrace{t-\tau_{pd}-\tau_{n,\theta_g}}}\Bigg{)}.
+            x_{n,\thetaD}(t) = g_{n,\thetaD}\Bigg{(}&x\rBrace{t-\tau_{pd}-\tau_{n,\thetaD}}\\
+            &+\sum_{m=0}^{N-1}{\alpha_{m}x_{m,\thetaD}\rBrace{t-\tau_{pd}-\tau_{n,\thetaD}}}\Bigg{)}.
         \end{split}
     % }
 \end{equation}
 The first term represents the contribution of the transmitted waveform $x(t)$ as received by the $n$'th array element and the second term represents the feedback contribution of the re-transmitted array signals to this same element.
-\par To simplify the exposition, from now on, we suppress $\theta_{g}$ in the notation where possible. For example, we denote $g_n$ and $\vd$ instead of $g_{n,\theta_g}$ and $\vd_{\theta_{g}}$ respectively. 
+\par To simplify the exposition, from now on, we suppress $\thetaD$ in the notation where possible. For example, we denote $g_n$ and $\vd$ instead of $g_{n,\thetaD}$ and $\vd_{\thetaD}$ respectively. 
 \par Now, let $\vx{\rBrace{t}}\triangleq\vBrace{x_{0}\rBrace{t}\hdots{}x_{N-1}\rBrace{t}}^{T}$ be the vector of received array signals, 
 \begin{equation}
     \label{eqn_singleSensorFourier}
     % \resizebox{.91\linewidth}{!}{
         \begin{split}
-            x_{n}^{\mathcal{F}}(\omega) =
-            g_n\Bigg( & x^{\mathcal{F}}(\omega)
+            \F{x}_{n}\rBrace{\omega} =
+            g_n\Bigg( & \F{x}_{n}\rBrace{\omega}
             \exp\rBrace{-j\omega\rBrace{\tau_{pd}+\tau_{n}}}
             \\&+\sum_{m=0}^{N-1}
             {
-            \alpha_{m}x_{m}^{\mathcal{F}}(\omega)
+            \alpha_{m}\F{x}_{m}\rBrace{\omega}
             \exp\rBrace{-j\omega\rBrace{\tau_{pd}+\tau_{n}}}
             }\Bigg), 
         \end{split}
     % }
 \end{equation}
-and  $\vx^{\mathcal{F}}\triangleq\vBrace{x_{0}^{\mathcal{F}},\hdots,x_{N-1}^{\mathcal{F}}}^{T}$ its Fourier transform. 
+and  $\vecnot{\F{x}}\triangleq\vBrace{\F{x}_{0},\hdots,\F{x}_{N-1}}^{T}$ its Fourier transform. 
 \par Taking the Fourier transform of (\ref{eqn:SingleSensorTemporalEquality}),
 \begin{equation}
     \label{eqn_singleSensorFourier}
     % \resizebox{.91\linewidth}{!}{
         \begin{split}
-            x_{n}^{\mathcal{F}}(\omega) =
-            g_n\Bigg( & x^{\mathcal{F}}(\omega)
+            \F{x}_{n}\rBrace{\omega} =
+            g_n\Bigg( & \F{x}_{n}\rBrace{\omega}
             \exp\rBrace{-j\omega\rBrace{\tau_{pd}+\tau_{n}}}
             \\&+\sum_{m=0}^{N-1}
             {
-            \alpha_{m}x_{m}^{\mathcal{F}}(\omega)
+            \alpha_{m}\F{x}_{m}\rBrace{\omega}
             \exp\rBrace{-j\omega\rBrace{\tau_{pd}+\tau_{n}}}
             }\Bigg),
         \end{split}
@@ -45,11 +45,11 @@ and  $\vx^{\mathcal{F}}\triangleq\vBrace{x_{0}^{\mathcal{F}},\hdots,x_{N-1}^{\ma
 \end{equation}
 and re-writing it in it's vector form
 $$
-\vx^{\mathcal{F}} = e^{-j\omega\tau_{pd}} \rBrace{x^{\mathcal{F}}+\vAlphaT \vx^{\mathcal{F}}}\vd
+\F{\vx}\rBrace{\omega} = e^{-j\omega\tau_{pd}} \rBrace{\F{x}\rBrace{\omega}+\vAlphaT \F{\vx}\rBrace{\omega}}\vd
 $$
 simplifies to
 $$
-\vx^{\mathcal{F}} =\rBrace{I-\vd\vAlphaT{}e^{-j\omega\tau_{pd}}}^{-1}e^{-j\omega\tau_{pd}}x^{\mathcal{F}} \vd.
+\F{\vx}\rBrace{\omega} =\rBrace{I-\vd\vAlphaT{}e^{-j\omega\tau_{pd}}}^{-1}e^{-j\omega\tau_{pd}}\F{x}\rBrace{\omega} \vd.
 $$
 Using Woodbury matrix identity \cite{woodbury1950inverting} and denoting
 \[
@@ -57,13 +57,13 @@ Using Woodbury matrix identity \cite{woodbury1950inverting} and denoting
 \]
 as the round-trip signal propagation related electrical phase, gives rise to
 $$
-\vx^{\mathcal{F}}
+\F{\vx}\rBrace{\omega}
 =
 \frac{    
-\exp{\rBrace{-j\phi}}x^{\mathcal{F}}
+\exp{\rBrace{-j\phi}}
 }{
 1 - \aTd{}\exp{\rBrace{-j\phi}}
-}\vd.
+}\F{x}\rBrace{\omega}\vd.
 $$
 Considering the noiseless case (i.e. $n\rBrace{t}=0, y\rBrace{t}=\vBetaT{}\vx\rBrace{t}$),
 we express the general spatial response of the suggested feedback-based array, 
@@ -71,15 +71,16 @@ we express the general spatial response of the suggested feedback-based array,
 \label{eqn:GeneralFeedbackTransferFunction}
 H_{\vBeta,\vAlpha}\rBrace{\omega} 
 \triangleq
-\frac{y^{\mathcal{F}}\rBrace{\omega}}{x^{\mathcal{F}}(\omega)} 
+\frac{\F{y}\rBrace{\omega}}{\F{x}\rBrace{\omega}} 
 =
 \frac{    
 \bTd{}\exp\rBrace{-j\phi}
 }{
 1 - \aTd{}\exp\rBrace{-j\phi}
-}.
+},
 \end{equation}
-Note that this result confirms that our suggested array architecture actually achieves a controllable (via setting of $\vBeta$ and $\vAlpha$) and recursive (non-trivial denominator) spatial response, where the spatial information (i.e. the DOA, $\theta_g$) resides in the steering vector $\Steer$ of \eqref{eq:d}.
+where $\F{y}\rBrace{\omega}$ is the Fourier transform of $y\rBrace{t}$.
+\par Note that this result confirms that our suggested array architecture actually achieves a controllable (via setting of $\vBeta$ and $\vAlpha$) and recursive (non-trivial denominator) spatial response, where the spatial information (i.e. the DOA, $\thetaD$) resides in the steering vector $\Steer$ of \eqref{eq:d}.
 \par As will be shown, by proper selection of the weights we can obtain high directivity and narrow beam-width. Comparing to traditional beamformers (i.e. with no feedback), the performance improvement will be expressed in terms of aperture increase (i.e. the traditional beamformer aperture which achieves the same performance).
 \par One may observe that opposed to traditional beamformers, the beampattern, $H_{\vBeta,\vAlpha}\rBrace{\omega},$ is not only influenced by the impinging signal DOA. It is also range selective due to the dependency on the phase parameter $\phi$, thus possibly enhancing radial rings around the array. 
 As exemplified in Fig.~\ref{fig_rangeAzimuthSelectivity}, the combination of both angular and range selective patterns enables the designer to enhance signals arriving from specific locations rather than only specific directions.

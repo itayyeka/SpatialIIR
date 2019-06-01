@@ -27,43 +27,44 @@ Searching for localization performance maximization, Sec.~ \ref{sec_FIM} discuss
 In Sec.~\ref{sec_Performance} we evaluate some key features of the proposed beamforming with feedback. Specifically, we compute the array beamwidth, its peak to sidelobe ratio and the array directivity, showing significant improvement compared to traditional beamforming without spatial feedback. 
 In Sec.~\ref{sec_app} we simulate the proposed processing scheme, and emphasis its sensitivity to range errors. We then suggest a strategy which mitigates this sensitivity. Finally, concluding remarks are stated in Sec.~\ref{sec_conclusions}.
 \myTodo{inline}{Here you should state the content of the paper. In Sec. \ref{sec:setup} we define our setup. In Sec. ... we analyze the suggested feedback based system. etc...}
-\section{Classical Beamforming }\label{sec:setup}
-Consider an $N$-element array with the $n$'th sensor positioned at $p_n,\; n=\vBrace{0,\ldots,N-1}$. We define $p_{0}=0$ to be the reference point for future analysis and assume the target of interest is positioned at $p_t$.
-\par We focus on a far field localization problem, hence DOA and target range estimations are to be made. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\theta_g$. 
-\par We define $R$ to be the range between the array and the target of interest. In this paper, it is arbitrarily computed with respect to the reference sensor, i.e. $R\triangleq\norm{p_{t}-p_{0}}$.
-\par Inspired by radar based applications, we assume that the signal $x(t)$ is transmitted from the array, reflects back from the target and re-impinges the array, with total time delay of $\tau_{pd}=2R/c$ seconds, where $c$ represents the propagation velocity of the signal in the medium. For simplicity reasons, we assume the target is static.
-\par Let $x_{n,\theta_g}(t)$ be the measured signal at the $n$'th sensor of the array
+\section{Beamforming}\label{sec:setup}
+Consider an $N$-element array with the $n$'th sensor positioned at $p_{\text{n}},\; n=\vBrace{0,\ldots,N-1}$. We define $p_{0}=\vecnot{0}$ to be the reference point for future analysis and assume the target of interest is positioned at $p_{\text{t}}$.
+\par We focus on a far field localization problem, hence DOA and target range estimations are to be made. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$. 
+\par We define $R$ to be the range between the array and the target of interest. In this paper, it is arbitrarily computed with respect to the reference sensor, i.e. $R\triangleq\norm{p_{\text{t}}-p_{0}}$.
+\par Inspired by radar based applications, we assume that the signal $x(t)$ is transmitted from the array, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $c$ represents the propagation velocity of the signal in the medium. For simplicity reasons, we assume the target is stationary.
+\par Let $x_{n,\thetaD}(t)$ be the measured signal at the $n$'th sensor of the array
 \begin{equation}
-x_{n,\theta_g}(t) = g_{n,\theta_{g}}x\Brack{t-\tau_{pd}-\tau_{n,\theta_{g}}},
+x_{n,\thetaD}(t) = g_{n,\thetaD}x\Brack{t-\tau_{pd}-\tau_{n,\thetaD}},
 \label{eqn:noFeedbackULA_singleSensor_temporal}
 \end{equation}
-where $g_{n,\theta_{g}}$ represents the gain at the $n$'th sensor. Note that $g_{n,\theta_{g}}$ is influenced by the medium attenuation, the target's radar cross section (RCS) and the sensor's gain at DOA $\theta_g$. 
-\par Here, $\tau_{n,\theta_{g}}$ represents the arrival time difference of the signal between the $n$'th sensor (at $p_n$) and the reference sensors (at $p_{0}$). 
-\par We express the vector formed (i.e. considering all sensors) Fourier transform of \eqref{eqn:noFeedbackULA_singleSensor_temporal} as  
+where $g_{n,\thetaD}$ represents the gain at the $n$'th sensor. Note that $g_{n,\thetaD}$ is influenced by the medium attenuation, the target's radar cross section (RCS) and the sensor's gain at DOA $\thetaD$. 
+\par Here, $\tau_{n,\thetaD}$ represents the arrival time difference of the signal between the $n$'th sensor (at $p_{n}$) and the reference sensors (at $p_{0}$). 
+\par We express the vector formed (i.e. considering all sensors) Fourier transform of \eqref{eqn:noFeedbackULA_singleSensor_temporal} as
 \[
-\Steer{\theta_g}x^\mathcal{F}_0(\omega),
+\Steer{\thetaD}\F{x}_{0}\rBrace{\omega},
 \]
-introducing the steering vector ($\Steer{\theta_g}$) and denoting $x^\mathcal{F}_0(\omega)$ as the first sensor's impinging signal (i.e. $x_{0,\theta_g}\Brack{t}$) Fourier transform. Also note that the $n$'th element of the steering vector is
+introducing the steering vector ($\Steer{\thetaD}$) and denoting $\F{x}_{0}\rBrace{\omega}$ as the first sensor's impinging signal (i.e. $x_{0,\thetaD}\Brack{t}$) Fourier transform. Also note that the $n$'th element of the steering vector is
 \begin{equation}
     \label{eq:d}
-    \vd_{\theta_g}[n] = g_{n,\theta_{g}}\exp{\rBrace{-j\omega\tau_{n,\theta_g}}},\;n=0,\ldots,N-1.
+    \vd_{\thetaD}[n] = g_{n,\thetaD}\exp{\rBrace{-j\omega\tau_{n,\thetaD}}},\;n=0,\ldots,N-1.
 \end{equation}
 \par An N element array beamformer which consists of weights $\vBeta$ will then shape the array reception pattern which can be expressed as 
-$$ \vBetaT\vd_{\theta_g}x^\mathcal{F}_0(\omega). $$ 
-\par For ULA with inter-element spacing $d$, the additional delay (other than the range related propagation delay) for the signal to reach the $n$'th sensor is
+$$ \vBetaT\vd_{\thetaD}\F{x}_{0}\rBrace{\omega}. $$ 
+\par For ULA with inter-element spacing $\delta$, the additional delay (other than the range related propagation delay) for the signal to reach the $n$'th sensor is
 $$
-\tau_{n,\theta_g}=n\frac{d\cos\Brack{\theta_{g}}}{c}.
+\tau_{n,\thetaD}=n\frac{\delta\cos\Brack{\thetaD}}{c}.
 $$
 Introducing the electric phase
 \begin{equation}\label{eq:thetaULA}
-\theta=\omega{d\cos\Brack{\theta_{g}}}/{c},
+\theta=\omega{\delta\cos\Brack{\thetaD}}/{c},
 \end{equation}
-we re-write of the array response as 
+we re-write of the beamformer's output as 
 \[
 x^\mathcal{F}_0(\omega)\sum_{n=0}^{N-1}\beta_n
 \exp\Brack{-jn\theta},
 \]
 hence in the ULA case, setting the weights vector $\vBeta$ for obtaining a desired spatial response is mathematically equivalent to FIR filter design~\cite{VanVeenBeamforming:Filtering}.
 \par In the standard scheme of processing radar signals, a waveform $x(t)$ is transmitted to, and reflected from the target of interest. Then, the reflected signal is processed by the radar reception array in order to estimate the DOA, range (and Doppler) of the target. 
-\par Opposed to the standard scheme, we suggest a continuous re-transmission of the signal and its echoes back to the platform, such that a spatial feedback loop is created between the array and the target. 
+\par Opposed to the standard scheme, we suggest a continuous re-transmission of the signal and its echoes back to the platform, such that a spatial feedback loop is created between the array and the target.
+\par Another deviation from traditional radar processing, used to simplify the exposition, is using continuous-wave (CW) for $x\rBrace{t}$, rater than using pulse based signals. 
 \par The suggested structure is elaborated in Sec.~\ref{sec_introduceFeedback} and shown to be equivalent to IIR filter design.

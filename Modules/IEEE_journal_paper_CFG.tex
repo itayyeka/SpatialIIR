@@ -52,8 +52,10 @@
 \newcommand{\dOmega}{\Delta\omega}
 \newcommand{\dR}{\Delta{R}}
 \newcommand{\dTau}{CHANGE_TO_DPHI}
-\newcommand{\D}[2]{\mathcal{D}\rBrace{#1,#2}}
-\newcommand{\Dp}[2]{\mathcal{D}^{#2}\rBrace{#1}}
+% \newcommand{\D}[2]{\mathcal{D}\rBrace{#1,#2}}
+% \newcommand{\Dp}[2]{\mathcal{D}^{#2}\rBrace{#1}}
+\newcommand{\D}[2]{\text{D}\rBrace{#1,#2}}
+\newcommand{\Dp}[2]{\text{D}^{#2}\rBrace{#1}}
 
 \newcommand{\vd}{\vecnot{d}}
 \newcommand{\vx}{\vecnot{x}}
@@ -70,8 +72,10 @@
 \newcommand{\vEta}{\vecnot{\eta}}
 \newcommand{\vEtaT}{\vEta^{T}}
 \newcommand{\vEtaH}{\vEta^{H}}
-\newcommand{\F}[1]{#1^{\mathcal{F}}}
+%\newcommand{\F}[1]{#1^{\mathcal{F}}}
+\newcommand{\F}[1]{\MakeUppercase{#1}}
 \newcommand{\ePhi}[1]{\exp{\rBrace{#1j\phi}}}
+\newcommand{\thetaD}{\theta_{\text{d}}}
 
 \NewDocumentCommand{\evalat}{sO{\big}mm}{%
   \IfBooleanTF{#1}
@@ -85,7 +89,8 @@
 \newcommand{\Hr}{\mathcal{H}}
 \newcommand{\myTodo}[2]{\ifdefined\showTodo{\todo[#1]{#2}}\else\fi}
 \newcommand{\myTodoNew}[2]{\ifdefined\showTodoNew{\todo[#1]{#2}}\else\fi}
-\newcommand{\coefSetName}{\text{CB}}
+% \newcommand{\coefSetName}{\text{CB}}
+\newcommand{\coefSetName}{\text{DS}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

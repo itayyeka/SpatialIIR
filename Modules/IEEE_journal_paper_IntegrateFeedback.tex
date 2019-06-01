@@ -1,4 +1,4 @@
-An intuitive understanding of the spatial feedback concept may be achieved when inspecting one of the two main IIR filter architectures, known as the ``Direct form II" (see Fig.~\ref{fig_IIRBasicArch}). In this architecture, the recursive part of the filter is implemented by feeding the input ($x$) with it's delayed and independently weighted (with $\vAlpha$ weights) instances before entering the FIR part (defined by $\vBeta$).
+An intuitive understanding of the spatial feedback concept may be achieved when inspecting one of the two main IIR filter architectures, known as the ``\textit{Direct form II}" (see Fig.~\ref{fig_IIRBasicArch}). In this architecture, the recursive part of the filter is implemented by feeding the input ($x$) with it's delayed and independently weighted (with $\vAlpha$ weights) instances before entering the FIR part (defined by $\vBeta$).
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.65\linewidth, 
@@ -15,43 +15,24 @@ An intuitive understanding of the spatial feedback concept may be achieved when 
             \put (47.5, 14.5){\footnotesize{$z^{-1}$}}
         \end{overpic}
     \end{center}
-    \caption{Direct form II $2^{nd}$ order IIR architecture.}
+    \caption{\textit{Direct form II} $2^{nd}$ order IIR architecture.}
     \label{fig_IIRBasicArch}
 \end{figure}
 \par Inspired by this architecture, we seek for an analogous structure which will mimic the feedback loop in the spatial domain. 
-\par In order to do so, we propose a feedback beamformer architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) where the weights $\vBeta$ generate the output signal ($y$), the $\vAlpha$ weights are used to synthesize the feedback transmission ($\text{Tx}$) and $x$ is the input waveform. Also, an additive noise model ($n$) is assumed at the array's output. 
-\par Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed signal, $\sum_{n}x_{n,\theta_g}(t)\beta_n$, acts as the classic beamformer. 
+\par In order to do so, we propose a feedback beamformer architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) where the weights $\vBeta$ generate the output signal ($y$), the $\vAlpha$ weights are used to synthesize the feedback transmission ($\text{Tx}$) and $x$ is the input waveform. Also, an additive noise model (n) is assumed at the array's output. 
+\par Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed signal, $\sum_{n}x_{n,\thetaD}(t)\beta_n$, acts as the classic beamformer. 
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.95\linewidth, 
         % grid, 
         tics=10,trim={0 0 0 0}]{./Media/SpatialIIR-diagram/SpatialIIR_VER7.png}
-            %% ver 6
-            % \put (3.5, 25){\footnotesize{$\beta_{0}$}}
-            % \put (14.5, 25){\footnotesize{$\beta_{1}$}}
-            % \put (37, 25){\footnotesize{$\beta_{N-1}$}}
-            % \put (48, 25){\footnotesize{$\alpha_{0}$}}
-            % \put (59.5, 25){\footnotesize{$\alpha_{1}$}}
-            % \put (85, 25){\footnotesize{$\alpha_{N-1}$}}
-            % \put (29, 53){\footnotesize{$d$}}
-            % \put (91.5, 87){\footnotesize{$p_{t}$}}
-            % \put (60, 40){\footnotesize{$p_{N-1}$}}
-            % \put (37, 40){\footnotesize{$p_{1}$}}
-            % \put (25.5, 40){\footnotesize{$p_{0}$}}
-            % \put (46, 52){\footnotesize{$\theta_{g}$}}
-            % \put (17.5, 12){\footnotesize{$\Sigma$}}
-            % \put (62, 12){\footnotesize{$\Sigma$}}
-            % \put (43.5, 12){\footnotesize{$x\rBrace{t}$}}
-            % \put (32.2, 12){\footnotesize{$n\rBrace{t}$}}
-            % \put (20,5){\footnotesize{$y\rBrace{t}$}}
-            %% ver 7
             \put (1.5, 43.5){\footnotesize{$\beta_{0}$}}
             \put (12, 43.5){\footnotesize{$\beta_{1}$}}
             \put (30, 43.5){\footnotesize{$\beta_{N-1}$}}
             \put (48, 43.5){\footnotesize{$\alpha_{0}$}}
             \put (59, 43.5){\footnotesize{$\alpha_{1}$}}
             \put (80, 43.5){\footnotesize{$\alpha_{N-1}$}}
-            \put (30.5, 66){\footnotesize{$d$}}
+            \put (30.5, 66){\footnotesize{$\delta$}}
             \put (89, 96){\footnotesize{$p_{t}$}}
             \put (58, 58){\footnotesize{$p_{N-1}$}}
             \put (37, 58){\footnotesize{$p_{1}$}}
@@ -61,13 +42,13 @@ An intuitive understanding of the spatial feedback concept may be achieved when 
             \put (19, 11.25){\large{$+$}}
             \put (61.5, 27){$\Sigma$}
             \put (44.75, 11.75){$x\rBrace{t}$}
-            \put (33.15, 11.75){$n\rBrace{t}$}
+            \put (33.15, 11.75){n$\rBrace{t}$}
             \put (21,4){$y\rBrace{t}$}
             \put (63.5,14){$\text{Tx}\rBrace{t}$}
             \put (1, 51){$\text{FB}_{\vAlpha,\vBeta}$}
         \end{overpic}
     \end{center}
-    \caption{The proposed feedback beamformer architecture consisting of ULA of inter-element distance $d$, where the target is assumed to reflect the impinged signal. We designate the feedback beamformer (FB) block (dashed line) for later use.}
+    \caption{The proposed feedback beamformer architecture consisting of ULA of inter-element distance $\delta$, where the target is assumed to reflect the impinged signal. We designate the feedback beamformer (FB) block (dashed line) for later use.}
     \label{fig:Proposed_spatialIIR_ARCH}
 \end{figure}
 \subsection*{Obtained spatial response}
@@ -84,7 +65,7 @@ We now focus on an $N$-element ULA, with steering vector
 \vd=g\sBrack{1,\exp(-\theta),\ldots,\exp(-(N-1)\theta)}^T
 \]
 with $\theta$ of \eqref{eq:thetaULA}, and some real gain $g$. 
-\par Following previous observations, we analyze the case of CB (i.e. coherently sum the array elements) using
+\par Following previous observations, we analyze the case of $\coefSetName$ (i.e. coherently sum the array elements) using
 \begin{equation}\label{eq:alpha_beta_hat}
 \vBeta_{\coefSetName{}}=\vAlpha_{\coefSetName{}}=\hat{\vd}^{\ast}\exp\rBrace{j\hat{\phi}}/\norm{\hat{\vd}}^2,
 \end{equation}
@@ -283,18 +264,18 @@ For large $N$ values
 For classical ULA, the gain of the first sidelobe is known to be $\frac{2}{3\pi}$ \cite{VanTrees2002DetectionIV}, which implies that the suggested feedback based system has a suppression improvement of $1/\rBrace{1-r}$ at the first sidelobe.
 
 \subsection*{Array directivity}
-Another common measure for the array performance is its directivity \cite{VanTrees2002DetectionIV}, $\mathrm{D}$, defined as
+Another common measure for the array performance is its directivity \cite{VanTrees2002DetectionIV}, $\mathcal{D}$, defined as
 \begin{equation}\label{eq_D}
-    \mathrm{D}(r) = \frac{\Hr_{\dTheta=0,\dPhi=0,r}}{\frac{1}{2\pi}\int_{0}^{2\pi}\Hr_{\dTheta,\dPhi=0,r}\ d\dTheta}.
+    \mathcal{D}(r) = \frac{\Hr_{\dTheta=0,\dPhi=0,r}}{\frac{1}{2\pi}\int_{0}^{2\pi}\Hr_{\dTheta,\dPhi=0,r}\ d\dTheta}.
 \end{equation}
-It measures the ratio between the maximal array gain at its mainlobe, to the averaged gain over all directions. For uniformly weighted ULAs with no feedback, it is known \cite{VanTrees2002DetectionIV} that $\mathrm{D}(r=0) = N$.
+It measures the ratio between the maximal array gain at its mainlobe, to the averaged gain over all directions. For uniformly weighted ULAs with no feedback, it is known \cite{VanTrees2002DetectionIV} that $\mathcal{D}(r=0) = N$.
 \par Plugging \eqref{eq_Hdphi0} within \eqref{eq_D} and by numerical evaluation, we fit the following model for arbitrary $0\leq r\leq 1$
 \begin{equation}\label{eq_D}
-    \mathrm{D}(r) = \frac{r^{2}-\rBrace{N-1}r+N}{\rBrace{1-r}^{2}}.
+    \mathcal{D}(r) = \frac{r^{2}-\rBrace{N-1}r+N}{\rBrace{1-r}^{2}}.
 \end{equation}
-It is worth mentioning that for $r=0$ the passive ULA result is obtained. Also, for $r\to1$, we use L'Hôpital's rule to state that $\lim_{r\rightarrow 1}\mathrm{D}(r)=\infty$, implying infinite directivity for the perfectly gain matched feedback based array. Finally, expressing the improvement in directivity compared to the classical ULA, we have that for large $N$,
+It is worth mentioning that for $r=0$ the passive ULA result is obtained. Also, for $r\to1$, we use L'Hôpital's rule to state that $\lim_{r\rightarrow 1}\mathcal{D}(r)=\infty$, implying infinite directivity for the perfectly gain matched feedback based array. Finally, expressing the improvement in directivity compared to the classical ULA, we have that for large $N$,
 \begin{equation}\label{eq_Dimprovement}
-\frac{\mathrm{D}(r)}{\mathrm{D}(0)}\overset{N\gg1}{=}\frac{1}{1-r}.
+\frac{\mathcal{D}(r)}{\mathcal{D}(0)}\overset{N\gg1}{=}\frac{1}{1-r}.
 \end{equation}
 \subsection*{Summary}
 To conclude this section, we present Table.~\ref{table_arrayPerformance} which exemplifies the superior performance of our suggested architecture over the standard ULA case.
@@ -308,7 +289,7 @@ To conclude this section, we present Table.~\ref{table_arrayPerformance} which e
             \hline\hline
             HPBW & $ 1.4/N$ & $1/B(r)N$ with $B$ of \eqref{eq_Bapprox} & $1.4B\rBrace{r}$ times smaller\\ 
             \thead{FIRST\\SIDELOBE\\GAIN} & $2/3\pi$ & $2\rBrace{1-r}/3\pi$ & $1-r$ \\
-            DIRECTIVITY & $N$ & $\mathrm{D}$ of \eqref{eq_D} & $1/\rBrace{1-r}$ \\
+            DIRECTIVITY & $N$ & $\mathcal{D}$ of \eqref{eq_D} & $1/\rBrace{1-r}$ \\
             [1ex] 
             \hline
          \end{tabular}

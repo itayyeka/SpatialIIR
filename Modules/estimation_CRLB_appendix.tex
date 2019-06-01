@@ -1,5 +1,5 @@
 A possible evaluation for the contribution of the presented feedback mechanism is to measure the additional information in the system.
-To this end, the FIM will now be calculated with respect to the DOA parameter $\theta_g$ and the range related parameter $\phi$. 
+To this end, the FIM will now be calculated with respect to the DOA parameter $\thetaD$ and the range related parameter $\phi$. 
 \par As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in the frequency domain, we rely on \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses}, to express the FIM in the frequency domain as well. 
 \par Introducing the additive noise term $n(t)$ as in Fig.~\ref{fig:Proposed_spatialIIR_ARCH},  and assuming it to be white and Gaussian, the $k,l$'th element of the FIM, notated by the matrix $J$, can be expressed as
 \begin{equation}
@@ -29,7 +29,7 @@ To this end, the FIM will now be calculated with respect to the DOA parameter $\
         \end{split}
     }
 \end{equation}
-where $ \eta = [\theta_g,\phi]^{T} $ is the parameters vector, $\Re$ stands for the real-part operator, $k,l \in\cBrace{1,2}$, $\Phi\rBrace{\omega}$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator, $T$ is the measurement observation interval and $\omega_{s}$ is the signal bandwidth. 
+where $ \eta = [\thetaD,\phi]^{T} $ is the parameters vector, $\Re$ stands for the real-part operator, $k,l \in\cBrace{1,2}$, $\Phi\rBrace{\omega}$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator, $T$ is the measurement observation interval and $\omega_{s}$ is the signal bandwidth. 
 \par In the presented model, the noise is white with some constant power spectral density $\Phi(\omega)=\sigma^2$ and does not depend on the parameters $\eta$, hence the second term vanishes. 
 \par Assuming continuously differentiable functions (such that the order of the Fourier transform and the differentiation can be altered) the FIM is
 \begin{equation}
@@ -50,11 +50,11 @@ where $ \eta = [\theta_g,\phi]^{T} $ is the parameters vector, $\Re$ stands for 
 \end{equation}
 Assuming also smooth radiation patters, we simplify the analysis, stating that the elements gain $\rBrace{g_n}$ derivative (with respect to $\vEta$) is negligible such that
 $$
-\frac{\partial\vd}{\partial\theta_g}=A\vd
+\frac{\partial\vd}{\partial\thetaD}=A\vd
 $$
 where $A$ is diagonal, with 
 \[
-A[n,n]=-j\omega\frac{\partial \tau_{n,\theta_g}}{\partial{\theta_g}}.
+A[n,n]=-j\omega\frac{\partial \tau_{n,\thetaD}}{\partial{\thetaD}}.
 \]
 \par In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
 \begin{equation}
@@ -80,7 +80,7 @@ A[n,n]=-j\omega\frac{\partial \tau_{n,\theta_g}}{\partial{\theta_g}}.
     }
 \end{equation}
 where $B\triangleq \vd \vdT A -A\vd\vdT$. Assuming weights which are proportional to the conjugate of the steering vector (i.e. $\vAlpha,\vBeta\propto\vd^{\ast}$), and with some additional mild assumptions, it can be shown (App.~\ref{apdx_clacFim}) that the cross terms of the FIM are nullified, i.e. $J_{\theta\phi} = J_{\phi\theta}^{*}=0$.
-This choice of weights can be seen as generalization of the conventional beamformer (CB) \cite{VanTrees2002DetectionIV} where  $\vBeta\propto\vd^{\ast}$ constitutes a coherent integration of the signal along the array elements. 
+This choice of weights can be seen as generalization of the conventional beamformer (CB) \cite{VanTrees2002DetectionIV}, more commonly referenced as the delay-and-sum (DS) beamformer, where  $\vBeta\propto\vd^{\ast}$ constitutes a coherent integration of the signal along the array elements. 
 
 From \eqref{eqn_FIMelements} we observe that minimization of the denominator $\lBrace{1-\aTd\ePhi{-}}$ should significantly increase the information.
 Note that setting $\vAlpha=\vd^\ast\ePhi{}/\norm{\vd}^2$ may be interpreted as the conventional beamformer, applied to the feedback signal indicating that improved estimation of the DOA and range can be achieved. This observation corresponds with the information increase, predicted by the FIM elements.

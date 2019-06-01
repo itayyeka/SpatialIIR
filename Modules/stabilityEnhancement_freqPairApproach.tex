@@ -1,5 +1,5 @@
 As demonstrated in the previous section, the beampattern \eqref{eq_generalH} is very sensitive to range errors.
-We now propose an architecture which obtains the desired beampattern $\Hr_{\dTheta,\dPhi\to0,r}$ even when in practice, the true range to the target is unknown (i.e. $\Delta R_{rt}$ is large). Moreover, we intend to show that the suggested architecture operates at moderately low signal to noise ratio (SNR).
+We now propose an architecture which obtains the desired beampattern $\Hr_{\dTheta,\dPhi\to0,r}$ even when in practice, the true range to the target is unknown (i.e. $\Delta R_{\text{rt}}$ is large). Moreover, we intend to show that the suggested architecture operates at moderately low signal to noise ratio (SNR).
 
 \subsection*{Motivation}
 Bearing in mind that the system's phase alignment sensitivity resides in \eqref{eq_generalH} via the  term $\exp\Brack{j\dPhi}=\exp\Brack{j\omega\Delta\tau_{pd}}$, and that the round-trip delay (i.e. $\tau_{pd}$) cannot be controlled, one may suggest to use lower frequencies. Unfortunately, transmission of such low frequencies is physically unfeasible. 
@@ -19,8 +19,8 @@ Bearing in mind that the system's phase alignment sensitivity resides in \eqref{
             \put (61.65, 41.5){$\text{BPF}_{\omega_{2}}$}
             \put (6, 51.5){+}
             \put (55, 51.5){+}
-            \put (16, 51.5){\footnotesize{$n_{1}\rBrace{t}$}}
-            \put (64.75, 51.5){\footnotesize{$n_{2}\rBrace{t}$}}
+            \put (16, 51.5){\footnotesize{$\text{n}_{1}\rBrace{t}$}}
+            \put (64.75, 51.5){\footnotesize{$\text{n}_{2}\rBrace{t}$}}
             \put (24.5, 59){\footnotesize{$\text{Tx}_{1}\rBrace{t}$}}
             \put (73.5, 59){\footnotesize{$\text{Tx}_{2}\rBrace{t}$}}
             \put (36.25, 64){\scriptsize{$x_{1}\rBrace{t}$}}
@@ -96,9 +96,9 @@ Note that in the special case of choosing $\vAlpha_{1}~=~\vBeta_{1},\ \vAlpha_{2
 \par In the general case, the gain of each element is frequency dependant, such that the steering vector $\vd$ of \eqref{eq:d}
 may be expressed as 
 \begin{equation*}
-    \vd_{\theta_g}[n] = g_{n,\theta_{g}}(\omega)\exp{\rBrace{-j\omega\tau_{n,\theta_g}}},\;n=0,\ldots,N-1.
+    \vd_{\thetaD}[n] = g_{n,\thetaD}(\omega)\exp{\rBrace{-j\omega\tau_{n,\thetaD}}},\;n=0,\ldots,N-1.
 \end{equation*}
-To simplify the exposition, we assume common gain across the array (i.e. $g_{\theta_{g}}(\omega)$ is not a function of the element index $n$) and suppress the DOA ($\theta_g$) dependency (which is the same at both frequencies) such that one may express the $i$'th frequency steering vector as
+To simplify the exposition, we assume common gain across the array (i.e. $g_{\thetaD}(\omega)$ is not a function of the element index $n$) and suppress the DOA ($\thetaD$) dependency (which is the same at both frequencies) such that one may express the $i$'th frequency steering vector as
 \begin{equation}\label{eq:new_d}
 \vd_{i}^T=g(\omega_i)\sBrack{\exp{\rBrace{-j\omega_i\tau_{0}}},...,\exp{\rBrace{-j\omega_i\tau_{N-1}}}}.
 \end{equation}
@@ -116,14 +116,14 @@ Plugging \eqref{eq_simpleBeta} into \eqref{eqn_twoFreqApproach_h} gives rise to
 \end{equation}
 where $r_i=g(\omega_i)/\hat{g}(\omega_i)$ is the gain mismatch at $\omega_i$. 
 \par Notice that  $H_{\text{DF}}$ is similar to the single frequency (SF) beampattern \eqref{eqn:GeneralFeedbackTransferFunction}, where the range related phase $\phi$ is replaced by $\phi_{1}-\phi_{2}=(\omega_1-\omega_2)\tau_{pd}$. Hence, by using sufficiently close frequencies, one may significantly mitigate the range mismatch distortion of the beampattern.
-\par For example, consider a radio frequency carrier of $10\text{GHz}$ and typical range error of $\Delta{}R_{rt}=10_m$, which is $333\frac{1}{3}\lambda$ (assuming light speed of $c=3\cdot 10^{8}_{m/s}$). The single frequency beampattern distortion, being periodic in $\lambda$, will closely resembles the $0.3\lambda$ error plot presented in Fig.~\ref{fig_rangError}. 
+\par For example, consider a radio frequency carrier of $10\text{GHz}$ and typical range error of $\Delta{}R_{\text{rt}}=10_m$, which is $333\frac{1}{3}\lambda$ (assuming light speed of $c=3\cdot 10^{8}_{m/s}$). The single frequency beampattern distortion, being periodic in $\lambda$, will closely resembles the $0.3\lambda$ error plot presented in Fig.~\ref{fig_rangError}. 
 \par Assume that we aim at maximal phase error of $\Delta \phi=0.01\pi_{rad}$. Hence, when using the \textit{dual frequency} architecture, the dictated frequency relation is
 \begin{equation}\label{eq_DF_phErr}
-\abs{(\omega_1-\omega_2)\frac{\Delta{}R_{rt}}{c}}<0.01\pi.
+\abs{(\omega_1-\omega_2)\frac{\Delta{}R_{\text{rt}}}{c}}<0.01\pi.
 \end{equation}
 or equivalently, for maximal range error of $10_m$, frequency separation of
 \[
-\abs{f_1-f_2}<0.005 c/\Delta{}R_{rt}=150_{KHz}
+\abs{f_1-f_2}<0.005 c/\Delta{}R_{\text{rt}}=150_{KHz}
 \]
 is required. 
 
@@ -137,7 +137,7 @@ where $\hat{\vd}$ is the estimated steering vector, as in \eqref{eq:d_hat}. With
     \label{eqn_H_DF_CB}
     \resizebox{.89\linewidth}{!}{
         \begin{split}
-            H_{\text{DF,CB}} =
+            H_{\text{DF,\coefSetName}} =
             \lBrace{\frac{r_{1}\D{\dTheta/2}{N}}{1-
             \kappa\D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{\dPhi_{2}-\dPhi_{1}+(N-1)\dTheta/2}}}
             },
@@ -146,12 +146,12 @@ where $\hat{\vd}$ is the estimated steering vector, as in \eqref{eq:d_hat}. With
 \end{equation}
 where $\kappa\triangleq{}r_{1}/r_{2}$ is the gain mismatch ratio.
 \par Note that for close frequencies such that $r_{1}\sim{}r_{2}$, $\kappa$ tends towards unity, thus significantly mitigating the gain mismatch effect even when both feedback beamformers are mismatched.
-\par In Fig.~\ref{fig_dualfreq_rangeErrorHighSnr}, we simulate the beampattern (normalized to $0$dB peak gain) for the single and \textit{dual frequency} architectures, where frequency separation was configured to obtain range errors as in \eqref{eq_DF_phErr} (i.e. $f_1=10_{GHz},\;f_2=f_1+150_{KHz}$ to mitigate range errors up till $\Delta{}R_{rt}=10_m=333\frac{1}{3}\lambda$). 
+\par In Fig.~\ref{fig_dualfreq_rangeErrorHighSnr}, we simulate the beampattern (normalized to $0$dB peak gain) for the single and \textit{dual frequency} architectures, where frequency separation was configured to obtain range errors as in \eqref{eq_DF_phErr} (i.e. $f_1=10_{GHz},\;f_2=f_1+150_{KHz}$ to mitigate range errors up till $\Delta{}R_{\text{rt}}=10_m=333\frac{1}{3}\lambda$). 
 \par We also plot (in blue circles) the perfectly aligned pattern, which is obtained when there are no range errors. 
 \par As can be seen, the resultant beampattern of the \textit{dual frequency} beamformer practically achieves the ideal, range-error free case. 
 
 In Fig.~\ref{fig_dualfreq_perfectAlignLowSnr}
-we repeat the case of fractional range error of $\Delta{}R_{rt}=0.3\lambda$, while adding white Gaussian noise to the output of each feedback beamformer. Evidently, the dual-frequency beamformer (green diamonds) achieves close-to-ideal beampattern (blue circles), while the single-frequency beamformer (red squares) suffers severe distortions.
+we repeat the case of fractional range error of $\Delta{}R_{\text{rt}}=0.3\lambda$, while adding white Gaussian noise to the output of each feedback beamformer. Evidently, the dual-frequency beamformer (green diamonds) achieves close-to-ideal beampattern (blue circles), while the single-frequency beamformer (red squares) suffers severe distortions.
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=.7\linewidth, 
@@ -162,11 +162,11 @@ we repeat the case of fractional range error of $\Delta{}R_{rt}=0.3\lambda$, whi
             \put (48, 32){\scriptsize{DF}}
             \put (2, 37.5){\footnotesize{dB}}
             \put (47,0){\footnotesize{$\dTheta/\pi$}}
-            \put (92,58){\footnotesize{$\Delta{}R_{rt}=0.3\lambda$}}
+            \put (92,58){\footnotesize{$\Delta{}R_{\text{rt}}=0.3\lambda$}}
         \end{overpic}
     \end{center}
-    \caption{Simulating 3 element ULA with $r_1=0.6^{2},\; r_2=0.6$ (hence $\kappa=0.6$) for infinite SNR. The (fractional) range error is $\Delta{}R_{rt}=0.3\lambda$.
-    The ideal response is obtained for $\Delta{}R_{rt}=0$ (blue dots), with the single frequency (SF) beamformer (red squares) and the  dual-frequency (DF) solution (green diamonds). 
+    \caption{Simulating 3 element ULA with $r_1=0.6^{2},\; r_2=0.6$ (hence $\kappa=0.6$) for infinite SNR. The (fractional) range error is $\Delta{}R_{\text{rt}}=0.3\lambda$.
+    The ideal response is obtained for $\Delta{}R_{\text{rt}}=0$ (blue dots), with the single frequency (SF) beamformer (red squares) and the  dual-frequency (DF) solution (green diamonds). 
     }
     \label{fig_dualfreq_rangeErrorHighSnr}
 \end{figure}
@@ -187,6 +187,6 @@ we repeat the case of fractional range error of $\Delta{}R_{rt}=0.3\lambda$, whi
             \put (71.5,17){\scriptsize{$\text{SNR}=0_{dB}$}}
         \end{overpic}
     \end{center}
-    \caption{Directional response of the 3 element ULA, as in Fig.~\ref{fig_dualfreq_rangeErrorHighSnr}, simulated for the noisy scenario. The additive noises $n_1(t)$ and $n_2(t)$ (see Fig.~\ref{fig_app}), are set to obtain SNR of $6_{dB}$ (left plot) and $0_{dB}$ (right plot).}
+    \caption{Directional response of the 3 element ULA, as in Fig.~\ref{fig_dualfreq_rangeErrorHighSnr}, simulated for the noisy scenario. The additive noises $\text{n}_1(t)$ and $\text{n}_2(t)$ (see Fig.~\ref{fig_app}), are set to obtain SNR of $6_{dB}$ (left plot) and $0_{dB}$ (right plot).}
     \label{fig_dualfreq_perfectAlignLowSnr}
 \end{figure}

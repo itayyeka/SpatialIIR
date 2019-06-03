@@ -20,7 +20,7 @@ An intuitive understanding of the spatial feedback concept may be achieved when 
 \end{figure}
 \par Inspired by this architecture, we seek for an analogous structure which will mimic the feedback loop in the spatial domain. 
 \par In order to do so, we propose a feedback beamformer architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) where the weights $\vBeta$ generate the output signal ($y$), the $\vAlpha$ weights are used to synthesize the feedback transmission ($\text{Tx}$) and $x$ is the input waveform. Also, an additive noise model (n) is assumed at the array's output. 
-\par Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed signal, $\sum_{n}x_{n,\thetaD}(t)\beta_n$, acts as the classic beamformer. 
+\par Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed signal, $\sum_{n}x_{n,\thetaD}(t)\beta_n$, acts as the classic DS beamformer. 
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.95\linewidth, 
@@ -148,7 +148,7 @@ As commonly done for ULA parameter analysis \cite{VanTrees2002DetectionIV}, we f
         \frac{
         H_{\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}}\rBrace{\omega}
         }{
-        H_{\vBeta,\vAlpha}\rBrace{\omega}
+        H_{\vBeta_{\text{opt}},\vAlpha_{\text{opt}}}\rBrace{\omega}
         }
          =
          \frac{
@@ -161,9 +161,9 @@ As commonly done for ULA parameter analysis \cite{VanTrees2002DetectionIV}, we f
     \end{split}
     %}
 \end{equation}
-where $\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}$ are the weights as in \eqref{eq:alpha_beta_hat} and $\vBeta,\vAlpha$ are optimal weights assuming exact knowledge of the steering vector and the phase $\phi$, 
+where $\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}$ are the weights as in \eqref{eq:alpha_beta_hat} and $\vBeta_{\text{opt}},\vAlpha_{\text{opt}}$ are optimal weights assuming exact knowledge of the steering vector and the phase $\phi$ (i.e. the perfectly aligned scenario), 
 \[
-\vBeta=\vAlpha={\vd}^{\ast}\exp\rBrace{j{\phi}}/\norm{{\vd}}^2.
+\vBeta_{\text{opt}}=\vAlpha_{\text{opt}}={\vd}^{\ast}\exp\rBrace{j{\phi}}/\norm{{\vd}}^2.
 \]
 Note that as $\vBeta_{\coefSetName{}},\vAlpha_{\coefSetName{}}$ are functions of the DOA, range and gain errors, we add to $\Hr$ the subscript of $\dTheta,\dPhi$ and $r$. Explicitly writing $\Hr$ gives rise to 
 \begin{equation}\label{eq_generalH}

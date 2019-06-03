@@ -1,7 +1,7 @@
 A possible evaluation for the contribution of the presented feedback mechanism is to measure the additional information in the system.
 To this end, the FIM will now be calculated with respect to the DOA parameter $\thetaD$ and the range related parameter $\phi$. 
 \par As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in the frequency domain, we rely on \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses}, to express the FIM in the frequency domain as well. 
-\par Introducing the additive noise term $n(t)$ as in Fig.~\ref{fig:Proposed_spatialIIR_ARCH},  and assuming it to be white and Gaussian, the $k,l$'th element of the FIM, notated by the matrix $J$, can be expressed as
+\par Introducing the additive noise term $\text{n}\rBrace{t}$ as in Fig.~\ref{fig:Proposed_spatialIIR_ARCH},  and assuming it to be white and Gaussian, the $k,l$'th element of the FIM, notated by the matrix $J$, can be expressed as
 \begin{equation}
     \resizebox{1\linewidth}{!}{
         \begin{split}
@@ -54,7 +54,7 @@ $$
 $$
 where $A$ is diagonal, with 
 \[
-A[n,n]=-j\omega\frac{\partial \tau_{n,\thetaD}}{\partial{\thetaD}}.
+A\vBrace{i,i}=-j\omega\frac{\partial \tau_{i,\thetaD}}{\partial{\thetaD}}\ \  \forall{i\in\cBrace{0\hdots{}N-1}}.
 \]
 \par In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
 \begin{equation}

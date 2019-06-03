@@ -37,7 +37,7 @@ Consider an $N$-element array with the $n$'th sensor positioned at $p_{\text{n}}
 x_{n,\thetaD}(t) = g_{n,\thetaD}x\Brack{t-\tau_{pd}-\tau_{n,\thetaD}},
 \label{eqn:noFeedbackULA_singleSensor_temporal}
 \end{equation}
-where $g_{n,\thetaD}$ represents the gain at the $n$'th sensor. Note that $g_{n,\thetaD}$ is influenced by the medium attenuation, the target's radar cross section (RCS) and the sensor's gain at DOA $\thetaD$. 
+where $g_{n,\thetaD}$ represents the gain at the $n$'th sensor and $t$ represents the time. Note that $g_{n,\thetaD}$ is influenced by the medium attenuation, the target's radar cross section (RCS) and the sensor's gain at DOA $\thetaD$. 
 \par Here, $\tau_{n,\thetaD}$ represents the arrival time difference of the signal between the $n$'th sensor (at $p_{n}$) and the reference sensors (at $p_{0}$). 
 \par We express the vector formed (i.e. considering all sensors) Fourier transform of \eqref{eqn:noFeedbackULA_singleSensor_temporal} as
 \[
@@ -60,7 +60,7 @@ Introducing the electric phase
 \end{equation}
 we re-write of the beamformer's output as 
 \[
-x^\mathcal{F}_0(\omega)\sum_{n=0}^{N-1}\beta_n
+\F{x}_0\rBrace{\omega}\sum_{n=0}^{N-1}\beta_n
 \exp\Brack{-jn\theta},
 \]
 hence in the ULA case, setting the weights vector $\vBeta$ for obtaining a desired spatial response is mathematically equivalent to FIR filter design~\cite{VanVeenBeamforming:Filtering}.

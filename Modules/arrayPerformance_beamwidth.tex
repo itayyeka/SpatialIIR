@@ -18,14 +18,13 @@ Specifically, we can approximate the HPBW by
 \[
 \dTheta_{\text{HPBW}}/2\approx \frac{1}{B(r)N}
 \]
-% where $B(r)=1/\rBrace{1-r}\rBrace{-0.4r+1.4}$ is the second order polynomial approximation of the limiting values.
-where $B(r)$ represents the array aperture improvement factor (compared to the classical ULA). In Fig.~\ref{fig_feedbackULA_beamwidth_limit_r_dependent} we show that $B(r)$ may be approximated with a second order polynomial, such that
+where $B(r)$ represents the array aperture improvement factor (compared to the traditional ULA). In Fig.~\ref{fig_feedbackULA_beamwidth_limit_r_dependent} we show that $B(r)$ may be approximated with a second order polynomial, such that
 \begin{equation}
     \label{eq_Bapprox}
     B(r)\approx\frac{1}{\rBrace{1-r}\rBrace{-0.4r+1.4}}.
 \end{equation} 
 Note that large values of $B(r)$ imply that the suggested feedback based system, has smaller HPBW. 
-Another interpretation is that classical ULA needs to be $B$-times larger in order to achieve that same performance.
+Another interpretation is that non-feedback based ULA needs to be $B$-times larger in order to achieve that same performance as the feedback based version.
 As evident from \eqref{eq_Bapprox} and Fig.~\ref{fig_feedbackULA_beamwidth_limit_r_dependent}, feedback based arrays with close-to-unity gain mismatch factors ($r$) are equivalent to classical ULAs of infinite apertures.
 \begin{figure}[t]
     \begin{center}

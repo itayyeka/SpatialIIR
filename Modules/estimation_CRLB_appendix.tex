@@ -1,6 +1,6 @@
 A possible evaluation for the contribution of the presented feedback mechanism is to measure the additional information in the system.
 To this end, the FIM will now be calculated with respect to the DOA parameter $\thetaD$ and the range related parameter $\phi$. 
-\par As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in the frequency domain, we rely on \cite{ARIELAZEIRAANDARYENEHORAIFrequencyProcesses}, to express the FIM in the frequency domain as well. 
+As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in the frequency domain, we rely on \cite{zeira1990frequency}, to express the FIM in the frequency domain as well. 
 \par Introducing the additive noise term $\text{n}\rBrace{t}$ as in Fig.~\ref{fig:Proposed_spatialIIR_ARCH},  and assuming it to be white and Gaussian, the $k,l$'th element of the FIM, notated by the matrix $J$, can be expressed as
 \begin{equation}
     \resizebox{1\linewidth}{!}{
@@ -23,15 +23,15 @@ To this end, the FIM will now be calculated with respect to the DOA parameter $\
             \frac{T}{4\pi}
             \int_{-\omega_{s}/2}^{\omega_{s}/2}
             \frac{1}{\Phi^{2}\rBrace{\omega}}
-            \frac{\partial\Phi\rBrace{\omega}}{\eta_{k}}
-            \frac{\partial\Phi\rBrace{\omega}}{\eta_{l}}
+            \frac{\partial\Phi\rBrace{\omega}}{\partial\eta_{k}}
+            \frac{\partial\Phi\rBrace{\omega}}{\partial\eta_{l}}
             d\omega
         \end{split}
     }
 \end{equation}
-where $ \eta = [\thetaD,\phi]^{T} $ is the parameters vector, $\Re$ stands for the real-part operator, $k,l \in\cBrace{1,2}$, $\Phi\rBrace{\omega}$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator, $T$ is the measurement observation interval and $\omega_{s}$ is the signal bandwidth. 
-\par In the presented model, the noise is white with some constant power spectral density $\Phi(\omega)=\sigma^2$ and does not depend on the parameters $\eta$, hence the second term vanishes. 
-\par Assuming continuously differentiable functions (such that the order of the Fourier transform and the differentiation can be altered) the FIM is
+where $ \vEta = [\thetaD,\phi]^{T} $ is the parameters vector, $\Re$ stands for the real-part operator, $k,l \in\cBrace{1,2}$, $\Phi\rBrace{\omega}$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator, $T$ is the measurement observation interval and $\omega_{s}$ is the signal bandwidth. 
+In the presented model, the noise is white with some constant power spectral density $\Phi(\omega)=\sigma^2$ and does not depend on the parameters $\eta$, hence the second term vanishes. 
+Assuming continuously differentiable functions (such that the order of the Fourier transform and the differentiation can be altered) the FIM is
 \begin{equation}
     \label{eq_beamPatternFreqDomain_FIM}
     % \resizebox{1\linewidth}{!}{
@@ -48,15 +48,17 @@ where $ \eta = [\thetaD,\phi]^{T} $ is the parameters vector, $\Re$ stands for t
         \end{split}.
     % }
 \end{equation}
-Assuming also smooth radiation patters, we simplify the analysis, stating that the elements gain $\rBrace{g_n}$ derivative (with respect to $\vEta$) is negligible such that
-$$
+We assumed omni-directional array sensors (i.e. $\partial{g}/\partial{\vEta}=0$), therefore
+\begin{equation}\label{eq_vdDiff}
 \frac{\partial\vd}{\partial\thetaD}=A\vd
-$$
+\end{equation}
 where $A$ is diagonal, with 
 \[
 A\vBrace{i,i}=-j\omega\frac{\partial \tau_{i,\thetaD}}{\partial{\thetaD}}\ \  \forall{i\in\cBrace{0\hdots{}N-1}}.
 \]
-\par In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
+To further simplify the analysis, without loss of generality, we use (in this section only) $g=1$.
+Note that also for arbitrary sensors, assuming smooth radiation patterns leads to the same result as in \eqref{eq_vdDiff}.
+In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
 \begin{equation}
     \label{eqn_FIMelements}
     \resizebox{.91\linewidth}{!}{
@@ -80,9 +82,8 @@ A\vBrace{i,i}=-j\omega\frac{\partial \tau_{i,\thetaD}}{\partial{\thetaD}}\ \  \f
     }
 \end{equation}
 where $B\triangleq \vd \vdT A -A\vd\vdT$. Assuming weights which are proportional to the conjugate of the steering vector (i.e. $\vAlpha,\vBeta\propto\vd^{\ast}$), and with some additional mild assumptions, it can be shown (App.~\ref{apdx_clacFim}) that the cross terms of the FIM are nullified, i.e. $J_{\theta\phi} = J_{\phi\theta}^{*}=0$.
-This choice of weights can be seen as generalization of the conventional beamformer (CB) \cite{VanTrees2002DetectionIV}, more commonly referenced as the delay-and-sum (DS) beamformer, where  $\vBeta\propto\vd^{\ast}$ constitutes a coherent integration of the signal along the array elements. 
-
-From \eqref{eqn_FIMelements} we observe that minimization of the denominator $\lBrace{1-\aTd\ePhi{-}}$ should significantly increase the information.
+This choice of weights can be seen as generalization of the conventional beamformer (CB) \cite{van2004optimum}, more commonly referenced as the delay-and-sum (DS) beamformer, where  $\vBeta\propto\vd^{\ast}$ constitutes a coherent integration of the signal along the array elements. 
+\par From \eqref{eqn_FIMelements} we observe that minimization of the denominator $\lBrace{1-\aTd\ePhi{-}}$ should significantly increase the information.
 Note that setting $\vAlpha=\vd^\ast\ePhi{}/\norm{\vd}^2$ may be interpreted as the conventional beamformer, applied to the feedback signal indicating that improved estimation of the DOA and range can be achieved. This observation corresponds with the information increase, predicted by the FIM elements.
-\par In practice, though, there will be unavoidable errors, and perfect knowledge of the steering vector $\vd$ is not always available.
+In practice, though, there will be unavoidable errors, and perfect knowledge of the steering vector $\vd$ is not always available.
 In Sec.~\ref{sec_Performance}, we quantify the effect of mismatching $\vAlpha$ with the desired form and discuss its influence on the array performance. 

@@ -1,70 +1,73 @@
 \IEEEPARstart{T}{he} 
-general field of array processing has been thoroughly studied in many contexts throughout several decades, producing many important applications such as spatial filtering, source localization, signal detection, source separation, manifold learning, feature extraction, and many more.
-Spatial sensor arrays enable the extraction of spatial information such as localizing a transmitting source \cite{skolnik2008radar} \myTodo{inline}{\textbf{DONE:}\\cite some radar book}, blindly separating mixtures of impinging signals \cite{Comon1994IndependentConcept} \myTodo{inline}{\textbf{DONE:}\\here you can cite some papers which talk about BSS and ICA signal source separation. Make sure to cite something which is well known, that is, has many citations}, improving signal to noise ratio (SNR) \myTodo{inline}{\textbf{DONE:}\\cite some works/books about MVDR,MPDR processing}\cite{Frost1972AProcessing,verdu1998multiuser} and many more. 
-\par Uniform linear array (ULA), a uniformly spaced structure of sensors, has always been a point of interest, due to its simplicity of analysis \cite{VanTrees2002DetectionIV}. 
-The array size and the number of its elements ($N$) has significant influence on the obtained array performance, such as SNR improvement, spatial separation capabilities and its number of degrees of freedom (DOF). For example, the influential MUSIC algorithm \cite{Ralph1986MultipleParameter} enables the localization of signals arriving from up to $N-1$ distinctive directions of arrival (DOA), by projecting the the array manifold onto the noise subspace.
-% \par The inherent limitation on the number of processed or detected sources due to the limited amount of DOF of a given array, inspired different directions of research, aiming to improve the performance of a given array.
-% \par One approach, involving different array geometries, examined minimum redundancy arrays \cite{Moffet1968Minimum-RedundancyArrays,Pillai1985AEstimation,UnnikrishnaPillai1987StatisticalMatrix}, aiming to reduce the spatial ambiguity. The basic concept was minimization of the inter-element spacing redundancy in order to increase the overall resolution. 
-% \par Another approach, commonly referenced as ``virtual arrays" \cite{Pal2010NestedFreedom,Chevalier2005OnProcessing,Mendel1999ApplicationsProcessing} deals with the extraction of samples originated in sensors that do not really exist (i.e. relying on higher order statistics and manipulating multiple statistical cross-terms in order to estimate statistical characteristics of signals impinging in missing sensors). 
-\par An interesting approach, commonly referenced as ``virtual arrays" \cite{Pal2010NestedFreedom,Chevalier2005OnProcessing,Mendel1999ApplicationsProcessing} deals with the extraction of samples originated in sensors that do not really exist (i.e. relying on higher order statistics and manipulating multiple statistical cross-terms in order to estimate statistical characteristics of signals impinging in missing sensors). 
-\par Using a similar approach, the $2q$-MUSIC algorithm \cite{Chevalier2006High-resolutionAlgorithm}, enables the use of $N^{2q}$ ``virtual elements'', by calculating the $q$'th order statistics.
-\par This paper is inspired by the well known \cite{VanVeenBeamforming:Filtering} analogy between ULA spatial array processing of narrowband signals and finite impulse response (FIR) temporal filtering. 
-\par In the context of temporal signal processing, it is well known that for a given filter of order $N$, in many cases, the infinite impulse response (IIR) performs better than FIR, considering narrow transition regions and low sidelobes.
-\par This naturally arises the question, ``what are the equivalent spatial domain processing methods which will be analogous to temporal IIR filtering?" 
-\par A related work \cite{Wen2013ExtendingStructure} has also addressed this question, where in the context of ULA, two approaches were considered.
-\par The first one was to estimate the time of arrival (TOA) difference between two consecutive sensors and to synthetically generate the recursive part of the IIR filter, entirely in the time-domain. The second approach suggested to consider overlapping subsets of one large ULA as finite approximation to an infinite array. 
-\par Surely, the former approach heavily relies on the accuracy of the delay estimation and the latter approach does not achieve a recursive spatial response. In both cases, there is no true spatial feedback between the array and the source of interest.
-\par Other works \cite{Madanayake2008AFilters,Madanayake2008ABeamformer} use the concept of $2D$ spatio-temporal plane wave representation (i.e. a straight line angled according to the DOA in the spatio-temporal plane), to design ultra-wide-band (UWB) filters \cite{L.Bruton1983HighlyPlanes} which both sample spatial snapshots of the signal and recursively process it in temporal domain. \myTodo{inline} {\textbf{REPHRASED}\\please explain (maybe later just to me) how UWB filtering is used}\myTodo{inline}{\textbf{Removed - not important - a way of implementation}\\what is that?}\myTodo{inline}{\textbf{DONE:}\\what are the drawbacks if these last papers?}
-Here as well, the recursive part of the filter is obtained entirely in the temporal domain.  
-\par In this contribution, we wish to present a sensor array processing approach which achieves the desired spatial domain exclusive IIR-like beampattern, while avoiding any temporal processing of the signal.
-\par To this end, we arbitrarily chose to formulate the problem in the context of a localization problem, hence our goal is to estimate the direction and the range of some target of interest. 
+general field of array processing has been thoroughly studied throughout several decades.
+The array sensors' spatial diversity enables the extraction of spatial information about impinging signals, thus laying the ground for wide range of application such as localizing a transmitting source \cite{skolnik2008radar}, blindly separating mixtures of impinging signals \cite{comon1994independent}, improving signal to noise ratio (SNR) \cite{verdu1998multiuser} and many more. 
+\par Uniform linear array (ULA), a uniformly spaced structure of sensors, has always been a point of interest, due to its simplicity of analysis \cite{van2004optimum}. 
+The array size and the number of its elements ($N$) has significant influence on the obtained array performance, such as SNR improvement, spatial separation capabilities and its spatial response's degrees of freedom (DOF). For example, the influential MUSIC algorithm \cite{schmidt1986multiple} enables the localization of signals arriving from up to $N-1$ distinctive directions of arrival (DOA), by projecting the array manifold onto the noise subspace.
+\par In pursuit of spatial performance improvement, namely higher spatial separation and selectivity of arriving signals, many approaches were suggested.  
+One approach, commonly referenced as ``virtual arrays" \cite{pal2010nested,chevalier2005virtual,dogan1995applications} deals with the extraction of samples originated in sensors that do not really exist by using high (higher than 2) order statistics and manipulating multiple statistical cross-terms in order to estimate statistical characteristics of signals impinging in missing sensors.
+Using a similar approach, the $2q$-MUSIC algorithm \cite{chevalier2006high}, enables the use of $N^{2q}$ ``virtual elements'', by calculating the $q$'th order statistics.
+Another approach, involving different array geometries, examined minimum redundancy arrays \cite{moffet1968minimum,pillai1985new,pillai1987statistical}, aiming to reduce the spatial ambiguity. The basic concept was minimization of the inter-element spacing redundancy in order to increase the overall resolution. 
+% \par Other works \cite{madanayake2008speed,madanayake2008systolic} use the concept of $2D$ spatio-temporal plane wave representation (i.e. a straight line angled according to the DOA in the spatio-temporal plane), to design ultra-wide-band (UWB) filters \cite{bruton1983highly} which both sample spatial snapshots of the signal and recursively process it in temporal domain.
+% Here as well, the recursive part of the filter is obtained entirely in the temporal domain.
+Adaptive processing schemes \cite{frost1972algorithm,manolakis2000statistical}, being a wide and active  research area, were also suggested trying to adaptively estimate and suppress the noise component in impinging signals by minimization of the receiver's output energy with some constraints.
+% \par This paper is inspired by the well known \cite{van1988beamforming} analogy between ULA spatial array processing of narrowband signals and finite impulse response (FIR) temporal filtering. 
+% \par In the context of temporal signal processing, it is well known that for a given filter of order $N$, in many cases, the infinite impulse response (IIR) performs better than FIR, considering narrow transition regions and low sidelobes.
+% \par This naturally arises the question, ``what are the equivalent spatial domain processing methods which will be analogous to temporal IIR filtering?" 
+\par Pursuing other approaches to improving the array's spatial performance, ULA spatial array processing analogy to finite impulse response (FIR) \cite{van1988beamforming} and the infinite impulse response (IIR) superior performance (e.g. narrower transition regions and higher sidelobes attenuation) gave rise to the question ``what are the equivalent spatial domain processing methods which will be analogous to temporal IIR filtering?".
+\par Searching the literature, it turns out that achieving spatial IIR response have also motivated other works.
+In \cite{wen2013extending} two methods were considered.
+The first one was to estimate the time of arrival (TOA) difference between two consecutive sensors and to synthetically generate the recursive part of the IIR filter, entirely in the time-domain. The second approach suggested to consider overlapping subsets of one large ULA as finite approximation to an infinite array. 
+Surely, the former approach heavily relies on the accuracy of the delay estimation and the latter approach does not achieve a recursive spatial response. In both cases, there is no true spatial feedback between the array and the source of interest.
+Also, ultra-wide-band (UWB) filters, which sample spatial snapshots of the signal and recursively process it in temporal domain were designed in \cite{bruton1983highly}, using the $2D$ spatio-temporal plane wave representation as a straight line angled according to the DOA.
+% Also, \cite{bruton1983highly} used a $2D$ spatio-temporal approach, where plane waves are represented as a straight line angled according to the DOA in the spatio-temporal plane. An ultra-wide-band (UWB) filters \cite{bruton1983highly} which both sample spatial snapshots of the signal and recursively process it in temporal domain.
+\par In this contribution, we wish to present a low-complexity sensor array processing approach which achieves the desired spatial domain exclusive IIR-like beampattern, while avoiding any temporal processing of the signal.
+To this end, we arbitrarily chose to formulate the problem in the context of a localization problem, hence our goal is to estimate the direction and the range of some target of interest. 
 \par The novelty, comparing to traditional array processing, is the incorporation of spatial feedback, which we prove to be the spatial domain equivalent of temporal domain IIR filtering.
-\par Assuming the target of interest has a mirror-like behaviour (i.e. reflects its impinging signals), the spatial feedback between the array and the target is created by continuously re-transmitting a synthesized version of the impinging signal (and its reflections) to the target.
-\par Note that the initial stimulus can be generated by the target or the array itself. In the text to follow, we assume this is the latter. 
-\par Moreover, opposed to the passive target case (i.e. a target which merely reflects the impinging signal), one may consider a cooperative target, which receives, enhances and re-transmits the signal back to the array. In this work, we assume the former.
+Assuming the target of interest has a mirror-like behaviour (i.e. reflects its impinging signals), the spatial feedback between the array and the target is created by continuously re-transmitting a synthesized version of the impinging signal (and its reflections) to the target.
+Note that the initial stimulus can be generated by the target or the array itself. In the text to follow, we assume this is the latter. 
+Moreover, opposed to the passive target case (i.e. a target which merely reflects the impinging signal), one may consider a cooperative target, which receives, enhances and re-transmits the signal back to the array. In this work, we assume the former.
 \par The outline of this paper is as follows. We first formulate the classic spatial beamforming setup in Sec.~\ref{sec:setup}. Then, in Sec.~\ref{sec_introduceFeedback}, we propose our novel feedback based architecture, and formulate its spatial response.
 Searching for localization performance maximization, Sec.~ \ref{sec_FIM} discuss the information-theory related considerations for the array configuration, utilizing the Fisher Information Matrix (FIM) in the context of the target's range and DOA estimation.
 In Sec.~\ref{sec_Performance} we evaluate some key features of the proposed beamforming with feedback. Specifically, we compute the array beamwidth, its peak to sidelobe ratio and the array directivity, showing significant improvement compared to traditional beamforming without spatial feedback. 
-In Sec.~\ref{sec_app} we simulate the proposed processing scheme, and emphasis its sensitivity to range errors. We then suggest a strategy which mitigates this sensitivity. Finally, concluding remarks are stated in Sec.~\ref{sec_conclusions}.
-\myTodo{inline}{Here you should state the content of the paper. In Sec. \ref{sec:setup} we define our setup. In Sec. ... we analyze the suggested feedback based system. etc...}
+In Sec.~\ref{sec_app} we simulate the proposed processing scheme, and emphasize its sensitivity to range errors. We then suggest a strategy which mitigates this sensitivity. Finally, concluding remarks are stated in Sec.~\ref{sec_conclusions}.
 \section{Beamforming}\label{sec:setup}
-Consider an $N$-element array with the $n$'th sensor positioned at $p_{\text{n}},\; n=\vBrace{0,\ldots,N-1}$. We define $p_{0}=\vecnot{0}$ to be the reference point for future analysis and assume the target of interest is positioned at $p_{\text{t}}$.
-\par We focus on a far field localization problem, hence DOA and target range estimations are to be made. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$. 
+Consider an $N$-element array with the $n$'th sensor positioned at $p_{n},\; n=\vBrace{0,\ldots,N-1}$. We set $p_{0}=\vecnot{0}$ as the reference point and assume that the target of interest is positioned at $p_{\text{t}}$.
+Focusing on a far field localization problem, DOA and target range are to be estimated. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$. 
 \par We define $R$ to be the range between the array and the target of interest. In this paper, it is arbitrarily computed with respect to the reference sensor, i.e. $R\triangleq\norm{p_{\text{t}}-p_{0}}$.
-\par Inspired by radar based applications, we assume that the signal $x(t)$ is transmitted from the array, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $c$ represents the propagation velocity of the signal in the medium. For simplicity reasons, we assume the target is stationary.
+Inspired by radar based applications, we assume that the signal $x(t)$ is transmitted from the array, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $c$ represents the propagation velocity of the signal in the medium. 
+For simplicity, we assume an anechoic environment, an array of identical omni-directional sensors and a stationary target of interest.
 \par Let $x_{n,\thetaD}(t)$ be the measured signal at the $n$'th sensor of the array
 \begin{equation}
-x_{n,\thetaD}(t) = g_{n,\thetaD}x\Brack{t-\tau_{pd}-\tau_{n,\thetaD}},
+x_{n,\thetaD}(t) = gx\Brack{t-\tau_{pd}-\tau_{n,\thetaD}},
 \label{eqn:noFeedbackULA_singleSensor_temporal}
 \end{equation}
-where $g_{n,\thetaD}$ represents the gain at the $n$'th sensor and $t$ represents the time. Note that $g_{n,\thetaD}$ is influenced by the medium attenuation, the target's radar cross section (RCS) and the sensor's gain at DOA $\thetaD$. 
-\par Here, $\tau_{n,\thetaD}$ represents the arrival time difference of the signal between the $n$'th sensor (at $p_{n}$) and the reference sensors (at $p_{0}$). 
-\par We express the vector formed (i.e. considering all sensors) Fourier transform of \eqref{eqn:noFeedbackULA_singleSensor_temporal} as
+where $g$ represents both the propagation related attenuation and the target's radar cross section (RCS). 
+Also, $\tau_{n,\thetaD}$ represents the arrival time difference of the signal between the $n$'th sensor (at $p_{n}$) and the reference sensors (at $p_{0}$). 
+Defining $\vecnot{x}_{\thetaD}\rBrace{t}\triangleq\vBrace{x_{0,\thetaD}\rBrace{t}\hdots{}x_{N-1,\thetaD}\rBrace{t}}^{T}$ and it's Fourier transform, $\vecnot{\F{x}}_{\thetaD}\rBrace{\omega}\triangleq\vBrace{X_{0,\thetaD}\rBrace{\omega},\hdots,X_{N-1,\thetaD}\rBrace{\omega}}^{T}$, one may write 
 \[
-\Steer{\thetaD}\F{x}_{0}\rBrace{\omega},
+\vecnot{\F{x}}_{\thetaD}\rBrace{\omega}=g\Steer{\thetaD}\F{x}_{0}\rBrace{\omega},
 \]
 introducing the steering vector ($\Steer{\thetaD}$) and denoting $\F{x}_{0}\rBrace{\omega}$ as the first sensor's impinging signal (i.e. $x_{0,\thetaD}\Brack{t}$) Fourier transform. Also note that the $n$'th element of the steering vector is
 \begin{equation}
     \label{eq:d}
-    \vd_{\thetaD}[n] = g_{n,\thetaD}\exp{\rBrace{-j\omega\tau_{n,\thetaD}}},\;n=0,\ldots,N-1.
+    \vd_{\thetaD}[n] = \exp{\rBrace{-j\omega\tau_{n,\thetaD}}},\;n=0,\ldots,N-1.
 \end{equation}
 \par An N element array beamformer which consists of weights $\vBeta$ will then shape the array reception pattern which can be expressed as 
-$$ \vBetaT\vd_{\thetaD}\F{x}_{0}\rBrace{\omega}. $$ 
-\par For ULA with inter-element spacing $\delta$, the additional delay (other than the range related propagation delay) for the signal to reach the $n$'th sensor is
+$$ g\vBetaT\vd_{\thetaD}\F{x}_{0}\rBrace{\omega}. $$ 
+For ULA with inter-element spacing $\delta$, the additional delay (other than the range related propagation delay) for the signal to reach the $n$'th sensor is
 $$
 \tau_{n,\thetaD}=n\frac{\delta\cos\Brack{\thetaD}}{c}.
 $$
-Introducing the electric phase
+Defining the electric phase to be
 \begin{equation}\label{eq:thetaULA}
 \theta=\omega{\delta\cos\Brack{\thetaD}}/{c},
 \end{equation}
 we re-write of the beamformer's output as 
 \[
-\F{x}_0\rBrace{\omega}\sum_{n=0}^{N-1}\beta_n
+g\F{x}_0\rBrace{\omega}\sum_{n=0}^{N-1}\beta_n
 \exp\Brack{-jn\theta},
 \]
-hence in the ULA case, setting the weights vector $\vBeta$ for obtaining a desired spatial response is mathematically equivalent to FIR filter design~\cite{VanVeenBeamforming:Filtering}.
+hence in the ULA case, setting the weights vector $\vBeta$ for obtaining a desired spatial response is mathematically equivalent to FIR filter design~\cite{van1988beamforming}.
 \par In the standard scheme of processing radar signals, a waveform $x(t)$ is transmitted to, and reflected from the target of interest. Then, the reflected signal is processed by the radar reception array in order to estimate the DOA, range (and Doppler) of the target. 
-\par Opposed to the standard scheme, we suggest a continuous re-transmission of the signal and its echoes back to the platform, such that a spatial feedback loop is created between the array and the target.
-\par Another deviation from traditional radar processing, used to simplify the exposition, is using continuous-wave (CW) for $x\rBrace{t}$, rater than using pulse based signals. 
-\par The suggested structure is elaborated in Sec.~\ref{sec_introduceFeedback} and shown to be equivalent to IIR filter design.
+Opposed to the standard scheme, we suggest a continuous re-transmission of the signal and its echoes back to the platform, such that a spatial feedback loop is created between the array and the target.
+Another deviation from traditional radar processing, used to simplify the exposition, is using continuous-wave (CW) for $x\rBrace{t}$, rater than using pulse based signals. The suggested structure is elaborated in Sec.~\ref{sec_introduceFeedback} and shown to be equivalent to IIR filter design.

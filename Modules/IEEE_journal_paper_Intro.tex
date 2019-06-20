@@ -50,7 +50,7 @@ where $\Steer{}$ denotes the steering vector whose $n$'th element is
     \label{eq:d}
     \vecnot{d}_{\vBrace{n}}\rBrace{\omega} = \exp{\rBrace{-j\omega\tau_{n}}},\;n=0,\ldots,N-1.
 \end{equation}
-The output of an $N$ element array beamformer, configured with weights $\vBeta$, is denoted as $Z\rBrace{\omega}$ and may be expressed as
+The frequency domain output of an $N$ element array beamformer, configured with frequency dependent weights $\vBeta$, is denoted as $Z\rBrace{\omega}$ and may be expressed as
 $$ Z\rBrace{\omega} = g\vBetaT\vd\F{x}_{0}\rBrace{\omega}. $$ 
 Defining the electric phase to be
 \begin{equation}\label{eq:thetaULA}
@@ -58,8 +58,7 @@ Defining the electric phase to be
 \end{equation}
 we re-write of the beamformer's output as 
 \[
-Z\rBrace{\omega} = g\F{x}_0\rBrace{\omega}\sum_{n=0}^{N-1}\beta_n
-\exp\Brack{-jn\theta},
+Z\rBrace{\omega} = g\F{x}_0\rBrace{\omega}\sum_{n=0}^{N-1}\beta_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
 \]
 hence in the ULA case, aiming for a desired spatial response, the weights vector $\vBeta$ configuration is mathematically equivalent to FIR filter design~\cite{van1988beamforming}.
 \par In the standard scheme of processing radar signals, a waveform $s\rBrace{t}$ is transmitted to, and reflected from the target of interest. Then, the reflected signal is processed by the radar reception array in order to estimate the DOA, range (and Doppler) of the target. 

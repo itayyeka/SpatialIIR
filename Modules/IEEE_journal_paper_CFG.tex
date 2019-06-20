@@ -59,16 +59,16 @@
 
 \newcommand{\vd}{\vecnot{d}\rBrace{\omega}}
 \newcommand{\vx}{\vecnot{x}}
-\newcommand{\vAlpha}{\vecnot{\alpha}}
-\newcommand{\vBeta}{\vecnot{\beta}}
-\newcommand{\vdT}{\vd^{T}\rBrace{\omega}}
+\newcommand{\vAlpha}{\vecnot{\alpha}\rBrace{\omega}}
+\newcommand{\vBeta}{\vecnot{\beta}\rBrace{\omega}}
+\newcommand{\vdT}{\vecnot{d}^{T}\rBrace{\omega}}
 \newcommand{\vxT}{\vecnot{x}^{T}}
-\newcommand{\vAlphaT}{\vAlpha^{T}}
-\newcommand{\vBetaT}{\vBeta^{T}}
+\newcommand{\vAlphaT}{\vecnot{\alpha}^{T}\rBrace{\omega}}
+\newcommand{\vBetaT}{\vecnot{\beta}^{T}\rBrace{\omega}}
 \newcommand{\vdH}{\vd^{H}}
 \newcommand{\vxH}{\vecnot{x}^{H}}
-\newcommand{\vAlphaH}{\vAlpha^{H}}
-\newcommand{\vBetaH}{\vBeta^{H}}
+\newcommand{\vAlphaH}{\vecnot{\alpha}^{H}\rBrace{\omega}}
+\newcommand{\vBetaH}{\vecnot{\beta}^{H}\rBrace{\omega}}
 \newcommand{\vEta}{\vecnot{\eta}}
 \newcommand{\vEtaT}{\vEta^{T}}
 \newcommand{\vEtaH}{\vEta^{H}}
@@ -76,6 +76,7 @@
 \newcommand{\F}[1]{\MakeUppercase{#1}}
 \newcommand{\ePhi}[1]{\exp{\rBrace{#1j\phi}}}
 \newcommand{\thetaD}{\theta_{\text{d}}}
+\newcommand{\Hba}{H_{\vecnot{\beta},\vecnot{\alpha}}\rBrace{\omega}}
 
 \NewDocumentCommand{\evalat}{sO{\big}mm}{%
   \IfBooleanTF{#1}
@@ -84,8 +85,8 @@
 }
 
 \newcommand{\Steer}[1]{\vd_{#1}} 
-\newcommand{\aTd}{\vAlpha^{T}\Steer{}} 
-\newcommand{\bTd}{\vBeta^{T}\Steer{}}
+\newcommand{\aTd}{\vAlphaT\Steer{}} 
+\newcommand{\bTd}{\vBetaT\Steer{}}
 \newcommand{\Hr}{\mathcal{H}}
 \newcommand{\myTodo}[2]{\ifdefined\showTodo{\todo[#1]{#2}}\else\fi}
 \newcommand{\myTodoNew}[2]{\ifdefined\showTodoNew{\todo[#1]{#2}}\else\fi}

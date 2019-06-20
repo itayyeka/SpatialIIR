@@ -1,4 +1,4 @@
-An intuitive understanding of the spatial feedback concept may be achieved when inspecting one of the two main IIR filter architectures, known as the ``\textit{Direct form II}" (see Fig.~\ref{fig_IIRBasicArch}). In this architecture, the recursive part of the filter is implemented by feeding the input ($x$) with it's delayed and independently weighted (with $\vAlpha$ weights) instances before entering the FIR part (defined by $\vBeta$).
+An intuitive understanding of the spatial feedback concept may be achieved when inspecting one of the two main IIR filter architectures, known as the ``\textit{Direct form II}" (see Fig.~\ref{fig_IIRBasicArch}). In this architecture, the recursive part of the filter is implemented by feeding the input $x$ with it's delayed and independently weighted (with $\vAlpha$ weights) instances before entering the FIR part (defined by $\vBeta$).
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.65\linewidth, 
@@ -19,7 +19,7 @@ An intuitive understanding of the spatial feedback concept may be achieved when 
     \label{fig_IIRBasicArch}
 \end{figure}
 Inspired by this architecture, we seek for an analogous structure which will mimic the feedback loop in the spatial domain. 
-In order to do so, we propose a feedback beamformer architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) where the weights $\vBeta$ generate the output signal ($y$), the $\vAlpha$ weights are used to synthesize the feedback transmission ($\text{Tx}$) and $x$ is the input waveform. An additive noise model (n) is assumed at the array's output. 
+In order to do so, we propose a feedback beamformer architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) where the weights $\vBeta$ generate the output signal $z$, the $\vAlpha$ weights are used to synthesize the feedback transmission ($\text{Tx}$) and $s$ is the input waveform. An additive noise model, denoted as n, is assumed at the array's output. 
 Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed signal, acts as the DS beamformer. 
 \begin{figure}[t!]
     \begin{center}
@@ -41,9 +41,9 @@ Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed si
             \put (19, 27){$\Sigma$}
             \put (19, 11.25){\large{$+$}}
             \put (61.5, 27){$\Sigma$}
-            \put (44.75, 11.75){$x\rBrace{t}$}
+            \put (44.75, 11.75){$s\rBrace{t}$}
             \put (33.15, 11.75){n$\rBrace{t}$}
-            \put (21,4){$y\rBrace{t}$}
+            \put (21,4){$z\rBrace{t}$}
             \put (63.5,14){$\text{Tx}\rBrace{t}$}
             \put (1, 51){$\text{FB}_{\vAlpha,\vBeta}$}
         \end{overpic}

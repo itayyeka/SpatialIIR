@@ -3,24 +3,23 @@ Time domain analysis of the proposed feedback based architecture, considering bo
     \label{eqn:SingleSensorTemporalEquality}
     % \resizebox{.91\linewidth}{!}{
         \begin{split}
-            x_{n,\thetaD}(t) = g\Bigg{(}&x\rBrace{t-\tau_{pd}-\tau_{n,\thetaD}}\\
-            &+\sum_{m=0}^{N-1}{\alpha_{m}x_{m,\thetaD}\rBrace{t-\tau_{pd}-\tau_{n,\thetaD}}}\Bigg{)},
+            x_{n}(t) = g\rBrace{s\rBrace{t-\tau_{pd}-\tau_{n}}
+            +\sum_{m=0}^{N-1}{\alpha_{m}x_{m}\rBrace{t-\tau_{pd}-\tau_{n}}}},
         \end{split}
     % }
 \end{equation}
-where the first term of the right-hand side represents the contribution of the transmitted waveform $x(t)$ as received by the $n$'th array element and the second term represents the feedback contribution of the re-transmitted array signals to this same element.
-To simplify the exposition, through the rest of the paper, $\thetaD$ will be suppressed in the notation where possible.  
+where the first term of the right-hand side represents the contribution of the transmitted waveform $s(t)$ to the $n$'th array element and the second term represents the feedback contribution of the re-transmitted array signal to this same element.
 Expressing \eqref{eqn:SingleSensorTemporalEquality}'s Fourier transform,
 \begin{equation}
     \label{eqn_singleSensorFourier}
     % \resizebox{.91\linewidth}{!}{
         \begin{split}
             \F{x}_{n}\rBrace{\omega} =
-            g\Bigg( & \F{x}_{n}\rBrace{\omega}
+            g\Bigg( & \F{s}\rBrace{\omega}
             \exp\rBrace{-j\omega\rBrace{\tau_{pd}+\tau_{n}}}
             \\&+\sum_{m=0}^{N-1}
             {
-            \alpha_{m}\F{x}_{m}\rBrace{\omega}
+            \alpha_{m}\rBrace{\omega}\F{x}_{m}\rBrace{\omega}
             \exp\rBrace{-j\omega\rBrace{\tau_{pd}+\tau_{n}}}
             }\Bigg),
         \end{split}
@@ -28,17 +27,17 @@ Expressing \eqref{eqn:SingleSensorTemporalEquality}'s Fourier transform,
 \end{equation}
 and its vector from,
 $$
-\F{\vx}\rBrace{\omega} = ge^{-j\omega\tau_{pd}} \rBrace{\F{x}\rBrace{\omega}+\vAlphaT \F{\vx}\rBrace{\omega}}\vd,
+\F{\vx}\rBrace{\omega} = ge^{-j\omega\tau_{pd}} \rBrace{\F{s}\rBrace{\omega}+\vAlphaT \F{\vx}\rBrace{\omega}}\vd,
 $$
 we find that it can be simplified to
 $$
-\F{\vx}\rBrace{\omega} =\rBrace{I-g\vd\vAlphaT{}e^{-j\omega\tau_{pd}}}^{-1}ge^{-j\omega\tau_{pd}}\F{x}\rBrace{\omega} \vd.
+\F{\vx}\rBrace{\omega} =\rBrace{I-g\vd\vAlphaT{}e^{-j\omega\tau_{pd}}}^{-1}g\vd\exp{\rBrace{-j\omega\tau_{pd}}}\F{s}\rBrace{\omega}.
 $$
-Then, we use Woodbury matrix identity \cite{woodbury1950inverting} and denote
+Then, denoting
 \[
 \phi\triangleq\omega\tau_{pd}
 \]
-as the round-trip signal propagation related electrical phase, to state that
+as the round-trip signal propagation related electrical phase and using the Woodbury matrix identity \cite{woodbury1950inverting}, we find that
 $$
 \F{\vx}\rBrace{\omega}
 =
@@ -46,26 +45,25 @@ $$
 g\vd\exp{\rBrace{-j\phi}}
 }{
 1 - g\aTd{}\exp{\rBrace{-j\phi}}
-}\F{x}\rBrace{\omega}.
+}\F{s}\rBrace{\omega}.
 $$
-Considering the noiseless case (i.e. $\text{n}\rBrace{t}=0, y\rBrace{t}=\vBetaT{}\vx\rBrace{t}$),
+Considering the noiseless case $\rBrace{\text{i.e. n}\rBrace{t}=0}$,
 we express the general spatial response of the suggested feedback-based array, 
 \begin{equation}
 \label{eqn:GeneralFeedbackTransferFunction}
-H_{\vBeta,\vAlpha}\rBrace{\omega} 
+\Hba
 \triangleq
-\frac{\F{y}\rBrace{\omega}}{\F{x}\rBrace{\omega}} 
+\frac{\F{z}\rBrace{\omega}}{\F{s}\rBrace{\omega}} 
 =
 \frac{    
 g\bTd{}\exp\rBrace{-j\phi}
 }{
 1 - g\aTd{}\exp\rBrace{-j\phi}
-},
+}.
 \end{equation}
-where $\F{y}\rBrace{\omega}$ is the Fourier transform of $y\rBrace{t}$.
-\par Note that this result confirms that our suggested array architecture actually achieves a controllable (via setting of $\vBeta$ and $\vAlpha$) and recursive (non-trivial denominator) spatial response, where the spatial information (i.e. the DOA, $\thetaD$) resides in the steering vector $\Steer$ of \eqref{eq:d}.
-As will be shown, by proper selection of the weights we can obtain high directivity and narrow beam-width. Comparing to traditional beamformers (i.e. with no feedback), the performance improvement will be expressed in terms of aperture increase (i.e. the traditional beamformer aperture which achieves the same performance).
-One may observe that opposed to traditional beamformers, the beampattern, $H_{\vBeta,\vAlpha}\rBrace{\omega},$ is not only influenced by the impinging signal DOA, for it is also range selective due to its dependency on the phase parameter $\phi$.
+\par Note that this result confirms that our suggested array architecture actually achieves a controllable (via setting of $\vBeta$ and $\vAlpha$) and recursive (non-trivial denominator) spatial response, where the spatial information (i.e. the DOA, $\thetaD$) resides in the steering vector $\Steer$.
+As will be shown, high directivity and narrow beam-width are obtainable by proper selection of the weights. Comparing to traditional beamformers (i.e. with no feedback), the performance improvement will be expressed in terms of aperture increase (i.e. the traditional beamformer aperture which achieves the same performance).
+One may observe that opposed to traditional beamformers, the beampattern, $\Hba,$ is not only influenced by the impinging signal DOA, for it is also range selective due to its dependency on the phase parameter $\phi$.
 As exemplified in Fig.~\ref{fig_rangeAzimuthSelectivity}, the combination of both angular and range selective patterns enables the designer to enhance signals arriving from specific locations rather than only specific directions.
 \begin{figure}[t!]
     \begin{center}

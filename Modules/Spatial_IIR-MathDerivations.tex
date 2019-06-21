@@ -48,7 +48,7 @@ g\vd\exp{\rBrace{-j\phi}}
 }\F{s}\rBrace{\omega}.
 $$
 Considering the noiseless case $\rBrace{\text{i.e. n}\rBrace{t}=0}$,
-we express the general spatial response of the suggested feedback-based array, 
+we express the general spatial response of FB as 
 \begin{equation}
 \label{eqn:GeneralFeedbackTransferFunction}
 \Hba
@@ -61,10 +61,10 @@ g\bTd{}\exp\rBrace{-j\phi}
 1 - g\aTd{}\exp\rBrace{-j\phi}
 }.
 \end{equation}
-\par Note that this result confirms that our suggested array architecture actually achieves a controllable (via setting of $\vBeta$ and $\vAlpha$) and recursive (non-trivial denominator) spatial response, where the spatial information (i.e. the DOA, $\thetaD$) resides in the steering vector $\Steer$.
-As will be shown, high directivity and narrow beam-width are obtainable by proper selection of the weights. Comparing to traditional beamformers (i.e. with no feedback), the performance improvement will be expressed in terms of aperture increase (i.e. the traditional beamformer aperture which achieves the same performance).
+\par Note that this result confirms that our suggested array architecture achieves a controllable (via setting of $\vBeta$ and $\vAlpha$) and recursive (non-trivial denominator) spatial response.
+As will be shown, high directivity and narrow beam-width are obtainable by proper selection of the weights. Comparing to traditional beamformers (i.e. with no feedback), the performance improvement will be expressed in terms of aperture increase, expressing the traditional beamformer aperture which achieves the same performance.
 One may observe that opposed to traditional beamformers, the beampattern, $\Hba,$ is not only influenced by the impinging signal DOA, for it is also range selective due to its dependency on the phase parameter $\phi$.
-As exemplified in Fig.~\ref{fig_rangeAzimuthSelectivity}, the combination of both angular and range selective patterns enables the designer to enhance signals arriving from specific locations rather than only specific directions.
+As exemplified in Fig.~\ref{fig_rangeAzimuthSelectivity}, the combination of both angular and range selectivity enables the designer to enhance signals arriving from specific locations rather than only specific directions.
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.65\linewidth, 

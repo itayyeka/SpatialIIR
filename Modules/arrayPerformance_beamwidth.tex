@@ -1,9 +1,9 @@
-A commonly used parameter for quantifying the array's main lobe narrowness is the Half-Power-Beam-Width (HPBW), marking the DOA where the beampattern's energy reduces to half of its maximal value (i.e. $\abs{\Hr}^2=\frac{1}{2}$). 
-For standard ULA, it is known \cite{van2004optimum} that for large $N$,
+The Half-Power-Beam-Width (HPBW) parameter quantifies the array's main lobe narrowness, marking the DOA where the beampattern's energy reduces to half of its maximal value.
+For standard ULA, with aperture of $N\delta$, it is known \cite{van2004optimum} that for large $N$,
 $$
- \frac{\lambda\dTheta_{\text{HPBW}}}{2\pi{}\delta} = \frac{\lambda}{\pi{}N\delta}1.4,
+ \frac{\lambda\dThetaHPBW}{2\pi{}\delta} = \frac{\lambda}{\pi{}N\delta}1.4,
 $$
-where $\lambda$ is the signal wavelength, and $\dTheta_{\text{HPBW}}/2$ is the electrical angle where the HPBW is obtained. This result is more commonly expressed as $N\dTheta_{\text{HPBW}}/2= 1.4$, where we note that that $N\delta$ is the array aperture size.
+where $\lambda$ is the signal wavelength, and $\dThetaHPBW/2$ is the electrical angle where the HPBW is obtained. This result is more commonly expressed as $N\dThetaHPBW/2= 1.4$. 
 \par In App.~\ref{apdx_HPBW} we extend this known result for any $r\geq 0$. It turns out that for large $N$, the HPBW is obtained by solving the equation
 \begin{equation}\label{eq_HPBW}
     % \resizebox{1\linewidth}{!}{
@@ -16,22 +16,22 @@ where we define $x\triangleq{} N\dTheta/2$. In Fig.~\ref{fig_feedbackULA_HPBW_Nx
 Having the limiting factors for various values of the gain mismatch $r$, we investigate the feedback related improvement.
 Specifically, we can approximate the HPBW by
 \[
-\dTheta_{\text{HPBW}}/2\approx \frac{1}{B(r)N}
+\dThetaHPBW/2\approx \frac{1}{f(r)N}
 \]
-where $B(r)$ represents the array aperture improvement factor (compared to the traditional ULA). In Fig.~\ref{fig_feedbackULA_beamwidth_limit_r_dependent} we show that $B(r)$ may be approximated with a second order polynomial, such that
+where $f(r)$ represents the array aperture improvement factor, compared to the traditional ULA. 
+Fig.~\ref{fig_feedbackULA_beamwidth_limit_r_dependent} shows that $f(r)$ may be approximated with a second order polynomial as
 \begin{equation}
     \label{eq_Bapprox}
-    B(r)\approx\frac{1}{\rBrace{1-r}\rBrace{-0.4r+1.4}}.
-\end{equation} 
-Note that large values of $B(r)$ imply that the suggested feedback based system, has smaller HPBW. 
-Another interpretation is that non-feedback based ULA needs to be $B$-times larger in order to achieve that same performance as the feedback based version.
-\par As evident from \eqref{eq_Bapprox} and Fig.~\ref{fig_feedbackULA_beamwidth_limit_r_dependent}, feedback based arrays with close-to-unity gain mismatch factors ($r$) are equivalent to classical ULAs of infinite apertures.
+    f(r)\approx\frac{1}{\rBrace{1-r}\rBrace{-0.4r+1.4}}.
+\end{equation}
+Note that large values of $f(r)$ corresponds with small HPBW values, thus high gain matching (i.e. $r\to1$) significantly narrows the HPBW and increases the beampattern's spatial selectivity. 
+In other words, for close-to-unity gain match ($r\sim1$), only passive ULAs of infinite apertures achieve the same performance.
 \begin{figure}[t]
     \begin{center}
         \begin{overpic}[width=0.65\linewidth, 
         %grid, 
         tics=10,trim=0 0 0 0]{./Media/spatial_IIR_MATLAB/arrayParameters/HPBW_vs_N_various_r.eps}
-            \put (4, 75){\footnotesize{$N\dTheta_{\text{HPBW}}/2$}}
+            \put (4, 75){\footnotesize{$N\dThetaHPBW/2$}}
             \put (50, 62.5) {\footnotesize{$r=0$}}
             \put (50, 54) {\footnotesize{$r=0.1$}}
             \put (50, 39.5) {\footnotesize{$r=0.3$}}
@@ -41,7 +41,7 @@ Another interpretation is that non-feedback based ULA needs to be $B$-times larg
             \put (50, 2) {\footnotesize{$N$}}
         \end{overpic}
     \end{center}
-     \caption{Plot of $N\dTheta_{\text{HPBW}}/2$ vs. $N$, for various $r$ values. In each simulation, $r$ is constant and $\dTheta_{\text{HPBW}}$ is calculated for each $N$ separately. The product $N\dTheta_{\text{HPBW}}/2$ reaches its limit value approximately for $N>20$.}
+     \caption{Plot of $N\dThetaHPBW/2$ vs. $N$, for various $r$ values. In each simulation, $r$ is constant and $\dThetaHPBW$ is calculated for each $N$ separately. The product $N\dThetaHPBW/2$ reaches its limit value approximately for $N>20$.}
     \label{fig_feedbackULA_HPBW_Nx_vs_N_variousR}
 \end{figure}
 \begin{figure}[t]
@@ -52,12 +52,12 @@ Another interpretation is that non-feedback based ULA needs to be $B$-times larg
             
             \put (51, 61) {\footnotesize{Simulation results}}
             \put (51, 55) {\footnotesize{Approximation}}
-            \put (51, 49.5) {\footnotesize{$B\rBrace{r}/1.4$}}
-            \put (87, 75) {\footnotesize{$B\rBrace{r}/1.4$}}
-            \put (4, 75){\footnotesize{$N\dTheta_{\text{HPBW}}/2$}}
+            \put (51, 49.5) {\footnotesize{$f\rBrace{r}/1.4$}}
+            \put (87, 75) {\footnotesize{$f\rBrace{r}/1.4$}}
+            \put (4, 75){\footnotesize{$N\dThetaHPBW/2$}}
             \put (50, 2) {\footnotesize{$r$}}
         \end{overpic}
     \end{center}
-    \caption{Evaluation of $N\dTheta_{\text{HPBW}}/2$ for $N=100$ and its approximation $1/B(r)$  (marked by red diamonds) with $B(r)$ of \eqref{eq_Bapprox}. Also presented the array aperture improvement factor $B\rBrace{r}/1.4$  (dotted curve).} 
+    \caption{Evaluation of $N\dThetaHPBW/2$ for $N=100$ and its approximation $1/f(r)$  (marked by red diamonds) with $f(r)$ of \eqref{eq_Bapprox}. Also presented the array aperture improvement factor $B\rBrace{r}/1.4$  (dotted curve).} 
     \label{fig_feedbackULA_beamwidth_limit_r_dependent}
 \end{figure}

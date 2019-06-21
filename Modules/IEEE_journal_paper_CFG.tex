@@ -47,8 +47,9 @@
 \newcommand{\lBrace}[1]{\left|{#1}\right|}
 \newcommand{\vBrace}[1]{\left[{#1}\right]}
 \newcommand{\cBrace}[1]{\left\{{#1}\right\}}
-\newcommand{\dTheta}{\Delta\theta}
-\newcommand{\dPhi}{\Delta\phi}
+\newcommand{\dTheta}{\Delta\theta\rBrace{\omega}}
+\newcommand{\dPhi}{\Delta\phi\rBrace{\omega}}
+\newcommand{\dThetaHPBW}{\Delta\theta_{\text{HPBW}}}
 \newcommand{\dOmega}{\Delta\omega}
 \newcommand{\dR}{\Delta{R}}
 \newcommand{\dTau}{CHANGE_TO_DPHI}
@@ -57,17 +58,25 @@
 \newcommand{\D}[2]{\text{D}\rBrace{#1,#2}}
 \newcommand{\Dp}[2]{\text{D}^{#2}\rBrace{#1}}
 
+% \newcommand{\coefSetName}{\text{CB}}
+\newcommand{\coefSetName}{\text{DS}}
+
 \newcommand{\vd}{\vecnot{d}\rBrace{\omega}}
+\newcommand{\vdC}{\vecnot{d}^{\ast}\rBrace{\omega}}
 \newcommand{\vx}{\vecnot{x}}
 \newcommand{\vAlpha}{\vecnot{\alpha}\rBrace{\omega}}
 \newcommand{\vBeta}{\vecnot{\beta}\rBrace{\omega}}
 \newcommand{\vAlphaC}{\vecnot{\alpha}^{\ast}\rBrace{\omega}}
 \newcommand{\vBetaC}{\vecnot{\beta}^{\ast}\rBrace{\omega}}
+\newcommand{\vBetaFB}{\vecnot{\beta}_{\coefSetName}\rBrace{\omega}}
+\newcommand{\vAlphaFB}{\vecnot{\alpha}_{\coefSetName}\rBrace{\omega}}
 \newcommand{\vdT}{\vecnot{d}^{T}\rBrace{\omega}}
 \newcommand{\vxT}{\vecnot{x}^{T}}
 \newcommand{\vAlphaT}{\vecnot{\alpha}^{T}\rBrace{\omega}}
 \newcommand{\vBetaT}{\vecnot{\beta}^{T}\rBrace{\omega}}
 \newcommand{\vdH}{\vecnot{d}^{H}\rBrace{\omega}}
+\newcommand{\vdHat}{\hat{\vecnot{d}}\rBrace{\omega}}
+\newcommand{\vdHatC}{\hat{\vecnot{d}}^{\ast}\rBrace{\omega}}
 \newcommand{\vxH}{\vecnot{x}^{H}}
 \newcommand{\vAlphaH}{\vecnot{\alpha}^{H}\rBrace{\omega}}
 \newcommand{\vBetaH}{\vecnot{\beta}^{H}\rBrace{\omega}}
@@ -79,6 +88,7 @@
 \newcommand{\ePhi}[1]{\exp{\rBrace{#1j\phi}}}
 \newcommand{\thetaD}{\theta_{\text{d}}}
 \newcommand{\Hba}{H_{\vecnot{\beta},\vecnot{\alpha}}\rBrace{\omega}}
+\newcommand{\HbaFB}{H_{\vecnot{\beta}_{\coefSetName},\vecnot{\alpha}_{\coefSetName}}\rBrace{\omega}}
 
 \NewDocumentCommand{\evalat}{sO{\big}mm}{%
   \IfBooleanTF{#1}
@@ -90,10 +100,9 @@
 \newcommand{\aTd}{\vAlphaT\Steer{}} 
 \newcommand{\bTd}{\vBetaT\Steer{}}
 \newcommand{\Hr}{\mathcal{H}}
+\newcommand{\HrTPr}{\mathcal{H}_{\Delta\theta,\Delta\phi,r}}
 \newcommand{\myTodo}[2]{\ifdefined\showTodo{\todo[#1]{#2}}\else\fi}
 \newcommand{\myTodoNew}[2]{\ifdefined\showTodoNew{\todo[#1]{#2}}\else\fi}
-% \newcommand{\coefSetName}{\text{CB}}
-\newcommand{\coefSetName}{\text{DS}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

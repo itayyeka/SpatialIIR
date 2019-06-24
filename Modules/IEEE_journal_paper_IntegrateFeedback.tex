@@ -156,26 +156,26 @@ As commonly done for ULA parameter analysis \cite{van2004optimum}, we focus on t
     \end{split}
     %}
 \end{equation}
-where $\vecnot{\beta}_{\text{opt}},\vecnot{\alpha}_{\text{opt}}$ are the optimal weights assuming exact knowledge of the steering vector and the phase $\phi$ (i.e. the perfect alignment scenario), 
+where $\vecnot{\beta}_{\text{opt}}$ and $\vecnot{\alpha}_{\text{opt}}$ are the optimal weights assuming perfect alignment scenario, explicitly written as
 \[
-\vBeta_{\text{opt}}=\vAlpha_{\text{opt}}=\vdC\exp\rBrace{j{\phi}}/g\norm{{\vd}}^2
+\vBeta_{\text{opt}}=\vAlpha_{\text{opt}}=\vdC\exp\rBrace{j{\phi}}/g\norm{{\vd}}^2.
 \]
-and the subscript of $\dTheta,\dPhi$ and $r$ emphasize its DOA, range and gain errors dependency.
+Also, the $\HrTPr$'s subscript emphasize its DOA, range and gain errors dependency, suppressing their own $\omega$ dependency for simplicity.
 % where that as $\vBetaFB,\vAlphaFB$ are functions of the DOA, range and gain errors, we add to $\Hr$ the subscript of $\dTheta,\dPhi$ and $r$. 
 Explicitly writing $\Hr$ gives rise to 
 \begin{equation}\label{eq_generalH}
     \resizebox{0.89\linewidth}{!}{
         \begin{split}
              \HrTPr\rBrace{\omega}=
-             \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{\dPhi+(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}}
+             \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{\dPhi+(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}},
         \end{split}
         }
 \end{equation}
-where the normalized pattern of traditional ULA may be achieved by setting $r=0$ (i.e. no feedback)
-\[
+which may degenerate to traditional ULA pattern by setting $r=0$ (i.e. no feedback), i.e.
+$$
 \Hr_{\Delta\theta,\Delta\phi=0,r=0}\rBrace{\omega}=
              \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}}.
-\]
+$$
 Next, we evaluate the FB's beamwidth, sidelobe level and directivity and compare them to standard ULA considering the steer error scenario (i.e. $\dPhi=0$) where 
 \begin{equation}\label{eq_Hdphi0}
 \Hr_{\Delta\theta,\Delta\phi=0,r=0}\rBrace{\omega}=

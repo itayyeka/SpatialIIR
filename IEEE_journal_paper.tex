@@ -36,7 +36,7 @@ Spatial array processing, beamforming, localization, beam-pattern, cooperative b
 \input{./Modules/IEEE_journal_paper_IntegrateFeedback.tex}
 \section{Range Error Sensitivity}
 \label{sec_sim}
-In this section we investigate $\Hr_{\dTheta,\dPhi,r}\rBrace{\omega}$ of \eqref{eq_generalH} for the general case, where also the range misalignment phase term $\dPhi$ is possibly non zero. In Fig.~\ref{fig_hDUDTContour}, we plot $\abs{\Hr_{\dTheta,\dPhi,r}\rBrace{\omega}}$ in logarithmic scale, with respect to both steer and range misalignments.
+In this section we investigate $\HrTPr$ for the general case, where also range misalignment phase term $\dPhi$ is possibly non zero. In Fig.~\ref{fig_hDUDTContour}, we plot $\abs{\HrTPr}$ in logarithmic scale, with respect to both steer and range misalignments.
 Close inspection of the range error related beampattern behaviour sheds light to some important observations.
 First, we notice that although setting $r\to1$ (i.e. close to perfect gain match), sharpens the beampattern's main lobe  (i.e. higher spatial selectivity), it also amplifies the range error ($\dPhi$) related sensitivity as the main lobe's support over the $\dPhi/\pi$ axis shrinks. 
 Next, as evident from \eqref{eq_generalH}, the range error related sensitivity is $2\pi$-periodic with respect to $\dPhi$ (see Fig.~\ref{fig_hDUDTContour_mutliPeak}).
@@ -44,9 +44,9 @@ To establish our final observation, we first recall that
 \[
 \phi\triangleq\omega\tau_{pd}=\frac{2\pi R_{\text{rt}}}{\lambda},
 \]
-where $R_{\text{rt}}$ is the round-trip distance between the array and the target of interest and denote
+where $R_{\text{rt}}=2R$ is the round-trip distance between the array and the target of interest and denote
 \[
-\Delta R_{\text{rt}}=\frac{\dPhi \lambda}{2\pi} 
+\Delta R_{\text{rt}}\rBrace{\omega}=\frac{\dPhi\lambda}{2\pi} 
 \]
 as the range estimation error.
 Then, simulating different range estimation errors in Fig.~\ref{fig_rangError} shows that even minor range errors of $\Delta R_{\text{rt}}\sim0.1\lambda$ significantly distort the beampattern.
@@ -114,7 +114,7 @@ Then, simulating different range estimation errors in Fig.~\ref{fig_rangError} s
 \label{sec_conclusions}
 Integrating feedback into traditional beamformers proved to achieve a spatial domain equivalent of the temporal IIR.
 It seems that a simple generalization of the DS beamformer maximizes (locally) the system's residing spatial information, thus enabling high localization accuracy.
-The feedback based architecture performance evaluation predicts an almost infinite improvement in all criteria, considering perfect knowledge of the target's range and the channel attenuation.
+The feedback based architecture performance evaluation predicts an almost infinite improvement in all criteria, when considering perfect knowledge of the target's range and the channel attenuation.
 It turns out that using single frequency waveform with the feedback beamformer is impractical, being too sensitive to even mild target range estimation errors.
 Fortunately, using two frequency waveform and applying simple frequency domain manipulations to the output and feedback signals, were found to serve as a low frequency (hence low sensitivity) equivalent of the single frequency scheme.
 Also, the dual frequency scheme proved to be of low noise sensitivity, featuring high performance even in relatively low SNR scenarios.

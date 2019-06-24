@@ -1,10 +1,11 @@
 As demonstrated in the previous section, the beampattern \eqref{eq_generalH} is too sensitive to range errors.
-We now propose an architecture which obtains the desired beampattern $\Hr_{\dTheta,\dPhi\to0,r}$ even for relatively large $\Delta R_{\text{rt}}$. Moreover, we intend to show that the suggested architecture even achieves high performance at moderately low signal to noise ratio (SNR) scenarios.
+We now propose an architecture which obtains the desired beampattern $\Hr_{\Delta\theta,\Delta\phi\to0,r}$ even for relatively large $\Delta R_{\text{rt}}$ values. Moreover, we intend to show that the suggested architecture even achieves high performance at moderately low signal to noise ratio (SNR) scenarios.
 
-\subsection*{Motivation}
-Bearing in mind that the system's phase alignment sensitivity resides in \eqref{eq_generalH} via the  term $\exp\Brack{j\dPhi}=\exp\Brack{j\omega\Delta\tau_{pd}}$ and that the round-trip delay (i.e. $\tau_{pd}$) cannot be controlled, one may suggest to use lower frequencies. Unfortunately, transmission of such low frequencies is physically unfeasible. 
-Another approach is to simultaneously use several frequencies in order to resolve the range error sensitivity. 
-In the following, we show a possible algorithm which achieves this goal by using a dual frequency (DF) waveform, transmitting two separated frequencies, $\omega_1$ and $\omega_2$.
+\subsection*{Intuitive explanation}
+Bearing in mind that the system's phase alignment sensitivity resides in \eqref{eq_generalH} via the  term $\exp\Brack{j\dPhi}=\exp\Brack{j\omega\Delta\tau_{pd}}$ and that the round-trip delay ($\tau_{pd}$) cannot be controlled, one may suggest to use lower frequencies. 
+Unfortunately, aiming for practical range estimation errors, the transmission of such low frequencies is physically unfeasible. 
+Inspired by frequency sum and subtraction trigonometrical identities, we suggest simultaneous transmission of several frequency separated signals in order to resolve the range error sensitivity by virtually transmitting a low frequency signal.
+\par In the following, we show a possible algorithm which achieves this goal by using a dual frequency (DF) waveform, transmitting two separated frequencies, $\omega_1$ and $\omega_2$.
 
 \subsection*{Suggested processing scheme}
 \begin{figure}[t!]
@@ -12,10 +13,10 @@ In the following, we show a possible algorithm which achieves this goal by using
         \begin{overpic}[width=0.95\linewidth, 
         % grid, 
         tics=10,trim={0 0 0 0}]{./Media/SpatialIIR_APP.png}
-            \put (12.5, 64){$\text{FB}_{\vAlpha_{1},\vBeta_{1}}$}
-            \put (61, 64){$\text{FB}_{\vAlpha_{2},\vBeta_{2}}$}
-            \put (4.5, 59){$y_{1}\rBrace{t}$}
-            \put (54, 59){$y_{2}\rBrace{t}$}
+            \put (12.5, 64){$\text{FB}_{\vAlphaI{1},\vBetaI{1}}$}
+            \put (61, 64){$\text{FB}_{\vAlphaI{2},\vBetaI{2}}$}
+            \put (4.5, 59){$z_{1}\rBrace{t}$}
+            \put (54, 59){$z_{2}\rBrace{t}$}
             \put (12.9, 41.5){$\text{BPF}_{\omega_{1}}$}
             \put (61.65, 41.5){$\text{BPF}_{\omega_{2}}$}
             \put (6, 51.5){+}
@@ -24,10 +25,10 @@ In the following, we show a possible algorithm which achieves this goal by using
             \put (64.75, 51.5){\footnotesize{$\text{n}_{2}\rBrace{t}$}}
             \put (24.5, 59){\footnotesize{$\text{Tx}_{1}\rBrace{t}$}}
             \put (73.5, 59){\footnotesize{$\text{Tx}_{2}\rBrace{t}$}}
-            \put (36.25, 64){\scriptsize{$x_{1}\rBrace{t}$}}
-            \put (43, 64){\scriptsize{$x_{2}\rBrace{t}$}}
+            \put (36.25, 64){\scriptsize{$s_{1}\rBrace{t}$}}
+            \put (43, 64){\scriptsize{$s_{2}\rBrace{t}$}}
             \put (18.25, 13){\footnotesize{Harmonic mean}}
-            \put (32, 2){$y\rBrace{t}$}
+            \put (32, 2){$z\rBrace{t}$}
             \put (54.75, 24){$\Sigma$}
             \put (21.75, 25){\footnotesize{$\mathcal{F}_{\omega_{1}}$}}
             \put (30.75, 25){\footnotesize{$\mathcal{F}_{\omega_{2}}$}}
@@ -36,69 +37,72 @@ In the following, we show a possible algorithm which achieves this goal by using
     \caption{Dual-frequency beamformer, consisting of two independent FB blocks and narrowband bandpass filters. The blocks marked by $\mathcal{F}_{\omega_{i}}$ compute the Fourier coefficients in $\omega_{i}$ and their outputs feed the harmonic mean calculator which generates the DF beamformer's output.}
     \label{fig_app}
 \end{figure}
-In Fig.~\ref{fig_app}, we exemplify the use of two independently configured instances of the FB (of Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), where each instance is designed to treat only a specific frequency. 
-Two independent FB blocks and 4 band-pass-filters ($\text{BPF}_{\omega_{i}}$ filters a narrowband slice around $\omega_{i}$) are used to generate both the transmitted feedback signal ($\text{Tx}_{i}$) and the beamformers' outputs $y_{i}$. 
-Also, $x_{i}(t) = e^{j\omega_{i}t}, \omega_{i} = 2\pi{f_{i}}$ with $i=1,2$ are two independent, narrowband, stimuli signals and $n_{i}$ are additive noise instances. 
-Note that we do not increase the number of array elements, but merely double the beamformer processing part. 
-\par For each single frequency FB block \eqref{eqn:GeneralFeedbackTransferFunction} the output is
+In Fig.~\ref{fig_app}, we exemplify the use of two independently configured FB (see  Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) instances, where each instance is designed to treat only a specific frequency. 
+Two independent FB blocks and 4 band-pass-filters ($\text{BPF}_{\omega_{i}}$ filters a narrowband slice around $\omega_{i}$) are used to generate both the transmitted feedback signal ($\text{Tx}_{i}$) and the beamformers' outputs $z_{i}$. 
+Also, $s_{i}(t) = e^{j\omega_{i}t}, \omega_{i} = 2\pi{f_{i}}$ where $i=1,2$ are two independent, narrowband, stimuli signals and $\text{n}_{i}$ are additive noise instances. 
+Note that we do not add array elements, but merely double the beamformer processing effort. 
+\par For each single frequency FB block, the output \eqref{eqn:GeneralFeedbackTransferFunction} is
 \[
-y_{i}(t)=H_{\vAlpha_{i},\vBeta_{i}}\rBrace{\omega_{i}}\exp{\rBrace{j\omega_{i}t}}\ \ {i\in\cBrace{1,2}},
+z_{i}(t)=H_{\vAlphaI{i},\vBetaI{i}}\rBrace{\omega_{i}}\exp{\rBrace{j\omega_{i}t}}\ \ {i\in\cBrace{1,2}},
 \]
-where $\vAlpha_{i},\vBeta_{i}$ are the coefficients of the $i$'th beamformer. 
-We then define the DF beamformer to be the harmonic mean of $H_{\vAlpha_{i},\vBeta_{i}}(\omega_i)$,
+where $\vAlphaI{i},\vBetaI{i}$ are the coefficients of the $i$'th beamformer. 
+We then define the DF beamformer to be the harmonic mean of $H_{\vAlphaI{i},\vBetaI{i}}(\omega_i)$,
 \begin{equation*}
-    H_{\text{DF}} = \rBrace{H^{-1}_{\vAlpha_{1},\vBeta_{1}}\rBrace{\omega_{1}}+H^{-1}_{\vAlpha_{2},\vBeta_{2}}\rBrace{\omega_{2}}}^{-1}.
+    H_{\text{DF}} = \rBrace{H^{-1}_{\vAlphaI{1},\vBetaI{1}}\rBrace{\omega_{1}}+H^{-1}_{\vAlphaI{2},\vBetaI{2}}\rBrace{\omega_{2}}}^{-1}.
 \end{equation*}
-In practice, $H_{\text{DF}}$ can be estimated by evaluating $y_1(t)$ and $y_2(t)$ in the frequency domain, as also illustrated in Fig.~\ref{fig_app}.
-Allowing $g$ to be frequency dependent and denoting $g_{i}$ to be the $\omega_{i}$ related gain, straight forward derivations leads
+In practice, $H_{\text{DF}}$ can be estimated by evaluating $z_1(t)$ and $z_2(t)$ in the frequency domain, as also illustrated in Fig.~\ref{fig_app}.
+Straight forward derivations, Allowing $g$ to be frequency dependent, leads to
 \begin{equation*}
     \centering
     \resizebox{1\linewidth}{!}{
         \begin{split}
-            &\lBrace{H_{\text{DF}}}^{-1}
-            =\\ 
-            &\lBrace{
+            \lBrace{H_{\text{DF}}}^{-1}
+            =
+            \Bigg{|}
+            &\frac
+            {
+            g\rBrace{\omega_{2}}\vBetaTI{2}\vdI{2}\exp{\rBrace{j\rBrace{\phi\rBrace{\omega_{1}}-\phi\rBrace{\omega_{2}}}}}+g\rBrace{\omega_{1}}\vBetaTI{1}\vdI{1}
+            }{
+            g\rBrace{\omega_{1}}\vBetaTI{1}\vdI{1}g\rBrace{\omega_{2}}\vBetaTI{2}\vdI{2}
+            }
+            \\&-
             \frac
             {
-            g_{2}\vBetaT_{2}\vd_{2}\exp{\rBrace{j\rBrace{\phi_{1}-\phi_{2}}}}+g_{1}\vBetaT_{1}\vd_{1}
+            \rBrace{\vBetaTI{1}\vdI{1}\vAlphaTI{2}\vdI{2}+\vBetaTI{2}\vdI{2}\vAlphaT_{1}\vdI{1}}\exp{\rBrace{-j\phi\rBrace{\omega_{2}}}}
             }{
-            g_{1}\vBetaT_{1}\vd_{1}g_{2}\vBetaT_{2}\vd_{2}
+            \vBetaTI{1}\vdI{1}\vBetaTI{2}\vdI{2}
             }
-            -
-            \frac
-            {
-            \rBrace{\vBetaT_{1}\vd_{1}\vAlphaT_{2}\vd_{2}+\vBetaT_{2}\vd_{2}\vAlphaT_{1}\vd_{1}}\exp{\rBrace{-j\phi_{2}}}
-            }{
-            \vBetaT_{1}\vd_{1}\vBetaT_{2}\vd_{2}
-            }
-            },
+            \Bigg{|},
         \end{split}
     }
 \end{equation*}
-where the $\omega_{i}$ related steering vector is
+defining the $\omega_{i}$ related steering vector as
 \begin{equation}\label{eq:new_d}
-\vd_{i}=\sBrack{\exp{\rBrace{-j\omega_i\tau_{0}}},...,\exp{\rBrace{-j\omega_i\tau_{N-1}}}}^{T}.
+\vdI{i}=\sBrack{\exp{\rBrace{-j\omega_i\tau_{0}}},...,\exp{\rBrace{-j\omega_i\tau_{N-1}}}}^{T}
 \end{equation}
-Note that in the special case of choosing $\vAlpha_{1}~=~\vBeta_{1},\ \vAlpha_{2}~=~-~\vBeta_2{}$, the resultant beampattern simplifies to
+where $\tau_{0}=0$.
+Note that in the special case of choosing $\vAlphaI{1}~=~\vBetaI{1},\ \vAlphaI{2}~=~-~\vBetaI{2}$, the resultant beampattern simplifies to
 \begin{equation}
     \label{eqn_twoFreqApproach_h}
-    \abs{H_{\text{DF}}} = \lBrace{\frac{g_{1}\vBetaT_{1}\vd_{1}}{1+\frac{g_{1}\vBetaT_{1}\vd_{1}}{g_{2}\vBetaT_{2}\vd_{2}}\exp{\rBrace{-j\rBrace{\phi_{1}-\phi_{2}}}}}} 
+    \abs{H_{\text{DF}}} = \lBrace{\frac{g\rBrace{\omega_{1}}\vBetaTI{1}\vdI{1}}{1+\frac{g\rBrace{\omega_{1}}\vBetaTI{1}\vdI{1}}{g\rBrace{\omega_{2}}\vBetaTI{2}\vdI{2}}\exp{\rBrace{-j\rBrace{\phi\rBrace{\omega_{1}}-\phi\rBrace{\omega_{2}}}}}}}.
 \end{equation}
-and that the element-wise delay $\tau_n$ is arbitrary, hence we no longer restrict the discussion to linear arrays or any specific array manifold. Also, as $\tau_n$ represents the inter-element delay, we use $\tau_0=0$ (i.e. treating sensor $0$ as the reference sensor).
+Also, $\tau_n$ is arbitrary, hence the discussion is not restricted to a specific array geometry.
+% and that the element-wise delay $\tau_n$ is arbitrary, hence we no longer restrict the discussion to linear arrays or any specific array manifold. 
+% Also, as $\tau_n$ represents the inter-element delay, we use $\tau_0=0$ (i.e. treating sensor $0$ as the reference sensor).
 We further simplify the second beamformer's weights to 
 \begin{equation}\label{eq_simpleBeta}
-    \vAlpha_{2}=-\vBeta_{2}=\vBrace{\hat{g}^{-1}(\omega_2),0,\hdots,0}.
+    \vAlphaI{2}=-\vBetaI{2}=\vBrace{\hat{g}^{-1}(\omega_2),0,\hdots,0}.
 \end{equation}
 which when plugged in \eqref{eqn_twoFreqApproach_h} gives rise to 
 \begin{equation}
-    H_{\text{DF}} = \lBrace{\frac{g_{1}\vBetaT_{1}\vd_{1}}{1+
-    \rBrace{g_{1}\vBetaT_{1}\vd_{1}/r_{2}}\exp\rBrace{-j\rBrace{\phi_{1}-\phi_{2}}}
+    H_{\text{DF}} = \lBrace{\frac{g\rBrace{\omega_{1}}\vBetaTI{1}\vdI{1}}{1+
+    \rBrace{g\rBrace{\omega_{1}}\vBetaTI{1}\vdI{1}/r_{2}}\exp\rBrace{-j\rBrace{\phi\rBrace{\omega_{1}}-\phi\rBrace{\omega_{2}}}}
     }},
     \label{eq_H_DF_general}
 \end{equation}
 denoting $r_i\triangleq{}g(\omega_i)/\hat{g}(\omega_i)$ to be gain mismatch at $\omega_i$. 
-\par The reader may notice that  $H_{\text{DF}}$ is similar to the single frequency (SF) beampattern \eqref{eqn:GeneralFeedbackTransferFunction}, where the range related phase $\phi$ is replaced by $\phi_{1}-\phi_{2}=(\omega_1-\omega_2)\tau_{pd}$. Hence, by using sufficiently close frequencies, one may significantly mitigate the range mismatch distortion of the beampattern.
-\par For example, consider a radio frequency carrier of $10\text{GHz}$ and typical range error of $\Delta{}R_{\text{rt}}=10_{\text{m}}$, which is $333\frac{1}{3}\lambda$ (assuming light speed of $c=3\cdot 10^{8}_{\text{m/s}}$). The single frequency beampattern distortion, being periodic in $\lambda$, will closely resembles the $0.3\lambda$ error plot presented in Fig.~\ref{fig_rangError}. Assume that we aim at maximal phase error of $\Delta \phi=0.01\pi_{\text{RAD}}$. Hence, when using the \textit{dual frequency} architecture, the dictated frequency relation is
+\par The reader may notice that  $H_{\text{DF}}$ is similar to the single frequency (SF) beampattern \eqref{eqn:GeneralFeedbackTransferFunction}, where the range related phase $\phi$ is replaced by $\phi\rBrace{\omega_{1}}-\phi\rBrace{\omega_{2}}=(\omega_1-\omega_2)\tau_{pd}$. Hence, by using sufficiently close frequencies, one may significantly mitigate the range mismatch distortion of the beampattern.
+\par For example, consider a radio frequency carrier of $10\text{GHz}$ and typical range error of $\Delta{}R_{\text{rt}}=10_{\text{m}}$, which is $333\frac{1}{3}\lambda$ (assuming light speed of $c=3\cdot 10^{8}_{\text{m/s}}$). The single frequency beampattern distortion, being periodic in $\lambda$, will closely resembles the $0.3\lambda$ error plot presented in Fig.~\ref{fig_rangError}. Assume that we aim at maximal phase error of $\Delta \phi=0.01\pi_{\text{RAD}}$. Hence, when using the DF architecture, the dictated frequency relation is
 \begin{equation}\label{eq_DF_phErr}
 \abs{(\omega_1-\omega_2)\frac{\Delta{}R_{\text{rt}}}{c}}<0.01\pi.
 \end{equation}
@@ -109,27 +113,28 @@ or equivalently, for maximal range error of $10_\text{m}$, frequency separation 
 is required. 
 
 \subsection*{Dual frequency simulation}
-We now simulate \eqref{eq_H_DF_general} for the dual frequency beamformer $\coefSetName$ approach assuming ULA. Using coefficients $\vBeta_{1}$ which will coherently sum the wave-front, while minimizing the magnitude of the denominator, we use
+We now simulate \eqref{eq_H_DF_general} for the dual frequency beamformer, using the $\coefSetName$ approach assuming ULA. Using coefficients $\vBetaI{1}$ which will coherently sum the wave-front, while minimizing the magnitude of the denominator, we use
 \begin{equation*}
-    \vBeta_{1}=-\hat{\vd_{1}}^{\ast}\exp\rBrace{j\rBrace{\hat{\phi}_{1}-\hat{\phi}_{2}}}/\hat{g_{1}}\norm{\hat{\vd_{1}}}^2
+    \vBetaI{1}=-\vdHatIC{1}\exp\rBrace{j\rBrace{\hat{\phi}\rBrace{\omega_{1}}-\hat{\phi}\rBrace{\omega_{2}}}}/\hat{g\rBrace{\omega_{1}}}\norm{\vdHatI{1}}^2.
 \end{equation*}
-where $\hat{\vd_{1}}$ is the estimated steering vector, as in \eqref{eq:d_hat}. With this choice, and similarly to \eqref{eq:SF_CB}, \eqref{eq_H_DF_general} becomes
+% where $\vdHatI{1}$ is the estimated steering vector, as in \eqref{eq:d_hat}.
+With this choice, and similarly to \eqref{eq:SF_CB}, \eqref{eq_H_DF_general} becomes
 \begin{equation}
     \label{eqn_H_DF_CB}
     \resizebox{.89\linewidth}{!}{
         \begin{split}
-            H_{\text{DF,\coefSetName}} =
+            H_{\text{DF,\coefSetName}}\rBrace{\omega} =
             \lBrace{\frac{r_{1}\D{\dTheta/2}{N}}{1-
-            \kappa\D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{\dPhi_{2}-\dPhi_{1}+(N-1)\dTheta/2}}}
+            \kappa\D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{\phi\rBrace{\omega_{2}}-\phi\rBrace{\omega_{1}}+(N-1)\dTheta/2}}}
             },
         \end{split}
     }
 \end{equation}
 where $\kappa\triangleq{}r_{1}/r_{2}$ is the gain mismatch ratio.
 For close frequencies such that $r_{1}\approx{}r_{2}$, $\kappa$ tends towards unity, thus significantly mitigating the gain mismatch effect even when both feedback beamformers are mismatched.
-\par In Fig.~\ref{fig_dualfreq_rangeErrorHighSnr}, we simulate the beampattern (normalized to $0$dB peak gain) for the single and \textit{dual frequency} architectures, where frequency separation was configured to mitigate the range errors according to \eqref{eq_DF_phErr} (i.e. $f_1=10_{GHz},\;f_2=f_1+150_{KHz}$ to mitigate range errors up till $\Delta{}R_{\text{rt}}=10_m=333\frac{1}{3}\lambda$). 
+\par In Fig.~\ref{fig_dualfreq_rangeErrorHighSnr}, we simulate the beampattern (normalized to $0$dB peak gain) for the single and DF architectures, where frequency separation was configured to mitigate the range errors according to \eqref{eq_DF_phErr} (i.e. $f_1=10_{GHz},\;f_2=f_1+150_{KHz}$ to mitigate range errors up till $\Delta{}R_{\text{rt}}=10_m=333\frac{1}{3}\lambda$). 
 We also plot (in blue circles) the perfectly aligned pattern, which is obtained when there are no range errors. 
-As can be seen, the resultant beampattern of the \textit{dual frequency} beamformer practically achieves the ideal, range-error free case. 
+As can be seen, the resultant beampattern of the DF beamformer practically achieves the ideal, range-error free case. 
 In Fig.~\ref{fig_dualfreq_perfectAlignLowSnr}
 we repeat the case of fractional range error of $\Delta{}R_{\text{rt}}=0.3\lambda$, while adding white Gaussian noise to the output of each feedback beamformer. Evidently, the dual-frequency beamformer (green diamonds) achieves close-to-ideal beampattern (blue circles), while the single-frequency beamformer (red squares) suffers severe distortions.
 \begin{figure}[t!]

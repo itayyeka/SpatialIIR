@@ -51,14 +51,14 @@ where $\vdO$ denotes the steering vector whose $n$'th element is
     \vecnot{d}_{\vBrace{n}}\rBrace{\omega} = \exp{\rBrace{-j\omega\tau_{n}}},\;n=0,\ldots,N-1.
 \end{equation}
 The frequency domain output of an $N$ element array beamformer, configured with frequency dependent weights $\vecnot{\beta}\rBrace{\omega}$, is denoted as $Z\rBrace{\omega}$ and may be expressed as
-$$ Z\rBrace{\omega} = g\vecnot{\beta}^{T}\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{x}_{0}\rBrace{\omega}. $$ 
+$$ Z\rBrace{\omega} = g\rBrace{\omega}\vecnot{\beta}^{T}\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{x}_{0}\rBrace{\omega}. $$ 
 Defining the electric phase to be
 \begin{equation}\label{eq:thetaULA}
 \theta=\omega{\delta\cos\Brack{\thetaD}}/{c},
 \end{equation}
 we re-write of the beamformer's output as 
 \[
-Z\rBrace{\omega} = g\F{x}_0\rBrace{\omega}\sum_{n=0}^{N-1}\beta_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
+Z\rBrace{\omega} = g\rBrace{\omega}\F{x}_0\rBrace{\omega}\sum_{n=0}^{N-1}\beta_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
 \]
 hence in the ULA case, aiming for a desired spatial response, the weights vector $\vecnot{\beta}\rBrace{\omega}$ configuration is mathematically equivalent to FIR filter design~\cite{van1988beamforming}. 
 \ifdefined\useOmega \else 

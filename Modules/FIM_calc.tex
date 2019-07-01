@@ -4,19 +4,19 @@ Following \eqref{eq_beamPatternFreqDomain_FIM}, we elaborate the steps leading t
         \begin{split}
             \frac{\partial{\F{y}}}{\partial{\thetaD}} &= 
             \frac{
-            \vBetaT{}A\rBrace{\omega}\vd\ePhi{-}\rBrace{1-\aTd\ePhi{-}}+\bTd\vAlphaT{}A\rBrace{\omega}\vd\ePhi{-2}
+            \vBetaT{}A\omegaB\vd\ePhi{-}\rBrace{1-\aTd\ePhi{-}}+\bTd\vAlphaT{}A\omegaB\vd\ePhi{-2}
             }{
             \rBrace{1-\aTd\ePhi{-}}^{2}
             }
             \\&=
             \frac{
-            \vBetaT{}A\rBrace{\omega}\vd\ePhi{-}-\vBetaT{}\rBrace{A\rBrace{\omega}\vd\vdT-\vd\vdT{}A\rBrace{\omega}}\vAlpha\ePhi{-2}
+            \vBetaT{}A\omegaB\vd\ePhi{-}-\vBetaT{}\rBrace{A\omegaB\vd\vdT-\vd\vdT{}A\omegaB}\vAlpha\ePhi{-2}
             }{
             \rBrace{1-\aTd\ePhi{-}}^{2}
             }
             \\&=
             \frac{
-            \vBetaT{}A\rBrace{\omega}\vd\ePhi{-}-\vBetaT{}B\rBrace{\omega}\vAlpha\ePhi{-2}
+            \vBetaT{}A\omegaB\vd\ePhi{-}-\vBetaT{}B\omegaB\vAlpha\ePhi{-2}
             }{
             \rBrace{1-\aTd\ePhi{-}}^{2}
             }
@@ -46,21 +46,21 @@ such that
 \begin{equation*}
     \resizebox{.9\linewidth}{!}{
         \begin{split}
-            J_{\thetaD\thetaD} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{y}(\omega)}}{\partial{\thetaD}}}^{2}d\omega}
+            J_{\thetaD\thetaD} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{y}\omegaB}}{\partial{\thetaD}}}^{2}d\omega}
             \\&=
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            \lBrace{\vBetaT{}A\rBrace{\omega}\vd-\vBetaT{}B\rBrace{\omega}\vAlpha\ePhi{-}}^{2}
+            \lBrace{\vBetaT{}A\omegaB\vd-\vBetaT{}B\omegaB\vAlpha\ePhi{-}}^{2}
             }{
             \lBrace{1-\aTd\ePhi{-}}^{4}
-            }\lBrace{\F{x}(\omega)}^{2}d\omega},
+            }\lBrace{\F{x}\omegaB}^{2}d\omega},
             \\
-            J_{\phi\phi} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{y}(\omega)}}{\partial{\phi}}}^{2}d\omega}
+            J_{\phi\phi} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{y}\omegaB}}{\partial{\phi}}}^{2}d\omega}
             \\&=
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
             \lBrace{\bTd}^{2}
             }{
             \lBrace{1-\aTd\ePhi{-}}^{4}
-            }\lBrace{\F{x}(\omega)}^{2}d\omega}
+            }\lBrace{\F{x}\omegaB}^{2}d\omega}
         \end{split}
     }
 \end{equation*}
@@ -70,19 +70,19 @@ and the cross terms are
         \begin{split}
             &J_{\thetaD\phi} = J_{\phi\thetaD}^{\ast} = 
             \\&= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}
-            \rBrace{\frac{\partial{\F{y}(\omega)}}{\partial{\phi}}}^{\ast}
-            \frac{\partial{\F{y}(\omega)}}{\partial{\thetaD}}d\omega}
+            \rBrace{\frac{\partial{\F{y}\omegaB}}{\partial{\phi}}}^{\ast}
+            \frac{\partial{\F{y}\omegaB}}{\partial{\thetaD}}d\omega}
             \\&=
             \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            j\vBetaT{}\rBrace{A\rBrace{\omega}\vd-B\rBrace{\omega}\vAlpha\ePhi{-}}\vdH\vBetaC
+            j\vBetaT{}\rBrace{A\omegaB\vd-B\omegaB\vAlpha\ePhi{-}}\vdH\vBetaC
             }{
             \lBrace{1-\aTd\ePhi{-}}^{4}
-            }\lBrace{\F{x}(\omega)}^{2}d\omega}}.
+            }\lBrace{\F{x}\omegaB}^{2}d\omega}}.
         \end{split}
     }
 \end{equation*}
-Setting the coefficients as $$\vAlpha,\vBeta\propto\vd^{\ast}$$ causes the $\vBetaT{}B\rBrace{\omega}\vAlpha$~term to vanish. Assuming real input and real gain terms $g_n$ within the steering vector, the function
+Setting the coefficients as $$\vAlpha,\vBeta\propto\vd^{\ast}$$ causes the $\vBetaT{}B\omegaB\vAlpha$~term to vanish. Assuming real input and real gain terms $g_n$ within the steering vector, the function
 \[
-\frac{\lBrace{\F{x}(\omega)}^{2}}{\lBrace{1-\aTd\ePhi{-}}^{4}}
+\frac{\lBrace{\F{x}\omegaB}^{2}}{\lBrace{1-\aTd\ePhi{-}}^{4}}
 \]
-is even with respect to $\omega$, and $$j\vBetaT{}A\rBrace{\omega}\vd\vdH\vBetaC\propto A\rBrace{\omega}\vd\norm{\vd}^2$$ is odd. Hence the cross terms vanish.
+is even with respect to $\omega$, and $$j\vBetaT{}A\omegaB\vd\vdH\vBetaC\propto A\omegaB\vd\norm{\vd}^2$$ is odd. Hence the cross terms vanish.

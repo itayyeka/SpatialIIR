@@ -32,7 +32,7 @@ In Sec.~\ref{sec_Performance} we evaluate some key features of the proposed beam
 In Sec.~\ref{sec_app} we simulate the proposed processing scheme, and emphasize its sensitivity to range errors. We then suggest a strategy which mitigates this sensitivity. Finally, concluding remarks are stated in Sec.~\ref{sec_conclusions}.
 \section{Beamforming}\label{sec:setup}
 Consider an $N$-element ULA with inter-element spacing $\delta$, where its $n$'th sensor is positioned at $p_{n},\; n=\vBrace{0,\ldots,N-1}$. We set $p_{0}=\vecnot{0}$ as the reference point and assume that the target of interest is positioned at $p_{\text{t}}$.
-Focusing on a far field localization problem, DOA and target range are to be estimated. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$.
+Focusing on a far field localization problem, DOA and target range are to be estimated. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$ which is measured with respect to the array's broadside.
 Inspired by radar based applications, we assume that the signal $s(t)$ is transmitted from the array, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R$ is the target's range from $p_{0}$ and $c$ represents the propagation velocity of the signal in the medium. 
 For simplicity, we assume an anechoic environment, an array of identical omni-directional sensors and a stationary target of interest.
 \par Let $x_{n}(t)$ be the measured signal at the $n$'th sensor of the array
@@ -40,18 +40,18 @@ For simplicity, we assume an anechoic environment, an array of identical omni-di
 x_{n}(t) = gs\Brack{t-\tau_{pd}-\tau_{n}},
 \label{eqn:noFeedbackULA_singleSensor_temporal}
 \end{equation}
-where $\tau_{n}=n\delta\cos\Brack{\thetaD}/c$ represents the time difference of the arrival between the $n$'th sensor and the reference sensors and $g$ is the attenuation related to both propagation and the target's radar cross section (RCS).
+where $\tau_{n}=n\delta\cos\Brack{\thetaD}/c$ represents the time difference of the arrival between the $n$'th sensor and the reference sensor and $g$ is the attenuation related to both propagation and the target's radar cross section (RCS), assumed to be frequency-only dependent for simplicity.
 Defining $\vecnot{x}\rBrace{t}\triangleq\vBrace{x_{0}\rBrace{t}\hdots{}x_{N-1}\rBrace{t}}^{T}$ and it's Fourier transform, $\vecnot{\F{x}}\rBrace{\omega}\triangleq\vBrace{X_{0}\rBrace{\omega},\hdots,X_{N-1}\rBrace{\omega}}^{T}$, one may write 
 \[
-\vecnot{\F{x}}\rBrace{\omega}=g\Steer{}\F{x}_{0}\rBrace{\omega}
+\vecnot{\F{x}}\rBrace{\omega}=g\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{x}_{0}\rBrace{\omega}
 \]
-where $\Steer{}$ denotes the steering vector whose $n$'th element is
+where $\vdO$ denotes the steering vector whose $n$'th element is
 \begin{equation}
     \label{eq:d}
     \vecnot{d}_{\vBrace{n}}\rBrace{\omega} = \exp{\rBrace{-j\omega\tau_{n}}},\;n=0,\ldots,N-1.
 \end{equation}
-The frequency domain output of an $N$ element array beamformer, configured with frequency dependent weights $\vBeta$, is denoted as $Z\rBrace{\omega}$ and may be expressed as
-$$ Z\rBrace{\omega} = g\vBetaT\vd\F{x}_{0}\rBrace{\omega}. $$ 
+The frequency domain output of an $N$ element array beamformer, configured with frequency dependent weights $\vecnot{\beta}\rBrace{\omega}$, is denoted as $Z\rBrace{\omega}$ and may be expressed as
+$$ Z\rBrace{\omega} = g\vecnot{\beta}^{T}\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{x}_{0}\rBrace{\omega}. $$ 
 Defining the electric phase to be
 \begin{equation}\label{eq:thetaULA}
 \theta=\omega{\delta\cos\Brack{\thetaD}}/{c},
@@ -60,7 +60,10 @@ we re-write of the beamformer's output as
 \[
 Z\rBrace{\omega} = g\F{x}_0\rBrace{\omega}\sum_{n=0}^{N-1}\beta_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
 \]
-hence in the ULA case, aiming for a desired spatial response, the weights vector $\vBeta$ configuration is mathematically equivalent to FIR filter design~\cite{van1988beamforming}.
+hence in the ULA case, aiming for a desired spatial response, the weights vector $\vecnot{\beta}\rBrace{\omega}$ configuration is mathematically equivalent to FIR filter design~\cite{van1988beamforming}. 
+\ifdefined\useOmega \else 
+Assuming narrowband stimuli signals, we suppress $\omega$ dependency in the notation throughout the rest of this letter, where possible.
+\fi
 \par In the standard scheme of processing radar signals, a waveform $s\rBrace{t}$ is transmitted to, and reflected from the target of interest. Then, the reflected signal is processed by the radar reception array in order to estimate the DOA, range (and Doppler) of the target. 
-Opposed to the standard scheme, we suggest a continuous re-transmission of the signal and its echoes back to the platform, such that a spatial feedback loop is created between the array and the target.
-Another deviation from traditional radar processing, used to simplify the exposition, is using continuous-wave (CW) for $x\rBrace{t}$, rater than using pulse based signals. The suggested structure is elaborated in Sec.~\ref{sec_introduceFeedback} and shown to be equivalent to IIR filter design.
+Opposed to the standard scheme, we suggest a continuous re-transmission of the signal and its echoes back to the platform, generating a spatial feedback loop between the array and the target.
+Another deviation from traditional radar processing, used to simplify the exposition, is using continuous-wave (CW) for $s\rBrace{t}$, rater than using pulse based signals. The suggested structure is elaborated in Sec.~\ref{sec_introduceFeedback} and shown to be equivalent to IIR filter design.

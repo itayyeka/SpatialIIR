@@ -17,17 +17,18 @@
 {}
 \maketitle
 \begin{abstract}
-State-of-the-art sensor arrays use a variety of methods, ranging from high-order statistics to adaptive configuration, to improve spatial performance, all of which demand costly computing effort.
+State-of-the-art array processing methods, ranging from high-order statistics to adaptive configuration, demand costly computing effort in pursuit for spatial performance improvement.
+% State-of-the-art sensor arrays use a variety of methods, ranging from high-order statistics to adaptive configuration, to improve spatial performance, all of which demand costly computing effort.
 A feedback based approach is introduced in the context of localization, featuring low complexity and high spatial performance in the excess of integrating a transmitter to the array.  
 In the proposed scheme, a signal is continuously re-transmitted between the array and the target of interest.
-The feedback based beamformer virtually achieves infinite aperture, increasing the available spatial information about the target and significantly improves the array's spatial performance.
-Following traditional array performance analysis, we analyze this system in the context of beamforming, covering beamwidth, peak to side-lobe ratio, array directivity and white noise sensitivity. 
-We show significant, infinite in ideal scenarios, improvement in all aspects and discuss the conditions that lead to enhanced performance.
-Finally, an application of low sensitivity to estimation errors is presented and analyzed, describing a practical and robust implementation of the feedback based localization concept. 
-Also, it is shown that the suggested application features high performance in low signal-to-noise ratio.  
+Considering ideal scenarios, the feedback based beamformer virtually achieves infinite aperture, increasing the available spatial information about the target and significantly improves the array's spatial performance.
+Using traditional beamforming performance analysis, the beamwidth, peak to side-lobe ratio, array directivity and white noise sensitivity are evaluated considering the feedback based array.
+Then, significant improvement in all aspects is shown, while thoroughly discussing the conditions for enhanced performance.
+Finally, an application of low estimation errors sensitivity, featuring high performance even in low signal-to-noise ratio, is presented and analyzed, serving as a practical and robust implementation of the feedback based localization concept.
+% Also, the suggested application features high performance in low signal-to-noise ratio.  
 \end{abstract}
 \begin{IEEEkeywords}
-Spatial array processing, beamforming, localization, beam-pattern, cooperative beamforming, spatial IIR.
+Spatial array processing, beamforming, source localization, beam-pattern, cooperative beamforming, spatial IIR.
 \end{IEEEkeywords}
 \section{Introduction}
 \input{./Modules/IEEE_journal_paper_Intro.tex}
@@ -46,7 +47,7 @@ To establish our final observation, we first recall that
 \]
 where $R_{\text{rt}}=2R$ is the round-trip distance between the array and the target of interest and denote
 \[
-\Delta R_{\text{rt}}\rBrace{\omega}=\frac{\dPhi\lambda}{2\pi} 
+\Delta R_{\text{rt}}\omegaB=\frac{\dPhi\lambda}{2\pi} 
 \]
 as the range estimation error.
 Then, simulating different range estimation errors in Fig.~\ref{fig_rangError} shows that even minor range errors of $\Delta R_{\text{rt}}\sim0.1\lambda$ significantly distort the beampattern.
@@ -112,13 +113,13 @@ Then, simulating different range estimation errors in Fig.~\ref{fig_rangError} s
 \input{./Modules/stabilityEnhancement_freqPairApproach.tex}
 \section{Conclusions}
 \label{sec_conclusions}
-Integrating feedback into traditional beamformers proved to achieve a spatial domain equivalent of the temporal IIR.
+Integrating feedback into standard beamformers proved to achieve a spatial domain equivalent of the temporal IIR.
 It seems that a simple generalization of the DS beamformer maximizes (locally) the system's residing spatial information, thus enabling high localization accuracy.
 The feedback based architecture performance evaluation predicts an almost infinite improvement in all criteria, when considering perfect knowledge of the target's range and the channel attenuation.
-It turns out that using single frequency waveform with the feedback beamformer is impractical, being too sensitive to even mild target range estimation errors.
+It turns out that a single frequency waveform based FB is impractical, being too sensitive to even mild target range estimation errors.
 Fortunately, using two frequency waveform and applying simple frequency domain manipulations to the output and feedback signals, were found to serve as a low frequency (hence low sensitivity) equivalent of the single frequency scheme.
 Also, the dual frequency scheme proved to be of low noise sensitivity, featuring high performance even in relatively low SNR scenarios.
-\par Future study of the FB concept may be applied to other array processing applications other than localization, inspect other interesting choices of coefficient rather than the DS generalization, suggest other waveforms and associated processing schemes, extend the results to dynamic/multiple targets, consider sensors with general radiation patterns etc.
+\par Future study of the FB concept may be applied to other array processing applications other than localization, inspect other interesting choices of coefficients rather than the DS generalization, suggest other waveforms and associated processing schemes, extend the results to dynamic/multiple targets, consider sensors with general radiation patterns etc.
 Also, one may consider generalizing the suggested architecture to multiple input multiple output (MIMO) systems, enabling a steered/focused (rather than omni-directional) feedback transmission.
 \appendices
 \section{FIM calculation}

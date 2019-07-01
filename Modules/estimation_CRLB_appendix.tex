@@ -1,8 +1,8 @@
 A possible evaluation for the contribution of the presented feedback mechanism is to measure the additional information in the system.
-To this end, the FIM will now be calculated with respect to the DOA parameter $\thetaD$ and the range related parameter $\phi$. 
-As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in the frequency domain, we rely on \cite{zeira1990frequency}, to express the FIM in the frequency domain as well. 
-\par A single element of the FIM, notated by the matrix $J$, can be expressed as
-\begin{equation}
+To this end, the FIM, denoted by $J$, will now be calculated with respect to the DOA parameter $\thetaD$ and the range related parameter $\phi$. 
+As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in frequency domain, we rely on \cite{zeira1990frequency} to express the frequency domain FIM as well. 
+\par A single FIM element, may be expressed as
+\begin{equation}\label{eq_FIM_kl_full}
     \resizebox{.9\linewidth}{!}{
         \begin{split}
             J_{\vBrace{k,l}}\rBrace{\vEta} 
@@ -31,8 +31,8 @@ As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunctio
     }
 \end{equation}
 where $ \vEta = [\thetaD,\phi]^{T} $ is the parameters vector, $\Re$ stands for the real-part extraction operator, $k,l \in\cBrace{1,2}$, $\Phi\rBrace{\omega}$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator, $T$ is the measurement observation interval and $\omega_{s}$ is the signal bandwidth. 
-For simplicity, $\text{n}\rBrace{t}$ is assumed to be white and Gaussian with some constant power spectral density $\Phi(\omega)=\sigma^2$ and does not depend on the estimated parameters $\eta$, hence the second term vanishes. 
-Assuming continuously differentiable functions, where order alteration of the Fourier transform and the differentiation operations is allowed, the FIM's $\vBrace{k,l}$'th element is
+For simplicity, $\text{n}\rBrace{t}$ is assumed to be a white Gaussian with some constant power spectral density $\Phi(\omega)=\sigma^2$ and independent of the estimated parameters $\eta$, hence the second term vanishes. 
+Assuming continuously differentiable functions, where order alteration of the Fourier transform and the differentiation operations is allowed, \eqref{eq_FIM_kl_full} simplifies to
 \begin{equation}
     \label{eq_beamPatternFreqDomain_FIM}
     % \resizebox{1\linewidth}{!}{
@@ -49,13 +49,13 @@ Assuming continuously differentiable functions, where order alteration of the Fo
         \end{split}.
     % }
 \end{equation}
-For omni-directional array sensors, $g$ is independent of the estimated parameters, therefore
+As mentioned before, $g$ is independent of the estimated parameters, therefore
 \begin{equation}\label{eq_vdDiff}
-\frac{\partial\vd}{\partial\thetaD}=A\rBrace{\omega}\vd
+\frac{\partial\vd}{\partial\thetaD}=A\omegaB\vd
 \end{equation}
-where $A\rBrace{\omega}$ is an $N\times{}N$ diagonal matrix and each of its diagonal elements may expressed as 
+where $A\omegaB$ is an $N\times{}N$ diagonal matrix and each of its diagonal elements may expressed as 
 \[
-A_{\vBrace{i,i}}\rBrace{\omega}=-j\omega\frac{\partial \tau_{i}}{\partial{\thetaD}}\ \  \forall{i\in\cBrace{0\hdots{}N-1}}.
+A_{\vBrace{i,i}}\omegaB=-j\omega\frac{\partial \tau_{i}}{\partial{\thetaD}}\ \  \forall{i\in\cBrace{0\hdots{}N-1}}.
 \]
 To further simplify the analysis, without loss of generality, we use (in this section only) $g=1$.
 In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
@@ -66,7 +66,7 @@ In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
             &J_{\theta\theta}
             =
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            \lBrace{\vBetaT{}A\rBrace{\omega}\vd-\vBetaT{}B\rBrace{\omega}\vAlpha\ePhi{-}}^{2}
+            \lBrace{\vBetaT{}A\omegaB\vd-\vBetaT{}B\omegaB\vAlpha\ePhi{-}}^{2}
             }{
             \lBrace{\rBrace{1-\aTd\ePhi{-}}^{2}}^{2}
             }\lBrace{\F{s}\rBrace{\omega}}^{2}d\omega}
@@ -81,15 +81,15 @@ In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
         \end{split}
     }
 \end{equation}
-where $B\rBrace{\omega}\triangleq\vd\vdT{}A\rBrace{\omega}-A\rBrace{\omega}\vd\vdT$.
-Also, using some mild assumptions and setting
+where $B\omegaB\triangleq\vd\vdT{}A\omegaB-A\omegaB\vd\vdT$.
+Moreover, using some mild assumptions and setting
 \begin{equation}\label{eq_alphaBetaPropSteer}
     \vAlpha,\vBeta\propto\vd^{\ast},
 \end{equation}
 we show that the cross terms of the FIM are nullified, i.e. $J_{\theta\phi} = J_{\phi\theta}^{*}=0$.
 \par 
-Choosing the weights as in \eqref{eq_alphaBetaPropSteer} may be interpreted as a generalization of the conventional beamformer (CB) \cite{van2004optimum}, more commonly referenced as the delay-and-sum (DS) beamformer which coherently integrate the impinging signal along the array elements.
+Choosing the weights as in \eqref{eq_alphaBetaPropSteer} may be interpreted as a generalization of the DS beamformer, formerly referenced as the conventional beamformer (CB) \cite{van2004optimum}, which coherently integrate the impinging signal along the array elements.
 The same choice of weights also minimizes the $\lBrace{1-\aTd\ePhi{-}}$ term, significantly increasing the available information, as predicted by the FIM.
 It is worth mentioning that \eqref{eq_vdDiff} is relevant even for arbitrary (non-omni-directional) sensors when smooth and slowly changing radiation patterns are assumed.
 In practice, though, there will be unavoidable errors, and perfect knowledge of the steering vector $\vd$ is not always available.
-In Sec.~\ref{sec_Performance}, we quantify the effect of mismatching $\vAlpha$ with the desired form and discuss its influence on the array performance. 
+In Sec.~\ref{sec_Performance}, we quantify the effect of such estimation errors and discuss its influence on the array performance. 

@@ -19,8 +19,10 @@ An intuitive understanding of the spatial feedback concept may be achieved when 
     \label{fig_IIRBasicArch}
 \end{figure}
 Inspired by this architecture, we seek for an analogous structure which will mimic the feedback loop in the spatial domain. 
-In order to do so, we propose a feedback beamformer architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) where the weights $\vBeta$ generate the output signal $z$, the $\vAlpha$ weights are used to synthesize the feedback transmission ($\text{Tx}$) and $s$ is the input waveform. An additive noise model, denoted as n, is assumed at the array's output. 
-Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed signal, acts as the DS beamformer. 
+In order to do so, we propose a feedback beamformer architecture (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}) where
+the output signal ($z$) is synthesized using $\vBeta$, $\vAlpha$ synthesize the feedback transmission ($\text{Tx}$) and $s$ is the input waveform. 
+An additive noise model (n), is assumed at the array's output. 
+Note that setting $\vAlpha=\vecnot{0}$ (i.e. cancelling the feedback) degenerates the system to a plain delay-and-sum (DS) beamformer.
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.95\linewidth, 
@@ -58,9 +60,9 @@ Note that without feedback (i.e. setting $\vAlpha=\vecnot{0}$) the beamformed si
 \input{./Modules/estimation_CRLB_appendix.tex}
 \section{Performance Analysis}
 \label{sec_Performance}
-In this section we analyze the suggested FB, considering some fundamental properties which are commonly used to asses array performance; it's beamwidth, peak to side-lobe level and it's directivity. Each property is then compared to traditional passive ULAs, showing that significantly improved performance are obtainable with spatial feedback integration.  
+In this section we analyze the suggested FB (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), considering some fundamental properties which are commonly used to asses array performance; it's beamwidth, peak to side-lobe level and it's directivity. Each property is then compared to traditional passive ULAs, showing that significantly improved performance are obtainable with spatial feedback integration.  
 \subsection*{Error terms}
-Following previous observations, we use the $\coefSetName$ beamformer, setting
+Following previous observations, we use the $\coefSetName$ beamformer for both feedback and output signals synthesis, setting
 \begin{equation}\label{eq:alpha_beta_hat}
 \vBetaFB=\vAlphaFB=\frac{\vdHatC\exp\rBrace{j\hat{\phi}}}{\hat{g}\norm{\vdHat}^2},
 \end{equation}
@@ -68,7 +70,7 @@ where
 \begin{equation}\label{eq:d_hat}
 \vdHat=\sBrack{1,\exp(-\hat\theta),\ldots,\exp(-(N-1)\hat\theta)}^T
 \end{equation}
-is denoted to serve as the steering vector estimation and $\hat{g},\hat{\phi},\hat{\theta}$ are the gain, range-related phase and the DOA-related phase estimations respectively.
+is denoted to serve as the estimated steering vector and $\hat{g},\hat{\phi},\hat{\theta}$ are the gain, range-related phase and the DOA-related phase estimations respectively.
 Plugging \eqref{eq:alpha_beta_hat} within \eqref{eqn:GeneralFeedbackTransferFunction}, we obtain
 \begin{equation}\label{eq:SF_CB}
     \resizebox{.894\linewidth}{!}{
@@ -83,11 +85,13 @@ where \[
 is the normalized Dirichlet kernel and
 we define the DOA, range and gain error terms 
 \[
-\dTheta\triangleq\theta\rBrace{\omega}-\hat{\theta}\rBrace{\omega},\ \dPhi\triangleq\phi\rBrace{\omega}-\hat{\phi}\rBrace{\omega},\ 
+\dTheta\triangleq\theta\omegaB-\hat{\theta}\omegaB,\ \dPhi\triangleq\phi\omegaB-\hat{\phi}\omegaB,\ 
 r\triangleq g/\hat{g},
 \]
-respectively. 
+respectively.
+\ifdefined\useOmega\else
 We then define four fundamental scenarios:
+\fi
 \begin{itemize}
     \item{\makebox[.35\linewidth]{Perfect alignment \hfill} $\rBrace{\dTheta=0\ , \dPhi=0}$}
     \item{\makebox[.35\linewidth]{Steer error \hfill} $\rBrace{\abs{\dTheta}>0\ , \dPhi=0}$}
@@ -139,11 +143,11 @@ As commonly done for ULA parameter analysis \cite{van2004optimum}, we focus on t
     \label{eq_narmalized_pattern}
     %\resizebox{.89\linewidth}{!}{
     \begin{split}
-        \HrTPr\rBrace{\omega}&\triangleq
+        \HrTPr\omegaB&\triangleq
         \frac{
         \HbaFB
         }{
-        H_{\vecnot{\beta}_{\text{opt}},\vecnot{\alpha}_{\text{opt}}}\rBrace{\omega}
+        H_{\vecnot{\beta}_{\text{opt}},\vecnot{\alpha}_{\text{opt}}}\omegaB
         }
          =
         \frac{
@@ -160,35 +164,29 @@ where $\vecnot{\beta}_{\text{opt}}$ and $\vecnot{\alpha}_{\text{opt}}$ are the o
 \[
 \vBeta_{\text{opt}}=\vAlpha_{\text{opt}}=\vdC\exp\rBrace{j{\phi}}/g\norm{{\vd}}^2.
 \]
-Also, the $\HrTPr$'s subscript emphasize its DOA, range and gain errors dependency, suppressing their own $\omega$ dependency for simplicity.
-% where that as $\vBetaFB,\vAlphaFB$ are functions of the DOA, range and gain errors, we add to $\Hr$ the subscript of $\dTheta,\dPhi$ and $r$. 
+Also, $\HrTPr$'s subscript emphasize its DOA, range and gain errors dependency.
 Explicitly writing $\Hr$ gives rise to 
 \begin{equation}\label{eq_generalH}
     \resizebox{0.89\linewidth}{!}{
         \begin{split}
-             \HrTPr\rBrace{\omega}=
+             \HrTPr\omegaB=
              \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{\dPhi+(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}},
         \end{split}
         }
 \end{equation}
 which may degenerate to traditional ULA pattern by setting $r=0$ (i.e. no feedback), i.e.
 $$
-\Hr_{\Delta\theta,\Delta\phi=0,r=0}\rBrace{\omega}=
+\Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB=
              \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}}.
 $$
-Next, we evaluate the FB's beamwidth, sidelobe level and directivity and compare them to standard ULA considering the steer error scenario (i.e. $\dPhi=0$) where 
+Next, we evaluate the FB's beamwidth, sidelobe level and directivity and compare them to standard ULA (i.e. $r=0$) considering the steer error scenario (i.e. $\dPhi=0$) where 
 \begin{equation}\label{eq_Hdphi0}
-\Hr_{\Delta\theta,\Delta\phi=0,r=0}\rBrace{\omega}=
+\Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB=
              \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}}.
 \end{equation}
-% We now focus on the steer error scenario, i.e. $\dPhi=0$, and compare the beamwidth, sidelobe level and directivity between  
-% \begin{equation}\label{eq_Hdphi0}
-% \Hr_{\Delta\theta,\Delta\phi=0,r=0}\rBrace{\omega}=
-%              \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}}
-% \end{equation}
-% and the standard ULA beampattern, $\Hr_{\dTheta,\dPhi=0,r=0}$. 
-To simplify the exposition, we shall suppress the $\omega$ dependency in the following sections (i.e. $\HrTPr \triangleq \HrTPr\rBrace{\omega}$) where possible.
-
+\ifdefined\useOmega
+To simplify the exposition, we shall suppress the $\omega$ dependency in the following sections (i.e. $\HrTPr \triangleq \HrTPr\omegaB$) where possible.
+\fi
 \subsection*{Half power beamwidth}
 \input{./Modules/arrayPerformance_beamwidth.tex}
 \subsection*{Sidelobes attenuation}
@@ -196,11 +194,11 @@ To simplify the exposition, we shall suppress the $\omega$ dependency in the fol
     \fbox{
     \begin{minipage}{0.9\linewidth}
     \textbf{development specifics}\\
-    Let $f\rBrace{\dTheta} \triangleq \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}},$ such that $\Hr_{\Delta\theta,\Delta\phi=0,r=0}\rBrace{\omega} = \frac{f\rBrace{\dTheta}}{1-rf\rBrace{\dTheta}}.$ Then, we compute the beampattern's derivative and state that
+    Let $f\rBrace{\dTheta} \triangleq \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}},$ such that $\Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB = \frac{f\rBrace{\dTheta}}{1-rf\rBrace{\dTheta}}.$ Then, we compute the beampattern's derivative and state that
     \begin{equation*}
     % \resizebox{0.9\linewidth}{!}{
         \begin{split}
-            &\frac{\partial}{\partial\dTheta}\Hr_{\Delta\theta,\Delta\phi=0,r=0}\rBrace{\omega} &\\
+            &\frac{\partial}{\partial\dTheta}\Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB &\\
             &=\frac{\Dp{\dTheta/2,N}{'}\rBrace{1-r\D{\dTheta/2}{N}}-\D{\dTheta/2}{N}\rBrace{-r\Dp{\dTheta/2,N}{'}}}{\rBrace{1-r\D{\dTheta/2}{N}}^{2}}
             \\
             &=\frac{\Dp{\dTheta/2,N}{'}}{\rBrace{1-r\D{\dTheta/2}{N}}^{2}}.
@@ -212,14 +210,14 @@ To simplify the exposition, we shall suppress the $\omega$ dependency in the fol
     }
 \else
 \fi
-By taking a derivative of $\Hr_{\Delta\theta,\Delta\phi=0,r=0}\rBrace{\omega}$ with respect to $\dTheta$ it can be easily verified that the beampattern's extrema points are located exactly as in the passive ULA beampattern. Specifically, the sidelobes locations are
+By taking a derivative of $\Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB$ with respect to $\dTheta$ it can be easily verified that the beampattern's extrema points are located exactly as in the standard ULA beampattern. Specifically, the sidelobes locations are
 \begin{equation}
     \label{eqn_CB_sidelobesLocations}
     \Delta\theta_{\text{sidelobe}} = \frac{\rBrace{2m+1}\pi}{N}\ \forall m\in\cBrace{\pm 1,\pm 2,\hdots}.
 \end{equation}
 Our main interest is with the first sidelobe (i.e. $m=1$), therefore we evaluate \eqref{eq_Hdphi0} at $\Delta\theta = 3\pi/N$, which results in
 \begin{equation}
-    \abs{\Hr_{{3\pi}/{N},0,r}(\omega)}^2
+    \abs{\Hr_{{3\pi}/{N},0,r}\omegaB}^2
     =
     \frac{
     2\rBrace{1-r}^{2}
@@ -230,7 +228,7 @@ Our main interest is with the first sidelobe (i.e. $m=1$), therefore we evaluate
 \end{equation}
 and for large $N$ values 
 \begin{equation*}
-    \lim_{N\rightarrow\infty}\abs{\Hr_{3\pi/N,0,r}(\omega)}=\frac{
+    \lim_{N\rightarrow\infty}\abs{\Hr_{3\pi/N,0,r}\omegaB}=\frac{
     2\rBrace{1-r}
     }{
     3\pi
@@ -243,7 +241,7 @@ and for large $N$ values
     We know that \eqref{eq_Hdphi0} can be rewritten as
     \begin{equation*}
         \begin{split}
-            \Hr_{\Delta\theta,\Delta\phi=0,r=0} \rBrace{\omega}=
+            \Hr_{\Delta\theta,\Delta\phi=0,r=0} \omegaB=
             \frac{
             \rBrace{1-\cos{\rBrace{N\dTheta}}}\rBrace{1-r}^{2}
             }{
@@ -262,7 +260,7 @@ and for large $N$ values
     }
 \else
 \fi
-\par For classical ULA, the gain of the first sidelobe is known to be $\frac{2}{3\pi}$ \cite{van2004optimum}, which implies that the suggested feedback based system has a suppression improvement of $1/\rBrace{1-r}$ at the first sidelobe.
+\par For standard ULA, the gain of the first sidelobe is known to be $\frac{2}{3\pi}$ \cite{van2004optimum}, which implies that the suggested feedback based system has a suppression improvement of $1/\rBrace{1-r}$ at the first sidelobe.
 
 \subsection*{Array directivity}
 The array directivity $\mathcal{D}$ \cite{van2004optimum}, defined as
@@ -275,9 +273,9 @@ Plugging \eqref{eq_Hdphi0} within \eqref{eq_D}, we use numerical evaluation and 
 \begin{equation}\label{eq_D}
     \mathcal{D}(r) = \frac{r^{2}-\rBrace{N-1}r+N}{\rBrace{1-r}^{2}}
 \end{equation}
-where the passive ULA known result is obtained for $r=0$. 
+where the standard ULA's known result is obtained for $r=0$.
 Also, for $r\to1$, we use L'Hôpital's rule to state that $\lim_{r\rightarrow 1}\mathcal{D}(r)=\infty$, implying infinite directivity for the perfectly gain matched FB. 
-\par Finally, expressing the improvement in directivity compared to the classical ULA, we have that for large $N$,
+\par Finally, expressing the improvement in directivity compared to the classical ULA, assuming large $N$ values, gives rise to
 \begin{equation}\label{eq_Dimprovement}
 \frac{\mathcal{D}(r)}{\mathcal{D}(0)}\overset{N\gg1}{=}\frac{1}{1-r}.
 \end{equation}

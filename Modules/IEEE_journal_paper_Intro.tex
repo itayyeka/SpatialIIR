@@ -37,28 +37,28 @@ Inspired by radar based applications, we assume that the signal $s(t)$ is transm
 For simplicity, we assume an anechoic environment, an array of identical omni-directional sensors and a stationary target of interest.
 \par Let $x_{n}(t)$ be the measured signal at the $n$'th sensor of the array
 \begin{equation}
-x_{n}(t) = gs\Brack{t-\tau_{pd}-\tau_{n}},
+x_{n}(t) = g\rBrace{t}*s\Brack{t-\tau_{pd}-\tau_{n}},
 \label{eqn:noFeedbackULA_singleSensor_temporal}
 \end{equation}
-where $\tau_{n}=n\delta\cos\Brack{\thetaD}/c$ represents the time difference of the arrival between the $n$'th sensor and the reference sensor and $g$ is the attenuation related to both propagation and the target's radar cross section (RCS), assumed to be frequency-only dependent for simplicity.
+where $\tau_{n}=n\delta\cos\Brack{\thetaD}/c$ represents the time difference of the arrival between the $n$'th sensor and the reference sensor and $g\rBrace{t}$ is the channel's response, related to both propagation and the target's radar cross section (RCS).
 Defining $\vecnot{x}\rBrace{t}\triangleq\vBrace{x_{0}\rBrace{t}\hdots{}x_{N-1}\rBrace{t}}^{T}$ and it's Fourier transform, $\vecnot{\F{x}}\rBrace{\omega}\triangleq\vBrace{X_{0}\rBrace{\omega},\hdots,X_{N-1}\rBrace{\omega}}^{T}$, one may write 
 \[
-\vecnot{\F{x}}\rBrace{\omega}=g\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{x}_{0}\rBrace{\omega}
+\vecnot{\F{x}}\rBrace{\omega}=g\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{s}\rBrace{\omega}
 \]
-where $\vdO$ denotes the steering vector whose $n$'th element is
+where $g\rBrace{\omega}$ is assumed to be frequency-only dependent for simplicity and $\vdO$ denotes the steering vector whose $n$'th element is
 \begin{equation}
     \label{eq:d}
     \vecnot{d}_{\vBrace{n}}\rBrace{\omega} = \exp{\rBrace{-j\omega\tau_{n}}},\;n=0,\ldots,N-1.
 \end{equation}
 The frequency domain output of an $N$ element array beamformer, configured with frequency dependent weights $\vecnot{\beta}\rBrace{\omega}$, is denoted as $Z\rBrace{\omega}$ and may be expressed as
-$$ Z\rBrace{\omega} = g\rBrace{\omega}\vecnot{\beta}^{T}\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{x}_{0}\rBrace{\omega}. $$ 
+$$ Z\rBrace{\omega} = g\rBrace{\omega}\vecnot{\beta}^{T}\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{s}\rBrace{\omega}. $$ 
 Defining the electric phase to be
 \begin{equation}\label{eq:thetaULA}
 \theta=\omega{\delta\cos\Brack{\thetaD}}/{c},
 \end{equation}
 we re-write of the beamformer's output as 
 \[
-Z\rBrace{\omega} = g\rBrace{\omega}\F{x}_0\rBrace{\omega}\sum_{n=0}^{N-1}\beta_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
+Z\rBrace{\omega} = g\rBrace{\omega}\F{s}\rBrace{\omega}\sum_{n=0}^{N-1}\beta_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
 \]
 hence in the ULA case, aiming for a desired spatial response, the weights vector $\vecnot{\beta}\rBrace{\omega}$ configuration is mathematically equivalent to FIR filter design~\cite{van1988beamforming}. 
 \ifdefined\useOmega \else 

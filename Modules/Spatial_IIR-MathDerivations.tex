@@ -8,8 +8,8 @@ Time domain analysis of the proposed feedback based architecture, considering bo
         \end{split}
     % }
 \end{equation}
-where the first term of the right-hand side represents the contribution of the transmitted waveform $s(t)$ to the $n$'th array element and the second term represents the feedback contribution of the re-transmitted array signal to this same element.
-Expressing \eqref{eqn:SingleSensorTemporalEquality}'s Fourier transform,
+where the first term on the right-hand side represents the contribution of the transmitted waveform $s(t)$ to the $n$'th array element and the second term represents the feedback contribution of the re-transmitted array signal to this same element.
+Expressing the Fourier transform of \eqref{eqn:SingleSensorTemporalEquality},
 \begin{equation}
     \label{eqn_singleSensorFourier}
     % \resizebox{.91\linewidth}{!}{
@@ -61,8 +61,8 @@ g\bTd{}\exp\rBrace{-j\phi}
 1 - g\aTd{}\exp\rBrace{-j\phi}
 }.
 \end{equation}
-\par Note that this result confirms that the suggested architecture achieves a controllable (via setting of $\vBeta$ and $\vAlpha$) and recursive (non-trivial denominator) spatial response.
-As will be shown, high directivity and narrow beam-width are obtainable by proper selection of the weights. Comparing to traditional beamformers (i.e. with no feedback), the performance improvement will be expressed in terms of aperture increase, computing the traditional beamformer aperture which achieves the same performance.
+\par Note that this architecture achieves a controllable (via setting of $\vBeta$ and $\vAlpha$) and recursive (non-trivial denominator) spatial response.
+As will be shown, high directivity and narrow beam-width are obtainable by proper selection of the weights. Comparing to traditional beamformers (i.e. without feedback), the performance improvement will be expressed in terms of increased aperture, narrower beamwidth and improved sidelobes attenuation.
 One may observe that opposed to traditional beamformers, the beampattern, $\Hba,$ is not only influenced by the impinging signal DOA, for it is also range selective due to its $\phi$ dependency.
 As exemplified in Fig.~\ref{fig_rangeAzimuthSelectivity}, the combination of both angular and range selectivity enables the designer to enhance signals arriving from specific locations rather than only specific directions.
 \begin{figure}[t!]

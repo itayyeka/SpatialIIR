@@ -1,7 +1,7 @@
 A possible evaluation for the contribution of the presented feedback mechanism is to measure the additional information in the system.
 To this end, the FIM, denoted by $J$, will now be calculated with respect to the DOA parameter $\thetaD$ and the range related parameter $\phi$. 
 As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunction}) is expressed in frequency domain, we rely on \cite{zeira1990frequency} to express the frequency domain FIM as well. 
-\par A single FIM element, may be expressed as
+\par The $\vBrace{k,l}$'th FIM element, may be expressed as
 \begin{equation}\label{eq_FIM_kl_full}
     \resizebox{.9\linewidth}{!}{
         \begin{split}
@@ -24,7 +24,7 @@ As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunctio
             \frac{T}{4\pi}
             \int_{-\omega_{s}/2}^{\omega_{s}/2}
             \frac{1}{\Phi^{2}\rBrace{\omega}}
-            \frac{\partial\Phi\rBrace{\omega}}{\partial\eta_{k}}
+            \rBrace{\frac{\partial\Phi\rBrace{\omega}}{\partial\eta_{k}}}^{\ast}
             \frac{\partial\Phi\rBrace{\omega}}{\partial\eta_{l}}
             d\omega
         \end{split}
@@ -49,47 +49,44 @@ Assuming continuously differentiable functions, where order alteration of the Fo
         \end{split}.
     % }
 \end{equation}
-As mentioned before, $g$ is independent of the estimated parameters, therefore
+Expressing the steering vector derivative with respect to $\thetaD$, results in
 \begin{equation}\label{eq_vdDiff}
 \frac{\partial\vd}{\partial\thetaD}=A\omegaB\vd
 \end{equation}
-where $A\omegaB$ is an $N\times{}N$ diagonal matrix and each of its diagonal elements may expressed as 
+where $A\omegaB$ is an $N\times{}N$ diagonal matrix with
 \[
 A_{\vBrace{i,i}}\omegaB=-j\omega\frac{\partial \tau_{i}}{\partial{\thetaD}}\ \  \forall{i\in\cBrace{0\hdots{}N-1}}.
 \]
-To further simplify the analysis, without loss of generality, we use (in this section only) $g=1$.
+It is worth mentioning that \eqref{eq_vdDiff} is relevant even for arbitrary (non-omni-directional) sensors when smooth and slowly changing radiation patterns are assumed.
 In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
 \begin{equation}
     \label{eqn_FIMelements}
     \resizebox{.91\linewidth}{!}{
         \begin{split}
-            &J_{\theta\theta}
+            &J_{11}=J_{\thetaD\thetaD}
             =
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            \lBrace{\vBetaT{}A\omegaB\vd-\vBetaT{}B\omegaB\vAlpha\ePhi{-}}^{2}
+            \lBrace{g\vBetaT{}A\omegaB\vd-g^{2}\vBetaT{}B\omegaB\vAlpha\ePhi{-}}^{2}
             }{
-            \lBrace{\rBrace{1-\aTd\ePhi{-}}^{2}}^{2}
+            \lBrace{\rBrace{1-g\aTd\ePhi{-}}^{2}}^{2}
             }\lBrace{\F{s}\rBrace{\omega}}^{2}d\omega}
             \\
-            &J_{\phi\phi}
+            &J_{22}=J_{\phi\phi}
             =
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            \lBrace{\bTd}^{2}
+            \lBrace{g\bTd}^{2}
             }{
-            \lBrace{\rBrace{1-\aTd\ePhi{-}}^{2}}^{2}
-            }\lBrace{\F{s}\rBrace{\omega}}^{2}d\omega}
+            \lBrace{\rBrace{1-g\aTd\ePhi{-}}^{2}}^{2}
+            }\lBrace{\F{s}\rBrace{\omega}}^{2}d\omega}.
         \end{split}
     }
 \end{equation}
-where $B\omegaB\triangleq\vd\vdT{}A\omegaB-A\omegaB\vd\vdT$.
-Moreover, using some mild assumptions and setting
-\begin{equation}\label{eq_alphaBetaPropSteer}
-    \vAlpha,\vBeta\propto\vd^{\ast},
+where $B\omegaB\triangleq\vd\vdT{}A\omegaB-A\omegaB\vd\vdT.$
+Assuming perfect knowledge of the target's location, while aiming to maximize the FIM diagonal elements via denominator (i.e. $\lBrace{1-g\aTd\ePhi{-}}$) minimization, we use a generalized version of the conventional beamformer (CB) \cite{van2004optimum},
+\begin{equation}\label{eq:alpha_beta_opt}
+\vAlpha_{\text{CB,opt}}=\frac{\vdC\exp\rBrace{j\phi}}{\hat{g}\norm{\vd}^2},
 \end{equation}
-we show that the cross terms of the FIM are nullified, i.e. $J_{\theta\phi} = J_{\phi\theta}^{*}=0$.
-\par 
-Choosing the weights as in \eqref{eq_alphaBetaPropSteer} may be interpreted as a generalization of the DS beamformer, formerly referenced as the conventional beamformer (CB) \cite{van2004optimum}, which coherently integrate the impinging signal along the array elements.
-The same choice of weights also minimizes the $\lBrace{1-\aTd\ePhi{-}}$ term, significantly increasing the available information, as predicted by the FIM.
-It is worth mentioning that \eqref{eq_vdDiff} is relevant even for arbitrary (non-omni-directional) sensors when smooth and slowly changing radiation patterns are assumed.
-In practice, though, there will be unavoidable errors, and perfect knowledge of the steering vector $\vd$ is not always available.
+where $\hat{g}$ is the channel gain estimation.
+This choice of parameters, where we also set $\vBeta_{\text{CB,opt}}=\vAlpha_{\text{CB,opt}}$, is shown (see App.~\ref{apdx_clacFim}) to nullify the FIM cross terms such that $J_{12}=J_{\thetaD,\phi}=J_{21}=J_{\phi\thetaD}=0.$
+\par In practice, though, there will be unavoidable errors, and perfect knowledge of the target's location is not available.
 In Sec.~\ref{sec_Performance}, we quantify the effect of such estimation errors and discuss its influence on the array performance. 

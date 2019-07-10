@@ -1,24 +1,24 @@
-Following \eqref{eq_beamPatternFreqDomain_FIM}, we elaborate the steps leading to \eqref{eqn_FIMelements}. First, we express the parial derivatives of $\F{y}$ with respect to $\vEta$, resulting in
+Following \eqref{eq_beamPatternFreqDomain_FIM}, we elaborate the steps leading to \eqref{eqn_FIMelements}. First, we express the parial derivatives of $\F{z}$ with respect to $\vEta$, resulting in
 \begin{equation*}
     \resizebox{.9\linewidth}{!}{
         \begin{split}
-            \frac{\partial{\F{y}}}{\partial{\thetaD}} &= 
+            \frac{\partial{\F{z}}}{\partial{\thetaD}} &= 
             \frac{
-            \vBetaT{}A\omegaB\vd\ePhi{-}\rBrace{1-\aTd\ePhi{-}}+\bTd\vAlphaT{}A\omegaB\vd\ePhi{-2}
+            g\vBetaT{}A\omegaB\vd\ePhi{-}\rBrace{1-g\aTd\ePhi{-}}+g^{2}\bTd\vAlphaT{}A\omegaB\vd\ePhi{-2}
             }{
-            \rBrace{1-\aTd\ePhi{-}}^{2}
+            \rBrace{1-g\aTd\ePhi{-}}^{2}
             }
             \\&=
             \frac{
-            \vBetaT{}A\omegaB\vd\ePhi{-}-\vBetaT{}\rBrace{A\omegaB\vd\vdT-\vd\vdT{}A\omegaB}\vAlpha\ePhi{-2}
+            g\vBetaT{}A\omegaB\vd\ePhi{-}-g^{2}\vBetaT{}\rBrace{A\omegaB\vd\vdT-\vd\vdT{}A\omegaB}\vAlpha\ePhi{-2}
             }{
-            \rBrace{1-\aTd\ePhi{-}}^{2}
+            \rBrace{1-g\aTd\ePhi{-}}^{2}
             }
             \\&=
             \frac{
-            \vBetaT{}A\omegaB\vd\ePhi{-}-\vBetaT{}B\omegaB\vAlpha\ePhi{-2}
+            g\vBetaT{}A\omegaB\vd\ePhi{-}-g^{2}\vBetaT{}B\omegaB\vAlpha\ePhi{-2}
             }{
-            \rBrace{1-\aTd\ePhi{-}}^{2}
+            \rBrace{1-g\aTd\ePhi{-}}^{2}
             }
         \end{split}
     }
@@ -27,17 +27,17 @@ and
 \begin{equation*}
     \resizebox{.9\linewidth}{!}{
         \begin{split}
-            \frac{\partial{\F{y}}}{\partial{\phi}} &= 
+            \frac{\partial{\F{z}}}{\partial{\phi}} &= 
             \frac{
-            -j\bTd\ePhi{-}\rBrace{1-\aTd\ePhi{-}}-j\bTd\aTd\ePhi{-2}
+            -jg\bTd\ePhi{-}\rBrace{1-g\aTd\ePhi{-}}-jg^{2}\bTd\aTd\ePhi{-2}
             }{
-            \rBrace{1-\aTd\ePhi{-}}^{2}
+            \rBrace{1-g\aTd\ePhi{-}}^{2}
             }
             \\&=
             \frac{
-            -j\bTd\ePhi{-}
+            -jg\bTd\ePhi{-}
             }{
-            \rBrace{1-\aTd\ePhi{-}}^{2}
+            \rBrace{1-g\aTd\ePhi{-}}^{2}
             }
         \end{split}
     }
@@ -46,21 +46,21 @@ such that
 \begin{equation*}
     \resizebox{.9\linewidth}{!}{
         \begin{split}
-            J_{\thetaD\thetaD} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{y}\omegaB}}{\partial{\thetaD}}}^{2}d\omega}
+            J_{\thetaD\thetaD} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{z}\omegaB}}{\partial{\thetaD}}}^{2}d\omega}
             \\&=
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            \lBrace{\vBetaT{}A\omegaB\vd-\vBetaT{}B\omegaB\vAlpha\ePhi{-}}^{2}
+            \lBrace{g\vBetaT{}A\omegaB\vd-g^{2}\vBetaT{}B\omegaB\vAlpha\ePhi{-}}^{2}
             }{
-            \lBrace{1-\aTd\ePhi{-}}^{4}
-            }\lBrace{\F{x}\omegaB}^{2}d\omega},
+            \lBrace{1-g\aTd\ePhi{-}}^{4}
+            }\lBrace{\F{s}\omegaB}^{2}d\omega},
             \\
-            J_{\phi\phi} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{y}\omegaB}}{\partial{\phi}}}^{2}d\omega}
+            J_{\phi\phi} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{z}\omegaB}}{\partial{\phi}}}^{2}d\omega}
             \\&=
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            \lBrace{\bTd}^{2}
+            \lBrace{g\bTd}^{2}
             }{
-            \lBrace{1-\aTd\ePhi{-}}^{4}
-            }\lBrace{\F{x}\omegaB}^{2}d\omega}
+            \lBrace{1-g\aTd\ePhi{-}}^{4}
+            }\lBrace{\F{s}\omegaB}^{2}d\omega}
         \end{split}
     }
 \end{equation*}
@@ -70,19 +70,22 @@ and the cross terms are
         \begin{split}
             &J_{\thetaD\phi} = J_{\phi\thetaD}^{\ast} = 
             \\&= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}
-            \rBrace{\frac{\partial{\F{y}\omegaB}}{\partial{\phi}}}^{\ast}
-            \frac{\partial{\F{y}\omegaB}}{\partial{\thetaD}}d\omega}
+            \rBrace{\frac{\partial{\F{z}\omegaB}}{\partial{\phi}}}^{\ast}
+            \frac{\partial{\F{z}\omegaB}}{\partial{\thetaD}}d\omega}
             \\&=
             \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            j\vBetaT{}\rBrace{A\omegaB\vd-B\omegaB\vAlpha\ePhi{-}}\vdH\vBetaC
+            jg\vBetaT{}\rBrace{gA\omegaB\vd-g^{2}B\omegaB\vAlpha\ePhi{-}}\vdH\vBetaC
             }{
-            \lBrace{1-\aTd\ePhi{-}}^{4}
-            }\lBrace{\F{x}\omegaB}^{2}d\omega}}.
+            \lBrace{1-g\aTd\ePhi{-}}^{4}
+            }\lBrace{\F{s}\omegaB}^{2}d\omega}}.
         \end{split}
     }
 \end{equation*}
-Setting the coefficients as $$\vAlpha,\vBeta\propto\vd^{\ast}$$ causes the $\vBetaT{}B\omegaB\vAlpha$~term to vanish. Assuming real input and real gain terms $g_n$ within the steering vector, the function
+where $B\omegaB\triangleq\vd\vdT{}A\omegaB-A\omegaB\vd\vdT$.
+Notice that when the weights are proportional to the conjugated steering vector, i.e. $$\vAlpha,\vBeta\propto\vd^{\ast},$$ the $\vBetaT{}B\omegaB\vAlpha$~term vanish.
+% Setting the coefficients as $$\vAlpha,\vBeta\propto\vd^{\ast}$$ causes the $\vBetaT{}B\omegaB\vAlpha$~term to vanish. 
+Assuming real input and real gain $g$ within the steering vector, the function
 \[
-\frac{\lBrace{\F{x}\omegaB}^{2}}{\lBrace{1-\aTd\ePhi{-}}^{4}}
+\frac{\lBrace{\F{s}\omegaB}^{2}}{\lBrace{1-g\aTd\ePhi{-}}^{4}}
 \]
-is even with respect to $\omega$, and $$j\vBetaT{}A\omegaB\vd\vdH\vBetaC\propto A\omegaB\vd\norm{\vd}^2$$ is odd. Hence the cross terms vanish.
+is even with respect to $\omega$, and $$\vBetaT{}A\omegaB\vd\vdH\vBetaC\propto A\omegaB\vd\norm{\vd}^2$$ is odd, hence the cross terms vanish.

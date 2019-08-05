@@ -14,12 +14,12 @@ Expressing the Fourier transform of \eqref{eqn:SingleSensorTemporalEquality},
     \label{eqn_singleSensorFourier}
     % \resizebox{.91\linewidth}{!}{
         \begin{split}
-            \F{x}_{n}\rBrace{\omega} =
-            g\Bigg( & \F{s}\rBrace{\omega}
+            \F{x}_{n} =
+            g\Bigg( & \F{s}
             \exp\rBrace{-j\omega\rBrace{\tau_{pd}+\tau_{n}}}
             \\&+\sum_{m=0}^{N-1}
             {
-            \alpha_{m}\omegaB\F{x}_{m}\rBrace{\omega}
+            \alpha_{m}\omegaB\F{x}_{m}
             \exp\rBrace{-j\omega\rBrace{\tau_{pd}+\tau_{n}}}
             }\Bigg),
         \end{split}
@@ -27,11 +27,11 @@ Expressing the Fourier transform of \eqref{eqn:SingleSensorTemporalEquality},
 \end{equation}
 and its vector from,
 $$
-\F{\vx}\rBrace{\omega} = ge^{-j\omega\tau_{pd}} \rBrace{\F{s}\rBrace{\omega}+\vAlphaT \F{\vx}\rBrace{\omega}}\vd,
+\F{\vx} = g\rBrace{\F{s}+\vAlphaT \F{\vx}}\vd\exp{\rBrace{-j\omega\tau_{pd}}},
 $$
 we find that it can be simplified to
 $$
-\F{\vx}\rBrace{\omega} =\rBrace{I-g\vd\vAlphaT{}e^{-j\omega\tau_{pd}}}^{-1}g\vd\exp{\rBrace{-j\omega\tau_{pd}}}\F{s}\rBrace{\omega}.
+\F{\vx} =g\rBrace{I-g\vd\vAlphaT{}e^{-j\omega\tau_{pd}}}^{-1}\vd\F{s}\exp{\rBrace{-j\omega\tau_{pd}}}.
 $$
 Then, denoting
 \[
@@ -39,13 +39,13 @@ Then, denoting
 \]
 as the round-trip signal propagation related electrical phase and using the Woodbury matrix identity \cite{woodbury1950inverting}, we find that
 $$
-\F{\vx}\rBrace{\omega}
+\F{\vx}
 =
 \frac{    
 g\vd\exp{\rBrace{-j\phi}}
 }{
 1 - g\aTd{}\exp{\rBrace{-j\phi}}
-}\F{s}\rBrace{\omega}.
+}\F{s}.
 $$
 Considering the noiseless case $\rBrace{\text{i.e. n}\rBrace{t}=0}$,
 we express the general spatial response of FB as 
@@ -53,7 +53,7 @@ we express the general spatial response of FB as
 \label{eqn:GeneralFeedbackTransferFunction}
 \Hba
 \triangleq
-\frac{\F{z}\rBrace{\omega}}{\F{s}\rBrace{\omega}} 
+\frac{\F{z}}{\F{s}} 
 =
 \frac{    
 g\bTd{}\exp\rBrace{-j\phi}

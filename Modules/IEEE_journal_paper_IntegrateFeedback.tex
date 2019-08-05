@@ -139,7 +139,7 @@ We then define four fundamental scenarios:
 \fi
 \subsection*{The normalized beampattern}
 \label{subsection_spatialIIR_normBP}
-As commonly done for ULA parameter analysis \cite{van2004optimum}, we focus on the normalized response (i.e. where the peak main lobe gain is set to $0_{dB}$). Hence forth, we define the normalized pattern
+As commonly done for ULA parameter analysis \cite{van2004optimum}, we focus on the normalized response (i.e. where the peak main lobe gain is set to $0_{dB}$). Hence forth, setting $\vecnot{\beta}_{\coefSetName,\text{opt}}=\vecnot{\alpha}_{\coefSetName,\text{opt}},$ we define the normalized pattern
 \begin{equation}
     \label{eq_narmalized_pattern}
     %\resizebox{.89\linewidth}{!}{
@@ -161,8 +161,8 @@ As commonly done for ULA parameter analysis \cite{van2004optimum}, we focus on t
     \end{split}
     %}
 \end{equation}
-where $\vecnot{\beta}_{\coefSetName,\text{opt}}=\vecnot{\alpha}_{\coefSetName,\text{opt}}$ and its subscript (i.e. $\Delta\theta,\Delta\phi,r$) express its DOA, range and gain errors dependency.
-Plugging \eqref{eq:SF_CB} to \eqref{eq_narmalized_pattern} gives rise to 
+where the $\rBrace{\Delta\theta,\Delta\phi,r}$ subscript express its DOA, range and gain errors dependency.
+Plugging \eqref{eq:SF_CB} into \eqref{eq_narmalized_pattern} gives rise to 
 \begin{equation}\label{eq_generalH}
     \resizebox{0.89\linewidth}{!}{
         \begin{split}
@@ -259,23 +259,38 @@ and for large $N$ values
 \else
 \fi
 \par For standard ULA, the gain of the first sidelobe is known to be $\frac{2}{3\pi}$ \cite{van2004optimum}, which implies that the suggested feedback based system has a suppression improvement of $1/\rBrace{1-r}$ at the first sidelobe.
-Specifically, in perfect gain match (i.e. $r\to\1$) scenario, the sidelobes vanish. 
+Specifically, in perfect gain match (i.e. $r\to{}1$) scenario, the sidelobes vanish. 
 \subsection*{Array directivity}
 The array directivity $\mathcal{D}$ \cite{van2004optimum}, defined as
 \begin{equation}\label{eq_D}
-    \mathcal{D}(r) = \frac{\Hr_{\Delta\theta=0,\Delta\phi=0,r}}{\frac{1}{2\pi}\int_{0}^{2\pi}\Hr_{\Delta\theta,\Delta\phi=0,r}\ d\Delta\theta},
+    \mathcal{D}\rBrace{N,r} = \frac{\Hr_{\Delta\theta=0,\Delta\phi=0,r}}{\frac{1}{2\pi}\int_{0}^{2\pi}\Hr_{\Delta\theta,\Delta\phi=0,r}\ d\Delta\theta} = \frac{2\pi}{\int_{0}^{2\pi}\Hr_{\Delta\theta,\Delta\phi=0,r}\ d\Delta\theta},
 \end{equation}
 measures the ratio between the maximal array gain at its mainlobe, to the averaged gain over all directions. 
-For uniformly weighted ULAs with no feedback, it is known \cite{van2004optimum} that $\mathcal{D}(r=0) = N$.
-Plugging \eqref{eq_Hdphi0} within \eqref{eq_D}, we use numerical evaluation and fit the following model for arbitrary $0\leq r\leq 1$
+For uniformly weighted ULAs with no feedback, it is known \cite{van2004optimum} that $\mathcal{D}\rBrace{N,0} = N$.
+Plugging \eqref{eq_Hdphi0} within \eqref{eq_D}, combined with the use of numerical integration methods, we find that (see Fig.~\ref{fig_directivity})
 \begin{equation}\label{eq_D}
-    \mathcal{D}(r) = \frac{r^{2}-\rBrace{N-1}r+N}{\rBrace{1-r}^{2}}
+    \mathcal{D}\rBrace{N,r} = \frac{N-r}{1-r}.
 \end{equation}
-where the standard ULA's known result is obtained for $r=0$.
-Also, for $r\to1$, we use L'Hôpital's rule to state that $\lim_{r\rightarrow 1}\mathcal{D}(r)=\infty$, implying infinite directivity for the perfectly gain matched FB. 
-\par Finally, expressing the improvement in directivity compared to the classical ULA, assuming large $N$ values, gives rise to
+\begin{figure}[t]
+    \begin{center}
+        \begin{overpic}[width=0.75\linewidth, 
+        %grid, 
+        tics=10,trim=0 0 0 0]{./Media/directivity_expr.eps}
+            \put (20, 10){\footnotesize{$N$}}
+            \put (72, 6){\footnotesize{$r$}}
+            \put (16.5, 70){\footnotesize{Numerical integration}}
+            \put (16.5, 65){\footnotesize{$\rBrace{N-r}/\rBrace{1-r}$}}
+            \put (-9, 45){\footnotesize{$\mathcal{D}\rBrace{N,r}$}}
+        \end{overpic}
+    \end{center}
+     \caption{Plot of $\mathcal{D}\rBrace{N,r}$, computed using numerical integration (surface), shown to perfectly match the analytic expression (black diamonds) presented in \eqref{eq_D}.}
+    \label{fig_directivity}
+\end{figure}
+Note that the standard ULA's known result is obtained for $r=0$.
+Also, for $N>=2$, $\lim_{r\rightarrow 1}\mathcal{D}\rBrace{N,r}=\infty$, implying infinite directivity for the perfectly gain matched FB. 
+\par Finally, expressing the improvement in directivity compared to the standard ULA, assuming large $N$ values, gives rise to
 \begin{equation}\label{eq_Dimprovement}
-\frac{\mathcal{D}(r)}{\mathcal{D}(0)}\overset{N\gg1}{=}\frac{1}{1-r}.
+\frac{\mathcal{D}\rBrace{N,r}}{\mathcal{D}\rBrace{N,0}}\overset{N\gg1}{\approx}\frac{N/\rBrace{1-r}}{N}=\frac{1}{1-r}.
 \end{equation}
 \subsection*{Summary}
 To conclude this section, we summarize the feedback integration related performance improvements in Table.~\ref{table_arrayPerformance} 
@@ -284,11 +299,11 @@ To conclude this section, we summarize the feedback integration related performa
     \resizebox{1\linewidth}{!}{
         \begin{tabular}{||c c c c||} 
             \hline
-            & ULA & \thead{FEEDBACK\\BASED} & IMPROVEMENT \\ [0.5ex] 
+            & ULA & \thead{FEEDBACK\\BASED} & \thead{IMPROVEMENT\\for $N\gg{}1$} \\ [0.5ex] 
             \hline\hline
-            HPBW & $ 1.4/N$ & $1/f(r)N$ & $1.4B\rBrace{r}$ times smaller\\ 
-            \thead{FIRST\\SIDELOBE\\GAIN} & $2/3\pi$ & $2\rBrace{1-r}/3\pi$ & $1-r$ \\
-            DIRECTIVITY & $N$ & $\mathcal{D}$ of \eqref{eq_D} & $1/\rBrace{1-r}$ \\
+            HPBW & $ 1.4/N$ & $1.4/\rBrace{f(r)N}$ & $f\rBrace{r}$ times smaller\\ 
+            \thead{FIRST\\SIDELOBE\\GAIN} & $2/3\pi$ & $2\rBrace{1-r}/3\pi$ & $1/\rBrace{1-r}$ times lower \\
+            DIRECTIVITY & $N$ & $\rBrace{N-r}/\rBrace{1-r} & $1/\rBrace{1-r}$ time higher\\
             [1ex] 
             \hline
          \end{tabular}

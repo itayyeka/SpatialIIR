@@ -12,7 +12,7 @@ where $\lambda$ is the signal wavelength and $\dThetaHPBW/2$ is the electrical a
         \end{split}
     % }
 \end{equation}
-where we define $x\triangleq{} N\dTheta/2$. In Fig.~\ref{fig_feedbackULA_HPBW_Nx_vs_N_variousR} we plot the numerical solution of \eqref{eq_HPBW} for various values of $r$ and $N$, showing that $x$ reaches its limit already for $N>20$. Also note that for $r=0$ we obtain the known result of standard ULA with the limiting factor of $1.4$.
+where we define $x\triangleq{} N\dTheta_{HPBW}/2$. In Fig.~\ref{fig_feedbackULA_HPBW_Nx_vs_N_variousR} we plot the numerical solution of \eqref{eq_HPBW} for various values of $r$ and $N$, showing that $x$ reaches its limit around $N=20$. Also note that for $r=0$ we obtain the known result of standard ULA with the limiting factor of $1.4$.
 Having the limiting factors for various values of the gain mismatch $r$, we investigate the feedback related improvement, expressing the HPBW by
 \[
 \dThetaHPBW/2\approx \frac{1.4}{f(r)N}
@@ -21,9 +21,9 @@ where $f(r)$ represents the array aperture improvement factor, compared to the s
 Fig.~\ref{fig_feedbackULA_beamwidth_limit_r_dependent} shows that $f(r)$ is closely fitted with a second order polynomial
 \begin{equation}
     \label{eq_Bapprox}
-    \hat{f}\rBrace{r}\approx\frac{1.4}{\rBrace{1-r}\rBrace{-0.4r+1.4}}.
+    f\rBrace{r}\approx\frac{1.4}{\rBrace{1-r}\rBrace{-0.4r+1.4}}.
 \end{equation}
-Note that for accurate gain match (i.e. $r\to1$), $\hat{f}\rBrace{r}$ tends towards infinity, implying that the equivalent array has infinite number  of elements ($\hat{f}\rBrace{r}N$), hence obtaining perfect spatial selectivity.
+Note that for accurate gain match (i.e. $r\to1$), the right-hand-side of \eqref{eq_Bapprox} tends towards infinity, implying that the equivalent array has infinite number  of elements ($f\rBrace{r}N$), hence obtaining perfect spatial selectivity.
 \begin{figure}[t]
     \begin{center}
         \begin{overpic}[width=0.65\linewidth, 
@@ -47,14 +47,14 @@ Note that for accurate gain match (i.e. $r\to1$), $\hat{f}\rBrace{r}$ tends towa
         \begin{overpic}[width=0.65\linewidth, 
         % grid, 
         tics=10,trim=0 0 0 0]{./Media/HPBW_limit_vs_r.eps}
-            \put (39.5, 64) {\scriptsize{Numerical solution of \eqref{eq_HPBW}}}
-            \put (39.5, 58) {\scriptsize{$N\dTheta/2$ fitting}}
-            \put (39.5, 52.5) {\footnotesize{$\log_{10}\hat{f}\rBrace{r}$}}
-            \put (85, 75) {\footnotesize{$\log_{10}\hat{f}\rBrace{r}$}}
+            \put (39.5, 63.5) {\scriptsize{Numerical solution of \eqref{eq_HPBW}}}
+            \put (39.5, 58.25) {\scriptsize{Polynomial fitting \eqref{eq_Bapprox}}}
+            \put (39.5, 52.5) {\footnotesize{$\log_{10}f\rBrace{r}$}}
+            \put (85, 75) {\footnotesize{$\log_{10}f\rBrace{r}$}}
             \put (4, 75){\footnotesize{$N\dThetaHPBW/2$}}
             \put (50, 2) {\footnotesize{$r$}}
         \end{overpic}
     \end{center}
-    \caption{Evaluation of $N\dThetaHPBW/2$ for $N=100$ and its approximation $1.4/\hat{f}\rBrace{r}$  (marked by red diamonds). $\hat{f}\rBrace{r}$ is also presented, in logarithmic scale (dotted curve).} 
+    \caption{Evaluation of $N\dThetaHPBW/2$ for $N=100$ and its approximation $1.4/f\rBrace{r}$  (marked by red diamonds). $f\rBrace{r}$ is also presented, in logarithmic scale (dotted curve).} 
     \label{fig_feedbackULA_beamwidth_limit_r_dependent}
 \end{figure}

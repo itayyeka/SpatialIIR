@@ -114,13 +114,13 @@ Then, simulating different range estimation errors in Fig.~\ref{fig_rangError} s
 \section{Conclusions}
 \label{sec_conclusions}
 Integrating feedback into standard beamformers proved to achieve a spatial domain equivalent of the temporal IIR.
-It seems that a simple generalization of the DS beamformer maximizes (locally) the system's residing spatial information, thus enabling high localization accuracy.
+It seems that a simple generalization of the conventional-beamformer maximizes (locally) the system's residing spatial information, thus enabling high localization accuracy.
 The feedback based architecture performance evaluation predicts an almost infinite improvement in all criteria, when considering perfect knowledge of the target's range and the channel attenuation.
-It turns out that a single frequency waveform based FB is impractical, being too sensitive to even mild target range estimation errors.
+It turns out that a single frequency waveform based feedback-beamformer is impractical, being too sensitive to even mild target range estimation errors.
 Fortunately, using two frequency waveform and applying simple frequency domain manipulations to the output and feedback signals, were found to serve as a low frequency (hence low sensitivity) equivalent of the single frequency scheme.
-Also, the dual frequency scheme proved to be of low noise sensitivity, featuring high performance even in relatively low SNR scenarios.
-\par Future study of the FB concept may be applied to other array processing applications other than localization, inspect other interesting choices of coefficients rather than the DS generalization, suggest other waveforms and associated processing schemes, extend the results to dynamic/multiple targets, consider sensors with general radiation patterns etc.
-Also, one may consider generalizing the suggested architecture to multiple input multiple output (MIMO) systems, enabling a steered/focused (rather than omni-directional) feedback transmission.
+Also, the dual frequency scheme proved to be of low noise sensitivity, featuring high performance even in relatively low signal-to-noise-ratio scenarios.
+\par Future study of the feedback-beamformer concept may be applied to other array processing applications other than localization, inspect other interesting choices of coefficients rather than the conventional-beamformer generalization, suggest other waveforms and associated processing schemes, extend the results to dynamic/multiple targets, consider sensors with general radiation patterns etc.
+Also, one may consider generalizing the suggested architecture to multiple-input-multiple-output systems, enabling a steered/focused (rather than omni-directional) feedback transmission.
 \appendices
 \section{FIM calculation}
 \label{apdx_clacFim}

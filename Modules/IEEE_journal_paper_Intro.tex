@@ -32,10 +32,10 @@ In Sec.~\ref{sec_Performance} we evaluate some key features of the proposed beam
 In Sec.~\ref{sec_app} we simulate the proposed processing scheme, and emphasize its sensitivity to range errors. We then suggest a strategy which mitigates this sensitivity. Finally, concluding remarks are stated in Sec.~\ref{sec_conclusions}.
 \section{Beamforming}\label{sec:setup}
 Consider an $N$-element ULA with inter-element spacing $\delta$, where its $n$'th sensor is positioned at $p_{n},\; n=\vBrace{0,\ldots,N-1}$. We set $p_{0}=\vecnot{0}$ as the reference point and assume that the target of interest is positioned at $p_{\text{t}}$.
-Focusing on a far field localization problem, DOA and target range are to be estimated. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$ which is measured with respect to the array's broadside.
-Inspired by radar based applications, we assume that the signal $s(t)$ is transmitted from the array, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R$ is the target's range from $p_{0}$ and $c$ represents the propagation velocity of the signal in the medium. 
+Focusing on a far field localization problem, DOA and target range are to be estimated. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$, measured from the array's broadside.
 For simplicity, we assume an anechoic environment, an array of identical omni-directional sensors and a stationary target of interest.
-\par Let $x_{n}(t)$ be the measured signal at the $n$'th sensor of the array
+Inspired by radar based applications, we also place a transmitter at $p_{0}$, assuming the transmitted signal $s$, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R = \abs{p_{\text{t}}-p_{0}}$ is the target's range and $c$ represents the propagation velocity of the signal in the medium. 
+\par Let $x_{n}(t)$ be the measured signal at the $n$'th sensor
 \begin{equation}
 x_{n}(t) = gs\Brack{t-\tau_{pd}-\tau_{n}},
 \label{eqn:noFeedbackULA_singleSensor_temporal}
@@ -48,15 +48,18 @@ Defining $\vecnot{x}\rBrace{t}\triangleq\vBrace{x_{0}\rBrace{t}\hdots{}x_{N-1}\r
 where $S\rBrace{\omega}$ is the Fourier transform of $s\rBrace{t}$, $\vdO$ denotes the steering vector whose $n$'th element is
 \begin{equation}
     \label{eq:d}
-    \vecnot{d}_{\vBrace{n}}\rBrace{\omega} = \exp{\rBrace{-j\omega\tau_{n}}},\;n=0,\ldots,N-1.
+    \vecnot{d}_{\vBrace{n}}\rBrace{\omega} = \exp{\rBrace{-j\omega\tau_{n}}}.
 \end{equation}
-Setting the beamformer's weights to be $\vBeta\rBrace{\omega}$ and denoting $z\rBrace{t}$ to be the beamformer's output, we express it's frequency domain representation as
-$$ Z\rBrace{\omega} = g\vecnot{\beta}^{T}\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}.$$ 
+Denoting the beamformer's weights as $\vBeta\rBrace{\omega}$ and the beamformer's output as $z\rBrace{t}$, we express the latter in frequency domain
+\begin{equation}
+    \label{eq_Z}
+    Z\rBrace{\omega} = g\vecnot{\beta}^{T}\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}.
+\end{equation}
 Defining the electric phase to be
 \begin{equation}\label{eq:thetaULA}
 \theta=\omega{\delta\cos\Brack{\thetaD}}/{c},
 \end{equation}
-we re-write of the beamformer's output as 
+we re-write \eqref{eq_Z} as 
 \[
 Z\rBrace{\omega} = g\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}\sum_{n=0}^{N-1}\beta_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
 \]
@@ -64,6 +67,6 @@ hence in the ULA case, aiming for a desired spatial response, the weights vector
 \ifdefined\useOmega \else 
 Assuming narrowband stimuli signals, we suppress $\omega$ dependency in the notation throughout the rest of this letter, where possible.
 \fi
-\par In the standard scheme of processing radar signals, a waveform $s\rBrace{t}$ is transmitted to, and reflected from the target of interest. Then, the reflected signal is processed by the radar reception array in order to estimate the DOA, range (and Doppler) of the target. 
+\par In standard radar signal processing schemes, a waveform is transmitted to, and reflected from the target of interest. Then, the reflected signal is processed by the radar reception array in order to estimate the target's dynamics (e.g. DOA, range, velocity etc.). 
 Opposed to the standard scheme, we suggest a continuous re-transmission of the signal and its echoes back to the platform, generating a spatial feedback loop between the array and the target.
-Another deviation from traditional radar processing, used to simplify the exposition, is using continuous-wave (CW) for $s\rBrace{t}$, rater than using pulse based signals. The suggested structure is elaborated in Sec.~\ref{sec_introduceFeedback} and shown to be equivalent to IIR filter design.
+Another deviation from traditional radar processing, used to simplify the exposition, is using continuous-wave (CW) stimuli, rater than using pulse based signals. The suggested structure is elaborated in Sec.~\ref{sec_introduceFeedback} and shown to be equivalent to IIR filter design.

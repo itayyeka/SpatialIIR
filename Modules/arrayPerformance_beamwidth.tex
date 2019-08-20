@@ -1,9 +1,10 @@
-The Half-Power-Beam-Width (HPBW) parameter quantifies the array's main lobe narrowness, marking the DOA where the beampattern's energy reduces to half of its maximal value.
-For standard ULA, with aperture of $N\delta$, it is known \cite{van2004optimum} that for large $N$,
+The Half-Power-Beam-Width (HPBW), denoted as $\dThetaHPBW$ quantifies the array's main lobe narrowness.
+It marks the DOA where the beampattern's energy reduces to half of its maximal value.
+For standard ULA, assuming large $N$ values, it is known \cite{van2004optimum} that
 $$
  \frac{\lambda\dThetaHPBW}{2\pi{}\delta} = \frac{\lambda}{\pi{}N\delta}1.4,
 $$
-where $\lambda$ is the signal wavelength and $\dThetaHPBW/2$ is the electrical angle where the HPBW is obtained. This result is more commonly expressed as $\dThetaHPBW/2= 1.4/N$. 
+where $\lambda$ is the signal wavelength. This result is more commonly expressed as $\dThetaHPBW/2= 1.4/N$. 
 \par In App.~\ref{apdx_HPBW} we extend this known result for any $r\geq 0$. It turns out that for large $N$, the HPBW is obtained by solving the equation
 \begin{equation}\label{eq_HPBW}
     % \resizebox{1\linewidth}{!}{
@@ -13,17 +14,17 @@ where $\lambda$ is the signal wavelength and $\dThetaHPBW/2$ is the electrical a
     % }
 \end{equation}
 where we define $x\triangleq{} N\dTheta_{HPBW}/2$. In Fig.~\ref{fig_feedbackULA_HPBW_Nx_vs_N_variousR} we plot the numerical solution of \eqref{eq_HPBW} for various values of $r$ and $N$, showing that $x$ reaches its limit around $N=20$. Also note that for $r=0$ we obtain the known result of standard ULA with the limiting factor of $1.4$.
-Having the limiting factors for various values of the gain mismatch $r$, we investigate the feedback related improvement, expressing the HPBW by
+Having the limiting factors for various values of the gain mismatch $r$, we investigate the feedback related improvement and express the HPBW by
 \[
-\dThetaHPBW/2\approx \frac{1.4}{f(r)N}
+\dThetaHPBW/2\approx \frac{1.4}{f(r)N}.
 \]
-where $f(r)$ represents the array aperture improvement factor, compared to the standard ULA. 
-Fig.~\ref{fig_feedbackULA_beamwidth_limit_r_dependent} shows that $f(r)$ is closely fitted with a second order polynomial
+Note that $f(r)$ represents the array aperture improvement factor, compared to the standard ULA. 
+Numerical evaluation (see Fig.~\ref{fig_feedbackULA_beamwidth_limit_r_dependent}) shows that $f(r)$ may be approximated with a second order polynomial
 \begin{equation}
     \label{eq_Bapprox}
     f\rBrace{r}\approx\frac{1.4}{\rBrace{1-r}\rBrace{-0.4r+1.4}}.
 \end{equation}
-Note that for accurate gain match (i.e. $r\to1$), the right-hand-side of \eqref{eq_Bapprox} tends towards infinity, implying that the equivalent array has infinite number  of elements ($f\rBrace{r}N$), hence obtaining perfect spatial selectivity.
+Note that for accurate gain match (i.e. $r\to1$), the RHS of \eqref{eq_Bapprox} tends towards infinity, implying that the equivalent array has infinite number  of elements ($f\rBrace{r}N$), hence obtaining perfect spatial selectivity.
 \begin{figure}[t]
     \begin{center}
         \begin{overpic}[width=0.65\linewidth, 

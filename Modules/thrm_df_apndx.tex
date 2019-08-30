@@ -1,0 +1,41 @@
+\begin{proof}
+    Elaborating \eqref{eqn_HDF_def} gives rise to
+    \fi
+    \begin{equation*}
+        \centering
+        \ifdefined\useOmega
+            \resizebox{1\linewidth}{!}{
+        \fi
+                \begin{split}
+                    H_{\text{DF}}^{-1}
+                    =
+                    \Bigg{|}
+                    &\frac
+                    {
+                    \gI{2}\vBetaTI{2}\vdI{2}\exp{\rBrace{j\rBrace{\phiI{1}-\phiI{2}}}}+\gI{1}\vBetaTI{1}\vdI{1}
+                    }{
+                    \gI{1}\vBetaTI{1}\vdI{1}\gI{2}\vBetaTI{2}\vdI{2}
+                    }
+                    \\&-
+                    \frac
+                    {
+                    \rBrace{\vBetaTI{1}\vdI{1}\vAlphaTI{2}\vdI{2}+\vBetaTI{2}\vdI{2}\vAlphaT_{1}\vdI{1}}\exp{\rBrace{-j\phiI{2}}}
+                    }{
+                    \vBetaTI{1}\vdI{1}\vBetaTI{2}\vdI{2}
+                    }
+                    \Bigg{|}.
+                \end{split}
+        \ifdefined\useOmega
+            }
+        \fi
+    \end{equation*}
+    \ifdefined\useOmega
+    \fi
+    Note that in the special case of choosing $\vAlphaI{1}~=~\vBetaI{1},\ \vAlphaI{2}~=~-~\vBetaI{2}$, the resultant beampattern simplifies to
+    \begin{equation*}
+        H_{\text{DF}} = \lBrace{\frac{\gI{1}\vBetaTI{1}\vdI{1}}{1+\frac{\gI{1}\vBetaTI{1}\vdI{1}}{\gI{2}\vBetaTI{2}\vdI{2}}\exp{\rBrace{-j\rBrace{\phiI{1}-\phiI{2}}}}}}.
+    \end{equation*}
+    Also setting
+    $$\vBetaI{2}=\vBrace{\gIHat{2},0,\hdots,0}$$
+    results in \eqref{eqn_H_DF_general}.
+\end{proof}

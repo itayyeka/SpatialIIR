@@ -38,19 +38,20 @@ Spatial array processing, beamforming, source localization, beam-pattern, cooper
 \section{Range Error Sensitivity}
 \label{sec_sim}
 In this section we investigate $\HrTPr$ for the general case, where also range misalignment phase term $\dPhi$ is possibly non zero. In Fig.~\ref{fig_hDUDTContour}, we plot $\abs{\HrTPr}$ in logarithmic scale, with respect to both steer and range misalignments.
-Close inspection of the range error related beampattern behaviour sheds light to some important observations.
+Close inspection of the range error related beampattern behaviour sheds light to some important points.
 First, we notice that although setting $r\to1$ (i.e. close to perfect gain match), sharpens the beampattern's main lobe  (i.e. higher spatial selectivity), it also amplifies the range error ($\dPhi$) related sensitivity as the main lobe's support over the $\dPhi/\pi$ axis shrinks. 
 Next, as evident from \eqref{eq_generalH}, the range error related sensitivity is $2\pi$-periodic with respect to $\dPhi$ (see Fig.~\ref{fig_hDUDTContour_mutliPeak}).
 To establish our final observation, we first recall that
 \[
 \phi\triangleq\omega\tau_{pd}=\frac{2\pi R_{\text{rt}}}{\lambda},
 \]
-where $R_{\text{rt}}=2R$ is the round-trip distance between the array and the target of interest and denote
+where $R_{\text{rt}}=2R$ is the round-trip distance between the array and the target of interest. 
+Define
 \[
 \Delta R_{\text{rt}}\omegaB=\frac{\dPhi\lambda}{2\pi} 
 \]
-as the range estimation error.
-Then, simulating different range estimation errors in Fig.~\ref{fig_rangError} shows that even minor range errors of $\Delta R_{\text{rt}}\sim0.1\lambda$ significantly distort the beampattern.
+to be the range estimation error.
+In Fig.~\ref{fig_rangError} shows that even minor range errors of $\Delta R_{\text{rt}}\sim0.1\lambda$ significantly distort the beampattern.
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=.95\linewidth, 
@@ -103,10 +104,11 @@ Then, simulating different range estimation errors in Fig.~\ref{fig_rangError} s
             \put (92, 30) {\footnotesize{$\Delta R_{\text{rt}}=0$}}
         \end{overpic}
     \end{center}
-    \caption{Evaluation of the array response for several values of range error $\Delta R_{\text{rt}}$ (where $r=0.4$). Even minor range errors significantly distort the beampattern.}
+    \caption{Evaluation of the array response (where $r=0.4$) for several values of range error $\Delta R_{\text{rt}}$ . Even minor range errors significantly distort the beampattern.}
   \label{fig_rangError}
 \end{figure}
-\par At first glance, this sensitivity to range errors renders the system being too sensitive for any practical use, leading us to seek robust implementations, as demonstrated in Sec.~\ref{sec_app}. 
+\par At first glance, this sensitivity to range errors renders the system being too sensitive for any practical use.
+This leads us to seek robust implementations, as elaborated in Sec.~\ref{sec_app}. 
 
 \section{Mitigating Range Error Sensitivity}
 \label{sec_app}
@@ -128,6 +130,9 @@ Also, one may consider generalizing the suggested architecture to multiple-input
 \section{Half power beamwidth}
 \label{apdx_HPBW}
 \input{./Modules/HPBW_apndx.tex}
+\section{Theorem \ref{thrm_DF}'s proof}
+\label{apdx_thrm_DF}
+\input{./Modules/thrm_df_apndx.tex}
 \ifCLASSOPTIONcaptionsoff
   \newpage
 \fi

@@ -158,8 +158,8 @@ As commonly done for ULA performance analysis \cite{van2004optimum}, we analyze 
     \end{split}
     %}
 \end{equation}
-where the $\rBrace{\Delta\theta,\Delta\phi,r}$ subscript express its DOA, range and gain errors dependency.
-Also, $\abs{\HrTPr}$ is defined to be the beampattern.
+where the $\Delta\theta,\Delta\phi,r$ subscripts express the DOA, range and gain errors dependency, respectively.
+%Also, $\abs{\HrTPr}$ is defined to be the beampattern.
 Plugging \eqref{eq:SF_CB} into \eqref{eq_narmalized_pattern} gives rise to 
 \begin{equation}\label{eq_generalH}
     \resizebox{0.89\linewidth}{!}{
@@ -257,8 +257,8 @@ and for large $N$ values
     }
 \else
 \fi
-\par For standard ULA, the gain of the first sidelobe is known to be $2/3\pi$ \cite{van2004optimum}, which implies that the first sidelobe is lower by a factor of $1-r$ comparing to standard ULA.
-Specifically, in perfect gain match (i.e. $r\to{}1$) scenario, the sidelobes vanish. 
+\par For standard ULA, the gain of the first sidelobe is known to be $2/3\pi$ \cite{van2004optimum}, which implies that the first sidelobe is smaller by a factor of $1-r$ compared to standard ULA.
+Specifically, in perfect gain match scenario (i.e. $r\to{}1$) , the sidelobes vanish. 
 \subsection*{Array directivity}
 The array directivity $\mathcal{D}$ \cite{van2004optimum}, defined as
 \begin{equation}\label{eq_D}
@@ -271,7 +271,7 @@ Plugging \eqref{eq_Hdphi0} within \eqref{eq_D} and by numerical evaluation (see 
     \mathcal{D}\rBrace{N,r} \approx \frac{N-r}{1-r},
 \end{equation}
 where the standard ULA's known result is obtained for $r=0$.
-Also, for $N\geq2$, $\lim_{r\rightarrow 1}\mathcal{D}\rBrace{N,r}=\infty$, implying infinite directivity for the perfectly gain matched FB. 
+Also, for $N\geq2$, $\lim_{r\rightarrow 1}\mathcal{D}\rBrace{N,r}=\infty$, implying infinite directivity for the perfectly gain-matched FB. 
 \par Finally, expressing the improvement in directivity compared to the standard ULA, assuming large $N$ values, gives rise to
 \begin{equation}\label{eq_Dimprovement}
 \lim_{N\to\infty}\frac{\mathcal{D}\rBrace{N,r}}{\mathcal{D}\rBrace{N,0}}
@@ -302,7 +302,7 @@ To conclude this section, we summarize the feedback integration related performa
             & ULA & \thead{FEEDBACK\\BASED} & IMPROVEMENT \\ [0.5ex] 
             \hline\hline
             HPBW & $ 1.4/N$ & $1.4/\rBrace{f(r)N}$ & $f\rBrace{r}$ times smaller\\ 
-            \thead{FIRST\\SIDELOBE\\GAIN} & $2/3\pi$ & $2\rBrace{1-r}/3\pi$ & \thead{lower by a factor of $1-r$\\for $N\gg{}1$} \\
+            \thead{FIRST\\SIDELOBE\\GAIN} & $2/3\pi$ & $2\rBrace{1-r}/3\pi$ & \thead{smaller by a factor of $1-r$\\for $N\gg{}1$} \\
             DIRECTIVITY & $N$ & $\rBrace{N-r}/\rBrace{1-r}$ & \thead{$1/\rBrace{1-r}$ times higher \\ for $N\gg{}1$}\\
             [1ex] 
             \hline

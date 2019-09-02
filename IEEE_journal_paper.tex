@@ -24,7 +24,7 @@ In the proposed scheme, a signal is continuously re-transmitted between the arra
 Considering ideal scenarios, the feedback based beamformer virtually achieves infinite aperture, increasing the available spatial information about the target and significantly improves the array's spatial performance.
 Using traditional beamforming performance analysis, the beamwidth, peak to side-lobe ratio, array directivity and white noise sensitivity are evaluated considering the feedback based array.
 Then, significant improvement in all aspects is shown, while thoroughly discussing the conditions for enhanced performance.
-Finally, an application of low estimation errors sensitivity, featuring high performance even in low signal-to-noise ratio, is presented and analyzed, serving as a practical and robust implementation of the feedback based localization concept.
+Finally, an application of low estimation errors sensitivity, featuring high performance even in low signal-to-noise ratio, is presented and analyzed, serving as a practical and robust implementation of the feedback based localization concept. 
 % Also, the suggested application features high performance in low signal-to-noise ratio.  
 \end{abstract}
 \begin{IEEEkeywords}
@@ -51,7 +51,7 @@ Define
 \Delta R_{\text{rt}}\omegaB=\frac{\dPhi\lambda}{2\pi} 
 \]
 to be the range estimation error.
-In Fig.~\ref{fig_rangError} shows that even minor range errors of $\Delta R_{\text{rt}}\sim0.1\lambda$ significantly distort the beampattern.
+Fig.~\ref{fig_rangError} shows that even minor range errors of $\Delta R_{\text{rt}}\sim0.1\lambda$ significantly distort the beampattern.
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=.95\linewidth, 
@@ -115,7 +115,7 @@ This leads us to seek robust implementations, as elaborated in Sec.~\ref{sec_app
 \input{./Modules/stabilityEnhancement_freqPairApproach.tex}
 \section{Conclusions}
 \label{sec_conclusions}
-Integrating feedback into standard beamformers proved to achieve a spatial domain equivalent of the temporal IIR.
+Integrating feedback into standard beamformers proved to achieve the spatial domain equivalent of the temporal IIR filtering.
 It seems that a simple generalization of the conventional-beamformer maximizes (locally) the system's residing spatial information, thus enabling high localization accuracy.
 The feedback based architecture performance evaluation predicts an almost infinite improvement in all criteria, when considering perfect knowledge of the target's range and the channel attenuation.
 It turns out that a single frequency waveform based feedback-beamformer is impractical, being too sensitive to even mild target range estimation errors.

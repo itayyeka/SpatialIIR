@@ -16,7 +16,7 @@ Following \eqref{eq_beamPatternFreqDomain_FIM}, we elaborate the steps leading t
             }
             \\&=
             \frac{
-            g\vBetaT{}A\omegaB\vd\ePhi{-}-g^{2}\vBetaT{}B\omegaB\vAlpha\ePhi{-2}
+            g\vBetaT{}A\omegaB\vd\ePhi{-}+g^{2}\vBetaT{}B\omegaB\vAlpha\ePhi{-2}
             }{
             \rBrace{1-g\aTd\ePhi{-}}^{2}
             }
@@ -40,10 +40,10 @@ and
             \rBrace{1-g\aTd\ePhi{-}}^{2}
             }
         \end{split}
-    }.
+    },
 \end{equation*}
-To simplify the writing, we denote $B\omegaB\triangleq\vd\vdT{}A\omegaB-A\omegaB\vd\vdT$ and express the FIM elements. 
-The diagonal elements are 
+where we defined $B\omegaB\triangleq\vd\vdT{}A\omegaB-A\omegaB\vd\vdT$. 
+The main diagonal elements of the FIM are 
 \begin{equation*}
     \resizebox{.9\linewidth}{!}{
         \begin{split}
@@ -75,7 +75,7 @@ and the cross terms are
             \frac{\partial{\F{z}\omegaB}}{\partial{\thetaD}}d\omega}
             \\&=
             \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            jg\vBetaT{}\rBrace{gA\omegaB\vd-g^{2}B\omegaB\vAlpha\ePhi{-}}\vdH\vBetaC
+            jg^{2}\vBetaH\vdC\vBetaT{}\rBrace{A\omegaB\vd+gB\omegaB\vAlpha\ePhi{-}}
             }{
             \lBrace{1-g\aTd\ePhi{-}}^{4}
             }\lBrace{\F{s}\omegaB}^{2}d\omega}}.
@@ -84,8 +84,8 @@ and the cross terms are
 \end{equation*}
 Notice that when the weights are proportional to the conjugated steering vector, i.e. $$\vAlpha,\vBeta\propto\vd^{\ast},$$ the $\vBetaT{}B\omegaB\vAlpha$~term vanish.
 % Setting the coefficients as $$\vAlpha,\vBeta\propto\vd^{\ast}$$ causes the $\vBetaT{}B\omegaB\vAlpha$~term to vanish. 
-Assuming real input waveform ($s$), the function
+Assuming real input waveform $s(t)$, the function
 \[
 \frac{\lBrace{\F{s}\omegaB}^{2}}{\lBrace{1-g\aTd\ePhi{-}}^{4}}
 \]
-is even with respect to $\omega$, and $$\vBetaT{}A\omegaB\vd\vdH\vBetaC\propto\vdH{}A\vd=\sum_{n=0}^{N-1}A_{n,n}\abs{\vdI_{n}}^{2}\propto\omega$$ is odd, hence the cross terms vanish.
+is even with respect to $\omega$, and $$\vBetaT{}A\omegaB\vd\propto\vdH{}A\vd=\sum_{n=0}^{N-1}A_{n,n}\abs{\vdI_{n}}^{2}\propto\omega$$ is odd, hence the cross terms vanish.

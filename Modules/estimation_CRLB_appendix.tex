@@ -5,7 +5,7 @@ As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunctio
 \begin{equation}\label{eq_FIM_kl_full}
     \resizebox{.9\linewidth}{!}{
         \begin{split}
-            J_{\vBrace{k,l}}\rBrace{\vEta} 
+            J_{k,l}\rBrace{\vEta} 
             =&
             \Re\cBrace{
             \frac{1}{2\pi}
@@ -31,7 +31,7 @@ As the feedback-based transfer function (\ref{eqn:GeneralFeedbackTransferFunctio
     }
 \end{equation}
 where $ \vEta = [\thetaD,\phi]^{T} $ is the parameters vector, $\Re$ stands for the real-part extraction operator, $k,l \in\cBrace{1,2}$, $\Phi\rBrace{\omega}$ is the noise spectrum, $\mathfrak{F}$ is the Fourier transform operator, $T$ is the measurement observation interval and $\omega_{s}$ is the signal bandwidth. 
-For simplicity, $\text{n}\rBrace{t}$ is assumed to be a white Gaussian with some constant power spectral density $\Phi(\omega)=\sigma^2$ and independent of the estimated parameters $\eta$, hence the second term in the right-hand-side of \eqref{eq_FIM_kl_full} vanishes. 
+For simplicity, $\text{n}\rBrace{t}$ is assumed to be a white Gaussian with some constant power spectral density $\Phi(\omega)=\sigma^2$ and independent of the estimated parameters $\eta$. Hence, the second term in the right-hand-side of \eqref{eq_FIM_kl_full} vanishes. 
 Assuming continuously differentiable functions, where order alteration of the Fourier transform and the differentiation operations is allowed, \eqref{eq_FIM_kl_full} simplifies to
 \begin{equation}
     \label{eq_beamPatternFreqDomain_FIM}
@@ -68,7 +68,7 @@ In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
             \lBrace{g\vBetaT{}A\omegaB\vd-g^{2}\vBetaT{}B\omegaB\vAlpha\ePhi{-}}^{2}
             }{
-            \lBrace{\rBrace{1-g\aTd\ePhi{-}}^{2}}^{2}
+            \lBrace{1-g\aTd\ePhi{-}}^{4}
             }\lBrace{\F{s}\rBrace{\omega}}^{2}d\omega}
             \\
             &J_{22}=J_{\phi\phi}
@@ -76,24 +76,25 @@ In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
             \lBrace{g\bTd}^{2}
             }{
-            \lBrace{\rBrace{1-g\aTd\ePhi{-}}^{2}}^{2}
+            \lBrace{1-g\aTd\ePhi{-}}^{4}
             }\lBrace{\F{s}\rBrace{\omega}}^{2}d\omega}.
         \end{split}
     }
 \end{equation}
-where $B\omegaB\triangleq\vd\vdT{}A\omegaB-A\omegaB\vd\vdT.$
-Generalizing the conventional beamformer (CB) \cite{van2004optimum}, such that the feedback weights are
-\begin{equation}\label{eq:alpha_beta_opt}
-\vAlpha_{\text{CB,opt}}=\frac{\vdC\exp\rBrace{j\phi}}{\hat{g}\norm{\vd}^2}
-\end{equation}
-where $\hat{g}$ is the channel gain estimate, both maximizes the FIM diagonal elements (via denominator minimization) and nulls it's cross-terms (see App.~\ref{apdx_clacFim}), thus significantly increases the available information.
-% Assuming perfect knowledge of the target's location, while aiming to maximize the FIM diagonal elements via denominator (i.e. $\lBrace{1-g\aTd\ePhi{-}}$) minimization, the optimal feedback weights are
+where $B\omegaB\triangleq\vd\vdT{}A\omegaB-A\omegaB\vd\vdT.$ 
+% Generalizing the conventional beamformer (CB) \cite{van2004optimum}, such that the feedback weights are
 % \begin{equation}\label{eq:alpha_beta_opt}
-% \vAlpha_{\text{CB,opt}}=\frac{\vdC\exp\rBrace{j\phi}}{\hat{g}\norm{\vd}^2},
+% \vAlpha_{\text{CB,opt}}=\frac{\vdC\exp\rBrace{j\phi}}{\hat{g}\norm{\vd}^2}
 % \end{equation}
-% where $\hat{g}$ is the channel gain estimate.
-% This choice of weights may be interpreted as a generalized version of the conventional beamformer (CB) \cite{van2004optimum}. 
-% This choice of parameters, where we also set $\vBeta_{\text{CB,opt}}=\vAlpha_{\text{CB,opt}}$, is shown (see App.~\ref{apdx_clacFim}) to nullify the FIM cross terms such that $J_{12}=J_{\thetaD,\phi}=J_{21}=J_{\phi\thetaD}=0.$
-\par Note that setting the feedback weights as in \eqref{eq:alpha_beta_opt} requires a perfect knowledge of the target's location. 
-In practice, where the target's exact location is unknown, there will be unavoidable errors.
-In Sec.~\ref{sec_Performance}, we quantify the effect of such estimation errors and discuss its influence on the array performance. 
+% where $\hat{g}$ is the channel gain estimate, both maximizes the FIM diagonal elements (via denominator minimization) and nulls it's cross-terms (see App.~\ref{apdx_clacFim}), thus significantly increases the available information.
+% Assuming perfect knowledge of the target's location, while
+Aiming to maximize the FIM diagonal elements via denominator (i.e. $\lBrace{1-g\aTd\ePhi{-}}$) minimization, the optimal feedback weights are 
+\begin{equation}\label{eq:alpha_beta_opt}
+\vAlpha_{\text{CB,opt}}=\frac{\vdC\exp\rBrace{j\phi}}{\hat{g}\norm{\vd}^2},
+\end{equation}
+where $\hat{g}$ is the channel gain estimate.
+This choice of weights may be interpreted as a generalized version of the conventional beamformer (CB) \cite{van2004optimum}. 
+Furthermore, setting $\vBeta=\vBeta_{\text{CB,opt}}=\vAlpha_{\text{CB,opt}}$, is shown (see App.~\ref{apdx_clacFim}) to nullify the FIM cross terms, such that $J_{12}=J_{\thetaD,\phi}=J_{21}=J_{\phi\thetaD}=0.$
+\par Note that setting the feedback weights as in \eqref{eq:alpha_beta_opt} requires perfect knowledge of the target's range, since $\phi$ is range dependant. 
+In practice, though, there will be unavoidable errors, and perfect knowledge of target's location is usually unknown.
+In Sec.~\ref{sec_Performance}, we quantify the effect of such errors and discuss its influence on the array performance. 

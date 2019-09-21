@@ -66,17 +66,17 @@ In App.~\ref{apdx_clacFim} we compute the FIM terms, concluding that
             &J_{11}=J_{\thetaD\thetaD}
             =
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            \lBrace{g\vBetaT{}A\omegaB\vd-g^{2}\vBetaT{}B\omegaB\vAlpha\ePhi{-}}^{2}
+            \lBrace{g\vBetaH{}A\omegaB\vd-g^{2}\vBetaH{}B\omegaB\vAlphaC\ePhi{-}}^{2}
             }{
-            \lBrace{1-g\aTd\ePhi{-}}^{4}
+            \lBrace{1-g\aTH\ePhi{-}}^{4}
             }\lBrace{\F{s}\rBrace{\omega}}^{2}d\omega}
             \\
             &J_{22}=J_{\phi\phi}
             =
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            \lBrace{g\bTd}^{2}
+            \lBrace{g\bHd}^{2}
             }{
-            \lBrace{1-g\aTd\ePhi{-}}^{4}
+            \lBrace{1-g\aHd\ePhi{-}}^{4}
             }\lBrace{\F{s}\rBrace{\omega}}^{2}d\omega}.
         \end{split}
     }
@@ -88,9 +88,9 @@ where $B\omegaB\triangleq\vd\vdT{}A\omegaB-A\omegaB\vd\vdT.$
 % \end{equation}
 % where $\hat{g}$ is the channel gain estimate, both maximizes the FIM diagonal elements (via denominator minimization) and nulls it's cross-terms (see App.~\ref{apdx_clacFim}), thus significantly increases the available information.
 % Assuming perfect knowledge of the target's location, while
-Aiming to maximize the FIM diagonal elements via denominator (i.e. $\lBrace{1-g\aTd\ePhi{-}}$) minimization, the optimal feedback weights are 
+Aiming to maximize the FIM diagonal elements via denominator (i.e. $\lBrace{1-g\aHd\ePhi{-}}$) minimization, the optimal feedback weights are 
 \begin{equation}\label{eq:alpha_beta_opt}
-\vAlpha_{\text{CB,opt}}=\frac{\vdC\exp\rBrace{j\phi}}{\hat{g}\norm{\vd}^2},
+\vAlphaC_{\text{CB,opt}}=\frac{\vdC\exp\rBrace{j\phi}}{\hat{g}\norm{\vd}^2},
 \end{equation}
 where $\hat{g}$ is the channel gain estimate.
 This choice of weights may be interpreted as a generalized version of the conventional beamformer (CB) \cite{van2004optimum}. 

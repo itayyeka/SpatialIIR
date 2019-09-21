@@ -53,7 +53,7 @@ where $S\rBrace{\omega}$ is the Fourier transform of $s\rBrace{t}$, and $\vdO$ d
 Denoting the beamformer's weights as $\vBeta\rBrace{\omega}$ and the beamformer's output as $z\rBrace{t}$, we express the latter in frequency domain
 \begin{equation}
     \label{eq_Z}
-    Z\rBrace{\omega} = g\vecnot{\beta}^{T}\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}.
+    Z\rBrace{\omega} = g\vecnot{\beta}^{H}\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}.
 \end{equation}
 Defining the electric phase to be
 \begin{equation}\label{eq:thetaULA}
@@ -61,7 +61,7 @@ Defining the electric phase to be
 \end{equation}
 we re-write \eqref{eq_Z} as 
 \[
-Z\rBrace{\omega} = g\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}\sum_{n=0}^{N-1}\beta_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
+Z\rBrace{\omega} = g\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}\sum_{n=0}^{N-1}\beta^{*}_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
 \]
 hence in the ULA case, aiming for a desired spatial response, the weights vector $\vecnot{\beta}\rBrace{\omega}$ configuration is mathematically equivalent to FIR filter design~\cite{van1988beamforming}. 
 \ifdefined\useOmega \else 

@@ -4,21 +4,21 @@ Following \eqref{eq_beamPatternFreqDomain_FIM}, we elaborate the steps leading t
         \begin{split}
             \frac{1}{\F{s}}\frac{\partial{\F{z}}}{\partial{\thetaD}} &= 
             \frac{
-            g\vBetaT{}A\omegaB\vd\ePhi{-}\rBrace{1-g\aTd\ePhi{-}}+g^{2}\bTd\vAlphaT{}A\omegaB\vd\ePhi{-2}
+            g\vBetaH{}A\omegaB\vd\ePhi{-}\rBrace{1-g\aHd\ePhi{-}}+g^{2}\bHd\vAlphaH{}A\omegaB\vd\ePhi{-2}
             }{
-            \rBrace{1-g\aTd\ePhi{-}}^{2}
+            \rBrace{1-g\aHd\ePhi{-}}^{2}
             }
             \\&=
             \frac{
-            g\vBetaT{}A\omegaB\vd\ePhi{-}-g^{2}\vBetaT{}\rBrace{A\omegaB\vd\vdT-\vd\vdT{}A\omegaB}\vAlpha\ePhi{-2}
+            g\vBetaH{}A\omegaB\vd\ePhi{-}-g^{2}\vBetaH{}\rBrace{A\omegaB\vd\vdT-\vd\vdT{}A\omegaB}\vAlphaC\ePhi{-2}
             }{
-            \rBrace{1-g\aTd\ePhi{-}}^{2}
+            \rBrace{1-g\aHd\ePhi{-}}^{2}
             }
             \\&=
             \frac{
-            g\vBetaT{}A\omegaB\vd\ePhi{-}+g^{2}\vBetaT{}B\omegaB\vAlpha\ePhi{-2}
+            g\vBetaH{}A\omegaB\vd\ePhi{-}+g^{2}\vBetaH{}B\omegaB\vAlphaC\ePhi{-2}
             }{
-            \rBrace{1-g\aTd\ePhi{-}}^{2}
+            \rBrace{1-g\aHd\ePhi{-}}^{2}
             }
         \end{split}
     }
@@ -29,15 +29,15 @@ and
         \begin{split}
             \frac{1}{\F{s}}\frac{\partial{\F{z}}}{\partial{\phi}} &= 
             \frac{
-            -jg\bTd\ePhi{-}\rBrace{1-g\aTd\ePhi{-}}-jg^{2}\bTd\aTd\ePhi{-2}
+            -jg\bHd\ePhi{-}\rBrace{1-g\aHd\ePhi{-}}-jg^{2}\bHd\aHd\ePhi{-2}
             }{
-            \rBrace{1-g\aTd\ePhi{-}}^{2}
+            \rBrace{1-g\aHd\ePhi{-}}^{2}
             }
             \\&=
             \frac{
-            -jg\bTd\ePhi{-}
+            -jg\bHd\ePhi{-}
             }{
-            \rBrace{1-g\aTd\ePhi{-}}^{2}
+            \rBrace{1-g\aHd\ePhi{-}}^{2}
             }
         \end{split}
     },
@@ -50,17 +50,17 @@ The main diagonal elements of the FIM are
             J_{\thetaD\thetaD} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{z}\omegaB}}{\partial{\thetaD}}}^{2}d\omega}
             \\&=
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            \lBrace{g\vBetaT{}A\omegaB\vd-g^{2}\vBetaT{}B\omegaB\vAlpha\ePhi{-}}^{2}
+            \lBrace{g\vBetaH{}A\omegaB\vd-g^{2}\vBetaH{}B\omegaB\vAlphaC\ePhi{-}}^{2}
             }{
-            \lBrace{1-g\aTd\ePhi{-}}^{4}
+            \lBrace{1-g\aHd\ePhi{-}}^{4}
             }\lBrace{\F{s}\omegaB}^{2}d\omega},
             \\
             J_{\phi\phi} &= \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}\lBrace{\frac{\partial{\F{z}\omegaB}}{\partial{\phi}}}^{2}d\omega}
             \\&=
             \frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            \lBrace{g\bTd}^{2}
+            \lBrace{g\bHd}^{2}
             }{
-            \lBrace{1-g\aTd\ePhi{-}}^{4}
+            \lBrace{1-g\aHd\ePhi{-}}^{4}
             }\lBrace{\F{s}\omegaB}^{2}d\omega}
         \end{split}
     }
@@ -75,9 +75,9 @@ and the cross terms are
             \frac{\partial{\F{z}\omegaB}}{\partial{\thetaD}}d\omega}
             \\&=
             \Re\cBrace{\frac{1}{2\pi\sigma^{2}}\int_{-\omega_{s}/2}^{\omega_{s}/2}{\frac{
-            jg^{2}\vBetaH\vdC\vBetaT{}\rBrace{A\omegaB\vd+gB\omegaB\vAlpha\ePhi{-}}
+            jg^{2}\vBetaT\vdC\vBetaH{}\rBrace{A\omegaB\vd+gB\omegaB\vAlphaC\ePhi{-}}
             }{
-            \lBrace{1-g\aTd\ePhi{-}}^{4}
+            \lBrace{1-g\aHd\ePhi{-}}^{4}
             }\lBrace{\F{s}\omegaB}^{2}d\omega}}.
         \end{split}
     }.
@@ -86,6 +86,6 @@ Notice that when the weights are proportional to the conjugated steering vector,
 % Setting the coefficients as $$\vAlpha,\vBeta\propto\vd^{\ast}$$ causes the $\vBetaT{}B\omegaB\vAlpha$~term to vanish. 
 Assuming real input waveform $s(t)$, the function
 \[
-\frac{\lBrace{\F{s}\omegaB}^{2}}{\lBrace{1-g\aTd\ePhi{-}}^{4}}
+\frac{\lBrace{\F{s}\omegaB}^{2}}{\lBrace{1-g\aHd\ePhi{-}}^{4}}
 \]
-is even with respect to $\omega$, and $$\vBetaT{}A\omegaB\vd\propto\vdH{}A\vd=\sum_{n=0}^{N-1}A_{n,n}\abs{\vdI_{n}}^{2}\propto\omega$$ is odd, hence the cross terms vanish.
+is even with respect to $\omega$, and $$\vBetaH{}A\omegaB\vd\propto\vdH{}A\vd=\sum_{n=0}^{N-1}A_{n,n}\abs{\vdI_{n}}^{2}\propto\omega$$ is odd, hence the cross terms vanish.

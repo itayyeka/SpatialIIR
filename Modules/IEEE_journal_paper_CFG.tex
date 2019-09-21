@@ -106,9 +106,13 @@
     \newcommand{\phiI}[1]{\phi_{#1}}
     \newcommand{\phiIHat}[1]{\hat{\phi}_{#1}}
     \newcommand{\vAlphaTI}[1]{\vecnot{\alpha}^{T}_{#1}}
+    \newcommand{\vAlphaHI}[1]{\vecnot{\alpha}^{H}_{#1}}
     \newcommand{\vBetaTI}[1]{\vecnot{\beta}^{T}_{#1}}
+    \newcommand{\vBetaHI}[1]{\vecnot{\beta}^{H}_{#1}}
     \newcommand{\vAlphaI}[1]{\vecnot{\alpha}_{#1}}
+    \newcommand{\vAlphaCI}[1]{\vecnot{\alpha}^{*}_{#1}}
     \newcommand{\vBetaI}[1]{\vecnot{\beta}_{#1}}
+    \newcommand{\vBetaCI}[1]{\vecnot{\beta}^{*}_{#1}}
 \fi
 
 \newcommand{\vAlphaIW}[1]{\vecnot{\alpha}_{#1}\omegaB}
@@ -116,7 +120,9 @@
 \newcommand{\vAlphaC}{\vecnot{\alpha}^{\ast}\omegaB}
 \newcommand{\vBetaC}{\vecnot{\beta}^{\ast}\omegaB}
 \newcommand{\vBetaFB}{\vecnot{\beta}_{\coefSetName}\omegaB}
+\newcommand{\vBetaCFB}{\vecnot{\beta}^{*}_{\coefSetName}\omegaB}
 \newcommand{\vAlphaFB}{\vecnot{\alpha}_{\coefSetName}\omegaB}
+\newcommand{\vAlphaCFB}{\vecnot{\alpha}^{*}_{\coefSetName}\omegaB}
 \newcommand{\vdT}{\vecnot{d}^{T}\omegaB}
 \newcommand{\vxT}{\vecnot{x}^{T}}
 \newcommand{\vAlphaT}{\vecnot{\alpha}^{T}\omegaB}
@@ -146,7 +152,9 @@
 
 \newcommand{\Steer}[1]{\vd_{#1}} 
 \newcommand{\aTd}{\vAlphaT\Steer{}} 
+\newcommand{\aHd}{\vAlphaH\Steer{}} 
 \newcommand{\bTd}{\vBetaT\Steer{}}
+\newcommand{\bHd}{\vBetaH\Steer{}}
 \newcommand{\Hr}{\mathcal{H}}
 \newcommand{\HrTPr}{\mathcal{H}_{\Delta\theta,\Delta\phi,r}}
 \newcommand{\myTodo}[2]{\ifdefined\showTodo{\todo[#1]{#2}}\else\fi}

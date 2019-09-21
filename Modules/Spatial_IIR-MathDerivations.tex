@@ -4,7 +4,7 @@ Time domain analysis of the proposed feedback based architecture, considering bo
     % \resizebox{.91\linewidth}{!}{
         \begin{split}
             x_{n}(t) = g\rBrace{s\rBrace{t-\tau_{pd}-\tau_{n}}
-            +\sum_{m=0}^{N-1}{\alpha_{m}x_{m}\rBrace{t-\tau_{pd}-\tau_{n}}}},
+            +\sum_{m=0}^{N-1}{\alpha^{*}_{m}x_{m}\rBrace{t-\tau_{pd}-\tau_{n}}}},
         \end{split}
     % }
 \end{equation}
@@ -19,7 +19,7 @@ Expressing the Fourier transform of \eqref{eqn:SingleSensorTemporalEquality},
             \exp\rBrace{-j\omega\rBrace{\tau_{pd}+\tau_{n}}}
             \\&+\sum_{m=0}^{N-1}
             {
-            \alpha_{m}\omegaB\F{x}_{m}
+            \alpha^{*}_{m}\omegaB\F{x}_{m}
             \exp\rBrace{-j\omega\rBrace{\tau_{pd}+\tau_{n}}}
             }\Bigg),
         \end{split}
@@ -27,11 +27,11 @@ Expressing the Fourier transform of \eqref{eqn:SingleSensorTemporalEquality},
 \end{equation}
 and its vector from,
 $$
-\F{\vx} = g\rBrace{\F{s}+\vAlphaT \F{\vx}}\vd\exp{\rBrace{-j\omega\tau_{pd}}},
+\F{\vx} = g\rBrace{\F{s}+\vAlphaH \F{\vx}}\vd\exp{\rBrace{-j\omega\tau_{pd}}},
 $$
 we find that it can be simplified to
 $$
-\F{\vx} =g\rBrace{I-g\vd\vAlphaT{}e^{-j\omega\tau_{pd}}}^{-1}\vd\F{s}\exp{\rBrace{-j\omega\tau_{pd}}}.
+\F{\vx} =g\rBrace{I-g\vd\vAlphaH{}e^{-j\omega\tau_{pd}}}^{-1}\vd\F{s}\exp{\rBrace{-j\omega\tau_{pd}}}.
 $$
 Then, denoting
 \[
@@ -44,10 +44,10 @@ $$
 \frac{    
 g\vd\exp{\rBrace{-j\phi}}
 }{
-1 - g\aTd{}\exp{\rBrace{-j\phi}}
+1 - g\aHd{}\exp{\rBrace{-j\phi}}
 }\F{s}.
 $$
-Let $z=\vBetaT{}\vecnot{x}+\text{n}$ be the beamformer's output (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), with Fourier transform $Z$. Considering the noiseless case $\rBrace{\text{i.e. n}=0}$, the frequency response of the FB is 
+Let $z=\vBetaH{}\vecnot{x}+\text{n}$ be the beamformer's output (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), with Fourier transform $Z$. Considering the noiseless case $\rBrace{\text{i.e. n}=0}$, the frequency response of the FB is 
 \begin{equation}
 \label{eqn:GeneralFeedbackTransferFunction}
 \Hba
@@ -55,9 +55,9 @@ Let $z=\vBetaT{}\vecnot{x}+\text{n}$ be the beamformer's output (see Fig.~\ref{f
 \frac{\F{z}}{\F{s}} 
 =
 \frac{    
-g\bTd{}\exp\rBrace{-j\phi}
+g\bHd{}\exp\rBrace{-j\phi}
 }{
-1 - g\aTd{}\exp\rBrace{-j\phi}
+1 - g\aHd{}\exp\rBrace{-j\phi}
 }.
 \end{equation}
 \par Note that this architecture achieves a controllable (via setting of $\vBeta$ and $\vAlpha$) and recursive (non-trivial denominator) spatial response.

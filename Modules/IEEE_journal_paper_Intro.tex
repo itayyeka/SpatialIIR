@@ -31,7 +31,7 @@ Searching for localization performance maximization, Sec.~ \ref{sec_FIM} discuss
 In Sec.~\ref{sec_Performance} we evaluate some key features of the proposed beamforming with feedback. Specifically, we compute the array beamwidth, its peak to sidelobe ratio and the array directivity, showing significant improvement compared to traditional beamforming without spatial feedback. 
 In Sec.~\ref{sec_app} we simulate the proposed processing scheme, and emphasize its sensitivity to range errors. We then suggest a strategy which mitigates this sensitivity. Finally, concluding remarks are stated in Sec.~\ref{sec_conclusions}.
 \section{Beamforming}\label{sec:setup}
-Consider an $N$-element ULA with inter-element spacing $\delta$, where its $n$'th sensor is positioned at $p_{n},\; n=\vBrace{0,\ldots,N-1}$. We set $p_{0}=\vecnot{0}$ as the reference point and assume that the target of interest is positioned at $p_{\text{t}}$.
+Consider an $N$-element ULA with inter-element spacing $\delta$, where its $n$'th sensor is positioned at $p_{n},\; n=0,\ldots,N-1$. We set $p_{0}=\vecnot{0}$ as the reference point and assume that the target of interest is positioned at $p_{\text{t}}$.
 Focusing on a far field localization problem, DOA and target range are to be estimated. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$, measured from the array's broadside.
 For simplicity, we assume an anechoic environment, an array of identical omni-directional sensors and a stationary target of interest.
 Inspired by radar based applications, we also place a transmitter at $p_{0}$, assuming the transmitted signal $s$, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R = \norm{p_{\text{t}}-p_{0}}$ is the target's range and $c$ represents the propagation velocity of the signal in the medium. 
@@ -45,7 +45,7 @@ Defining $\vecnot{x}\rBrace{t}\triangleq\vBrace{x_{0}\rBrace{t}\hdots{}x_{N-1}\r
 \[
 \vecnot{\F{x}}\rBrace{\omega}=g\vecnot{d}\rBrace{\omega}\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}
 \]
-where $S\rBrace{\omega}$ is the Fourier transform of $s\rBrace{t}$, $\vdO$ denotes the steering vector whose $n$'th element is
+where $S\rBrace{\omega}$ is the Fourier transform of $s\rBrace{t}$, and $\vdO$ denotes the steering vector whose $n$'th element is
 \begin{equation}
     \label{eq:d}
     \vecnot{d}_{n}\rBrace{\omega} = \exp{\rBrace{-j\omega\tau_{n}}}.

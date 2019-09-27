@@ -33,7 +33,7 @@ In Sec.~\ref{sec_app} we simulate the proposed processing scheme, and emphasize 
 \section{Beamforming}\label{sec:setup}
 In this section, a brief overview on ULA beamforming and its resemblance to FIR filter design are presented.
 Denoting the spatial pointer $\vv{p}$ to be a Cartesian coordinate set, we consider an $N$-element ULA with inter-element spacing $\delta$ where its $n$'th sensor is positioned at $\vv{p_{n}},\;\text{for}\; n\in\vBrace{0,\ldots,N-1}$. 
-We set $\vv{p_{0}}=\vv{0}$ as the reference point and assume that the target of interest is positioned at $\vv{p_{\text{t}}}$.
+We set $\vv{p_{0}}$ as the reference point (i.e. all coordinates are zero) and assume that the target of interest is positioned at $\vv{p_{\text{t}}}$.
 Focusing on a far field localization problem, DOA and target range are to be estimated. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$, measured from the array's broadside.
 For simplicity, we assume an anechoic environment, an array of identical omni-directional sensors and a stationary target of interest.
 Inspired by radar based applications, we also place a transmitter at $\vv{p_{0}}$, assuming the transmitted signal $s$, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R = \norm{\vv{p_{\text{t}}}-\vv{p_{0}}}$ is the target's range and $c$ represents the propagation velocity of the signal in the medium.

@@ -32,13 +32,15 @@ In Sec.~\ref{sec_Performance} we evaluate some key features of the proposed beam
 In Sec.~\ref{sec_app} we simulate the proposed processing scheme, and emphasize its sensitivity to range errors. We then suggest a strategy which mitigates this sensitivity. Finally, concluding remarks are stated in Sec.~\ref{sec_conclusions}.
 \section{Beamforming}\label{sec:setup}
 In this section, a brief overview on ULA beamforming and its resemblance to FIR filter design are presented.
-Denoting the spatial pointer $\vv{p}$ to be a Cartesian coordinate set, we consider an $N$-element ULA with inter-element spacing $\delta$ where its $n$'th sensor is positioned at $\vv{p_{n}},\;\text{for}\; n\in\vBrace{0,\ldots,N-1}$. 
-We set $\vv{p_{0}}$ as the reference point (i.e. all coordinates are zero) and assume that the target of interest is positioned at $\vv{p_{\text{t}}}$.
+% Denoting the spatial pointer $\vv{p}$ to be a Cartesian coordinate set, we consider an $N$-element ULA with inter-element spacing $\delta$ where its $n$'th sensor is positioned at $\vv{p_{n}},\;\text{for}\; n\in\vBrace{0,\ldots,N-1}$. 
+% We set $\vv{p_{0}}$ as the reference point (i.e. all coordinates are zero) and assume that the target of interest is positioned at $\vv{p_{\text{t}}}$.
+Consider an $N$-element ULA with inter-element spacing $\delta$, where its $n$'th sensor is positioned at $\vpi{n},\;\text{for}\; n=0,\ldots,N-1$. We set $\vpi{0}$ as the axis reference point and assume that the target of interest is positioned at $\vpt$.
 Focusing on a far field localization problem, DOA and target range are to be estimated. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$, measured from the array's broadside.
 For simplicity, we assume an anechoic environment, an array of identical omni-directional sensors and a stationary target of interest.
-Inspired by radar based applications, we also place a transmitter at $\vv{p_{0}}$, assuming the transmitted signal $s$, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R = \norm{\vv{p_{\text{t}}}-\vv{p_{0}}}$ is the target's range and $c$ represents the propagation velocity of the signal in the medium.
-In the following, we use some basic conventions; vectors and matrices are denoted by bold italic letters, $v_{i}$ is denoted as the $i$-th element of the vector $\vecnot{v}$ and $A_{ij}$ is the $i,j$-th element of the matrix $\vecnot{A}$.
-Also, $\vecnot{A}^{T}$, $\vecnot{A}^{*}$ and $\vecnot{A}^{H}$ are the transpose, conjugate and hermitian conjugate of matrix $\vecnot{A}$ respectively.
+Inspired by radar based applications, we also place a transmitter at $\vpi{0}$, assuming the transmitted signal $s$, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R = \norm{\vpt-\vpi{0}}$ is the target's range and $c$ represents the propagation velocity of the signal in the medium.
+In this this work, we use the following conventions; vectors and matrices are denoted by lower and upper case bold italic letters respectively. 
+$v_{i}$ and $A_{ij}$ are the $i$-th element of the vector $\vecnot{v}$ and the $i,j$-th element of the matrix $\vecnot{A}$.
+Also, $\vecnot{A}^{T}$, $\vecnot{A}^{*}$ and $\vecnot{A}^{H}$ are the transpose, conjugate and hermitian transpose of the matrix $\vecnot{A}$ respectively.
 \par Let $x_{n}(t)$ be the measured signal at the $n$'th sensor
 \begin{equation}
 x_{n}(t) = gs\Brack{t-\tau_{pd}-\tau_{n}},

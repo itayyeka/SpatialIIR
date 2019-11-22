@@ -1,5 +1,5 @@
 In this section, a feedback-based architecture is proposed for spatial signal processing.
-Inspired by time domain ``\textit{Direct form II}" IIR filter design (see Fig.~\ref{fig_IIRBasicArch}), 
+Inspired by time domain ``\textit{Direct form II}`` IIR filter design (see Fig.~\ref{fig_IIRBasicArch}), 
 we propose to use the same concept in the spatial domain.
 \begin{figure}[t!]
     \begin{center}
@@ -22,7 +22,7 @@ we propose to use the same concept in the spatial domain.
 \end{figure}
 The suggested feedback beamformer (FB) architecture, where the output signal ($z$) is synthesized using weights $\vBeta$ and the weights $\vAlpha$ synthesize the feedback transmission ($\Tx$), is presented Fig.~\ref{fig:Proposed_spatialIIR_ARCH}. The beamformer's output and the feedback signal are synthesized with two independently configured beamformers, $s$ is the system's stimulus and an additive noise (n) is assumed at the array's output.
 Also, the FB block is marked (dashed line) for later use.
-Note that setting $\vAlpha=\vecnot{0}$ (i.e. cancelling the feedback) degenerates the system to a plain delay-and-sum (DS) beamformer.
+Note that setting $\vAlpha=\vecnot{0}$ (i.e., cancelling the feedback) degenerates the system to a plain delay-and-sum (DS) beamformer.
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.95\linewidth, 
@@ -142,7 +142,7 @@ We then define four fundamental scenarios:
 \fi
 \subsection*{The normalized beampattern}
 \label{subsection_spatialIIR_normBP}
-As commonly done for ULA performance analysis \cite{van2004optimum}, we analyze the normalized response (i.e. where the peak main lobe gain is set to $0_{dB}$). Hence forth, setting $\vecnot{\beta}_{\coefSetName,\text{opt}}=\vecnot{\alpha}_{\coefSetName,\text{opt}},$ we define the normalized response
+As commonly done for ULA performance analysis \cite{van2004optimum}, we analyze the normalized response (i.e., where the peak main lobe gain is set to $0_{dB}$). Hence forth, setting $\vecnot{\beta}_{\coefSetName,\text{opt}}=\vecnot{\alpha}_{\coefSetName,\text{opt}},$ we define the normalized response
 \begin{equation}
     \label{eq_narmalized_pattern}
     %\resizebox{.89\linewidth}{!}{
@@ -175,12 +175,12 @@ Plugging \eqref{eq:SF_CB} into \eqref{eq_narmalized_pattern} gives rise to
         \end{split}
         }
 \end{equation}
-Note that the known \cite{van2004optimum} normalized response of standard ULA is obtained by setting $r=0$ (i.e. cancelling the feedback) 
+Note that the known \cite{van2004optimum} normalized response of standard ULA is obtained by setting $r=0$ (i.e., cancelling the feedback) 
 $$
 \Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB=
              \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}}.
 $$
-Considering the steer error scenario (i.e. $\dTheta\neq0,\ \dPhi=0$) first, where 
+Considering the steer error scenario (i.e., $\dTheta\neq0,\ \dPhi=0$) first, where 
 \begin{equation}\label{eq_Hdphi0}
 \Hr_{\Delta\theta,\Delta\phi=0,r}\omegaB=
              \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}},
@@ -264,7 +264,7 @@ and for large $N$ values
 \else
 \fi
 \par For standard ULA, the gain of the first sidelobe is known to be $2/3\pi$ \cite{van2004optimum}, which implies that the first sidelobe is smaller by a factor of $1-r$ compared to standard ULA.
-Specifically, in perfect gain match scenario (i.e. $r\to{}1$) , the sidelobes vanish. 
+Specifically, in perfect gain match scenario (i.e., $r\to{}1$) , the sidelobes vanish. 
 \subsection*{Array directivity}
 The array directivity $\mathcal{D}$ \cite{van2004optimum}, defined as
 \begin{equation}\label{eq_D}

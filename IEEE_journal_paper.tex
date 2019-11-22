@@ -17,18 +17,20 @@
 {}
 \maketitle
 \begin{abstract}
-State-of-the-art array processing methods, ranging from high-order statistics to adaptive configuration, demand costly computing effort in pursuit for spatial performance improvement.
-% State-of-the-art sensor arrays use a variety of methods, ranging from high-order statistics to adaptive configuration, to improve spatial performance, all of which demand costly computing effort.
+State-of-the-art array processing methods, ranging from high-order statistics to adaptive configuration, require costly computing efforts in pursuit for spatial performance improvement.
 A feedback based approach is introduced in the context of localization, featuring low complexity and high spatial performance in the excess of integrating a transmitter to the array.  
 In the proposed scheme, a signal is continuously re-transmitted between the array and the target of interest.
-Considering ideal scenarios, the feedback based beamformer virtually achieves infinite aperture, increasing the available spatial information about the target and significantly improves the array's spatial performance.
-Using traditional beamforming performance analysis, the beamwidth, peak to side-lobe ratio, array directivity and white noise sensitivity are evaluated considering the feedback based array.
-Then, significant improvement in all aspects is shown, while thoroughly discussing the conditions for enhanced performance.
-Finally, an application of low estimation errors sensitivity, featuring high performance even in low signal-to-noise ratio, is presented and analyzed, serving as a practical and robust implementation of the feedback based localization concept. 
+Considering ideal scenarios, the feedback based beamformer virtually achieves an infinite aperture, increasing the available spatial information about the target and significantly improves the array's spatial performance.
+Using a traditional beamforming performance analysis, the beamwidth, peak to side-lobe ratio, array directivity and white noise sensitivity are evaluated for the feedback based array.
+A significant improvement in all aspects is shown, while thoroughly discussing the conditions for enhanced performance.
+As a practical and robust implementation of the feedback based localization concept, an application of low estimation errors sensitivity, 
+% featuring high performance even in low signal-to-noise ratio, 
+is presented and analyzed.
+% serving as a practical and robust implementation of the feedback based localization concept. 
 % Also, the suggested application features high performance in low signal-to-noise ratio.  
 \end{abstract}
 \begin{IEEEkeywords}
-beamforming, beam-pattern, cooperative beamforming, source localization, spatial array processing, spatial IIR.
+Beamforming, beam-pattern, cooperative beamforming, source localization, spatial array processing, spatial IIR.
 \end{IEEEkeywords}
 \section{Introduction}
 \input{./Modules/IEEE_journal_paper_Intro.tex}
@@ -37,9 +39,9 @@ beamforming, beam-pattern, cooperative beamforming, source localization, spatial
 \input{./Modules/IEEE_journal_paper_IntegrateFeedback.tex}
 \section{Range Error Sensitivity}
 \label{sec_sim}
-In this section we investigate $\HrTPr$ for the general case, where also range misalignment phase term $\dPhi$ is possibly non zero. In Fig.~\ref{fig_hDUDTContour}, we plot $\abs{\HrTPr}$ in logarithmic scale, with respect to both steer and range misalignments.
+In this section, we investigate $\HrTPr$ for the general case, where also range misalignment phase term $\dPhi$ is possibly non zero. In Fig.~\ref{fig_hDUDTContour}, we plot $\abs{\HrTPr}$ in logarithmic scale, with respect to both steer and range misalignments.
 Close inspection of the range error related beampattern behaviour sheds light to some important points.
-First, we notice that although setting $r\to1$ (i.e. close to perfect gain match), sharpens the beampattern's main lobe  (i.e. higher spatial selectivity), it also amplifies the range error ($\dPhi$) related sensitivity as the main lobe's support over the $\dPhi/\pi$ axis shrinks. 
+First, we notice that although setting $r\to1$ (i.e., close to perfect gain match), sharpens the beampattern's main lobe  (i.e., higher spatial selectivity), it also amplifies the range error ($\dPhi$) related sensitivity as the main lobe's support over the $\dPhi/\pi$ axis shrinks. 
 Next, as evident from \eqref{eq_generalH}, the range error related sensitivity is $2\pi$-periodic with respect to $\dPhi$ (see Fig.~\ref{fig_hDUDTContour_mutliPeak}).
 To establish our final observation, we first recall that
 \[
@@ -121,7 +123,8 @@ The feedback based architecture performance evaluation predicts an almost infini
 It turns out that a single frequency waveform based feedback-beamformer is impractical, being too sensitive to even mild target range estimation errors.
 Fortunately, using two frequency waveform and applying simple frequency domain manipulations to the output and feedback signals, were found to serve as a low frequency (hence low sensitivity) equivalent of the single frequency scheme.
 Also, the dual frequency scheme proved to be of low noise sensitivity, featuring high performance even in relatively low signal-to-noise-ratio scenarios.
-\par Future study of the feedback-beamformer concept may be applied to other array processing applications other than localization, inspect other interesting choices of coefficients rather than the conventional-beamformer generalization, suggest other waveforms and associated processing schemes, extend the results to dynamic/multiple targets, consider sensors with general radiation patterns etc.
+\par Future study of the feedback-beamformer concept may be applied to other array processing applications other than localization.
+Furthermore, it is worthwhile to inspect other interesting choices of coefficients rather than the conventional-beamformer generalization, other waveforms and associated processing schemes, to extend the results to dynamic/multiple targets and to consider sensors with general radiation patterns.
 Also, one may consider generalizing the suggested architecture to multiple-input-multiple-output systems, enabling a steered/focused (rather than omni-directional) feedback transmission.
 \appendices
 \section{FIM calculation}
@@ -130,7 +133,7 @@ Also, one may consider generalizing the suggested architecture to multiple-input
 \section{Half power beamwidth}
 \label{apdx_HPBW}
 \input{./Modules/HPBW_apndx.tex}
-\section{Theorem \ref{thrm_DF}'s proof}
+\section{Proof of Theorem \ref{thrm_DF}}
 \label{apdx_thrm_DF}
 \input{./Modules/thrm_df_apndx.tex}
 \ifCLASSOPTIONcaptionsoff

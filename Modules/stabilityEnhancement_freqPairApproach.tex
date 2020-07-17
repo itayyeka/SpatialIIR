@@ -45,13 +45,12 @@ Note that in the suggested architecture we do not add array elements, but merely
 \[
 z_{i}(t)=H_{\vBetaI{i},\vAlphaI{i}}\rBrace{\omega_{i}}\exp{\rBrace{j\omega_{i}t}}\ \ {i\in\cBrace{1,2}},
 \]
-where $\vBetaI{i},\vAlphaI{i}$ are the coefficients of the $i$'th beamformer. 
-We then define the DF beamformer to be the harmonic mean of both beamformers' outputs, such that
+where $\vBetaI{i},\vAlphaI{i}$ are the coefficients of the $i$'th beamformer.
+Motivated to mitigate the $\Delta\phi$ dependency of the system, we exploit the fact that the system response may be easily evaluated via the frequency domain (i.e. $H_{\vBetaI{i}\vAlphaI{i}}\rBrace{\omega_{i}}$ is merely the temporal complex coefficient of $z_i(t)$'s Fourier transform) and define the DF beamformer to be the harmonic mean of both beamformers' outputs (see Fig.~\ref{fig_app}). It follows that
 \begin{equation}
     \label{eqn_HDF_def}
-    Z_{\text{DF}} = \abs{H^{-1}_{\vBetaI{1}\vAlphaI{1}}\rBrace{\omega_{1}}+H^{-1}_{\vBetaI{2},\vAlphaI{2}}\rBrace{\omega_{2}}}^{-1},
+    Z_{\text{DF}} = \abs{H^{-1}_{\vBetaI{1}\vAlphaI{1}}\rBrace{\omega_{1}}+H^{-1}_{\vBetaI{2},\vAlphaI{2}}\rBrace{\omega_{2}}}^{-1}.
 \end{equation}
-where in practice, $Z_{\text{DF}}$ may be estimated via the frequency domain evaluation of $z_1(t)$ and $z_2(t)$, as also illustrated in Fig.~\ref{fig_app}.
 % Note that, as in IIR filters, the system stabilizes after a certain period, therefore the Fourier weights should be calculated after stabilization.
 % As a rule of thumb, simulations show that the stabilization period is around $100R/c$. 
 \ifdefined\useOmega

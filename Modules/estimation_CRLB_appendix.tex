@@ -95,6 +95,7 @@ Aiming to maximize the FIM diagonal elements via denominator (i.e., $\lBrace{1-g
 where $\hat{g}$ is the channel gain estimate.
 This choice of weights may be interpreted as a generalized version of the conventional beamformer (CB) \cite{van2004optimum}. 
 Furthermore, setting $\vBeta=\vBeta_{\text{CB,opt}}=\vAlpha_{\text{CB,opt}}$, is shown (see App.~\ref{apdx_clacFim}) to nullify the FIM cross terms, such that $J_{12}=J_{\thetaD,\phi}=J_{21}=J_{\phi\thetaD}=0.$
-\par Note that setting the feedback weights as in \eqref{eq:alpha_beta_opt} requires perfect knowledge of the target's range, since $\phi$ is range dependant. 
-In practice, though, there will be unavoidable errors, and perfect knowledge of target's location is usually unknown.
+\par Note that setting the feedback weights as in \eqref{eq:alpha_beta_opt} requires perfect knowledge of the target's range, since $\phi$ is range dependant.
+Also, the reader may notice that this setting nullifies \eqref{eqn:GeneralFeedbackTransferFunction}'s denominator which obviously causes the destabilization of the system.
+In practice, though, there will be unavoidable errors, and perfect knowledge of target's location and the channel gain is usually unknown.
 In Sec.~\ref{sec_Performance}, we quantify the effect of such errors and discuss its influence on the array performance. 

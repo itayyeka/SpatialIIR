@@ -1,5 +1,5 @@
 In this section, a feedback-based architecture is proposed for spatial signal processing.
-Inspired by time domain ``\textit{Direct form II}`` IIR filter design (see Fig.~\ref{fig_IIRBasicArch}), 
+Inspired by time domain ``Direct form II'' IIR filter design (see Fig.~\ref{fig_IIRBasicArch}), 
 we propose to use the same concept in the spatial domain.
 \begin{figure}[t!]
     \begin{center}
@@ -17,36 +17,34 @@ we propose to use the same concept in the spatial domain.
             \put (47.5, 14.5){\footnotesize{$z^{-1}$}}
         \end{overpic}
     \end{center}
-    \caption{\textit{Direct form II} $2^{nd}$ order IIR architecture.}
+    \caption{Direct form II $2^{nd}$ order IIR architecture.}
     \label{fig_IIRBasicArch}
 \end{figure}
-The suggested feedback beamformer (FB) architecture, where the output signal ($z$) is synthesized using weights $\vBeta$ and the weights $\vAlpha$ synthesize the feedback transmission ($\Tx$), is presented Fig.~\ref{fig:Proposed_spatialIIR_ARCH}. The beamformer's output and the feedback signal are synthesized with two independently configured beamformers, $s$ is the system's stimulus and an additive noise (n) is assumed at the array's output.
+The suggested feedback beamformer (FB) architecture, where the output signal ($z$) is synthesized using weights $\vBeta$ and the weights $\vAlpha$ synthesize the feedback transmission ($\Tx$), is presented in Fig.~\ref{fig:Proposed_spatialIIR_ARCH}. The beamformer's output and the feedback signal are synthesized with two independently configured beamformers, $s$ is the system's stimulus and an additive noise (n) is assumed at the array's output.
 Also, the FB block is marked (dashed line) for later use.
 Note that setting $\vAlpha=\vecnot{0}$ (i.e., cancelling the feedback) degenerates the system to a plain delay-and-sum (DS) beamformer.
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=0.95\linewidth, 
         % grid, 
-        tics=10,trim={0 0 0 0}]{./Media/SpatialIIR-diagram/SpatialIIR_VER7.png}
-            \put (1.5, 43.5){\footnotesize{$\beta^{*}_{0}$}}
-            \put (12, 43.5){\footnotesize{$\beta^{*}_{1}$}}
-            \put (30, 43.5){\footnotesize{$\beta^{*}_{N-1}$}}
-            \put (47, 43.5){\footnotesize{$\alpha^{*}_{0}$}}
-            \put (57.5, 43.5){\footnotesize{$\alpha^{*}_{1}$}}
-            \put (80, 43.5){\footnotesize{$\alpha^{*}_{N-1}$}}
+        tics=10,trim={0 0 0 0}]{./Media/SpatialIIR-diagram/SpatialIIR_VER8.png}
+            \put (14, 39){\footnotesize{$\sum_{n=0}^{N-1}\beta^{*}_{n}x_{n}$}}
+            \put (54, 39){\footnotesize{$\sum_{n=0}^{N-1}\alpha^{*}_{n}x_{n}$}}
+            \put (24.25, 50){\footnotesize{$x_{0}$}}
+            \put (35, 50){\footnotesize{$x_{1}$}}
+            \put (55, 50){\footnotesize{$x_{N-1}$}}
             \put (30.5, 66){\footnotesize{$\delta$}}
             \put (89, 96){\footnotesize{$\vpt$}}
             \put (58, 58){\footnotesize{$\vpi{N-1}$}}
             \put (37, 58){\footnotesize{$\vpi{1}$}}
             \put (26.5, 58){\footnotesize{$\vpi{0}$}}
             \put (41.5, 64.5){\footnotesize{$\theta_{g}$}}
-            \put (19, 27){$\Sigma$}
             \put (19, 11.25){\large{$+$}}
-            \put (61.5, 27){$\Sigma$}
-            \put (44.75, 11.75){$s\rBrace{t}$}
-            \put (33.15, 11.75){n$\rBrace{t}$}
-            \put (21,4){$z\rBrace{t}$}
-            \put (63.5,14){$\Tx\rBrace{t}$}
+            \put (61.25, 27.25){\large{$+$}}
+            \put (47, 11.75){$s$}
+            \put (35.25, 11.75){$n$}
+            \put (21,4){$z$}
+            \put (63.5,14){$\Tx$}
             \put (1, 51){$\text{FB}_{\vAlpha,\vBeta}$}
         \end{overpic}
     \end{center}
@@ -64,7 +62,7 @@ Note that setting $\vAlpha=\vecnot{0}$ (i.e., cancelling the feedback) degenerat
 \input{./Modules/estimation_CRLB_appendix.tex}
 \section{Performance Analysis}
 \label{sec_Performance}
-In this section we analyze the suggested FB (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), considering some fundamental properties which are commonly used to asses array performance; it's beamwidth, peak to side-lobe level and it's directivity. Each property is then compared to traditional passive ULAs, showing that significantly improved performance are obtainable with spatial feedback integration.  
+In this section we analyze the suggested FB (see Fig.~\ref{fig:Proposed_spatialIIR_ARCH}), considering some fundamental properties which are commonly used to asses array performance: Beamwidth, peak-to-sidelobe level, and directivity. Each property is then compared to traditional passive ULAs, showing that significantly improved performances are obtainable with spatial feedback integration.  
 \subsection*{Error terms}
 In the absence of accurately known parameters, we denote $\hat{\phi},\hat{\theta}$ to be the range and DOA related phase estimates respectively.
 Then, using the same weights as in \eqref{eq:alpha_beta_opt} for both the feedback and output synthesis gives rise to
@@ -97,10 +95,10 @@ respectively.
 We then define four fundamental scenarios:
 \fi
 \begin{itemize}
-    \item{\makebox[.35\linewidth]{Perfect alignment \hfill} $\rBrace{\dTheta=0\ , \dPhi=0}$}
-    \item{\makebox[.35\linewidth]{Steer error \hfill} $\rBrace{\abs{\dTheta}>0\ , \dPhi=0}$}
-    \item{\makebox[.35\linewidth]{Range error \hfill} $\rBrace{\dTheta=0\ , \abs{\dPhi}>0}$}
-    \item{\makebox[.35\linewidth]{General \hfill} $\rBrace{\abs{\dTheta}>0\ , \abs{\dPhi}>0}$}.
+    \item{\makebox[.35\linewidth]{Perfect alignment \hfill} $\rBrace{\dTheta=0\ , \dPhi=0},$}
+    \item{\makebox[.35\linewidth]{Steer error \hfill} $\rBrace{\abs{\dTheta}>0\ , \dPhi=0},$}
+    \item{\makebox[.35\linewidth]{Range error \hfill} $\rBrace{\dTheta=0\ , \abs{\dPhi}>0},$}
+    \item{\makebox[.35\linewidth]{General \hfill} $\rBrace{\abs{\dTheta}>0\ , \abs{\dPhi}>0}.$}
 \end{itemize}
 \ifdefined\showTodo
 {
@@ -142,7 +140,7 @@ We then define four fundamental scenarios:
 \fi
 \subsection*{The normalized beampattern}
 \label{subsection_spatialIIR_normBP}
-As commonly done for ULA performance analysis \cite{van2004optimum}, we analyze the normalized response (i.e., where the peak main lobe gain is set to $0_{dB}$). Hence forth, setting $\vecnot{\beta}_{\coefSetName,\text{opt}}=\vecnot{\alpha}_{\coefSetName,\text{opt}},$ we define the normalized response
+As commonly done for ULA performance analysis \cite{van2004optimum}, we analyze the normalized response (i.e., where the peak main lobe gain is set to $0_{dB}$). Henceforth, setting $\vecnot{\beta}_{\coefSetName,\text{opt}}=\vecnot{\alpha}_{\coefSetName,\text{opt}},$ we define the normalized response
 \begin{equation}
     \label{eq_narmalized_pattern}
     %\resizebox{.89\linewidth}{!}{
@@ -166,7 +164,7 @@ As commonly done for ULA performance analysis \cite{van2004optimum}, we analyze 
 \end{equation}
 where the $\Delta\theta,\Delta\phi,r$ subscripts express the DOA, range and gain errors dependency, respectively.
 %Also, $\abs{\HrTPr}$ is defined to be the beampattern.
-Plugging \eqref{eq:SF_CB} into \eqref{eq_narmalized_pattern} gives rise to 
+Plugging \eqref{eq:SF_CB} into \eqref{eq_narmalized_pattern} yields 
 \begin{equation}\label{eq_generalH}
     \resizebox{0.89\linewidth}{!}{
         \begin{split}
@@ -180,7 +178,7 @@ $$
 \Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB=
              \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}}.
 $$
-Considering the steer error scenario (i.e., $\dTheta\neq0,\ \dPhi=0$) first, where 
+Considering the steering error scenario (i.e., $\dTheta\neq0,\ \dPhi=0$) first, where 
 \begin{equation}\label{eq_Hdphi0}
 \Hr_{\Delta\theta,\Delta\phi=0,r}\omegaB=
              \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}},
@@ -208,7 +206,7 @@ To simplify the exposition, we shall suppress the $\omega$ dependency in the fol
         \end{split}
         % }
     \end{equation*}
-    It follows that the sidelobes of the feedback based beampattern are located at the same angles as the in the ULA case.
+    It follows that the sidelobes of the feedback-based beampattern are located at the same angles as the in the ULA case.
     \end{minipage}
     }
 \else
@@ -270,7 +268,7 @@ The array directivity $\mathcal{D}$ \cite{van2004optimum}, defined as
 \begin{equation}\label{eq_D}
     \mathcal{D}\rBrace{N,r} = \frac{\Hr_{\Delta\theta=0,\Delta\phi=0,r}}{\frac{1}{2\pi}\int_{0}^{2\pi}\Hr_{\Delta\theta,\Delta\phi=0,r}\ d\Delta\theta} = \frac{2\pi}{\int_{0}^{2\pi}\Hr_{\Delta\theta,\Delta\phi=0,r}\ d\Delta\theta},
 \end{equation}
-measures the ratio between the maximal array gain at its mainlobe, to the averaged gain over all directions. 
+measures the ratio between the maximal array gain at its mainlobe, to the average gain over all directions. 
 For uniformly weighted ULAs with no feedback, it is known \cite{van2004optimum} that $\mathcal{D}\rBrace{N,0} = N$.
 Plugging \eqref{eq_Hdphi0} within \eqref{eq_D} and by numerical evaluation (see Fig.~\ref{fig_directivity}) we suggest to approximate the directivity with 
 \begin{equation}\label{eq_D_result}
@@ -301,12 +299,12 @@ Also, for $N\geq2$, $\lim_{r\rightarrow 1}\mathcal{D}\rBrace{N,r}=\infty$, imply
 \subsection*{Summary}
 To conclude this section, we summarize the feedback integration related performance improvements in Table.~\ref{table_arrayPerformance} 
 \begin{table}[h!]
-    \caption{Comparing performances of classical ULA and the proposed feedback based architecture, with gain mismatch $r$.}
+    \caption{Performances of Classical ULA and the Proposed Feedback-Beamforming Architecture, with a Gain Mismatch $r$.}
     \centering
     \resizebox{1\linewidth}{!}{
         \begin{tabular}{||c c c c||}
             \hline
-            & ULA & \thead{FEEDBACK\\BASED} & IMPROVEMENT \\ [0.5ex] 
+            & ULA & \thead{FEEDBACK\\BEAMFORMING} & IMPROVEMENT \\ [0.5ex] 
             \hline\hline
             HPBW & $ 1.4/N$ & $1.4/\rBrace{f(r)N}$ & $f\rBrace{r}$ times smaller\\ 
             \thead{FIRST\\SIDELOBE\\GAIN} & $2/3\pi$ & $2\rBrace{1-r}/3\pi$ & \thead{smaller by a factor of $1-r$\\for $N\gg{}1$} \\

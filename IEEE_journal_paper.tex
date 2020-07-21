@@ -5,13 +5,14 @@
 \hyphenation{}
 \input{./Modules/IEEE_journal_paper_CFG.tex}
 \begin{document}
-\title{Source Localization With Feedback Based Beamforming}
+\title{Source Localization with Feedback Beamforming}
 \author{Itay Yehezkel Karo,~\IEEEmembership{}
         Tsvi G. Dvorkind~\IEEEmembership{}
         and 
         Israel Cohen,~\IEEEmembership{Fellow,~IEEE}
-\thanks{Andrew and Erna Viterby Faculty of Electrical Engineering, Technion -- Israel Institute of Technology, Technion City, Haifa 3200003, Israel (e-mail: itayyeka@gmail.com, icohen@ee.technion.ac.il)}% <-this % stops a space
-\thanks{T. G. Dvorkind is with Rafael corp.}% <-this % stops a space
+\thanks{This work was supported by the Israel Science Foundation (grant no. 576/16), and the ISF-NSFC joint research program (grant No. 2514/17).}
+\thanks{Itay Yehezkel Karo and Israel Cohen are with Andrew and Erna Viterby Faculty of Electrical Engineering, Technion -- Israel Institute of Technology, Technion City, Haifa 3200003, Israel (e-mail: itayyeka@gmail.com, icohen@ee.technion.ac.il)}% <-this % stops a space
+\thanks{Tsvi G. Dvorkind is with Rafael Advanced Defense Systems, Haifa 31021, Israel (e-mail: dvorkind@gmail.com)}% <-this % stops a space
 }
 \markboth{}%
 {}
@@ -20,18 +21,18 @@
 State-of-the-art array processing methods, ranging from high-order statistics to adaptive configuration, require costly computing efforts in pursuit for spatial performance improvement.
 A feedback based approach is introduced in the context of localization, featuring low complexity and high spatial performance in the excess of integrating a transmitter to the array.  
 In the proposed scheme, a signal is continuously re-transmitted between the array and the target of interest.
-Considering ideal scenarios, the feedback based beamformer virtually achieves an infinite aperture, increasing the available spatial information about the target and significantly improves the array's spatial performance.
+Considering ideal scenarios, the feedback beamformer virtually achieves an infinite aperture, increasing the available spatial information about the target and significantly improves the array's spatial performance.
 Using a traditional beamforming performance analysis, the beamwidth, peak to side-lobe ratio, array directivity and white noise sensitivity are evaluated for the feedback based array.
 A significant improvement in all aspects is shown, while thoroughly discussing the conditions for enhanced performance.
-As a practical and robust implementation of the feedback based localization concept, an application of low estimation errors sensitivity, 
+As a practical and robust implementation of the feedback-based localization concept, an application of low estimation errors sensitivity, 
 is presented and analyzed.
 \end{abstract}
 \begin{IEEEkeywords}
-Beamforming, beam-pattern, cooperative beamforming, source localization, spatial array processing, spatial IIR.
+Beamforming, beampattern, cooperative beamforming, source localization, spatial array processing, spatial IIR.
 \end{IEEEkeywords}
 \section{Introduction}
 \input{./Modules/IEEE_journal_paper_Intro.tex}
-\section{Feedback Based Beamforming}
+\section{Feedback Beamforming}
 \label{sec_introduceFeedback}
 \input{./Modules/IEEE_journal_paper_IntegrateFeedback.tex}
 \section{Range Error Sensitivity}
@@ -50,7 +51,7 @@ Define
 \Delta R_{\text{rt}}\omegaB=\frac{\dPhi\lambda}{2\pi} 
 \]
 to be the range estimation error.
-Fig.~\ref{fig_rangError} shows that even minor range errors of $\Delta R_{\text{rt}}\sim0.1\lambda$ significantly distort the beampattern.
+Figure~\ref{fig_rangError} shows that even minor range errors of $\Delta R_{\text{rt}}\sim0.1\lambda$ significantly distort the beampattern.
 \begin{figure}[t!]
     \begin{center}
         \begin{overpic}[width=.9\linewidth, 
@@ -116,13 +117,17 @@ This leads us to seek robust implementations, as elaborated in Sec.~\ref{sec_app
 \label{sec_conclusions}
 Integrating feedback into standard beamformers proved to achieve the spatial domain equivalent of the temporal IIR filtering.
 It seems that a simple generalization of the conventional-beamformer maximizes (locally) the system's residing spatial information, thus enabling high localization accuracy.
-The feedback based architecture performance evaluation predicts an almost infinite improvement in all criteria, when considering perfect knowledge of the target's range and the channel attenuation.
+The feedback-based architecture performance evaluation predicts an unlimited improvement in all criteria, when considering perfect knowledge of the target's range and the channel attenuation.
 It turns out that a single frequency waveform based feedback-beamformer is impractical, being too sensitive to even mild target range estimation errors.
 Fortunately, using two frequency waveform and applying simple frequency domain manipulations to the output and feedback signals, were found to serve as a low frequency (hence low sensitivity) equivalent of the single frequency scheme.
 Also, the dual frequency scheme proved to be of low noise sensitivity, featuring high performance even in relatively low signal-to-noise-ratio scenarios.
-\par Future study of the feedback-beamformer concept may be applied to other array processing applications other than localization.
+\par Future study of the feedback beamforming concept may be applied to other array processing applications other than localization.
 Furthermore, it is worthwhile to inspect other interesting choices of coefficients rather than the conventional-beamformer generalization, other waveforms and associated processing schemes, to extend the results to dynamic/multiple targets and to consider sensors with general radiation patterns.
 Also, one may consider generalizing the suggested architecture to multiple-input-multiple-output systems, enabling a steered/focused (rather than omni-directional) feedback transmission.
+
+\section*{Acknowledgement}
+The authors thank the anonymous reviewers for their constructive comments which helped to improve the presentation of this paper.
+
 \appendices
 \section{FIM calculation}
 \label{apdx_clacFim}

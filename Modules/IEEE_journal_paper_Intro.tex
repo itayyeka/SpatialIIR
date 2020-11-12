@@ -1,21 +1,21 @@
 general field of array processing has been thoroughly studied throughout several decades.
 The array sensors' spatial diversity enables the extraction of spatial information about impinging signals, thus laying the ground for wide range of applications, such as localizing a transmitting source \cite{skolnik2008radar,long2019}, blindly separating mixtures of impinging signals \cite{comon1994independent}, improving signal to noise ratio (SNR) \cite{verdu1998multiuser}, and many more. 
 \par A uniform linear array (ULA) has always been a point of interest, due to its simplicity of analysis \cite{van2004optimum,benesty2018}. 
-The array size and the number of its elements ($N$) has significant influence on the obtained array performance, such as SNR improvement, spatial separation capabilities and its spatial response's degrees of freedom (DOF). For example, the influential MUSIC algorithm \cite{schmidt1986multiple} enables the localization of signals arriving from up to $N-1$ distinctive directions of arrival (DOA), by projecting the array manifold onto the noise subspace.
+The array size and the number of its elements ($N$) have significant influence on the obtained array performance, such as SNR improvement, spatial separation capabilities and its spatial response's degrees of freedom (DOF). For example, the influential MUSIC algorithm \cite{schmidt1986multiple} enables the localization of signals arriving from up to $N-1$ distinctive directions of arrival (DOA), by projecting the array manifold onto the noise subspace.
 \par In pursuit of spatial performance improvement, namely higher spatial separation and selectivity of arriving signals, many approaches were suggested.  
-One approach, commonly referenced as ``virtual arrays'' \cite{pal2010nested,chevalier2005virtual,dogan1995applications} deals with the extraction of samples originated in sensors that do not really exist by using high (higher than 2) order statistics and manipulating multiple statistical cross-terms in order to estimate statistical characteristics of signals impinging in missing sensors.
+One approach, commonly referenced as ``virtual arrays'' \cite{pal2010nested,chevalier2005virtual,dogan1995applications} deals with the extraction of samples originated in sensors that do not really exist by using high (higher than 2) order statistics and manipulating multiple statistical cross-terms in order to estimate statistical characteristics of signals impinging on missing sensors.
 Using a similar approach, the $2q$-MUSIC algorithm \cite{chevalier2006high}, enables the use of $N^{2q}$ ``virtual elements'', by calculating the $q$'th order statistics.
 Another approach, involving different array geometries, examined minimum redundancy arrays \cite{moffet1968minimum,pillai1985new,pillai1987statistical,Kupershtein2013}, aiming to reduce the spatial ambiguity. The basic concept was minimization of the inter-element spacing redundancy in order to increase the overall resolution. Adaptive processing schemes \cite{frost1972algorithm,manolakis2000statistical}, being a wide and active  research area, were also suggested trying to adaptively estimate and suppress the noise component in impinging signals by minimization of the receiver's output energy with some constraints.
-\par Pursuing other approaches to improve the array's spatial performance, ULA spatial array processing analogy to finite impulse response (FIR) \cite{van1988beamforming} and the infinite impulse response (IIR) superior performance (e.g. narrower transition regions and higher sidelobes attenuation) gave rise to the question ``what are the equivalent spatial domain processing methods which will be analogous to temporal IIR filtering?''
-\par Achieving spatial IIR response has also motivated other works.
+\par Pursuing other approaches to improve the array's spatial performance, ULA spatial array processing analogy to finite impulse response (FIR) \cite{van1988beamforming} and the infinite impulse response (IIR) superior performance (e.g. narrower transition regions and higher sidelobes attenuation) gave rise to the question ``what are the spatial domain processing methods which will be analogous to temporal domain IIR filtering?''
+\par Achieving a spatial IIR response has also motivated other works.
 In \cite{wen2013extending} two methods were considered.
-The first one was to estimate the time of arrival (TOA) difference between two consecutive sensors and to synthetically generate the recursive part of the IIR filter, entirely in the time-domain. The second approach suggested to consider overlapping subsets of one large ULA as finite approximation to an infinite array. 
+The first one was to estimate the time of arrival (TOA) difference between two consecutive sensors and to synthetically generate the recursive part of the IIR filter, entirely in the time-domain. The second approach suggested to consider overlapping subsets of one large ULA as a finite approximation to an infinite array. 
 Surely, the former approach heavily relies on the accuracy of the delay estimation and the latter approach does not achieve a recursive spatial response. In both cases, there is no true spatial feedback between the array and the source of interest.
-Also, ultra-wideband (UWB) filters, which sample spatial snapshots of the signal and recursively process it in temporal domain were designed in \cite{bruton1983highly}, using the $2D$ spatio-temporal plane wave representation as a straight line angled according to the DOA.
+Also, ultra-wideband (UWB) filters, which sample spatial snapshots of the signal and recursively process it in the temporal domain were designed in \cite{bruton1983highly}, using the $2D$ spatio-temporal plane wave representation as a straight line angled according to the DOA.
 \par In this contribution, we present a low-complexity sensor array processing approach which achieves the desired spatial domain exclusive IIR-like beampattern, while avoiding any temporal processing of the signal.
-To this end, we arbitrarily choose to formulate the problem in the context of a localization problem, hence our goal is to estimate the direction and the range of some target of interest. 
-\par The novelty, compared to traditional array processing, is the incorporation of spatial feedback, which we prove to be the spatial domain equivalent of temporal domain IIR filtering.
-Assuming the target of interest has a mirror-like behaviour (i.e., reflects its impinging signals), the spatial feedback between the array and the target is created by continuously re-transmitting a synthesized version of the impinging signal (and its reflections) to the target.
+To this end, we arbitrarily choose to formulate the problem in the context of localization, hence our goal is to estimate the direction and the range of some target of interest. 
+\par The novelty, compared to traditional array processing, is the incorporation of a spatial feedback, which we prove to be the spatial domain equivalent of temporal domain IIR filtering.
+Assuming the target of interest has a mirror-like behaviour (i.e. reflects its impinging signals), the spatial feedback between the array and the target is created by continuously re-transmitting a synthesized version of the impinging signal (and its reflections) to the target.
 Note that the initial stimulus can be generated by the target or the array itself. In the text to follow, we assume this is the latter. 
 Furthermore, as opposed to the passive target case (i.e., a target which merely reflects the impinging signal), one may consider a cooperative target, which receives, enhances and re-transmits the signal back to the array. 
 \par The outline of this paper is as follows. We first formulate the classic spatial beamforming setup in Sec.~\ref{sec:setup}. Then, in Sec.~\ref{sec_introduceFeedback}, we propose our novel feedback-based architecture, and formulate its spatial response.
@@ -27,16 +27,16 @@ In this section, a brief overview on ULA beamforming and its resemblance to FIR 
 Consider an $N$-element ULA with inter-element spacing $\delta$, where its $n$'th sensor is positioned at $\vpi{n},\;\text{for}\; n=0,\ldots,N-1$. We set $\vpi{0}$ as the axis reference point and assume that the target of interest is positioned at $\vpt$.
 Focusing on a far field localization problem, DOA and target range are to be estimated. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$, measured from the array's broadside.
 For simplicity, we assume an anechoic environment, an array of identical omni-directional sensors and a stationary target of interest.
-Inspired by radar based applications, we also place a transmitter at $\vpi{0}$, assuming the transmitted signal $s$, reflects back from the target and re-impinges the array, with total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R = \norm{\vpt-\vpi{0}}$ is the target's range and $c$ represents the propagation velocity of the signal in the medium.
-In this this work, we use the following conventions; vectors and matrices are denoted by lower and upper case bold italic letters respectively. 
+Inspired by radar based applications, we also place a transmitter at $\vpi{0}$, assuming the transmitted signal $s$, then reflects back from the target and finally re-impinges the array, with a total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R = \norm{\vpt-\vpi{0}}$ is the target's range and $c$ represents the propagation velocity of the signal in the medium.
+In this work, we use the following conventions; vectors and matrices are denoted by lower and upper case bold italic letters respectively. 
 $v_{i}$ and $A_{ij}$ are the $i$-th element of the vector $\vecnot{v}$ and the $i,j$-th element of the matrix $\vecnot{A}$.
-Also, $\vecnot{A}^{T}$, $\vecnot{A}^{*}$ and $\vecnot{A}^{H}$ are the transpose, conjugate and hermitian transpose of the matrix $\vecnot{A}$ respectively.
+Also, $\vecnot{A}^{T}$, $\vecnot{A}^{*}$ and $\vecnot{A}^{H}$ are the transpose, conjugate and Hermitian transpose of the matrix $\vecnot{A}$ respectively.
 \par Let $x_{n}(t)$ be the measured signal at the $n$'th sensor
 \begin{equation}
 x_{n}(t) = gs\Brack{t-\tau_{pd}-\tau_{n}},
 \label{eqn:noFeedbackULA_singleSensor_temporal}
 \end{equation}
-where $\tau_{n}=n\delta\cos\Brack{\thetaD}/c$ represents the time difference of arrival between the $n$'th sensor and the reference sensor and $g$, being a scalar in anechoic environment, is the channel's gain, related to both propagation and the target's radar cross section (RCS).
+where $\tau_{n}=n\delta\cos\Brack{\thetaD}/c$ represents the time difference of arrival between the $n$'th sensor and the reference sensor and $g$, being a scalar in an anechoic environment, is the channel's gain, related to both propagation and the target's radar cross section (RCS).
 Defining $\vecnot{x}\rBrace{t}\triangleq\vBrace{x_{0}\rBrace{t}\hdots{}x_{N-1}\rBrace{t}}^{T}$ and its Fourier transform, $\vecnot{\F{x}}\rBrace{\omega}\triangleq\vBrace{X_{0}\rBrace{\omega},\hdots,X_{N-1}\rBrace{\omega}}^{T}$, one may write 
 \[
 \vecnot{\F{x}}\rBrace{\omega}=g\vecnot{d}\rBrace{\omega}\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}
@@ -46,7 +46,7 @@ where $S\rBrace{\omega}$ is the Fourier transform of $s\rBrace{t}$ and $\vdO$ de
     \label{eq:d}
     d_{n}\rBrace{\omega} = \exp{\rBrace{-j\omega\tau_{n}}}.
 \end{equation}
-Denoting the beamformer's weights as $\vBeta\rBrace{\omega}$ and the beamformer's output as $z$, we express the latter in frequency domain
+Denoting the beamformer's weights as $\vBeta\rBrace{\omega}$ and the beamformer's output as $z$, we express the latter in the frequency domain
 \begin{equation}
     \label{eq_Z}
     Z\rBrace{\omega} = g\vecnot{\beta}^{H}\rBrace{\omega}\vecnot{d}\rBrace{\omega}\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}.
@@ -59,13 +59,13 @@ we rewrite \eqref{eq_Z} as
 \[
 Z\rBrace{\omega} = g\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}\sum_{n=0}^{N-1}\beta^{*}_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
 \]
-hence in the ULA case, aiming for a desired spatial response, the weights vector $\vecnot{\beta}\rBrace{\omega}$ configuration is mathematically equivalent to FIR filter design~\cite{van1988beamforming,benesty2018}. 
+hence in the ULA case, aiming for a desired spatial response, the weights vector $\vecnot{\beta}\rBrace{\omega}$ configuration is mathematically equivalent to an FIR filter design~\cite{van1988beamforming,benesty2018}. 
 \ifdefined\useOmega \else 
-Assuming narrowband stimuli signals, we suppress $\omega$ dependency in the notation throughout the rest this paper, where possible.
+Assuming narrowband stimuli signals, we suppress $\omega$ dependency in the notation throughout the rest of this paper, where possible.
 \fi
 \par In standard radar signal processing schemes, a waveform is transmitted to, and reflected from the target of interest. Then, the reflected signal is processed by the radar reception array in order to estimate the target's dynamics (e.g., DOA, range, velocity etc.). 
 As opposed to the standard scheme, we suggest a continuous re-transmission of the signal and its echoes back to the platform, generating a spatial feedback loop between the array and the target.
-Another deviation from traditional radar processing, used to simplify the exposition, is using continuous-wave (CW) stimuli, rater than using pulse based signals. 
+Another deviation from traditional radar processing, used to simplify the exposition, is using continuous-wave (CW) stimuli, rather than using pulse based signals. 
 % The suggested structure is elaborated in Sec.~\ref{sec_introduceFeedback} and shown to be equivalent to IIR filter design.
 \section{Feedback Beamforming}
 \label{sec_introduceFeedback}
@@ -74,7 +74,7 @@ Inspired by time domain ``Direct form II'' IIR filter design (see Fig.~\ref{fig_
 we propose to use the same concept in the spatial domain.
 \begin{figure}[t!]
     \begin{center}
-        \begin{overpic}[width=0.6\linewidth, 
+        \begin{overpic}[width=0.7\linewidth, 
         % grid, 
         tics=10,trim=0 0 0 0]{./Media/BASIC_IIR_FILTER_ARCH.png}
             \put (60, 50){\footnotesize{$\beta_{0}$}}
@@ -98,7 +98,7 @@ Note that setting $\vAlpha=\vecnot{0}$ (i.e., cancelling the feedback) degenerat
     \begin{center}
         \begin{overpic}[width=0.95\linewidth, 
         % grid, 
-        tics=10,trim={0 0 0 0}]{./Media/SpatialIIR-diagram/SpatialIIR_VER8.png}
+        tics=10,trim={0 0 0 0}]{./Media/SpatialIIR-diagram/SpatialIIR_VER9.png}
             \put (14, 39){\footnotesize{$\sum_{n=0}^{N-1}\beta^{*}_{n}x_{n}$}}
             \put (54, 39){\footnotesize{$\sum_{n=0}^{N-1}\alpha^{*}_{n}x_{n}$}}
             \put (24.25, 50){\footnotesize{$x_{0}$}}
@@ -109,7 +109,7 @@ Note that setting $\vAlpha=\vecnot{0}$ (i.e., cancelling the feedback) degenerat
             \put (58, 58){\footnotesize{$\vpi{N-1}$}}
             \put (37, 58){\footnotesize{$\vpi{1}$}}
             \put (26.5, 58){\footnotesize{$\vpi{0}$}}
-            \put (41.5, 64.5){\footnotesize{$\theta_{g}$}}
+            \put (41.5, 64.5){\footnotesize{$\theta_{d}$}}
             \put (19, 11.25){\large{$+$}}
             \put (61.25, 27.25){\large{$+$}}
             \put (47, 11.75){$s$}
@@ -167,7 +167,7 @@ We then define four fundamental scenarios:
 \fi
 \begin{itemize}
     \item{\makebox[.35\linewidth]{Perfect alignment \hfill} $\rBrace{\dTheta=0\ , \dPhi=0},$}
-    \item{\makebox[.35\linewidth]{Steer error \hfill} $\rBrace{\abs{\dTheta}>0\ , \dPhi=0},$}
+    \item{\makebox[.35\linewidth]{Steering error \hfill} $\rBrace{\abs{\dTheta}>0\ , \dPhi=0},$}
     \item{\makebox[.35\linewidth]{Range error \hfill} $\rBrace{\dTheta=0\ , \abs{\dPhi}>0},$}
     \item{\makebox[.35\linewidth]{General \hfill} $\rBrace{\abs{\dTheta}>0\ , \abs{\dPhi}>0}.$}
 \end{itemize}
@@ -244,7 +244,7 @@ Plugging \eqref{eq:SF_CB} into \eqref{eq_narmalized_pattern} yields
         \end{split}
         }
 \end{equation}
-Note that the known \cite{van2004optimum} normalized response of standard ULA is obtained by setting $r=0$ (i.e., cancelling the feedback) 
+Note that the known \cite{van2004optimum} normalized response of standard ULA is obtained by setting $r=0$ and $\Delta\phi=0$
 $$
 \Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB=
              \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}}.

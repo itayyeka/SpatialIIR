@@ -46,19 +46,15 @@ Note that in the suggested architecture we do not add array elements, but merely
 z_{i}(t)=H_{\vBetaI{i},\vAlphaI{i}}\rBrace{\omega_{i}}\exp{\rBrace{j\omega_{i}t}}\ \ {i\in\cBrace{1,2}},
 \]
 where $\vBetaI{i},\vAlphaI{i}$ are the coefficients of the $i$'th beamformer.
-Motivated by the desire to mitigate the $\Delta\phi$ dependency of the system, which appears in the denominator of \eqref{eq_generalH}, we compute the reciprocal of each frequency response, average, and compute the reciprocal again. This leads to the harmonic mean of both beamformers' outputs (see Fig.~\ref{fig_app}), which formally, up to a constant term, takes the form
+Motivated by the desire to mitigate the $\Delta\phi$ dependency of the system, which appears in the denominator of \eqref{eq_generalH}'s RHS, we compute the reciprocal of each frequency response, average, and compute the reciprocal again. This leads to the harmonic mean of both beamformers' outputs (see Fig.~\ref{fig_app}), which formally, up to a constant term, takes the form
 \begin{equation}
     \label{eqn_HDF_def}
     Z_{\text{DF}} = \abs{H^{-1}_{\vBetaI{1}\vAlphaI{1}}\rBrace{\omega_{1}}+H^{-1}_{\vBetaI{2},\vAlphaI{2}}\rBrace{\omega_{2}}}^{-1}.
 \end{equation}
 % Note that, as in IIR filters, the system stabilizes after a certain period, therefore the Fourier weights should be calculated after stabilization.
 % As a rule of thumb, simulations show that the stabilization period is around $100R/c$. 
-\ifdefined\useOmega
-Straight forward derivations, Allowing $g$ to be frequency dependent, leads to
-\else
 For convenience, we use subscripts instead of formal $\omega$ dependency such that $\phiI{i}\triangleq\phi\rBrace{\omega_{i}}, \gI{i}\triangleq{}g\rBrace{\omega_{i}}, \vdI{i}\triangleq\vecnot{d}\rBrace{\omega_{i}}$.
 Also, $r_i\triangleq{}\gI{i}/\gIHat{i}$ is denoted to be the gain mismatch at $\omega_i$.
-
 
 \begin{theorem}
 \label{thrm_DF}
@@ -157,7 +153,7 @@ In Fig.~\ref{fig_dualfreq_perfectAlignLowSnr}, we repeat the simulation while ad
 % \end{figure}
 \begin{figure}[t!]
     \begin{center}
-        \begin{overpic}[width=.9\linewidth, 
+        \begin{overpic}[width=.99\linewidth, 
         % grid, 
         tics=10,
         % trim={<left> <lower> <right> <upper>}

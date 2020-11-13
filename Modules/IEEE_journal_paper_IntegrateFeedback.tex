@@ -87,13 +87,11 @@ where \[
 is the normalized Dirichlet kernel and
 we define the DOA, range and gain error terms 
 \[
-\dTheta\triangleq\theta\omegaB-\hat{\theta}\omegaB,\ \dPhi\triangleq\phi\omegaB-\hat{\phi}\omegaB,\ 
+\dTheta\triangleq\theta-\hat{\theta},\ \dPhi\triangleq\phi-\hat{\phi},\ 
 r\triangleq g/\hat{g},
 \]
 respectively.
-\ifdefined\useOmega\else
 We then define four fundamental scenarios:
-\fi
 \begin{itemize}
     \item{\makebox[.35\linewidth]{Perfect alignment \hfill} $\rBrace{\dTheta=0\ , \dPhi=0},$}
     \item{\makebox[.35\linewidth]{Steer error \hfill} $\rBrace{\abs{\dTheta}>0\ , \dPhi=0},$}
@@ -145,11 +143,11 @@ As commonly done for ULA performance analysis \cite{van2004optimum}, we analyze 
     \label{eq_narmalized_pattern}
     %\resizebox{.89\linewidth}{!}{
     \begin{split}
-        \HrTPr\omegaB&\triangleq
+        \HrTPr&\triangleq
         \frac{
         \HbaFB
         }{
-        H_{\vecnot{\beta}_{\coefSetName,\text{opt}},\vecnot{\alpha}_{\coefSetName,\text{opt}}}\omegaB
+        H_{\vecnot{\beta}_{\coefSetName,\text{opt}},\vecnot{\alpha}_{\coefSetName,\text{opt}}}
         }
          =
         \frac{
@@ -168,25 +166,22 @@ Plugging \eqref{eq:SF_CB} into \eqref{eq_narmalized_pattern} yields
 \begin{equation}\label{eq_generalH}
     \resizebox{0.89\linewidth}{!}{
         \begin{split}
-             \HrTPr\omegaB=
+             \HrTPr=
              \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{\dPhi+(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}}.
         \end{split}
         }
 \end{equation}
 Note that the known \cite{van2004optimum} normalized response of standard ULA is obtained by setting $r=0$ (i.e., cancelling the feedback) 
 $$
-\Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB=
+\Hr_{\Delta\theta,\Delta\phi=0,r=0}=
              \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}}.
 $$
 Considering the steering error scenario (i.e., $\dTheta\neq0,\ \dPhi=0$) first, where 
 \begin{equation}\label{eq_Hdphi0}
-\Hr_{\Delta\theta,\Delta\phi=0,r}\omegaB=
+\Hr_{\Delta\theta,\Delta\phi=0,r}=
              \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}},
 \end{equation}
 we evaluate the FB's beamwidth, sidelobe level and directivity and compare them to those of the standard ULA.
-\ifdefined\useOmega
-To simplify the exposition, we shall suppress the $\omega$ dependency in the following sections (i.e. $\HrTPr \triangleq \HrTPr\omegaB$) where possible.
-\fi
 \vfill
 \subsection*{Half power beamwidth}
 \input{./Modules/arrayPerformance_beamwidth.tex}
@@ -195,11 +190,11 @@ To simplify the exposition, we shall suppress the $\omega$ dependency in the fol
     \fbox{
     \begin{minipage}{0.9\linewidth}
     \textbf{development specifics}\\
-    Let $f\rBrace{\dTheta} \triangleq \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}},$ such that $\Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB = \frac{f\rBrace{\dTheta}}{1-rf\rBrace{\dTheta}}.$ Then, we compute the beampattern's derivative and state that
+    Let $f\rBrace{\dTheta} \triangleq \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}},$ such that $\Hr_{\Delta\theta,\Delta\phi=0,r=0} = \frac{f\rBrace{\dTheta}}{1-rf\rBrace{\dTheta}}.$ Then, we compute the beampattern's derivative and state that
     \begin{equation*}
     % \resizebox{0.9\linewidth}{!}{
         \begin{split}
-            &\frac{\partial}{\partial\dTheta}\Hr_{\Delta\theta,\Delta\phi=0,r}\omegaB &\\
+            &\frac{\partial}{\partial\dTheta}\Hr_{\Delta\theta,\Delta\phi=0,r} &\\
             &=\frac{\Dp{\dTheta/2,N}{'}\rBrace{1-r\D{\dTheta/2}{N}}-\D{\dTheta/2}{N}\rBrace{-r\Dp{\dTheta/2,N}{'}}}{\rBrace{1-r\D{\dTheta/2}{N}}^{2}}
             \\
             &=\frac{\Dp{\dTheta/2,N}{'}}{\rBrace{1-r\D{\dTheta/2}{N}}^{2}}.
@@ -211,14 +206,14 @@ To simplify the exposition, we shall suppress the $\omega$ dependency in the fol
     }
 \else
 \fi
-By taking a derivative of $\Hr_{\Delta\theta,\Delta\phi=0,r}\omegaB$ with respect to $\dTheta$ it can be easily verified that the beampattern's extrema points are located exactly as in the standard ULA beampattern. Specifically, the sidelobes locations are
+By taking a derivative of $\Hr_{\Delta\theta,\Delta\phi=0,r}$ with respect to $\dTheta$ it can be easily verified that the beampattern's extrema points are located exactly as in the standard ULA beampattern. Specifically, the sidelobes locations are
 \begin{equation}
     \label{eqn_CB_sidelobesLocations}
     \Delta\theta_{\text{sidelobe}} = \frac{\rBrace{2m+1}\pi}{N}\ \forall m\in\cBrace{\pm 1,\pm 2,\hdots}.
 \end{equation}
 Our main interest is with the first sidelobe (i.e. $m=1$), therefore we evaluate \eqref{eq_Hdphi0} at $\Delta\theta = 3\pi/N$, which results in
 \begin{equation}
-    \abs{\Hr_{{3\pi}/{N},0,r}\omegaB}^2
+    \abs{\Hr_{{3\pi}/{N},0,r}}^2
     =
     \frac{
     2\rBrace{1-r}^{2}
@@ -229,7 +224,7 @@ Our main interest is with the first sidelobe (i.e. $m=1$), therefore we evaluate
 \end{equation}
 and for large $N$ values 
 \begin{equation*}
-    \lim_{N\rightarrow\infty}\abs{\Hr_{3\pi/N,0,r}\omegaB}=\frac{
+    \lim_{N\rightarrow\infty}\abs{\Hr_{3\pi/N,0,r}}=\frac{
     2\rBrace{1-r}
     }{
     3\pi
@@ -242,7 +237,7 @@ and for large $N$ values
     We know that \eqref{eq_Hdphi0} can be rewritten as
     \begin{equation*}
         \begin{split}
-            \Hr_{\Delta\theta,\Delta\phi=0,r=0} \omegaB=
+            \Hr_{\Delta\theta,\Delta\phi=0,r=0} =
             \frac{
             \rBrace{1-\cos{\rBrace{N\dTheta}}}\rBrace{1-r}^{2}
             }{

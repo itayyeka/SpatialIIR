@@ -27,7 +27,7 @@ In this section, a brief overview on ULA beamforming and its resemblance to FIR 
 Consider an $N$-element ULA with inter-element spacing $\delta$, where its $n$'th sensor is positioned at $\vpi{n},\;\text{for}\; n=0,\ldots,N-1$. We set $\vpi{0}$ as the axis reference point and assume that the target of interest is positioned at $\vpt$.
 Focusing on a far field localization problem, DOA and target range are to be estimated. Without loss of generality, aiming to simplify the exposition, we assume $2\text{D}$ planar problem, where DOA is described by a single angle $\thetaD$, measured from the array's broadside.
 For simplicity, we assume an anechoic environment, an array of identical omni-directional sensors and a stationary target of interest.
-Inspired by radar based applications, we also place a transmitter at $\vpi{0}$, assuming the transmitted signal $s$, then reflects back from the target and finally re-impinges the array, with a total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R = \norm{\vpt-\vpi{0}}$ is the target's range and $c$ represents the propagation velocity of the signal in the medium.
+Inspired by radar based applications, we also place a transmitter at $\vpi{0}$, assuming the transmitted signal $s$, is reflected back from the target and re-impinges the array, with a total time delay of $\tau_{\text{pd}}=2R/c$ seconds, where $R = \norm{\vpt-\vpi{0}}$ is the target's range and $c$ represents the propagation velocity of the signal in the medium.
 In this work, we use the following conventions; vectors and matrices are denoted by lower and upper case bold italic letters respectively. 
 $v_{i}$ and $A_{ij}$ are the $i$-th element of the vector $\vecnot{v}$ and the $i,j$-th element of the matrix $\vecnot{A}$.
 Also, $\vecnot{A}^{T}$, $\vecnot{A}^{*}$ and $\vecnot{A}^{H}$ are the transpose, conjugate and Hermitian transpose of the matrix $\vecnot{A}$ respectively.
@@ -60,9 +60,7 @@ we rewrite \eqref{eq_Z} as
 Z\rBrace{\omega} = g\F{s}\rBrace{\omega}\exp{\rBrace{-j\omega\tau_{pd}}}\sum_{n=0}^{N-1}\beta^{*}_{n}\rBrace{\omega}\exp\Brack{-jn\theta},
 \]
 hence in the ULA case, aiming for a desired spatial response, the weights vector $\vecnot{\beta}\rBrace{\omega}$ configuration is mathematically equivalent to an FIR filter design~\cite{van1988beamforming,benesty2018}. 
-\ifdefined\useOmega \else 
 Assuming narrowband stimuli signals, we suppress $\omega$ dependency in the notation throughout the rest of this paper, where possible.
-\fi
 \par In standard radar signal processing schemes, a waveform is transmitted to, and reflected from the target of interest. Then, the reflected signal is processed by the radar reception array in order to estimate the target's dynamics (e.g., DOA, range, velocity etc.). 
 As opposed to the standard scheme, we suggest a continuous re-transmission of the signal and its echoes back to the platform, generating a spatial feedback loop between the array and the target.
 Another deviation from traditional radar processing, used to simplify the exposition, is using continuous-wave (CW) stimuli, rather than using pulse based signals. 
@@ -91,7 +89,7 @@ we propose to use the same concept in the spatial domain.
     \caption{Direct form II $2^{nd}$ order IIR architecture.}
     \label{fig_IIRBasicArch}
 \end{figure}
-The suggested feedback beamformer (FB) architecture, where the output signal ($z$) is synthesized using weights $\vBeta$ and the weights $\vAlpha$ synthesize the feedback transmission ($\Tx$), is presented in Fig.~\ref{fig:Proposed_spatialIIR_ARCH}. The beamformer's output and the feedback signal are synthesized with two independently configured beamformers, $s$ is the system's stimulus and an additive noise (n) is assumed at the array's output.
+The suggested feedback beamformer (FB) architecture, where the output signal ($z$) is synthesized using weights $\vBeta$ and the weights $\vAlpha$ synthesize the feedback transmission ($\Tx$), is presented in Fig.~\ref{fig:Proposed_spatialIIR_ARCH}. The beamformer's output and the feedback signal are synthesized using two independently configured beamformers, $s$ is the system's stimulus and an additive noise (n) is assumed at the array's output.
 Also, the FB block is marked (dashed line) for later use.
 Note that setting $\vAlpha=\vecnot{0}$ (i.e., cancelling the feedback) degenerates the system to a plain delay-and-sum (DS) beamformer.
 \begin{figure}[t!]
@@ -156,15 +154,12 @@ where \[
 \D{x}{N}\triangleq\frac{1}{N}\frac{\sin\rBrace{Nx}}{\sin\rBrace{x}}
 \]
 is the normalized Dirichlet kernel and
-we define the DOA, range and gain error terms 
 \[
-\dTheta\triangleq\theta\omegaB-\hat{\theta}\omegaB,\ \dPhi\triangleq\phi\omegaB-\hat{\phi}\omegaB,\ 
+\dTheta\triangleq\theta-\hat{\theta},\ \dPhi\triangleq\phi-\hat{\phi},\ 
 r\triangleq g/\hat{g},
 \]
-respectively.
-\ifdefined\useOmega\else
-We then define four fundamental scenarios:
-\fi
+are defined as the DOA, range and gain error terms respectively.
+In the following, four fundamental scenarios are considered:
 \begin{itemize}
     \item{\makebox[.35\linewidth]{Perfect alignment \hfill} $\rBrace{\dTheta=0\ , \dPhi=0},$}
     \item{\makebox[.35\linewidth]{Steering error \hfill} $\rBrace{\abs{\dTheta}>0\ , \dPhi=0},$}
@@ -216,11 +211,11 @@ As commonly done for ULA performance analysis \cite{van2004optimum}, we analyze 
     \label{eq_narmalized_pattern}
     %\resizebox{.89\linewidth}{!}{
     \begin{split}
-        \HrTPr\omegaB&\triangleq
+        \HrTPr&\triangleq
         \frac{
         \HbaFB
         }{
-        H_{\vecnot{\beta}_{\coefSetName,\text{opt}},\vecnot{\alpha}_{\coefSetName,\text{opt}}}\omegaB
+        H_{\vecnot{\beta}_{\coefSetName,\text{opt}},\vecnot{\alpha}_{\coefSetName,\text{opt}}}
         }
          =
         \frac{
@@ -239,25 +234,22 @@ Plugging \eqref{eq:SF_CB} into \eqref{eq_narmalized_pattern} yields
 \begin{equation}\label{eq_generalH}
     \resizebox{0.89\linewidth}{!}{
         \begin{split}
-             \HrTPr\omegaB=
+             \HrTPr=
              \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{\dPhi+(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}}.
         \end{split}
         }
 \end{equation}
 Note that the known \cite{van2004optimum} normalized response of standard ULA is obtained by setting $r=0$ and $\Delta\phi=0$
 $$
-\Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB=
+\Hr_{\Delta\theta,\Delta\phi=0,r=0}=
              \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}}.
 $$
 Considering the steering error scenario (i.e., $\dTheta\neq0,\ \dPhi=0$) first, where 
 \begin{equation}\label{eq_Hdphi0}
-\Hr_{\Delta\theta,\Delta\phi=0,r}\omegaB=
+\Hr_{\Delta\theta,\Delta\phi=0,r}=
              \frac{\rBrace{1-r}\D{\dTheta/2}{N}}{\exp\rBrace{j\rBrace{(N-1)\dTheta/2}}-r\D{\dTheta/2}{N}},
 \end{equation}
 we evaluate the FB's beamwidth, sidelobe level and directivity and compare them to those of the standard ULA.
-\ifdefined\useOmega
-To simplify the exposition, we shall suppress the $\omega$ dependency in the following sections (i.e. $\HrTPr \triangleq \HrTPr\omegaB$) where possible.
-\fi
 \vfill
 \subsection*{Half power beamwidth}
 \input{./Modules/arrayPerformance_beamwidth.tex}
@@ -266,11 +258,11 @@ To simplify the exposition, we shall suppress the $\omega$ dependency in the fol
     \fbox{
     \begin{minipage}{0.9\linewidth}
     \textbf{development specifics}\\
-    Let $f\rBrace{\dTheta} \triangleq \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}},$ such that $\Hr_{\Delta\theta,\Delta\phi=0,r=0}\omegaB = \frac{f\rBrace{\dTheta}}{1-rf\rBrace{\dTheta}}.$ Then, we compute the beampattern's derivative and state that
+    Let $f\rBrace{\dTheta} \triangleq \D{\dTheta/2}{N}\exp\rBrace{-j\rBrace{(N-1)\dTheta/2}},$ such that $\Hr_{\Delta\theta,\Delta\phi=0,r=0} = \frac{f\rBrace{\dTheta}}{1-rf\rBrace{\dTheta}}.$ Then, we compute the beampattern's derivative and state that
     \begin{equation*}
     % \resizebox{0.9\linewidth}{!}{
         \begin{split}
-            &\frac{\partial}{\partial\dTheta}\Hr_{\Delta\theta,\Delta\phi=0,r}\omegaB &\\
+            &\frac{\partial}{\partial\dTheta}\Hr_{\Delta\theta,\Delta\phi=0,r} &\\
             &=\frac{\Dp{\dTheta/2,N}{'}\rBrace{1-r\D{\dTheta/2}{N}}-\D{\dTheta/2}{N}\rBrace{-r\Dp{\dTheta/2,N}{'}}}{\rBrace{1-r\D{\dTheta/2}{N}}^{2}}
             \\
             &=\frac{\Dp{\dTheta/2,N}{'}}{\rBrace{1-r\D{\dTheta/2}{N}}^{2}}.
@@ -282,14 +274,14 @@ To simplify the exposition, we shall suppress the $\omega$ dependency in the fol
     }
 \else
 \fi
-By taking a derivative of $\Hr_{\Delta\theta,\Delta\phi=0,r}\omegaB$ with respect to $\dTheta$ it can be easily verified that the beampattern's extrema points are located exactly as in the standard ULA beampattern. Specifically, the sidelobes locations are
+By taking a derivative of $\Hr_{\Delta\theta,\Delta\phi=0,r}$ with respect to $\dTheta$ it can be easily verified that the beampattern's extrema points are located exactly as in the standard ULA beampattern. Specifically, the sidelobes locations are
 \begin{equation}
     \label{eqn_CB_sidelobesLocations}
     \Delta\theta_{\text{sidelobe}} = \frac{\rBrace{2m+1}\pi}{N}\ \forall m\in\cBrace{\pm 1,\pm 2,\hdots}.
 \end{equation}
 Our main interest is with the first sidelobe (i.e. $m=1$), therefore we evaluate \eqref{eq_Hdphi0} at $\Delta\theta = 3\pi/N$, which results in
 \begin{equation}
-    \abs{\Hr_{{3\pi}/{N},0,r}\omegaB}^2
+    \abs{\Hr_{{3\pi}/{N},0,r}}^2
     =
     \frac{
     2\rBrace{1-r}^{2}
@@ -300,7 +292,7 @@ Our main interest is with the first sidelobe (i.e. $m=1$), therefore we evaluate
 \end{equation}
 and for large $N$ values 
 \begin{equation*}
-    \lim_{N\rightarrow\infty}\abs{\Hr_{3\pi/N,0,r}\omegaB}=\frac{
+    \lim_{N\rightarrow\infty}\abs{\Hr_{3\pi/N,0,r}}=\frac{
     2\rBrace{1-r}
     }{
     3\pi
@@ -313,7 +305,7 @@ and for large $N$ values
     We know that \eqref{eq_Hdphi0} can be rewritten as
     \begin{equation*}
         \begin{split}
-            \Hr_{\Delta\theta,\Delta\phi=0,r=0} \omegaB=
+            \Hr_{\Delta\theta,\Delta\phi=0,r=0} =
             \frac{
             \rBrace{1-\cos{\rBrace{N\dTheta}}}\rBrace{1-r}^{2}
             }{
@@ -377,7 +369,7 @@ To conclude this section, we summarize the feedback integration related performa
             \hline
             & ULA & \thead{FEEDBACK\\BEAMFORMING} & IMPROVEMENT \\ [0.5ex] 
             \hline\hline
-            HPBW & $ 1.4/N$ & $1.4/\rBrace{f(r)N}$ & $f\rBrace{r}$ times smaller\\ 
+            HPBW & $ 1.4/N$ & $1.4/\rBrace{f(r)N}$ & Narrower by a factor of $f\rBrace{r}$\\ 
             \thead{FIRST\\SIDELOBE\\GAIN} & $2/3\pi$ & $2\rBrace{1-r}/3\pi$ & \thead{smaller by a factor of $1-r$\\for $N\gg{}1$} \\
             DIRECTIVITY & $N$ & $\rBrace{N-r}/\rBrace{1-r}$ & \thead{$1/\rBrace{1-r}$ times higher \\ for $N\gg{}1$}\\
             [1ex] 
